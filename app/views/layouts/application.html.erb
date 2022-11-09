@@ -14,22 +14,22 @@
 
     <style>
       @media (min-width: 1500px) {
-        .devise-toast {
+        .notification {
           width: 33%;
         }
       }
       @media (min-width: 1200px) and (max-width: 1500px) {
-        .devise-toast {
+        .notification {
           width: 45%;
         }
       }
       @media (min-width: 500px) and (max-width: 1200px) {
-        .devise-toast {
+        .notification {
           width: 60%;
         }
       }
       @media (max-width: 500px) {
-        .devise-toast {
+        .notification {
           width: 100%;
         }
       }
@@ -40,16 +40,18 @@
 
   <body>
     <div class="position-fixed w-100 d-flex justify-content-center pe-none" z-index="2000">
-      <div id="notification" class="toast devise-toast m-2 bg-white" role="alert" data-bs-autohide="false" aria-live="assertive" aria-atomic="true">
+      <div id="notification" class="toast notification m-2 bg-white" role="alert" data-bs-autohide="false" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <%= image_tag "freequiz/freequiz_logo.png", width: 50, height: 50, class: "m-1" %>
           <strong class="fs-1 me-auto">Freequiz</strong>
           <button type="button" class="btn btn-lg btn-close mx-1" data-bs-dismiss="toast" aria-label="close"></button>
         </div>
         <div class="toast-body">
-          <div id="success" class="text-success fs-4"><%= @success %></div>
-          <div id="notice" class="text-body fs-4"><%= @notice %></div>
-          <div id="alert" class="text-danger fs-4"><%= @alert %></div>
+          <% if @notifications.present? %>
+            <div id="success" class="text-success fs-4"><%= @notifications[:success] %></div>
+            <div id="notice" class="text-body fs-4"><%= @notifications[:notice] %></div>
+            <div id="alert" class="text-danger fs-4"><%= @notifications[:alert] %></div>
+          <% end %>
         </div>
       </div>
     </div>
