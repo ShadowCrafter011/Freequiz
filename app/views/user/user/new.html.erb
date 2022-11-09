@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center w-100 my-4">
+    <div>
+        <h1>Freequiz Konto erstellen</h1>
+        <h4>Hast du schon ein Konto? <%= link_to "Anmelden", user_login_path %></h4>
+    </div>
+</div>
+
+<div class="form-group">
+    <%= form_with url: user_create_path, model: @user do |form| %>
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-4">
+                    <div>
+                        <%= form.label :username, "Benutzername", class: "fs-4" %>
+                        <%= form.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
+                    </div>
+                    <div>
+                        <%= form.label :email, "E-Mail", class: "fs-4" %>
+                        <%= form.text_field :email, autocomplete: "email", class: "form-control" %>
+                    </div>
+                    <div>
+                        <%= form.label :password, "Passwort", class: "fs-4" %>
+                        <%= form.password_field :password, class: "form-control" %>
+                    </div>
+                    <div>
+                        <%= form.label :password_confirmation, "Passwort wiederholen", class: "fs-4" %>
+                        <%= form.password_field :password_confirmation, class: "form-control" %>
+                    </div><br>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <%= form.check_box :agb, class: "form-check-input mx-1" %>
+                        <%= form.label :agb, "Ich akzeptiere die AGBs", class: "fs-5" %>
+                    </div><br>
+                    <div class="text-center">
+                        <%= form.submit value: "Account erstellen", class: "btn btn-lg btn-primary" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>

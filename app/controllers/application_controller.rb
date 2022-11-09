@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
     def generate_notification **messages
-        @notifications = messages
+        session[:alert] = messages[:alert] if messages[:alert].present?
+        session[:success] = messages[:success] if messages[:success].present?
+        session[:notice] = messages[:notice] if messages[:notice].present?
     end
 
     def gn **messages

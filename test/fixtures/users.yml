@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  password_digest: MyString
+  confirmation_token: MyString
+  confirmation_expire: 2022-11-09 20:52:55
+  unconfirmed_email: MyString
+  confirmed_at: 2022-11-09 20:52:55
+  password_reset_token: MyString
+  password_reset_expire: 2022-11-09 20:52:55
+  sign_in_count: 1
+  current_sign_in_at: 2022-11-09 20:52:55
+  last_sign_in_at: 2022-11-09 20:52:55
+  current_sign_in_ip: MyString
+  last_sign_in_ip: MyString
+
+two:
+  email: MyString
+  password_digest: MyString
+  confirmation_token: MyString
+  confirmation_expire: 2022-11-09 20:52:55
+  unconfirmed_email: MyString
+  confirmed_at: 2022-11-09 20:52:55
+  password_reset_token: MyString
+  password_reset_expire: 2022-11-09 20:52:55
+  sign_in_count: 1
+  current_sign_in_at: 2022-11-09 20:52:55
+  last_sign_in_at: 2022-11-09 20:52:55
+  current_sign_in_ip: MyString
+  last_sign_in_ip: MyString
