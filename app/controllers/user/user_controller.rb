@@ -11,10 +11,17 @@ class User::UserController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save
-      @user.sign_in request.remote_ip
-      session[:user_id] = @user.id
+    unless user_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+      gn a: "Passwort muss mindestens 8 Zeichen lang sein, einen Grossbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten"
+      return render :new, status: :unprocessable_entity
+    end
 
+    @user.current_sign_in_ip = request.remote_ip
+    @user.current_sign_in_at = Time.now
+
+    if @user.save      
+      cookies.encrypted[:_session_token] = { value: @user.id, expires: Time.now + 14.days }
+      
       gn s: "Konto erfolgreich erstellt! Wilkommen bei Freequiz #{@user.username}!"
 
       redirect_to user_path

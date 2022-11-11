@@ -1,20 +1,29 @@
 class User < ApplicationRecord
     validates :username, uniqueness: { case_sensitive: false }, format: { with: /\A\w{3,16}\z/ }
     validates :email, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
-    validates :password, confirmation: true, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/ }
+    validates :password, confirmation: true
     validates :agb, acceptance: true
 
     before_create do
         self.role = "user"
+        self.confirmed = false
         self.confirmation_token = SecureRandom.hex 32
         self.confirmation_expire = Time.now + 7.days
-        self.sign_in_count = 0
+        self.sign_in_count = 1
+
+        UserMailer.with(email: self.email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
+
         encrypt_value :password
+        encrypt_value :confirmation_token
     end
 
-    after_create do
-        UserMailer.with(user: self, token: self.confirmation_token).verification_email.deliver_later
-        encrypt_value :confirmation_token
+    def compare_encrypted key, value
+        for x in 0..8 do
+            value = Digest::SHA256.hexdigest value
+        end
+        puts value
+        puts self[key]
+        self[key] == value
     end
 
     def encrypt_value key

@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
     def logged_in?
-        session[:user_id].present?
+        User.exists? cookies.encrypted[:_session_token]
     end
 
     def require_login!
-        unless session[:user_id].present?
+        unless User.exists? cookies.encrypted[:_session_token]
             redirect_to(user_login_path(goto: request.path))
             return false
         end
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_user
-        User.find(session[:user_id])
+        User.find(cookies.encrypted[:_session_token])
     end
 
     def generate_notification **messages

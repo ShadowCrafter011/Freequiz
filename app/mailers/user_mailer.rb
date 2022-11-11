@@ -1,7 +1,8 @@
 class UserMailer < ApplicationMailer
     def verification_email
-        @user = params[:user]
+        email = params[:email]
+        @username = params[:username]
         @token = params[:token]
-        mail(to: @user.email, subject: "Bestätigen Sie Ihre E-Mail Adresse")
+        mail(to: email, subject: "Bestätigen Sie Ihre E-Mail Adresse")
     end
 end

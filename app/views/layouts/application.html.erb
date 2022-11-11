@@ -73,6 +73,7 @@
 
           <% if (notice_msgs = notice) %>
             <% if messages > 0 %><hr><% end %>
+            <% messages += 1 %>
             <% for n in notice_msgs do %>
               <div class="text-body fs-4"><%= n %></div>
               <% unless notice_msgs.index(n) == notice_msgs.length - 1 %><hr><% end %>
