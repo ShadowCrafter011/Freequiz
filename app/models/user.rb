@@ -7,7 +7,7 @@ class User < ApplicationRecord
     end
 
     after_create do
-        UserMailer.with(user: self).verification_email.deliver_now
+        UserMailer.with(user: self, token: self.confirmation_token).verification_email.deliver_later
 
         for x in 0..8 do
             self.confirmation_token = Digest::SHA256.hexdigest self.confirmation_token
