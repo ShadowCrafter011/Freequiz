@@ -11,10 +11,16 @@ class User < ApplicationRecord
         self.confirmation_expire = Time.now + 7.days
         self.sign_in_count = 1
 
+        self.email = self.email.downcase
+
         UserMailer.with(email: self.email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
 
         encrypt_value :password
         encrypt_value :confirmation_token
+    end
+
+    def login password
+        self.compare_encrypted :password, password
     end
 
     def compare_encrypted key, value

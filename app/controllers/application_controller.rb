@@ -1,10 +1,19 @@
 class ApplicationController < ActionController::Base
     def logged_in?
-        User.exists? cookies.encrypted[:_session_token]
+        return false unless cookies.encrypted[:_session_token].present?
+        data = cookies.encrypted[:_session_token].split(";")
+        if User.exists?(data[0])
+            user = User.find(data[0])
+            unless Time.now.to_i < data[1].to_i
+                cookies.delete :_session_token
+                return false
+            end
+        end
+        return true
     end
 
     def require_login!
-        unless User.exists? cookies.encrypted[:_session_token]
+        unless logged_in?
             redirect_to(user_login_path(goto: request.path))
             return false
         end
@@ -12,7 +21,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_user
-        User.find(cookies.encrypted[:_session_token])
+        User.find(cookies.encrypted[:_session_token].split(";")[0])
     end
 
     def generate_notification **messages
