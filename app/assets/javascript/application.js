@@ -1,6 +1,6 @@
 update_notification();
 
-document.addEventListener("turbo:before-render", update_notification)
+document.addEventListener("turbo:render", update_notification)
 
 function update_notification() {
     const toast = document.getElementById("notification");

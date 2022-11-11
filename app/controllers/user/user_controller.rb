@@ -1,5 +1,7 @@
 class User::UserController < ApplicationController
   def show
+    return unless require_login!
+    @user = current_user
   end
 
   def new
