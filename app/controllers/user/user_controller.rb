@@ -56,7 +56,7 @@ class User::UserController < ApplicationController
     if @user.save
       gn s: "Konto erfolgreich erstellt! Wilkommen bei Freequiz #{@user.username}!"
       session[:user_id] = @user.id
-      redirect_to root_path
+      redirect_to user_path
     else
       render :new, status: :unprocessable_entity
     end
