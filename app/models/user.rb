@@ -1,14 +1,15 @@
 class User < ApplicationRecord
-    validates :username, uniqueness: { case_sensitive: false, message: "Benutzername wird schon von einem anderen Konto verwendet" }, format: { with: /\A\w{3,16}\z/, message: "Benutzername kann 3-16 Zeichen lang sein und darf nur Buchstaben, Zahlen und Unterstriche enthalten" }
-    validates :email, uniqueness: { case_sensitive: false ,message: "Ein anderes Konto verwendet schon diese E-Mail Adresse" }, format: { with: URI::MailTo::EMAIL_REGEXP, message: "Diese Email Adresse ist nicht gültig" }
-    validates :password, confirmation: { message: "Passwörter stimmen nicht überein" }, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/, message: "Passwort muss mindestens 8 Zeichen lang sein, einen Grossbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten" }
-    validates :agb, acceptance: { message: "Du must unsere Algemeinen Geschäftsbedingungen akzeptieren" }
+    validates :username, uniqueness: { case_sensitive: false }, format: { with: /\A\w{3,16}\z/ }
+    validates :email, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
+    validates :password, confirmation: true, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/ }
+    validates :agb, acceptance: true
 
     before_create do
         self.role = "user"
         self.confirmation_token = SecureRandom.hex 32
         self.confirmation_expire = Time.now + 7.days
         self.sign_in_count = 0
+        encrypt_value :password
     end
 
     after_create do
@@ -35,8 +36,7 @@ class User < ApplicationRecord
     def get_errors
         errors = []
         for x in self.errors.objects do
-            msg = x.full_message
-            errors.append msg.slice(msg.index(" "), msg.length)
+            errors.append x.full_message
         end
         return errors
     end

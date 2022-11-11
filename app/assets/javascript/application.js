@@ -4,11 +4,9 @@ document.addEventListener("turbo:render", update_notification)
 
 function update_notification() {
     const toast = document.getElementById("notification");
-    const notice = document.getElementById("notice");
-    const alert = document.getElementById("alert");
-    const success = document.getElementById("success")
+    const display = document.getElementById("display_notifications")
 
-    if (notice?.innerHTML || alert?.innerHTML || success?.innerHTML) {
+    if (display) {
         new bootstrap.Toast(toast).show();
     }
 }
