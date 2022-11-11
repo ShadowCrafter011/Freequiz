@@ -1,0 +1,7 @@
+Wilkommen bei Freequiz <%= @user.username %>!
+
+Bitte besuchen sie den folgenden Link um ihre E-Mail Adresse zu bestätigen.
+------------------
+<%= user_verify_url(verification_token: @user.confirmation_token) %>
+
+Vielen Dank, ihr Freequiz Team

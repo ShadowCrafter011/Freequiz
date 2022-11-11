@@ -8,6 +8,16 @@ class User::UserController < ApplicationController
 
   def create
     @user = User.new(user_params.except(:password, :password_confirmation))
+
+    unless user_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+      gn a: "Passwort muss mindestens 8 Zeichen lang sein, einen Grossbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten"
+      return render :new, status: :unprocessable_entity
+    end
+
+    unless @user.email.match? URI::MailTo::EMAIL_REGEXP
+      gn a: "Diese Email Adresse ist nicht gültig"
+      return render :new, status: :unprocessable_entity
+    end
     
     unless user_params[:agb] == "1"
       gn a: "Du must unsere AGBs akzeptieren"
@@ -26,16 +36,6 @@ class User::UserController < ApplicationController
 
     if User.find_by(username: @user.username).present?
       gn a: "Benutzername wird schon von einem anderen Konto verwendet"
-      return render :new, status: :unprocessable_entity
-    end
-
-    unless user_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
-      gn a: "Passwort muss mindestens 8 Zeichen lang sein, einen Grossbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten"
-      return render :new, status: :unprocessable_entity
-    end
-
-    unless @user.email.match? URI::MailTo::EMAIL_REGEXP
-      gn a: "Diese Email Adresse ist nicht gültig"
       return render :new, status: :unprocessable_entity
     end
 
