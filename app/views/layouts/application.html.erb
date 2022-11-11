@@ -51,9 +51,33 @@
           <button type="button" class="btn btn-lg btn-close mx-1" data-bs-dismiss="toast" aria-label="close"></button>
         </div>
         <div class="toast-body">
-          <div id="success" class="text-success fs-4"><%= success %></div>
-          <div id="alert" class="text-danger fs-4"><%= alert %></div>
-          <div id="notice" class="text-body fs-4"><%= notice %></div>
+          <% success_messages = success %>
+          <% if success_messages %>
+            <div id="success" class="text-success fs-4">
+              <% for msg in success_messages do %>
+                <%= msg %>
+                <hr>
+              <% end %>
+            </div>
+          <% end %>
+          <% alert_messages = alert %>
+          <% if alert_messages %>
+            <div id="alert" class="text-danger fs-4">
+              <% for msg in alert_messages do %>
+                <%= msg %>
+                <hr>
+              <% end %>
+            </div>
+          <% end %>
+          <% notice_messages = notice %>
+          <% if notice_messages %>
+            <div id="notice" class="text-body fs-4">
+              <% for msg in notice_messages do %>
+                <%= msg %>
+                <hr>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

@@ -218,6 +218,7 @@ DEPENDENCIES
   capybara
   debug
   dotenv-rails
+  i18n
   importmap-rails
   jbuilder
   pg (~> 1.1)
