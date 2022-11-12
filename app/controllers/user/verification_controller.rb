@@ -6,8 +6,7 @@ class User::VerificationController < ApplicationController
     user = current_user
 
     if Time.now > user.confirmation_expire
-      gn a: "Dieser Link ist abgelaufen"
-      return redirect_to user_path
+      return redirect_to user_verification_success_path(expired: 1)
     end
 
     if user.compare_encrypted :confirmation_token, token
@@ -16,11 +15,17 @@ class User::VerificationController < ApplicationController
       user.confirmation_token = nil
       user.save
 
-      gn s: "E-mail Adresse erfolgreich bestätigt!"
-      redirect_to user_path
+      redirect_to user_verification_success_path
     else
-      gn a: "Dieser Link ist nicht gültig"
-      redirect_to user_path
+      redirect_to user_verification_success_path(invalid: 1)
+    end
+  end
+
+  def success
+    @user = current_user
+
+    if (params[:expired].present? || params[:invalid].present?) && @user.verified?
+      redirect_to user_verification_success_path
     end
   end
 end

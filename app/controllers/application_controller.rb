@@ -8,8 +8,9 @@ class ApplicationController < ActionController::Base
                 cookies.delete :_session_token
                 return false
             end
+            return true
         end
-        return true
+        return false
     end
 
     def require_login!
@@ -21,7 +22,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_user
-        User.find(cookies.encrypted[:_session_token].split(";")[0])
+        User.find(cookies.encrypted[:_session_token].to_s.split(";")[0])
     end
 
     def generate_notification **messages

@@ -13,6 +13,7 @@ scope :password do
 end
 
 scope :verify do
+    get "/", to: "user/verification#success", as: "user_verification_success"
     get "send", to: "user/verification#send", as: "user_verification_send"
     get "pending", to: "user/verification#pending", as: "user_verification_pending"
     get ":verification_token", to: "user/verification#verify", as: "user_verify"

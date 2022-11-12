@@ -25,7 +25,7 @@ class User::UserController < ApplicationController
     @user.current_sign_in_at = Time.now
 
     if @user.save      
-      cookies.encrypted[:_session_token] = { value: "#{@user.id};#{Time.now + 14.days}", expires: Time.now + 14.days }
+      cookies.encrypted[:_session_token] = { value: "#{@user.id};#{(Time.now + 14.days).to_i}", expires: Time.now + 14.days }
       
       gn s: "Konto erfolgreich erstellt! Wilkommen bei Freequiz #{@user.username}!"
 

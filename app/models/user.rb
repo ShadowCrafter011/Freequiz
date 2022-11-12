@@ -19,6 +19,10 @@ class User < ApplicationRecord
         encrypt_value :confirmation_token
     end
 
+    def verified?
+        self.confirmed
+    end
+
     def login password
         self.compare_encrypted :password, password
     end
