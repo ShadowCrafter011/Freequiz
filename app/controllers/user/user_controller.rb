@@ -29,7 +29,7 @@ class User::UserController < ApplicationController
       
       gn s: "Konto erfolgreich erstellt! Wilkommen bei Freequiz #{@user.username}!"
 
-      redirect_to user_path
+      redirect_to user_verification_pending_path
     else
       gn a: @user.get_errors.join(";")
       render :new, status: :unprocessable_entity

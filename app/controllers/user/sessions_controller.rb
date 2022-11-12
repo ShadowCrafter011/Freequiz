@@ -20,7 +20,7 @@ class User::SessionsController < ApplicationController
 
       gn s: "Erfolgreich angemeldet! Wilkommen zurück #{user.first.username}!"
 
-      return redirect_to login_params[:goto] if login_params[:goto].present?
+      return redirect_to login_params[:gg] if login_params[:gg].present?
       redirect_to user_path
     else
       gn a: "Passwort passt nicht zum angegebenen Konto"

@@ -28,4 +28,13 @@ class User::VerificationController < ApplicationController
       redirect_to user_verification_success_path
     end
   end
+
+  def pending
+    @user = current_user
+
+    if @user.verified?
+      gn n: "Deine E-Mail Adresse wurde schon bestätigt"
+      redirect_to user_path
+    end
+  end
 end

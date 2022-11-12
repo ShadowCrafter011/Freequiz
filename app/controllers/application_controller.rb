@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
     def require_login!
         unless logged_in?
-            redirect_to(user_login_path(goto: request.path))
+            redirect_to(user_login_path(gg: request.path))
             return false
         end
         return true
