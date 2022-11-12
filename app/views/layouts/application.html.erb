@@ -51,41 +51,20 @@
           <button type="button" class="btn btn-lg btn-close mx-1" data-bs-dismiss="toast" aria-label="close"></button>
         </div>
 
-        <% messages = 0 %>
         <div id="notifications_body" class="toast-body">
 
-          <% if (success_msgs = success) %>
-            <% messages += 1 %>
-            <% for s in success_msgs do %>
-              <div class="text-success fs-4"><%= s %></div>
-              <% unless success_msgs.index(s) == success_msgs.length - 1 %><hr><% end %>
-            <% end %>
-          <% end %>
-
-          <% if (alert_msgs = alert) %>
-            <% if messages > 0 %><hr><% end %>
-            <% messages += 1 %>
-            <% for a in alert_msgs do %>
-              <div class="text-danger fs-4"><%= a %></div>
-              <% unless alert_msgs.index(a) == alert_msgs.length - 1 %><hr><% end %>
-            <% end %>
-          <% end %>
-
-          <% if (notice_msgs = notice) %>
-            <% if messages > 0 %><hr><% end %>
-            <% messages += 1 %>
-            <% for n in notice_msgs do %>
-              <div class="text-body fs-4"><%= n %></div>
-              <% unless notice_msgs.index(n) == notice_msgs.length - 1 %><hr><% end %>
+          <% if (messages = notifications) %>
+            <% colors = {s: "success", a: "danger", n: "body"} %>
+            <% messages.each do |color, array| %>
+              
+              <% for msg in array do %>
+                <div class="text-<%= colors[color] %> fs-4"><%= msg %></div>
+                <% unless array.index(msg) == array.length - 1 %><hr><% end %>
+              <% end %>
             <% end %>
           <% end %>
 
         </div>
-        <% if messages > 0 %>
-          <div id="display_notifications"></div>
-        <% end %>
-
-
       </div>
     </div>
     

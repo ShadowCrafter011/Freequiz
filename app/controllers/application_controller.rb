@@ -25,13 +25,15 @@ class ApplicationController < ActionController::Base
         User.find(cookies.encrypted[:_session_token].to_s.split(";")[0])
     end
 
-    def generate_notification **messages
-        session[:alert] = messages[:alert] if messages[:alert].present?
-        session[:success] = messages[:success] if messages[:success].present?
-        session[:notice] = messages[:notice] if messages[:notice].present?
-    end
-
     def gn **messages
-        generate_notification :notice => messages[:n], :alert => messages[:a], :success => messages[:s]
+        for key in [:s, :a, :n] do
+            unless messages[key].present?
+                messages[key] = []
+                next
+            end
+            messages[key] = [messages[key]] if messages[key].is_a? String
+        end
+
+        session[:notifications] = messages
     end
 end

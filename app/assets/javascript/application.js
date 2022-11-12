@@ -5,9 +5,9 @@ document.addEventListener("turbo:before-render", update_notification)
 
 function update_notification() {
     const toast = document.getElementById("notification");
-    const display = document.getElementById("display_notifications")
+    const body = document.getElementById("notifications_body")
 
-    if (display) {
+    if (body.childElementCount > 0) {
         new bootstrap.Toast(toast).show();
     }
 }

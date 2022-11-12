@@ -31,7 +31,7 @@ class User::UserController < ApplicationController
 
       redirect_to user_verification_pending_path
     else
-      gn a: @user.get_errors.join(";")
+      gn a: @user.get_errors
       render :new, status: :unprocessable_entity
     end
   end
