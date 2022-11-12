@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
     def logged_in?
         return false unless cookies.encrypted[:_session_token].present?
-        data = cookies.encrypted[:_session_token].split(";")
+        data = cookies.encrypted[:_session_token].to_s.split(";")
         if User.exists?(data[0])
             user = User.find(data[0])
             unless Time.now.to_i < data[1].to_i
