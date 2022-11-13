@@ -48,6 +48,14 @@ class User < ApplicationRecord
         self[key] == value
     end
 
+    def encrypt_password
+        for x in 0..8 do
+            self.password = Digest::SHA256.hexdigest self.password
+            self.password_confirmation = Digest::SHA256.hexdigest self.password_confirmation
+        end
+        self.save
+    end
+
     def encrypt_value key
         for x in 0..8 do
             self[key] = Digest::SHA256.hexdigest self[key]

@@ -23,6 +23,7 @@ class User::SessionsController < ApplicationController
 
       gn s: "Erfolgreich angemeldet! Wilkommen zurück #{user.first.username}!"
 
+      user.first.sign_in request.remote_ip
       redirect_to (params[:gg].present? ? params[:gg] : user_path)
     else
       gn a: "Passwort passt nicht zum angegebenen Konto"
