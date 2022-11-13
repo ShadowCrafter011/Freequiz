@@ -4,6 +4,7 @@ class User::SessionsController < ApplicationController
       gn n: "Du bist schon angemeldet"
       redirect_to user_path
     end
+    @params = params[:gg]
   end
   
   def create
@@ -20,8 +21,7 @@ class User::SessionsController < ApplicationController
 
       gn s: "Erfolgreich angemeldet! Wilkommen zurück #{user.first.username}!"
 
-      return redirect_to login_params[:gg] if login_params[:gg].present?
-      redirect_to user_path
+      redirect_to (params[:gg].present? ? params[:gg] : user_path)
     else
       gn a: "Passwort passt nicht zum angegebenen Konto"
       render :new, status: 401

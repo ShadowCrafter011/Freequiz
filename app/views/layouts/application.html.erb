@@ -43,7 +43,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-sm sticky-top" style="background-color: #e3f2fd;">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <div class="d-flex align-items-center fs-3">
@@ -56,12 +56,18 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbar">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <ul class="navbar-nav me-auto mb-2 mb-sm-0">
             <li class="nav-item dropdown d-flex align-items-center">
               <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown">Konto</a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Infos", user_path, class: "dropdown-item" %></li>
-                <li><%= link_to "Einstellungen", user_path, class: "dropdown-item" %></li>
+                <% if logged_in? %>
+                  <li><%= link_to "Infos", user_path, class: "dropdown-item" %></li>
+                  <li><%= link_to "Einstellungen", user_path, class: "dropdown-item" %></li>
+                  <li><%= link_to "Abmelden", user_logout_path, class: "dropdown-item" %></li>
+                <% else %>
+                  <li><%= link_to "Anmelden", user_login_path, class: "dropdown-item" %></li>
+                  <li><%= link_to "Konto erstellen", user_create_path, class: "dropdown-item" %></li>
+                <% end %>
               </ul>
             </li>
           </ul>
@@ -69,7 +75,7 @@
       </div>
     </nav>
 
-    <div class="position-fixed w-100 d-flex justify-content-center pe-none" z-index="2000">
+    <div class="position-fixed w-100 d-flex justify-content-center pe-none sticky-top" z-index="2000">
       <div id="notification" class="toast notification m-2 bg-white" role="alert" data-bs-autohide="false" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <%= image_tag "freequiz/freequiz_logo.png", width: 50, height: 50, class: "m-1" %>

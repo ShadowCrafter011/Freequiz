@@ -6,7 +6,7 @@
 </div>
 
 <div class="form-group">
-    <% path = params[:goto].present? ? user_login_path(goto: params[:goto]) : user_login_path %>
+    <% path = params[:gg].present? ? user_login_path(gg: params[:gg]) : user_login_path %>
     <%= form_with url: path do |form| %>
         <div class="container-fluid">
             <div class="row d-flex justify-content-center">
