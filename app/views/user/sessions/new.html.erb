@@ -19,6 +19,7 @@
                         <%= form.label :password, "Passwort", class: "fs-4" %>
                         <%= form.password_field :password, class: "form-control" %>
                     </div><br>
+                    <h4 class="text-center">Passwort vergessen? <%= link_to "Zurücksetzen", user_password_reset_path %></h4>
                     <div class="d-flex align-items-center justify-content-center">
                         <%= form.check_box :remember, class: "form-check-input mx-1", checked: "checked" %>
                         <%= form.label :remember, "Passwort speichern", class: "fs-5" %>

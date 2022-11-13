@@ -6,15 +6,15 @@ end
 
 scope :password do
     get "reset", to: "user/password#reset", as: "user_password_reset"
-    post "reset", to: "user/password#send"
+    post "reset", to: "user/password#send_email"
 
-    get "edit/:password_reset_token", to: "user/passwords#edit", as: "user_password_edit"
-    post "edit/:password_reset_token", to: "user/passwords#update"
+    get "edit/:password_reset_token", to: "user/password#edit", as: "user_password_edit"
+    post "edit/:password_reset_token", to: "user/password#update"
 end
 
 scope :verify do
     get "/", to: "user/verification#success", as: "user_verification_success"
-    get "send", to: "user/verification#send", as: "user_verification_send"
+    get "send", to: "user/verification#send_email", as: "user_verification_send"
     get "pending", to: "user/verification#pending", as: "user_verification_pending"
     get ":verification_token", to: "user/verification#verify", as: "user_verify"
 end

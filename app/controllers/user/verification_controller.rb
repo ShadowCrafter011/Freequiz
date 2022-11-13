@@ -37,4 +37,16 @@ class User::VerificationController < ApplicationController
       redirect_to user_path
     end
   end
+
+  def send_email
+    user = current_user
+
+    unless user.verified?
+      user.send_verification_email
+      gn s: "Bestätigungs E-mail wurde geschickt. Sie sollte in wenigen Minuten in ihrem Postfach ankommen. Folgen Sie dann den Anweisungen in der E-mail"
+    else
+      gn a: "Ihre E-mail Adresse ist schon bestätigt"
+    end
+    redirect_to user_path
+  end
 end

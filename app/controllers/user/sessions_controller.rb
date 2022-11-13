@@ -8,9 +8,11 @@ class User::SessionsController < ApplicationController
   end
   
   def create
-    user = User.where("lower(username) = ?", params[:username].downcase) || User.find_by(email: params[:username].downcase)
+    user = User.where("lower(username) = ?", params[:username].downcase)
 
-    unless user || user.length > 1
+    user = [User.find_by(email: params[:username].downcase)] unless user.first
+
+    unless user.first && user.length == 1
       gn a: "Benutzername/E-mail Adresse scheint nicht zu stimmen"
       return render :new, status: 401
     end
@@ -31,7 +33,7 @@ class User::SessionsController < ApplicationController
   def destroy
     cookies.delete :_session_token
     gn n: "Erfolgreich abgemeldet!"
-    redirect_to root_path
+    redirect_to user_login_path
   end
 
   private

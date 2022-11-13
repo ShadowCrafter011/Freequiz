@@ -7,15 +7,27 @@ class User < ApplicationRecord
     before_create do
         self.role = "user"
         self.confirmed = false
-        self.confirmation_token = SecureRandom.hex 32
-        self.confirmation_expire = Time.now + 7.days
         self.sign_in_count = 1
-
         self.email = self.email.downcase
 
-        UserMailer.with(email: self.email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
-
         encrypt_value :password
+
+        self.send_verification_email
+    end
+
+    def send_reset_password_email
+        self.password_reset_token = SecureRandom.hex 32
+        self.password_reset_expire = Time.now + 7.days
+
+        UserMailer.with(email: self.email, username: self.username, token: self.password_reset_token).password_reset_email.deliver_later
+        encrypt_value :password_reset_token
+    end
+    
+    def send_verification_email
+        self.confirmation_token = SecureRandom.hex 32
+        self.confirmation_expire = Time.now + 7.days
+
+        UserMailer.with(email: self.email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
         encrypt_value :confirmation_token
     end
 

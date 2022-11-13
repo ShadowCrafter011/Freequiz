@@ -61,7 +61,7 @@
               <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown">Konto</a>
               <ul class="dropdown-menu">
                 <% if logged_in? %>
-                  <li><%= link_to "Infos", user_path, class: "dropdown-item" %></li>
+                  <li><%= link_to "Übersicht", user_path, class: "dropdown-item" %></li>
                   <li><%= link_to "Einstellungen", user_path, class: "dropdown-item" %></li>
                   <li><%= link_to "Abmelden", user_logout_path, class: "dropdown-item" %></li>
                 <% else %>
@@ -90,7 +90,7 @@
             <% messages.each do |color, array| %>
               
               <% for msg in array do %>
-                <div class="text-<%= colors[color] %> fs-4"><%= msg %></div>
+                <div class="text-<%= colors[color.to_sym] %> fs-4"><%= msg %></div>
                 <% unless array.index(msg) == array.length - 1 %><hr><% end %>
               <% end %>
             <% end %>
