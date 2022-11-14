@@ -25,12 +25,12 @@ class User::PasswordController < ApplicationController
     user, valid = validate_token
     return unless valid
 
-    unless password_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+    unless params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
       gn a: "Passwort muss mindestens 8 Zeichen lang sein, einen Grossbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten"
       return render :edit, status: :unprocessable_entity
     end
 
-    if user.update(password_params.merge(password_reset_token: nil, password_reset_expire: nil))
+    if user.update(password: params[:password], password_confirmation: params[:password_confirmation], password_reset_token: nil, password_reset_expire: nil)
       user.encrypt_password
 
       expire = 14.days.from_now
@@ -46,31 +46,26 @@ class User::PasswordController < ApplicationController
   end
 
   private
-    def password_params
-      params.permit(:password, :password_confirmation)
-    end
-
     def validate_token
       token = params[:password_reset_token]
       for x in 0..8 do
         token = Digest::SHA256.hexdigest token
       end
 
-      unless User.exists? password_reset_token: token
-        gn a: "Dieser Link ist nicht gültig. Fordern Sie hier einen neuen an"
-        redirect_to user_password_reset_path
-
-        return [nil, false]
+      if (user = User.find_by(password_reset_token: token)).present?
+        unless Time.now < user.password_reset_expire
+          gn a: "Dieser Link ist abgeloffen. Fordern Sie hier einen neuen an"
+          redirect_to user_password_reset_path
+  
+          return [nil, false]
+        end
+  
+        return [user, true]
       end
-      user = User.find_by(password_reset_token: token)
+      
+      gn a: "Dieser Link ist nicht gültig. Fordern Sie hier einen neuen an"
+      redirect_to user_password_reset_path
 
-      unless Time.now < user.password_reset_expire
-        gn a: "Dieser Link ist abgeloffen. Fordern Sie hier einen neuen an"
-        redirect_to user_password_reset_path
-
-        return [nil, false]
-      end
-
-      return [user, true]
+      return [nil, false]
     end
 end

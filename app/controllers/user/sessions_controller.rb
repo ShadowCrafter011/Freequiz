@@ -17,8 +17,8 @@ class User::SessionsController < ApplicationController
       return render :new, status: 401
     end
 
-    if user.first.login login_params[:password]
-      expire = Time.now + (login_params[:remember] == "1" ? 14.days : 1.days)
+    if user.first.login params[:password]
+      expire = Time.now + (params[:remember] == "1" ? 14.days : 1.days)
       cookies.encrypted[:_session_token] = { value: "#{user.first.id};#{expire.to_i}", expires: expire }
 
       gn s: "Erfolgreich angemeldet! Wilkommen zurück #{user.first.username}!"
@@ -36,9 +36,4 @@ class User::SessionsController < ApplicationController
     gn n: "Erfolgreich abgemeldet!"
     redirect_to user_login_path
   end
-
-  private
-    def login_params
-      params.permit(:username, :password, :remember, :goto)
-    end
 end

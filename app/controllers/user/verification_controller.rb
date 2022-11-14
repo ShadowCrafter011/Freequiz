@@ -3,17 +3,16 @@ class User::VerificationController < ApplicationController
 
   def verify
     token = params[:verification_token]
-    user = current_user
 
-    if Time.now > user.confirmation_expire
+    if Time.now > @user.confirmation_expire
       return redirect_to user_verification_success_path(expired: 1)
     end
 
-    if user.compare_encrypted :confirmation_token, token
-      user.confirmed = true
-      user.confirmed_at = Time.now
-      user.confirmation_token = nil
-      user.save
+    if @user.compare_encrypted :confirmation_token, token
+      @user.confirmed = true
+      @user.confirmed_at = Time.now
+      @user.confirmation_token = nil
+      @user.save
 
       redirect_to user_verification_success_path
     else
@@ -22,16 +21,12 @@ class User::VerificationController < ApplicationController
   end
 
   def success
-    @user = current_user
-
     if (params[:expired].present? || params[:invalid].present?) && @user.verified?
       redirect_to user_verification_success_path
     end
   end
 
   def pending
-    @user = current_user
-
     if @user.verified?
       gn n: "Deine E-Mail Adresse wurde schon bestätigt"
       redirect_to user_path
@@ -39,10 +34,8 @@ class User::VerificationController < ApplicationController
   end
 
   def send_email
-    user = current_user
-
-    unless user.verified?
-      user.send_verification_email
+    unless @user.verified?
+      @user.send_verification_email
       gn s: "Bestätigungs E-mail wurde geschickt. Sie sollte in wenigen Minuten in ihrem Postfach ankommen. Folgen Sie dann den Anweisungen in der E-mail"
     else
       gn a: "Ihre E-mail Adresse ist schon bestätigt"
