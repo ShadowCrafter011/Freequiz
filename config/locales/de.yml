@@ -27,4 +27,8 @@ de:
               confirmation: Passwörter stimmen nicht überein
             agb:
               accepted: Du must unsere Allgemeinen Geschäftsbedingungen akzeptieren
+  roles:
+    user: Benutzer
+    beta: Beta Tester
+    admin: Administrator
             

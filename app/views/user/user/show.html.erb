@@ -1,15 +1,87 @@
 <style>
-    .row div h4 {
+    .row .account-item {
+        background-color: #b5d0ff;
+        border: 5px solid #b5d0ff;
+        border-radius: 10px;
+        height: 100%;
+    }
+
+    .account-item-container {
+        margin: 0 5px;
+        height: 100%;
+        min-height: 300px;
     }
 </style>
 
-<div class="container mt-1">
+<div class="container-fluid mt-1">
     <div class="d-flex w-100 justify-content-center">
         <h1>Ihr Freequiz Konto</h1>
     </div>
     <div class="row text-center">
-        <div class="col-sm-4"><h4>Quizzes</h4></div>
-        <div class="col-sm-4"><h4>Lerngruppen</h4></div>
-        <div class="col-sm-4"><h4>Private Kontoinformationen</h4></div>
+        <div class="col-lg-4">
+            <div class="account-item-container">
+                <div class="account-item">
+                    <h3>Private Kontoinformationen</h3>
+
+                    <div class="row text-start fs-4">
+                        <div class="col-6">
+                            <strong>Daten</strong><br>
+                            Benutzername<br>
+                            E-mail Adresse<br>
+                            <% if @user.unconfirmed_email.present? %>Nicht bestätigte E-mail<% end %>
+                            Rolle<br>
+                        </div>
+                            
+                        <div class="col-6">
+                            <br>
+                            <%= @user.username %><br>
+                            <%= @user.email %><br>
+                            <% if @user.unconfirmed_email.present? %><%= @user.unconfirmed_email %><% end %>
+                            <%= t "roles.#{@user.role}" %><br>
+                        </div>
+                    </div>
+                    <br>
+
+                    <%= link_to "Bearbeiten", user_edit_path, class: "btn btn-primary btn-lg", style: "width: 90%;" %>
+                    <!-- TODO: Ask for confirmation and tell the user about the consequences of sending a new email -->
+                    <% unless @user.verified? %><%= link_to "E-mail Adresse bestätigen", user_verification_send_path, class: "btn btn-primary btn-lg mt-2", style: "width: 90%;" %><% end %>
+                    <br>
+                    <br>
+
+                    <div class="row text-start fs-4">
+                        <div class="col-6">
+                            <strong>Logins</strong><br>
+                            Totale logins<br>
+                            Letzte login IP Adresse<br>
+                            Letztes login am<br>
+                        </div>
+
+                        <div class="col-6">
+                            <br>
+                            <%= @user.sign_in_count %><br>
+                            <%= @user.current_sign_in_ip %><br>
+                            <%= @user.current_sign_in_at.to_formatted_s :short %>
+                        </div>
+                    </div>
+                            
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="account-item-container">
+                <div class="account-item">
+                    <h3>Quizzes</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="account-item-container">
+                <div class="account-item">
+                    <h3>Lerngruppen</h3>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
