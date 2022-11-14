@@ -8,7 +8,7 @@ class User::PasswordController < ApplicationController
 
     unless user.first && user.length == 1
       gn a: "Benutzername/E-mail Adresse scheint nicht zu stimmen"
-      return render :new, status: 401
+      return render :reset, status: 401
     end
 
     user.first.send_reset_password_email
