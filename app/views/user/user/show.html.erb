@@ -21,14 +21,15 @@
         <div class="col-lg-4">
             <div class="account-item-container">
                 <div class="account-item">
-                    <h3>Private Kontoinformationen</h3>
+                    <h3>Kontoinformationen</h3>
 
                     <div class="row text-start fs-4">
                         <div class="col-6">
                             <strong>Daten</strong><br>
                             Benutzername<br>
                             E-mail Adresse<br>
-                            <% if @user.unconfirmed_email.present? %>Nicht bestätigte E-mail<% end %>
+                            <% if @user.unconfirmed_email.present? %>Nicht bestätigte E-mail<br><% end %>
+                            E-mail Adresse bestätigt<br>
                             Rolle<br>
                         </div>
                             
@@ -36,7 +37,8 @@
                             <br>
                             <%= @user.username %><br>
                             <%= @user.email %><br>
-                            <% if @user.unconfirmed_email.present? %><%= @user.unconfirmed_email %><% end %>
+                            <% if @user.unconfirmed_email.present? %><%= @user.unconfirmed_email %><br><% end %>
+                            <% if @user.verified? %>Ja<% else %>Nein<% end %><br>
                             <%= t "roles.#{@user.role}" %><br>
                         </div>
                     </div>
@@ -60,7 +62,7 @@
                             <br>
                             <%= @user.sign_in_count %><br>
                             <%= @user.current_sign_in_ip %><br>
-                            <%= @user.current_sign_in_at.to_formatted_s :short %>
+                            <%= @user.current_sign_in_at.to_formatted_s :short %> UTC
                         </div>
                     </div>
                             
