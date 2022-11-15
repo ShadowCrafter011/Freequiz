@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
         def login
             return false unless cookies.encrypted[:_session_token].present?
             data = cookies.encrypted[:_session_token].to_s.split(";")
-            if (user = User.find(data[0])).present?
+            if User.exists?(data[0])
+                user = User.find(data[0])
                 unless Time.now.to_i < data[1].to_i
                     cookies.delete :_session_token
                     return false
