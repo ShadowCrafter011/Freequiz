@@ -19,7 +19,7 @@ de:
         title: Ihr Freequiz Konto
         column_names: 
           data: Kontoinformationen
-          quizzes: Quizzes
+          quizzes: Quizze
           groups: Lerngruppen
         data:
           title_1: Daten
