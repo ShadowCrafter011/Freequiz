@@ -1,4 +1,29 @@
 de:
+  general:
+    email: E-mail Adresse
+    username: Benutzername
+    yes: Ja
+    no: Nein
+    role: Rolle
+  views:
+    user:
+      show:
+        title: Ihr Freequiz Konto
+        column_names: 
+          data: Kontoinformationen
+          quizzes: Quizzes
+          groups: Lerngruppen
+        data:
+          title_1: Daten
+          unconfirmed_email: Nicht bestätigte E-mail Adresse
+          email_verified: E-mail Adresse bestätigt
+          title_2: Logins
+          total_logins: Totale logins
+          last_ip: Letzte login IP Adresse
+          last_at: Letztes login am
+        buttons:
+          edit: Bearbeiten
+          confirm: E-mail Adresse bestätigen
   activerecord:
     attributes:
       user:

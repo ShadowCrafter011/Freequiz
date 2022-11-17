@@ -18,36 +18,36 @@
 
 <div class="container-fluid mt-1">
     <div class="d-flex w-100 justify-content-center">
-        <h1>Ihr Freequiz Konto</h1>
+        <h1><%= tl "title" %></h1>
     </div>
     <div class="row text-center">
         <div class="col-xl-4 item-row">
             <div class="account-item-container ms-2">
                 <div class="account-item text-start fs-4">
-                    <h3>Kontoinformationen</h3>
+                    <h3><%= tl "column_names.data" %></h3>
 
-                    <strong>Daten</strong>
+                    <strong><%= tl "data.title_1" %></strong>
                     <% data = {
-                        "Benutzername": @user.username,
-                        "E-mail Adresse": @user.email,
-                        "Nicht bestätigte E-mail Adresse": @user.unconfirmed_email,
-                        "E-mail Adresse bestätigt": @user.verified? ? "Ja" : "Nein",
-                        "Rolle": t("roles.#{@user.role}")
+                        tg("username") => @user.username,
+                        tg("email") => @user.email,
+                        tl("data.unconfirmed_email") => @user.unconfirmed_email,
+                        tl("data.email_verified") => @user.verified? ? tg("yes") : tg("no"),
+                        tg("role") => t("roles.#{@user.role}")
                     } %>
                     <%= create_items data %>
 
                     <div class="w-100 text-center mt-1">
-                        <%= link_to "Bearbeiten", user_edit_path, class: "btn btn-primary btn-lg", style: "width: 90%;" %>
+                        <%= link_to tl("buttons.edit"), user_edit_path, class: "btn btn-primary btn-lg", style: "width: 90%;" %>
                         <!-- TODO: Ask for confirmation and tell the user about the consequences of sending a new email -->
-                        <% unless @user.verified? %><%= link_to "E-mail Adresse bestätigen", user_verification_send_path, class: "btn btn-primary btn-lg mt-2", style: "width: 90%;" %><% end %>
+                        <% unless @user.verified? %><%= link_to tl("buttons.confirm"), user_verification_send_path, class: "btn btn-primary btn-lg mt-2", style: "width: 90%;" %><% end %>
                     </div>
                     <br>
 
-                    <strong>Logins</strong>
+                    <strong><%= tl "data.title_2" %></strong>
                     <% data = {
-                        "Totale logins": @user.sign_in_count,
-                        "Letzte login IP Adresse": @user.current_sign_in_ip,
-                        "Letztes login am": @user.current_sign_in_at
+                        tl("data.total_logins") => @user.sign_in_count,
+                        tl("data.last_ip") => @user.current_sign_in_ip,
+                        tl("data.last_at") => @user.current_sign_in_at
                     } %>
                     <%= create_items data %>
                             
@@ -58,7 +58,7 @@
         <div class="col-xl-4 item-row">
             <div class="account-item-container mx-1">
                 <div class="account-item">
-                    <h3>Quizzes</h3>
+                    <h3><%= tl "column_names.quizzes" %></h3>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
         <div class="col-xl-4 item-row">
             <div class="account-item-container me-2">
                 <div class="account-item">
-                    <h3>Lerngruppen</h3>
+                    <h3><%= tl "column_names.groups" %></h3>
                 </div>
             </div>
         </div>
