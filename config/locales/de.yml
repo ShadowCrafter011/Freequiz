@@ -1,12 +1,20 @@
 de:
   general:
     email: E-mail Adresse
+    emails: E-mail
     username: Benutzername
+    password: Passwort
+    save: Speichern
     yes: Ja
     no: Nein
     role: Rolle
   views:
     user:
+      edit:
+        title: Kontodaten bearbeiten
+        password_repeat: Passwort wiederholen
+        old_password: Altes Passwort
+        can_empty: Leer lassen um nichts zu ändern
       show:
         title: Ihr Freequiz Konto
         column_names: 
