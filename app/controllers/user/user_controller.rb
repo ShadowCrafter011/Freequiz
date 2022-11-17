@@ -36,13 +36,21 @@ class User::UserController < ApplicationController
   end
 
   def edit
+    return unless require_login!
   end
 
   def update
+    return unless require_login!
+
+    @user.change(edit_params)
   end
 
   private
     def user_params
       params.require(:user).permit(:username, :email, :password, :password_confirmation, :agb)
+    end
+
+    def edit_params
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :old_password)
     end
 end

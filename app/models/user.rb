@@ -15,6 +15,20 @@ class User < ApplicationRecord
         self.send_verification_email
     end
 
+    def change params
+        self.username = params[:username] if params[:username].present?
+
+        if params[:email].present?
+            self.unconfirmed_email = params[:email]
+            send_verification_email
+        end
+
+        if params[:password].present?
+            if self.compare_encrypted
+            end
+        end
+    end
+
     def send_reset_password_email
         self.password_reset_token = SecureRandom.hex 32
         self.password_reset_expire = Time.now + 7.days
@@ -26,8 +40,12 @@ class User < ApplicationRecord
     def send_verification_email
         self.confirmation_token = SecureRandom.hex 32
         self.confirmation_expire = Time.now + 7.days
-
-        UserMailer.with(email: self.email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
+        
+        if self.verified? && self.unconfirmed_email.present?
+            UserMailer.with(email: self.unconfirmed_email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
+        else
+            UserMailer.with(email: self.email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
+        end
         encrypt_value :confirmation_token
     end
 
@@ -36,7 +54,7 @@ class User < ApplicationRecord
     end
 
     def login password
-        self.compare_encrypted :password, password
+        compare_encrypted :password, password
     end
 
     def compare_encrypted key, value
