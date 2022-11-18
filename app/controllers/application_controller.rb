@@ -1,4 +1,12 @@
 class ApplicationController < ActionController::Base
+    def tg attribute
+        t "general.#{attribute}"
+    end
+
+    def tl attribute
+        t "controller.#{controller_name}.#{action_name}.#{attribute}"
+    end
+    
     def logged_in?
         logged_in = login
         return logged_in

@@ -36,7 +36,7 @@ class User::PasswordController < ApplicationController
       expire = 14.days.from_now
       cookies.encrypted[:_session_token] = { value: "#{user.id};#{expire.to_i}", expires: expire }
       user.sign_in request.remote_ip
-      puts "ERRORS #{user.get_errors}"
+
       gn s: "Passwort wurde geändert und du wurdest automatisch eingeloggt"
       redirect_to user_path
     else

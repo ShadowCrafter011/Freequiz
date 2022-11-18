@@ -12,21 +12,35 @@ class User < ApplicationRecord
 
         encrypt_value :password
 
-        self.send_verification_email
+        send_verification_email
     end
 
     def change params
+        errors = []
         self.username = params[:username] if params[:username].present?
-
+        
+        email_changed = false
         if params[:email].present?
             self.unconfirmed_email = params[:email]
-            send_verification_email
+            email_changed = true
+            unless send_verification_email
+                self.unconfirmed_email = nil
+                email_changed = false
+            end
         end
 
         if params[:password].present?
-            if self.compare_encrypted
+            if compare_encrypted :password, params[:old_password]
+                if self.update(params.slice(:password, :password_confirmation))
+                    encrypt_password
+                end
+            else
+                errors.append(I18n.t("errors.old_password_no_match"))
             end
         end
+
+        self.save
+        return [email_changed, get_errors.concat(errors)]
     end
 
     def send_reset_password_email
@@ -38,15 +52,20 @@ class User < ApplicationRecord
     end
     
     def send_verification_email
+        if verified? && (!self.unconfirmed_email.present? || self.unconfirmed_email == self.email)
+            return false
+        end
+
         self.confirmation_token = SecureRandom.hex 32
         self.confirmation_expire = Time.now + 7.days
         
-        if self.verified? && self.unconfirmed_email.present?
+        if verified? && self.unconfirmed_email.present?
             UserMailer.with(email: self.unconfirmed_email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
         else
             UserMailer.with(email: self.email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
         end
         encrypt_value :confirmation_token
+        return true
     end
 
     def verified?
@@ -61,8 +80,6 @@ class User < ApplicationRecord
         for x in 0..8 do
             value = Digest::SHA256.hexdigest value
         end
-        puts value
-        puts self[key]
         self[key] == value
     end
 

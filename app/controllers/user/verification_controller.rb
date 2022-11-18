@@ -9,9 +9,17 @@ class User::VerificationController < ApplicationController
     end
 
     if @user.compare_encrypted :confirmation_token, token
-      @user.confirmed = true
+
+      if @user.verified? && @user.unconfirmed_email.present?
+        @user.email = @user.unconfirmed_email
+        @user.unconfirmed_email = nil
+      else
+        @user.confirmed = true
+      end
+
       @user.confirmed_at = Time.now
       @user.confirmation_token = nil
+      @user.confirmation_expire = nil
       @user.save
 
       redirect_to user_verification_success_path
@@ -34,8 +42,7 @@ class User::VerificationController < ApplicationController
   end
 
   def send_email
-    unless @user.verified?
-      @user.send_verification_email
+    if @user.send_verification_email
       gn s: "Bestätigungs E-mail wurde geschickt. Sie sollte in wenigen Minuten in ihrem Postfach ankommen. Folgen Sie dann den Anweisungen in der E-mail"
     else
       gn a: "Ihre E-mail Adresse ist schon bestätigt"

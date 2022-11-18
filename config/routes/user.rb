@@ -1,7 +1,7 @@
 scope :account do
     get "/", to: "user/user#show", as: "user"
     get "edit", to: "user/user#edit", as: "user_edit"
-    post "edit", to: "user/user#update"
+    patch "edit", to: "user/user#update"
 end
 
 scope :password do
