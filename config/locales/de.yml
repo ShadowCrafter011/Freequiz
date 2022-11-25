@@ -5,12 +5,20 @@ de:
     username: Benutzername
     password: Passwort
     save: Speichern
-    yes: Ja
-    no: Nein
+    c_yes: Ja
+    c_no: Nein
     role: Rolle
+  errors:
+    email_match: Diese E-mail Adresse ist schon mit deinem Konto verknüpft
+    old_password_no_match: Altes Passwort ist falsch
   views:
     user:
       edit:
+        title: Kontodaten bearbeiten
+        password_repeat: Passwort wiederholen
+        old_password: Altes Passwort
+        can_empty: Leer lassen um nichts zu ändern
+      update:
         title: Kontodaten bearbeiten
         password_repeat: Passwort wiederholen
         old_password: Altes Passwort

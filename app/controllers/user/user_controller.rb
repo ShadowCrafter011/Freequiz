@@ -36,13 +36,37 @@ class User::UserController < ApplicationController
   end
 
   def edit
+    return unless require_login!
   end
 
   def update
+    return unless require_login!
+
+    if edit_params[:password].present?
+      unless edit_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+        gn a: "Passwort muss mindestens 8 Zeichen lang sein, einen Grossbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten"
+        return render :edit, status: :unprocessable_entity
+      end
+    end
+    
+    email_changed, errors = @user.change(edit_params)
+    if errors.length > 0
+      gn a: errors
+      render :edit, status: :unprocessable_entity
+    else
+      messages = ["Daten gespeichert!"]
+      messages.append("Ihre neue E-mail Adresse wird verwendet sobald Sie den Link der in Ihr Postfach geschickt wurde geklickt haben") if email_changed
+      gn s: messages
+      redirect_to user_path
+    end
   end
 
   private
     def user_params
       params.require(:user).permit(:username, :email, :password, :password_confirmation, :agb)
+    end
+
+    def edit_params
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :old_password)
     end
 end
