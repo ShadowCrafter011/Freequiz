@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    has_one :setting, dependent: :destroy
+
     validates :username, uniqueness: { case_sensitive: false }, format: { with: /\A\w{3,16}\z/ }
     validates :email, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :password, confirmation: true
@@ -15,18 +17,36 @@ class User < ApplicationRecord
         send_verification_email
     end
 
+    after_create do
+        self.create_setting
+    end
+
     def change params
         errors = []
         self.username = params[:username] if params[:username].present?
         
         email_changed = false
-        if params[:email].present?
-            self.unconfirmed_email = params[:email]
-            email_changed = true
-            unless send_verification_email
-                self.unconfirmed_email = nil
-                email_changed = false
+        if params[:email].match?(URI::MailTo::EMAIL_REGEXP)
+            user_with_email = User.find_by(email: params[:email]) || User.find_by(unconfirmed_email: params[:email])
+
+            if !user_with_email.present? || user_with_email == self
+                if params[:email].present? && params[:email] != self.email
+                    self.unconfirmed_email = params[:email]
+                    email_changed = true
+                    unless send_verification_email
+                        self.unconfirmed_email = nil
+                        email_changed = false
+                    end
+                elsif params[:email] == self.email && self.unconfirmed_email.present?
+                    self.unconfirmed_email = nil
+                    self.confirmation_expire = nil
+                    self.confirmation_token = nil
+                end
+            else
+                errors.append("Ein anderer Benutzer verwendet diese E-mail Adresse schon")
             end
+        else
+            errors.append("E-mail ist ungültig")
         end
 
         if params[:password].present?

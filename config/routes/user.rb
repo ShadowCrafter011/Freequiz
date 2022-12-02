@@ -2,6 +2,12 @@ scope :account do
     get "/", to: "user/user#show", as: "user"
     get "edit", to: "user/user#edit", as: "user_edit"
     patch "edit", to: "user/user#update"
+
+    get "settings", to: "user/user#settings", as: "user_settings"
+    patch "settings", to: "user/user#update_settings"
+
+    get "delete(/:destroy_token)", to: "user/user#request_destroy", as: "user_delete"
+    delete "delete/:destroy_token", to: "user/user#destroy"
 end
 
 scope :password do

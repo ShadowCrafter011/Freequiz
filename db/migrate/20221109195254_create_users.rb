@@ -6,13 +6,19 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :password
       t.string :role
       t.boolean :agb
+
+      t.string :destroy_token
+      t.datetime :destroy_expire
+
       t.string :confirmation_token
       t.datetime :confirmation_expire
       t.string :unconfirmed_email
       t.boolean :confirmed
       t.datetime :confirmed_at
+
       t.string :password_reset_token
       t.datetime :password_reset_expire
+
       t.integer :sign_in_count
       t.datetime :current_sign_in_at
       t.datetime :last_sign_in_at

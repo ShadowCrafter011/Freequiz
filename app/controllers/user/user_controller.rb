@@ -61,6 +61,41 @@ class User::UserController < ApplicationController
     end
   end
 
+  def settings
+    return unless require_login!
+  end
+
+  def update_settings
+    return unless require_login!
+
+    @user.setting.update(setting_params)
+    gn s: "Einstellungen gespeichert"
+    redirect_to user_settings_path
+  end
+
+  def request_destroy
+    return unless require_login!
+
+    @token = SecureRandom.hex(32)
+    @user.update(destroy_token: @token, destroy_expire: 1.days.from_now)
+    @user.encrypt_value :destroy_token
+  end
+
+  def destroy
+    return unless require_login!
+
+    token = params[:destroy_token]
+
+    if @user.compare_encrypted(:destroy_token, token) && @user.destroy_expire > Time.now
+      @user.destroy
+      gn n: "Konto gelöscht. Schade, dass Sie gehen"
+      redirect_to root_path
+    else
+      gn a: "Etwas ist schief geloffen. Kontaktieren Sie unseren Support wenn dies nochmal passiert"
+      redirect_to user_path
+    end
+  end
+
   private
     def user_params
       params.require(:user).permit(:username, :email, :password, :password_confirmation, :agb)
@@ -68,5 +103,9 @@ class User::UserController < ApplicationController
 
     def edit_params
       params.require(:user).permit(:username, :email, :password, :password_confirmation, :old_password)
+    end
+
+    def setting_params
+      params.require(:setting).permit(:show_email, :dark_mode)
     end
 end

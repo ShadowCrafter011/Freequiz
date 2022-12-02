@@ -16,7 +16,7 @@
     }
 </style>
 
-<div class="container-fluid mt-1">
+<div class="container-fluid mt-1 mb-3">
     <div class="d-flex w-100 justify-content-center">
         <h1><%= tl "title" %></h1>
     </div>
@@ -24,7 +24,9 @@
         <div class="col-xl-4 item-row">
             <div class="account-item-container ms-2">
                 <div class="account-item text-start fs-4">
-                    <h3><%= tl "column_names.data" %></h3>
+                    <div class="text-center w-100">
+                        <h3><%= tl "column_names.data" %></h3>
+                    </div>
 
                     <strong><%= tl "data.title_1" %></strong>
                     <% data = {
@@ -50,6 +52,10 @@
                         tl("data.last_at") => @user.current_sign_in_at
                     } %>
                     <%= create_items data %>
+
+                    <div class="w-100 text-center mt-1">
+                        <%= link_to tl("buttons.delete"), user_delete_path, class: "btn btn-danger btn-lg my-2", style: "width: 90%", data: {turbo: false} %>
+                    </div>
                             
                 </div>
             </div>
