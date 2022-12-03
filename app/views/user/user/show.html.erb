@@ -34,7 +34,7 @@
                         tg("email") => @user.email,
                         tl("data.unconfirmed_email") => @user.unconfirmed_email,
                         tl("data.email_verified") => @user.verified? ? tg("c_yes") : tg("c_no"),
-                        tg("role") => t("roles.#{@user.role}")
+                        tg("role") => tg("roles.#{@user.role}")
                     } %>
                     <%= create_items data %>
 

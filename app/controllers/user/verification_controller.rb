@@ -36,16 +36,16 @@ class User::VerificationController < ApplicationController
 
   def pending
     if @user.verified?
-      gn n: "Deine E-Mail Adresse wurde schon bestätigt"
+      gn n: tlg("already_verified")
       redirect_to user_path
     end
   end
 
   def send_email
     if @user.send_verification_email
-      gn s: "Bestätigungs E-mail wurde geschickt. Sie sollte in wenigen Minuten in ihrem Postfach ankommen. Folgen Sie dann den Anweisungen in der E-mail"
+      gn s: tl("sent")
     else
-      gn a: "Ihre E-mail Adresse ist schon bestätigt"
+      gn a: tlg("already_verified")
     end
     redirect_to user_path
   end

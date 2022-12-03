@@ -1,0 +1,20 @@
+de:
+  general:
+    settings:
+      show_email: "E-mail Adresse im öffentlichen Profil anzeigen"
+      dark_mode: "Dunkler Modus"
+    roles:
+      user: Benutzer
+      beta: Beta Tester
+      admin: Administrator
+    email: E-mail Adresse
+    emails: E-mail
+    username: Benutzername
+    email_or_username: Benutzername oder E-mail
+    password: Passwort
+    save: Speichern
+    c_yes: Ja
+    c_no: Nein
+    role: Rolle
+    login: Login
+    create_account: Registrieren

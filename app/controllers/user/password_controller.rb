@@ -7,12 +7,12 @@ class User::PasswordController < ApplicationController
     user = [User.find_by(email: params[:username].downcase)] unless user.first
 
     unless user.first && user.length == 1
-      gn a: "Benutzername/E-mail Adresse scheint nicht zu stimmen"
+      gn a: tl("wrong_username")
       return render :reset, status: 401
     end
 
     user.first.send_reset_password_email
-    gn s: "E-mail wurde versendet. Schauen Sie in ihrem Postfach nach"
+    gn s: tl("sent_email")
     redirect_to root_path
   end
 
@@ -26,7 +26,7 @@ class User::PasswordController < ApplicationController
     return unless valid
 
     unless params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
-      gn a: "Passwort muss mindestens 8 Zeichen lang sein, einen Grossbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten"
+      gn a: tl("password_regex")
       return render :edit, status: :unprocessable_entity
     end
 
@@ -37,7 +37,7 @@ class User::PasswordController < ApplicationController
       cookies.encrypted[:_session_token] = { value: "#{user.id};#{expire.to_i}", expires: expire }
       user.sign_in request.remote_ip
 
-      gn s: "Passwort wurde geändert und du wurdest automatisch eingeloggt"
+      gn s: tl("changed_password")
       redirect_to user_path
     else
       gn a: user.get_errors
@@ -54,7 +54,7 @@ class User::PasswordController < ApplicationController
 
       if (user = User.find_by(password_reset_token: token)).present?
         unless Time.now < user.password_reset_expire
-          gn a: "Dieser Link ist abgeloffen. Fordern Sie hier einen neuen an"
+          gn a: tlg("link_expired")
           redirect_to user_password_reset_path
   
           return [nil, false]
@@ -63,7 +63,7 @@ class User::PasswordController < ApplicationController
         return [user, true]
       end
       
-      gn a: "Dieser Link ist nicht gültig. Fordern Sie hier einen neuen an"
+      gn a: tlg("invalid_link")
       redirect_to user_password_reset_path
 
       return [nil, false]

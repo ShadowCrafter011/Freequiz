@@ -1,49 +1,4 @@
 de:
-  general:
-    settings:
-      show_email: "E-mail Adresse im öffentlichen Profil anzeigen"
-      dark_mode: "Dunkler Modus"
-    email: E-mail Adresse
-    emails: E-mail
-    username: Benutzername
-    password: Passwort
-    save: Speichern
-    c_yes: Ja
-    c_no: Nein
-    role: Rolle
-  errors:
-    email_match: Diese E-mail Adresse ist schon mit deinem Konto verknüpft
-    old_password_no_match: Altes Passwort ist falsch
-  views:
-    user:
-      edit:
-        title: Kontodaten bearbeiten
-        password_repeat: Passwort wiederholen
-        old_password: Altes Passwort
-        can_empty: Leer lassen um nichts zu ändern
-      update:
-        title: Kontodaten bearbeiten
-        password_repeat: Passwort wiederholen
-        old_password: Altes Passwort
-        can_empty: Leer lassen um nichts zu ändern
-      show:
-        title: Ihr Freequiz Konto
-        column_names: 
-          data: Kontoinformationen
-          quizzes: Quizze
-          groups: Lerngruppen
-        data:
-          title_1: Daten
-          unconfirmed_email: Nicht bestätigte E-mail Adresse
-          email_verified: E-mail Adresse bestätigt
-          title_2: Logins
-          total_logins: Totale logins
-          last_ip: Letzte login IP Adresse
-          last_at: Letztes login am
-        buttons:
-          edit: Bearbeiten
-          confirm: E-mail Adresse bestätigen
-          delete: Konto löschen
   activerecord:
     attributes:
       user:
@@ -76,8 +31,4 @@ de:
               confirmation: Passwörter stimmen nicht überein
             agb:
               accepted: Du must unsere Allgemeinen Geschäftsbedingungen akzeptieren
-  roles:
-    user: Benutzer
-    beta: Beta Tester
-    admin: Administrator
             

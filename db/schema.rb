@@ -29,7 +29,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_105156) do
     t.string "password"
     t.string "role"
     t.boolean "agb"
-    t.string "settings"
     t.string "destroy_token"
     t.datetime "destroy_expire"
     t.string "confirmation_token"

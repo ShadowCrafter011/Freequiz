@@ -3,5 +3,6 @@ class HomeController < ApplicationController
   end
 
   def test
+    tl("1")
   end
 end

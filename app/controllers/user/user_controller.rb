@@ -5,7 +5,7 @@ class User::UserController < ApplicationController
 
   def new
     if logged_in?
-      gn n: "Du hast schon ein Konto"
+      gn n: tl("already_has_account")
       return redirect_to user_path
     end
 
@@ -16,7 +16,7 @@ class User::UserController < ApplicationController
     @user = User.new(user_params)
 
     unless user_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
-      gn a: "Passwort muss mindestens 8 Zeichen lang sein, einen Grossbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten"
+      gn a: tlg("password_regex")
       return render :new, status: :unprocessable_entity
     end
 
@@ -26,7 +26,7 @@ class User::UserController < ApplicationController
     if @user.save      
       cookies.encrypted[:_session_token] = { value: "#{@user.id};#{(Time.now + 14.days).to_i}", expires: Time.now + 14.days }
       
-      gn s: "Konto erfolgreich erstellt! Wilkommen bei Freequiz #{@user.username}!"
+      gn s: tl("created").sub("%s", @user.username)
 
       redirect_to user_verification_pending_path
     else
@@ -44,7 +44,7 @@ class User::UserController < ApplicationController
 
     if edit_params[:password].present?
       unless edit_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
-        gn a: "Passwort muss mindestens 8 Zeichen lang sein, einen Grossbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten"
+        gn a: tlg("password_regex")
         return render :edit, status: :unprocessable_entity
       end
     end
@@ -54,8 +54,8 @@ class User::UserController < ApplicationController
       gn a: errors
       render :edit, status: :unprocessable_entity
     else
-      messages = ["Daten gespeichert!"]
-      messages.append("Ihre neue E-mail Adresse wird verwendet sobald Sie den Link der in Ihr Postfach geschickt wurde geklickt haben") if email_changed
+      messages = [tl("saved_data")]
+      messages.append(tl("new_email")) if email_changed
       gn s: messages
       redirect_to user_path
     end
@@ -69,7 +69,7 @@ class User::UserController < ApplicationController
     return unless require_login!
 
     @user.setting.update(setting_params)
-    gn s: "Einstellungen gespeichert"
+    gn s: tl("saved")
     redirect_to user_settings_path
   end
 
@@ -88,10 +88,10 @@ class User::UserController < ApplicationController
 
     if @user.compare_encrypted(:destroy_token, token) && @user.destroy_expire > Time.now
       @user.destroy
-      gn n: "Konto gelöscht. Schade, dass Sie gehen"
+      gn n: tl("deleted")
       redirect_to root_path
     else
-      gn a: "Etwas ist schief geloffen. Kontaktieren Sie unseren Support wenn dies nochmal passiert"
+      gn a: tl("failed")
       redirect_to user_path
     end
   end

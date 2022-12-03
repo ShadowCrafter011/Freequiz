@@ -1,7 +1,7 @@
 class User::SessionsController < ApplicationController
   def new
     if logged_in?
-      gn n: "Du bist schon angemeldet"
+      gn n: tl("already_logged_in")
       redirect_to user_path
     end
     @params = params[:gg]
@@ -13,7 +13,7 @@ class User::SessionsController < ApplicationController
     user = [User.find_by(email: params[:username].downcase)] unless user.first
 
     unless user.first && user.length == 1
-      gn a: "Benutzername/E-mail Adresse scheint nicht zu stimmen"
+      gn a: tl("wrong_username")
       return render :new, status: 401
     end
 
@@ -21,19 +21,19 @@ class User::SessionsController < ApplicationController
       expire = Time.now + (params[:remember] == "1" ? 14.days : 1.days)
       cookies.encrypted[:_session_token] = { value: "#{user.first.id};#{expire.to_i}", expires: expire }
 
-      gn s: "Erfolgreich angemeldet! Wilkommen zurück #{user.first.username}!"
+      gn s: tl("success").sub("%s", user.first.username)
 
       user.first.sign_in request.remote_ip
       redirect_to (params[:gg].present? ? params[:gg] : user_path)
     else
-      gn a: "Passwort passt nicht zum angegebenen Konto"
+      gn a: tl("wrong_password")
       render :new, status: 401
     end
   end
 
   def destroy
     cookies.delete :_session_token
-    gn n: "Erfolgreich abgemeldet!"
+    gn n: tl("success")
     redirect_to user_login_path
   end
 end

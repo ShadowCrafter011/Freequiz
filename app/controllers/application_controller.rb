@@ -4,7 +4,11 @@ class ApplicationController < ActionController::Base
     end
 
     def tl attribute
-        t "controller.#{controller_name}.#{action_name}.#{attribute}"
+        t "controllers.#{controller_name}.#{action_name}.#{attribute}"
+    end
+    
+    def tlg attribute
+        t "controllers.#{controller_name}.general.#{attribute}"
     end
     
     def logged_in?

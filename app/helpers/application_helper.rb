@@ -3,6 +3,10 @@ module ApplicationHelper
         t "views.#{controller_name}.#{action_name}.#{attribute}"
     end
 
+    def tlg attribute
+        t "views.#{controller_name}.general.#{attribute}"
+    end
+
     def tg attribute
         t "general.#{attribute}"
     end

@@ -1,0 +1,4 @@
+de:
+  errors:
+    email_match: Diese E-mail Adresse ist schon mit deinem Konto verknüpft
+    old_password_no_match: Altes Passwort ist falsch

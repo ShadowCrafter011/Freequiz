@@ -1,0 +1,9 @@
+de:
+  views:
+    home:
+      root:
+        welcome: Wilkommen bei Freequiz!
+        login: Anmelden
+        infos: Account infos
+        create_account: Account erstellen
+        logout: Abmelden

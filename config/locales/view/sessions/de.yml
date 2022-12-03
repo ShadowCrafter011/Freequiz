@@ -1,0 +1,11 @@
+de:
+  views:
+    sessions:
+      general:
+        # new and create
+        login_page: Anmeldung
+        no_account: Hast du noch kein Konto?
+        fogot_password: Passwort vergessen?
+        reset: Zurücksetzen
+        remember: Passwort speichern
+        login: Einloggen

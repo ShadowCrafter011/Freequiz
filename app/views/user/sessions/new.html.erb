@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center w-100 my-4">
     <div class="text-center">
-        <h1>Anmeldung</h1>
-        <h4>Hast du noch kein Konto? <%= link_to "Registrieren", user_create_path %></h4>
+        <h1><%= tlg("login_page") %></h1>
+        <h4><%= tlg("no_account") %> <%= link_to tg("create_account"), user_create_path %></h4>
     </div>
 </div>
 
@@ -12,20 +12,20 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-4">
                     <div>
-                        <%= form.label :username, "Benutzername oder E-mail", class: "fs-4" %>
+                        <%= form.label :username, tg("email_or_username"), class: "fs-4" %>
                         <%= form.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
                     </div>
                     <div>
-                        <%= form.label :password, "Passwort", class: "fs-4" %>
+                        <%= form.label :password, tg("password"), class: "fs-4" %>
                         <%= form.password_field :password, class: "form-control" %>
                     </div><br>
-                    <h4 class="text-center">Passwort vergessen? <%= link_to "Zurücksetzen", user_password_reset_path %></h4>
+                    <h4 class="text-center"><%= tlg("forgot_password") %> <%= link_to tlg("reset"), user_password_reset_path %></h4>
                     <div class="d-flex align-items-center justify-content-center">
                         <%= form.check_box :remember, class: "form-check-input mx-1", checked: "checked" %>
-                        <%= form.label :remember, "Passwort speichern", class: "fs-5" %>
+                        <%= form.label :remember, tlg("remember"), class: "fs-5" %>
                     </div><br>
                     <div class="text-center">
-                        <%= form.submit value: "Einloggen", class: "btn btn-lg btn-primary" %>
+                        <%= form.submit value: tlg("login"), class: "btn btn-lg btn-primary" %>
                     </div>
                 </div>
             </div>

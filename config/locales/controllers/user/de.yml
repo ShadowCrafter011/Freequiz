@@ -1,0 +1,18 @@
+de:
+  controllers:
+    user:
+      general:
+        password_regex: Passwort muss mindestens 8 Zeichen lang sein, einen Grossbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten
+      new:
+        already_has_account: Du hast schon ein Konto
+      create:
+        created: Konto erfolgreich erstellt! Wilkommen bei Freequiz %s!
+      update:
+        saved_data: Daten gespeichert!
+        new_email: Ihre neue E-mail Adresse wird verwendet sobald Sie den Link der in Ihr Postfach geschickt wurde geklickt haben
+      update_settings:
+        saved: Einstellungen gespeichert
+      destroy:
+        destroyed: Konto gelöscht. Schade, dass Sie gehen
+        failed: Etwas ist schief geloffen. Kontaktieren Sie unseren Support wenn dies nochmal passiert
+

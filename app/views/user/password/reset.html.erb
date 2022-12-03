@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center w-100 my-4">
     <div class="text-center">
-        <h1>Passwort zurücksetzen</h1>
-        <h4>Passwort doch nicht vergessen? <%= link_to "Login", user_login_path %></h4>
+        <h1><%= tlg("reset_password") %></h1>
+        <h4><%= tlg("not_forgotten") %> <%= link_to tg("login"), user_login_path %></h4>
     </div>
 </div>
 
@@ -11,11 +11,11 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-4">
                     <div>
-                        <%= form.label :username, "Benutzername oder E-mail", class: "fs-4" %>
+                        <%= form.label :username, tlg("username"), class: "fs-4" %>
                         <%= form.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
                     </div><br>
                     <div class="text-center">
-                        <%= form.submit value: "E-mail schicken", class: "btn btn-lg btn-primary" %>
+                        <%= form.submit value: tlg("send_email"), class: "btn btn-lg btn-primary" %>
                     </div>
                 </div>
             </div>
