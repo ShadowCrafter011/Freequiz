@@ -1,8 +1,10 @@
 class HomeController < ApplicationController
+  protect_from_forgery with: :null_session
+
   def root
   end
 
   def test
-    tl("1")
+    render json: params[:test], status: 200
   end
 end

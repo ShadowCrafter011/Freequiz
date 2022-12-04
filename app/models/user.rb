@@ -12,9 +12,9 @@ class User < ApplicationRecord
         self.sign_in_count = 1
         self.email = self.email.downcase
 
-        encrypt_value :password
+        encrypt_value :password, save: false
 
-        send_verification_email
+        send_verification_email save: false
     end
 
     after_create do
@@ -26,7 +26,7 @@ class User < ApplicationRecord
         self.username = params[:username] if params[:username].present?
         
         email_changed = false
-        if params[:email].match?(URI::MailTo::EMAIL_REGEXP)
+        if params[:email].present? && params[:email].match?(URI::MailTo::EMAIL_REGEXP)
             user_with_email = User.find_by(email: params[:email]) || User.find_by(unconfirmed_email: params[:email])
 
             if !user_with_email.present? || user_with_email == self
@@ -46,16 +46,20 @@ class User < ApplicationRecord
                 errors.append("Ein anderer Benutzer verwendet diese E-mail Adresse schon")
             end
         else
-            errors.append("E-mail ist ungültig")
+            errors.append("E-mail ist ungültig") if params[:email].present?
         end
 
         if params[:password].present?
-            if compare_encrypted :password, params[:old_password]
-                if self.update(params.slice(:password, :password_confirmation))
-                    encrypt_password
+            if params[:password_confirmation].present? && params[:old_password].present?
+                if compare_encrypted :password, params[:old_password]
+                    if self.update(params.slice(:password, :password_confirmation))
+                        encrypt_password
+                    end
+                else
+                    errors.append(I18n.t("errors.old_password_no_match"))
                 end
             else
-                errors.append(I18n.t("errors.old_password_no_match"))
+                errors.append(I18n.t("errors.missing_password_fields"))
             end
         end
 
@@ -71,7 +75,7 @@ class User < ApplicationRecord
         encrypt_value :password_reset_token
     end
     
-    def send_verification_email
+    def send_verification_email save: true
         if verified? && (!self.unconfirmed_email.present? || self.unconfirmed_email == self.email)
             return false
         end
@@ -84,7 +88,7 @@ class User < ApplicationRecord
         else
             UserMailer.with(email: self.email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
         end
-        encrypt_value :confirmation_token
+        encrypt_value :confirmation_token, save: save
         return true
     end
 
@@ -111,11 +115,11 @@ class User < ApplicationRecord
         self.save
     end
 
-    def encrypt_value key
+    def encrypt_value key, save: true
         for x in 0..8 do
             self[key] = Digest::SHA256.hexdigest self[key]
         end
-        self.save
+        self.save if save
     end
 
     def sign_in ip

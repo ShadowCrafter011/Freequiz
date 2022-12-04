@@ -13,6 +13,6 @@ de:
       update_settings:
         saved: Einstellungen gespeichert
       destroy:
-        destroyed: Konto gelöscht. Schade, dass Sie gehen
+        deleted: Konto gelöscht. Schade, dass Sie gehen
         failed: Etwas ist schief geloffen. Kontaktieren Sie unseren Support wenn dies nochmal passiert
 
