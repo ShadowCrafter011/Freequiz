@@ -106,6 +106,6 @@ class User::UserController < ApplicationController
     end
 
     def setting_params
-      params.require(:setting).permit(:show_email, :dark_mode)
+      params.require(:setting).permit(Setting::SETTING_KEYS)
     end
 end

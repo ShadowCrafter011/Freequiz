@@ -4,12 +4,13 @@ defaults format: :json do
             scope :user do
                 put "create", to: "user#create"
                 post "login", to: "user#login"
-                post "refresh_access_token", to: "user#refresh_token"
+                post "refresh", to: "user#refresh_token"
 
-                get "request_delete_token", to: "user#request_delete_token"
+                get "delete", to: "user#request_delete_token"
                 delete "delete/:destroy_token", to: "user#destroy"
 
                 patch "update", to: "user#update"
+                patch "settings", to: "user#update_settings"
 
                 get "data", to: "user#data"
             end

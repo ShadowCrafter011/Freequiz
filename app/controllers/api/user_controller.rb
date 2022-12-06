@@ -40,7 +40,12 @@ class Api::UserController < ApplicationController
   def login
     return json({success: false, message: "Missing username or password"}, code: 400) unless validate_params :username, :password
 
-    user = User.find_by(email: params[:username]) || User.find_by(username: params[:username])
+    user = User.find_by(email: params[:username].downcase)
+
+    unless user.present?
+      user = User.where("lower(username) = ?", params[:username].downcase).first
+    end
+
     return json({success: false, message: "User doesn't exist"}, code: :not_found) unless !!user
 
     return json({success: false, message: "Wrong password"}, code: 401) unless user.compare_encrypted :password, params[:password]
@@ -105,8 +110,31 @@ class Api::UserController < ApplicationController
     json({success: true, message: "User updated", email_changed: email_changed}, code: :accepted)
   end
 
+  def update_settings
+    # json parameters like this:
+    # {
+    #   "setting": {
+    #     "dark_mode": true,
+    #     "show_email": false
+    #   }
+    # }
+
+    return unless api_require_valid_access_token!
+
+    if @user.setting.update(setting_params)
+      json({success: true, message: "Settings updated"})
+    else
+      json({success: false, message: "Something went wrong whilst saving the settings", errors: @user.setting.get_errors})
+    end
+  end
+
   def data
     return unless api_require_valid_access_token!
+
+    settings = {}
+    for key in Setting::SETTING_KEYS do
+      settings[key] = @user.setting[key]
+    end
 
     json({
       success: true,
@@ -117,6 +145,7 @@ class Api::UserController < ApplicationController
         role: @user.role,
         created_at: @user.created_at.to_i,
         updated_at: @user.updated_at.to_i,
+        settings: settings,
         confirmation: {
           confirmed: @user.confirmed,
           confirmed_at: @user.confirmed_at
@@ -139,5 +168,9 @@ class Api::UserController < ApplicationController
 
     def edit_params
       params.require(:user).permit(:email, :username, :password, :password_confirmation, :old_password)
+    end
+
+    def setting_params
+      params.require(:setting).permit(Setting::SETTING_KEYS)
     end
 end
