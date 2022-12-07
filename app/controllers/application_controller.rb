@@ -10,6 +10,15 @@ class ApplicationController < ActionController::Base
     def tlg attribute
         t "controllers.#{controller_name}.general.#{attribute}"
     end
+
+    def tp attribute
+        t "#{@locale_path}.#{attribute}"
+    end
+
+    def require_admin!
+        return unless require_login!
+        render "errors/not_allowed" unless @user.admin?
+    end
     
     def logged_in?
         logged_in = login
@@ -19,6 +28,7 @@ class ApplicationController < ActionController::Base
     
     def require_login!
         unless login
+            gn a: t("general.login_required")
             redirect_to(user_login_path(gg: request.path))
             return false
         end

@@ -18,3 +18,4 @@ de:
     role: Rolle
     login: Login
     create_account: Registrieren
+    login_required: Um hier hin zu können müssen Sie eingeloggt sein

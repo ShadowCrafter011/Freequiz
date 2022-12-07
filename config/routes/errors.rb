@@ -1,0 +1,1 @@
+get "not_allowed", to: "errors#not_allowed", as: "not_allowed"

@@ -11,6 +11,10 @@ module ApplicationHelper
         t "general.#{attribute}"
     end
 
+    def tp attribute
+        t "#{@locale_path}.#{attribute}"
+    end
+
     def notifications
         notifications = session[:notifications]
         session[:notifications] = nil
