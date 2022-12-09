@@ -17,8 +17,9 @@ namespace :api do
         end
 
         scope :docs do
-            get "/", to: "docs#index"
-            get "users", to: "docs#users"
+            get "/", to: "docs#index", as: "docs_index", as: "docs"
+            get "users", to: "docs#users", as: "docs_users"
+            get "authentication", to: "docs#authentication", as: "docs_authentication"
         end
     end
 end
