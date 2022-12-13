@@ -1,6 +1,22 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+
+  config.action_mailer.default_url_options = { host: "freequiz.herokuapp.com" }
+
+  config.default_url_options = { host: "freequiz.herokuapp.com" }
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    :address              => "mail.infomaniak.ch",
+    :port                 => 587,
+    :user_name            => "noreply@shadowcrafter.org",
+    :password             => "ncFQjMu1lUQwyMq1",
+    :authentication       => "login",
+    :enable_starttls_auto => true
+  }
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
