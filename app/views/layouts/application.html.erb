@@ -105,6 +105,10 @@
       </div>
     </div>
     
-    <%= yield %>
+    <% if controller_name != "docs" %>
+      <%= yield %>
+    <% else %>
+      <%= render partial: "api/docs/api_navbar" %>
+    <% end %>
   </body>
 </html>

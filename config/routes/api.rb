@@ -6,7 +6,7 @@ namespace :api do
                 post "login", to: "user#login"
                 post "refresh", to: "user#refresh_token"
 
-                get "delete", to: "user#request_delete_token"
+                get "delete_token", to: "user#request_delete_token"
                 delete "delete/:destroy_token", to: "user#destroy"
 
                 patch "update", to: "user#update"
@@ -17,7 +17,7 @@ namespace :api do
         end
 
         scope :docs do
-            get "/", to: "docs#index", as: "docs_index", as: "docs"
+            get "/", to: "docs#index", as: "docs"
             get "users", to: "docs#users", as: "docs_users"
             get "authentication", to: "docs#authentication", as: "docs_authentication"
         end
