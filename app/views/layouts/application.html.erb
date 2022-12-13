@@ -105,10 +105,10 @@
       </div>
     </div>
     
-    <% if controller_name != "docs" %>
-      <%= yield %>
-    <% else %>
+    <% if controller_name == "docs" && logged_in? && current_user.admin? %>
       <%= render partial: "api/docs/api_navbar" %>
+    <% else %>
+      <%= yield %>
     <% end %>
   </body>
 </html>

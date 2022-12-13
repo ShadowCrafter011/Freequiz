@@ -39,6 +39,7 @@ class ApplicationController < ActionController::Base
     def current_user
         User.find(cookies.encrypted[:_session_token].to_s.split(";")[0])
     end
+    helper_method :current_user
     
     def gn **messages
         for key in [:s, :a, :n] do
