@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dark_mode: false
+  show_email: false
+  user: one
+
+two:
+  dark_mode: false
+  show_email: false
+  user: two

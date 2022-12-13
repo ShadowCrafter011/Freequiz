@@ -1,0 +1,23 @@
+<%= content_for :js, "delete_toast" %>
+
+<div class="position-fixed w-100 d-flex justify-content-center pe-none sticky-top" style="margin-top: 20px;" z-index="2000">
+    <div id="deleteToast" class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+        <div class="toast-body">
+            <%= tl("sure_to_delete") %>
+            <div class="mt-2 pt-2 border-top">
+                <%= link_to "Löschen", user_delete_path(@token), class: "btn btn-danger btn-sm", data: {
+                    turbo_method: :delete
+                } %>
+                <%= link_to tl("cancel"), user_path, class: "btn btn-secondary btn-sm" %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center">
+
+    <h1><%= tl("delete_account") %></h1>
+    <h3><%= tl("not_reversible") %></h3>
+    <br>
+    <button type="button" class="btn btn-danger btn-lg" id="deleteToastBtn"><%= tl("delete") %></button>
+</div>

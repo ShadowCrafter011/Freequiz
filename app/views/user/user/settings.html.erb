@@ -1,0 +1,10 @@
+<div class="container text-center" style="max-width: 750px">
+    <h1><%= tl("settings") %></h1>
+    <%= form_with url: user_settings_path, model: @user.setting do |form| %>
+        <%= settings_form form, @user.setting, [
+            {attr: :show_email, hr: true},
+            {attr: :dark_mode, hr: false}
+        ] %><br>
+        <%= form.submit value: tl("save"), class: "btn btn-lg btn-success" %>
+    <% end %>
+</div>

@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-center mt-3">
+    <div class="text-center">
+
+        <% if @user.verified? %>
+            <h1>E-mail Adresse wurde erfolgreich bestätigt</h1>
+            <h3>Sie können nun diese Seite verlassen</h3>
+
+        <% elsif params[:expired].present? %>
+            <h1>Dieser Link ist nicht mehr gültig</h1>
+            <h3>Sie können <%= link_to "hier", user_verification_send_path %> einen neuen anfordern</h3>
+
+        <% else %>
+            <h1>Etwas ist schief geloffen. Es scheint, dass dieser Link nicht gültig ist</h1>
+            <h3>Sie können <%= link_to "hier", user_verification_send_path %> einen neuen anfordern</h3>
+
+        <% end %>
+
+        <%= image_tag "freequiz/freequiz_logo_big.png", height: "300vh", class: "mt-3" %>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+de:
+  views:
+    show:
+      title: Ihr Freequiz Konto
+      column_names: 
+        data: Kontoinformationen
+        quizzes: Quizze
+        groups: Lerngruppen
+      data:
+        title_1: Daten
+        unconfirmed_email: Nicht bestätigte E-mail Adresse
+        email_verified: E-mail Adresse bestätigt
+        title_2: Logins
+        total_logins: Totale logins
+        last_ip: Letzte login IP Adresse
+        last_at: Letztes login am
+      buttons:
+        edit: Bearbeiten
+        confirm: E-mail Adresse bestätigen
+        delete: Konto löschen

@@ -10,4 +10,21 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def user_params
+    {
+      username: "Lukas",
+      email: "lkoe@bluewin.ch",
+      password: "hallO123",
+      password_confirmation: "hallO123",
+      agb: "1"
+    }
+  end
+
+  def user_params_with **kwargs
+    params = user_params
+    kwargs.each do |key, value|
+      params[key.to_sym] = value
+    end
+    return params
+  end
 end

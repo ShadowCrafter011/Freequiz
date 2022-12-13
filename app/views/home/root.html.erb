@@ -1,1 +1,11 @@
-<center style="margin-top: 20px;"><h1>Welcome to Freequiz!</h1></center>
+<div class="mt-3 w-100 d-flex justify-content-center">
+    <h1><%= tl("welcome") %></h1>
+</div>
+<div class="container">
+    <div class="row text-center">
+        <div class="col-sm-3"><h2><%= link_to tl("login"), user_login_path %></h2></div>
+        <div class="col-sm-3"><h2><%= link_to tl("infos"), user_path %></h2></div>
+        <div class="col-sm-3"><h2><%= link_to tl("create_account"), user_create_path %></h2></div>
+        <div class="col-sm-3"><h2><%= link_to tl("logout"), user_logout_path %></h2></div>
+    </div>
+</div>

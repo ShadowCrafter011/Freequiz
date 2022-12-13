@@ -1,0 +1,11 @@
+de:
+  controllers:
+    sessions:
+      new:
+        already_logged_in: Du bist schon angemeldet
+      create:
+        wrong_username: Benutzername/E-mail Adresse scheint nicht zu stimmen
+        wrong_password: Passwort passt nicht zum angegebenen Konto
+        success: Erfolgreich angemeldet! Wilkommen zurück %s!
+      destroy:
+        success: Erfolgreich abgemeldet!

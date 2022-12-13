@@ -1,0 +1,80 @@
+<style>
+    .row .account-item {
+        background-color: #b5d0ff;
+        border: 5px solid #b5d0ff;
+        border-radius: 10px;
+        height: 100%;
+    }
+
+    .account-item-container {
+        height: 100%;
+        min-height: 300px;
+    }
+
+    .item-row {
+        margin-top: 5px;
+    }
+</style>
+
+<div class="container-fluid mt-1 mb-3">
+    <div class="d-flex w-100 justify-content-center">
+        <h1><%= tl "title" %></h1>
+    </div>
+    <div class="row text-center">
+        <div class="col-xl-4 item-row">
+            <div class="account-item-container ms-2">
+                <div class="account-item text-start fs-4">
+                    <div class="text-center w-100">
+                        <h3><%= tl "column_names.data" %></h3>
+                    </div>
+
+                    <strong><%= tl "data.title_1" %></strong>
+                    <% data = {
+                        tg("username") => @user.username,
+                        tg("email") => @user.email,
+                        tl("data.unconfirmed_email") => @user.unconfirmed_email,
+                        tl("data.email_verified") => @user.verified? ? tg("c_yes") : tg("c_no"),
+                        tg("role") => tg("roles.#{@user.role}")
+                    } %>
+                    <%= create_items data %>
+
+                    <div class="w-100 text-center mt-1">
+                        <%= link_to tl("buttons.edit"), user_edit_path, class: "btn btn-primary btn-lg", style: "width: 90%;" %>
+                        <!-- TODO: Ask for confirmation and tell the user about the consequences of sending a new email -->
+                        <% unless @user.verified? %><%= link_to tl("buttons.confirm"), user_verification_send_path, class: "btn btn-primary btn-lg mt-2", style: "width: 90%;" %><% end %>
+                    </div>
+                    <br>
+
+                    <strong><%= tl "data.title_2" %></strong>
+                    <% data = {
+                        tl("data.total_logins") => @user.sign_in_count,
+                        tl("data.last_ip") => @user.current_sign_in_ip,
+                        tl("data.last_at") => @user.current_sign_in_at
+                    } %>
+                    <%= create_items data %>
+
+                    <div class="w-100 text-center mt-1">
+                        <%= link_to tl("buttons.delete"), user_delete_path, class: "btn btn-danger btn-lg my-2", style: "width: 90%", data: {turbo: false} %>
+                    </div>
+                            
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 item-row">
+            <div class="account-item-container mx-1">
+                <div class="account-item">
+                    <h3><%= tl "column_names.quizzes" %></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 item-row">
+            <div class="account-item-container me-2">
+                <div class="account-item">
+                    <h3><%= tl "column_names.groups" %></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

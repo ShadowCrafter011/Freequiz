@@ -1,0 +1,7 @@
+de:
+  views:
+    errors:
+      not_allowed:
+        title: Es tut uns leid, aber hier dürfen Sie nicht hin
+        return: Zurück zur
+        homepage: Homepage
