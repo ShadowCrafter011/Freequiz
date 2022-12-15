@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   draw :user
   draw :api
 
+  draw :admin
+
   draw :errors
 end
