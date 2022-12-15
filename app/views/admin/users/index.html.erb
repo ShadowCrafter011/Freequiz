@@ -1,0 +1,14 @@
+<style>
+    .card {
+        background: #abf7b1;
+        border: 2px solid #5ced73;
+        border-radius: 5px;
+        padding: 10px;
+    }
+</style>
+
+<div class="container mt-3" style="max-width: 750px;">
+    <% @users.each do |user| %>
+        <%= render partial: "user_card", locals: {user: user} %>
+    <% end %>
+</div>
