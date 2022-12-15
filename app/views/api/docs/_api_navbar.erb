@@ -7,41 +7,47 @@
     height: 100%;
   }
 
-  .link_list {
-    list-style-type: none;
-  }
-
   .section {
     padding-top: 70px;
     margin-top: -50px;
   }
-</style>  
+</style>
 
-<div class="col-3 sticky-sidebar">
-  <div class="list-group">
-    <%= link_to "Index", api_docs_path, class: "list-group-item list-group-item-action #{activate_tab?(:index)}", data: {turbo: false} %>
 
-    <%= link_to "Authentication", api_docs_authentication_path, class: "list-group-item list-group-item-action #{activate_tab?(:authentication)}", data: {turbo: false} %>
+<div class="container-fluid mt-2">
+  <div class="row">
+    <div class="col-3 sticky-sidebar">
+      <div class="list-group">
+        <%= link_to "Index", api_docs_path, class: "list-group-item list-group-item-action #{activate_tab?(:index)}", data: {turbo: false} %>
 
-    <div class="list-group-item list-group-item-action" role="button" <%= collapse_tab?(:users) %>>
-      <div class="dropdown-toggle">Users</div>
-      <div id="users" class="collapse list-group list-group-flush mt-2 <%= show_tab?(:users) %>">
+        <%= link_to "Authentication", api_docs_authentication_path, class: "list-group-item list-group-item-action #{activate_tab?(:authentication)}", data: {turbo: false} %>
 
-        <% links = [  ["create", "create"],
-                      ["delete token", "delete_token"],
-                      ["delete", "delete"],
-                      ["login", "login"],
-                      ["refresh", "refresh"],
-                      ["data", "data"],
-                      ["update", "update"],
-                      ["settings", "settings"]
-                    ] %>
+        <div class="list-group-item list-group-item-action" role="button" <%= collapse_tab?(:users) %>>
+          <div class="dropdown-toggle">Users</div>
+          <div id="users" class="collapse list-group list-group-flush mt-2 <%= show_tab?(:users) %>">
 
-        <% links.each do |link_name, anchor| %>
-          <%= link(method(:api_docs_users_path), link_name, anchor) %>
-        <% end %>
+            <% links = [  ["create", "create"],
+                          ["delete token", "delete_token"],
+                          ["delete", "delete"],
+                          ["login", "login"],
+                          ["refresh", "refresh"],
+                          ["data", "data"],
+                          ["update", "update"],
+                          ["settings", "settings"]
+                        ] %>
 
+            <% links.each do |link_name, anchor| %>
+              <%= link(method(:api_docs_users_path), link_name, anchor) %>
+            <% end %>
+
+          </div>
+        </div>
       </div>
+    </div>
+
+    <div class="col-9">
+      <!-- content -->
+      <%= yield %>
     </div>
   </div>
 </div>
