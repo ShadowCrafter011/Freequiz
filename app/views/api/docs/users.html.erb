@@ -1,15 +1,21 @@
-<div id="create" class="section">
-    <h1>Create</h1>
-    <p>
-        <a href="https://freequiz.herokuapp.com/api/v1/user/create">https://freequiz.herokuapp.com/api/v1/user/create</a>
-    </p>
-    <p>
-        <h3>Request method: PUT</h3>
-    </p>
-    <p>
-        <h3>Content</h3>
-        Content-type: application/json<br>
-        <pre>
+<div class="container-fluid mt-2">
+    <div class="row">
+        <%= render partial: "api_navbar" %>
+
+        <div class="col-9">
+            <!-- content -->
+            <div id="create" class="section">
+                <h1>Create</h1>
+                <p>
+                    <a href="https://freequiz.herokuapp.com/api/v1/user/create">https://freequiz.herokuapp.com/api/v1/user/create</a>
+                </p>
+                <p>
+                    <h3>Request method: PUT</h3>
+                </p>
+                <p>
+                    <h3>Content</h3>
+                    Content-type: application/json<br>
+                    <pre>
 {
     "username": "username",
     "email": "email",
@@ -17,155 +23,155 @@
     "password_confirmation": "password",
     "agb": true
 }
-        </pre>
-    </p>
-    <p>
-        <h3>Response</h3>
-        <pre>
+                    </pre>
+                </p>
+                <p>
+                    <h3>Response</h3>
+                    <pre>
 {
     "success": true,
     "message": "User created",
     "access_token": "access_token"
 }
-        </pre>
-    </p>
-</div>
-<hr>
+                    </pre>
+                </p>
+            </div>
+            <hr>
 
-<div id="delete_token" class="section">
-    <h1>Delete Token</h1>
-    <p>
-        <a href="https://freequiz.herokuapp.com/api/v1/user/delete_token">https://freequiz.herokuapp.com/api/v1/user/delete_token</a>
-    </p>
-    <p>
-        <h3>Request method: GET</h3>
-    </p>
-    <p>
-        <h3>Authorization</h3>
-        Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
-    </p>
-    <p>
-        <h3>Content</h3>
-        No content
-    </p>
-    <p>
-        <h3>Response</h3>
-        <pre>
+            <div id="delete_token" class="section">
+                <h1>Delete Token</h1>
+                <p>
+                    <a href="https://freequiz.herokuapp.com/api/v1/user/delete_token">https://freequiz.herokuapp.com/api/v1/user/delete_token</a>
+                </p>
+                <p>
+                    <h3>Request method: GET</h3>
+                </p>
+                <p>
+                    <h3>Authorization</h3>
+                    Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
+                </p>
+                <p>
+                    <h3>Content</h3>
+                    No content
+                </p>
+                <p>
+                    <h3>Response</h3>
+                    <pre>
 {
     "success": true,
     "token": "delete_token",
     "expire": 1671044638
 }
-        </pre>
-    </p>
-</div>
-<hr>
+                    </pre>
+                </p>
+            </div>
+            <hr>
 
-<div id="delete" class="section">
-    <h1>Delete</h1>
-    <p>
-        <a href="https://freequiz.herokuapp.com/api/v1/user/delete/delete_token">https://freequiz.herokuapp.com/api/v1/user/delete/delete_token</a><br>
-        Replace delete_token with token gotten by <a href="#delete_token">this request</a>
-    </p>
-    <p>
-        <h3>Request method: DELETE</h3>
-    </p>
-    <p>
-        <h3>Content</h3>
-        No content
-    </p>
-    <p>
-        <h3>Response</h3>
-        <pre>
+            <div id="delete" class="section">
+                <h1>Delete</h1>
+                <p>
+                    <a href="https://freequiz.herokuapp.com/api/v1/user/delete/delete_token">https://freequiz.herokuapp.com/api/v1/user/delete/delete_token</a><br>
+                    Replace delete_token with token gotten by <a href="#delete_token">this request</a>
+                </p>
+                <p>
+                    <h3>Request method: DELETE</h3>
+                </p>
+                <p>
+                    <h3>Content</h3>
+                    No content
+                </p>
+                <p>
+                    <h3>Response</h3>
+                    <pre>
 {
     "success": true,
     "message": "User deleted"
 }
-        </pre>
-    </p>
-</div>
-<hr>
+                    </pre>
+                </p>
+            </div>
+            <hr>
 
-<div id="login" class="section">
-    <h1>Login</h1>
-    <p>
-        <a href="https://freequiz.herokuapp.com/api/v1/user/login">https://freequiz.herokuapp.com/api/v1/user/login</a><br>
-    </p>
-    <p>
-        <h3>Request method: POST</h3>
-    </p>
-    <p>
-        <h3>Content</h3>
-        <pre>
+            <div id="login" class="section">
+                <h1>Login</h1>
+                <p>
+                    <a href="https://freequiz.herokuapp.com/api/v1/user/login">https://freequiz.herokuapp.com/api/v1/user/login</a><br>
+                </p>
+                <p>
+                    <h3>Request method: POST</h3>
+                </p>
+                <p>
+                    <h3>Content</h3>
+                    <pre>
 {
     "username": "username", 
     "password": "password"
 }
-        </pre>
-    </p>
-    <p>
-        <h3>Response</h3>
-        <pre>
+                    </pre>
+                </p>
+                <p>
+                    <h3>Response</h3>
+                    <pre>
 {
     "success": true,
     "access_token": "access_token"
 }
-        </pre>
-    </p>
-    <p>
-        <h3>Expiration</h3>
-        Access token expire after one year. They can and should be <a href="#refresh">refreshed</a> every time the user starts the app.
-    </p>
-</div>
-<hr>
+                    </pre>
+                </p>
+                <p>
+                    <h3>Expiration</h3>
+                    Access token expire after one year. They can and should be <a href="#refresh">refreshed</a> every time the user starts the app.
+                </p>
+            </div>
+            <hr>
 
-<div id="refresh" class="section">
-    <h1>Refresh</h1>
-    <p>
-        <a href="https://freequiz.herokuapp.com/api/v1/user/refresh">https://freequiz.herokuapp.com/api/v1/user/refresh</a><br>
-    </p>
-    <p>
-        <h3>Request method: POST</h3>
-    </p>
-    <p>
-        <h3>Authorization</h3>
-        Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
-    </p>
-    <p>
-        <h3>Content</h3>
-        No content
-    </p>
-    <p>
-        <h3>Response</h3>
-        <pre>
+            <div id="refresh" class="section">
+                <h1>Refresh</h1>
+                <p>
+                    <a href="https://freequiz.herokuapp.com/api/v1/user/refresh">https://freequiz.herokuapp.com/api/v1/user/refresh</a><br>
+                </p>
+                <p>
+                    <h3>Request method: POST</h3>
+                </p>
+                <p>
+                    <h3>Authorization</h3>
+                    Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
+                </p>
+                <p>
+                    <h3>Content</h3>
+                    No content
+                </p>
+                <p>
+                    <h3>Response</h3>
+                    <pre>
 {
     "success": true,
     "access_token": "access_token"
 }
-        </pre>
-    </p>
-</div>
-<hr>
+                    </pre>
+                </p>
+            </div>
+            <hr>
 
-<div id="data" class="section">
-    <h1>Data</h1>
-    <p>
-        <a href="https://freequiz.herokuapp.com/api/v1/user/data">https://freequiz.herokuapp.com/api/v1/user/data</a><br>
-    </p>
-    <p>
-        <h3>Request method: GET</h3>
-    </p>
-    <p>
-        <h3>Authorization</h3>
-        Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
-    </p>
-    <p>
-        <h3>Content</h3>
-        No content
-    </p>
-    <p>
-        <h3>Response</h3>
-        <pre>
+            <div id="data" class="section">
+                <h1>Data</h1>
+                <p>
+                    <a href="https://freequiz.herokuapp.com/api/v1/user/data">https://freequiz.herokuapp.com/api/v1/user/data</a><br>
+                </p>
+                <p>
+                    <h3>Request method: GET</h3>
+                </p>
+                <p>
+                    <h3>Authorization</h3>
+                    Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
+                </p>
+                <p>
+                    <h3>Content</h3>
+                    No content
+                </p>
+                <p>
+                    <h3>Response</h3>
+                    <pre>
 {
     "success": true,
     "data": {
@@ -192,26 +198,26 @@
         }
     }
 }
-        </pre>
-    </p>
-</div>
-<hr>
+                    </pre>
+                </p>
+            </div>
+            <hr>
 
-<div id="update" class="section">
-    <h1>Update</h1>
-    <p>
-        <a href="https://freequiz.herokuapp.com/api/v1/user/update">https://freequiz.herokuapp.com/api/v1/user/update</a><br>
-    </p>
-    <p>
-        <h3>Request method: PATCH</h3>
-    </p>
-    <p>
-        <h3>Authorization</h3>
-        Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
-    </p>
-    <p>
-        <h3>Content</h3>
-        <pre>
+            <div id="update" class="section">
+                <h1>Update</h1>
+                <p>
+                    <a href="https://freequiz.herokuapp.com/api/v1/user/update">https://freequiz.herokuapp.com/api/v1/user/update</a><br>
+                </p>
+                <p>
+                    <h3>Request method: PATCH</h3>
+                </p>
+                <p>
+                    <h3>Authorization</h3>
+                    Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
+                </p>
+                <p>
+                    <h3>Content</h3>
+                    <pre>
 {
     "user": {
         "username": "username",
@@ -221,53 +227,56 @@
         "old_password": "old_password"
     }
 }
-        </pre>
-        Not all parameters have to be sent if the user didn't update them. Only password, password_confirmation and old_password must be sent together.
-    </p>
-    <p>
-        <h3>Response</h3>
-        <pre>
+                    </pre>
+                    Not all parameters have to be sent if the user didn't update them. Only password, password_confirmation and old_password must be sent together.
+                </p>
+                <p>
+                    <h3>Response</h3>
+                    <pre>
 {
     "success": true,
     "message": "User updated",
     "email_changed": false
 }
-        </pre>
-    </p>
-</div>
-<hr>
+                    </pre>
+                </p>
+            </div>
+            <hr>
 
-<div id="settings" class="section mb-5">
-    <h1>Settings</h1>
-    <p>
-        <a href="https://freequiz.herokuapp.com/api/v1/user/settings">https://freequiz.herokuapp.com/api/v1/user/settings</a><br>
-    </p>
-    <p>
-        <h3>Request method: PATCH</h3>
-    </p>
-    <p>
-        <h3>Authorization</h3>
-        Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
-    </p>
-    <p>
-        <h3>Content</h3>
-        <pre>
+            <div id="settings" class="section mb-5">
+                <h1>Settings</h1>
+                <p>
+                    <a href="https://freequiz.herokuapp.com/api/v1/user/settings">https://freequiz.herokuapp.com/api/v1/user/settings</a><br>
+                </p>
+                <p>
+                    <h3>Request method: PATCH</h3>
+                </p>
+                <p>
+                    <h3>Authorization</h3>
+                    Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
+                </p>
+                <p>
+                    <h3>Content</h3>
+                    <pre>
 {
     "setting": {
         "dark_mode": true,
         "show_email": false
     }
 }
-        </pre>
-        Not all the parameters need to be present
-    </p>
-    <p>
-        <h3>Response</h3>
-        <pre>
+                    </pre>
+                    Not all the parameters need to be present
+                </p>
+                <p>
+                    <h3>Response</h3>
+                    <pre>
 {
     "success": true,
     "message": "Settings updated"
 }
-        </pre>
-    </p>
+                    </pre>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>

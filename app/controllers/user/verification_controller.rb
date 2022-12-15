@@ -4,7 +4,7 @@ class User::VerificationController < ApplicationController
   def verify
     token = params[:verification_token]
 
-    if Time.now > @user.confirmation_expire
+    if @user.confirmation_expire == nil || Time.now > @user.confirmation_expire
       return redirect_to user_verification_success_path(expired: 1)
     end
 
