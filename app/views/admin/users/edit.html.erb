@@ -1,0 +1,45 @@
+<div class="form-group">
+    <%= form_with url: admin_user_edit_path(@user.username), model: @user do |form| %>
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-4">
+                    <div>
+                        <%= form.label :username, "Username", class: "fs-4" %>
+                        <%= form.text_field :username, autocomplete: "off", class: "form-control" %>
+                    </div>
+                    <div>
+                        <%= form.label :email, "E-mail", class: "fs-4" %>
+                        <%= form.text_field :email, autocomplete: "off", class: "form-control" %>
+                    </div>
+                    <% if @user.unconfirmed_email.present? %>
+                        <div>
+                            <%= form.label :unconfirmed_email, "Unconfirmed E-mail", class: "fs-4" %>
+                            <%= form.text_field :unconfirmed_email, autocomplete: "off", class: "form-control" %>
+                        </div>
+                    <% end %>
+                    <div>
+                        <%= form.label :role, "Role", class: "fs-4" %>
+                        <%= form.select :role, User::ROLES, {}, {class: "form-select"} %>
+                    </div>
+                    <div>
+                        <%= form.label :confirmed, "Verified", class: "fs-4" %>
+                        <%= form.select :confirmed, [["Yes", true], ["No", false]], {}, {class: "form-select"} %>
+                    </div>
+                    <div>
+                        <%= link_to "Send E-mail", admin_user_send_email_path(@user.username), class: "btn btn-primary btn-md w-100 mt-1" %>
+                    </div>
+                    <div>
+                        <%= link_to "Send verification E-mail", admin_user_send_verification_path(@user.username), class: "btn btn-primary btn-md w-100 mt-1" %>
+                    </div>
+                    <div>
+                        <%= link_to "Send password reset E-mail", admin_user_send_password_reset_path(@user.username), class: "btn btn-primary btn-md w-100 mt-1" %>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <%= form.submit value: "Save", class: "btn btn-lg btn-success w-100" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>

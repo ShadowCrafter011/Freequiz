@@ -6,6 +6,8 @@ class User < ApplicationRecord
     validates :password, confirmation: true
     validates :agb, acceptance: true
 
+    ROLES = ["user", "beta", "admin"]
+
     before_create do
         self.role = "user"
         self.confirmed = false

@@ -4,4 +4,65 @@ class Admin::UsersController < ApplicationController
     def index
         @users = User.order(:username)
     end
+
+    def edit
+        @user = User.find_by(username: params[:username])
+    end
+
+    def update
+        user = User.find_by(username: params[:username])
+        
+        was_verified = user.verified?
+        email_before = user.email
+        unconfirmed_email_before = user.unconfirmed_email
+
+        unless user.update(edit_params)
+            gn a: ["Failed to save user for the following reasons"].concat(user.get_errors)
+            return render :edit, status: :unprocessable_entity
+        end
+
+        if edit_params[:confirmed] && !was_verified
+            user.update(confirmed_at: Time.now, confirmation_token: nil, confirmation_expire: nil)
+        end
+
+        if edit_params[:email] != email_before || edit_params[:unconfirmed_email] != unconfirmed_email_before || (!user.verified? && was_verified)
+            user.update(confirmed: false, confirmed_at: nil)
+            user.send_verification_email
+            gn s: "Saved user and verification E-mail was sent"
+        else
+            gn s: "Saved user"
+        end
+        redirect_to admin_user_edit_path(user.username)
+    end
+
+    def send_verification
+        user = User.find_by(username: params[:username])
+        sent = user.send_verification_email
+        gn s: "Verification E-mail sent to user (#{user.email})" if sent
+        gn n: "Verification E-mail wasn't sent because either the user is already verified or something went wrong" unless sent
+        redirect_to admin_user_edit_path(user.username)
+    end
+
+    def send_password_reset
+        user = User.find_by(username: params[:username])
+        user.send_reset_password_email
+        gn s: "Password reset E-mail sent to user (#{user.email})"
+        redirect_to admin_user_edit_path(user.username)
+    end
+
+    def prepare_email
+        @user = User.find_by(username: params[:username])
+    end
+
+    def send_email
+        user = User.find_by(username: params[:username])
+        AdminMailer.with(email: user.email, subject: params[:subject], body: params[:body]).email_to_user.deliver_later
+        gn s: "E-mail sent to user (#{user.email})"
+        redirect_to admin_user_edit_path(user.username)
+    end
+
+    private
+        def edit_params
+            params.require(:user).permit(:username, :email, :unconfirmed_email, :role, :confirmed)
+        end
 end

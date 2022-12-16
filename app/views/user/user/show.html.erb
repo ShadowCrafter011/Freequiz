@@ -48,7 +48,6 @@
                     <strong><%= tl "data.title_2" %></strong>
                     <% data = {
                         tl("data.total_logins") => @user.sign_in_count,
-                        tl("data.last_ip") => @user.current_sign_in_ip,
                         tl("data.last_at") => @user.current_sign_in_at
                     } %>
                     <%= create_items data %>
