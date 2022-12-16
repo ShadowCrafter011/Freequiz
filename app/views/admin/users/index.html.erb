@@ -25,8 +25,8 @@
                                 ["Last login", "last_sign_in_at"]
                             ] %>
                             <% order_criteria = [
-                                ["Ascending", "ASC"],
-                                ["Descending", "DESC"]
+                                ["Descending", "DESC"],
+                                ["Ascending", "ASC"]
                             ] %>
                             <%= form.label :sort, "Sort by", class: "input-group-text" %>
                             <%= form.select :order, options_for_select(order_criteria, selected: params[:order]), {}, { class: "form-select" } %>
