@@ -12,6 +12,49 @@
 </style>
 
 <div class="container mt-3" style="max-width: 1000px;">
+    <p>
+        <div class="form-group">
+            <%= form_with method: :get do |form| %>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="input-group">
+                            <% sort_criteria = [
+                                ["Date created", "created_at"],
+                                ["Date updated", "updated_at"],
+                                ["Date confirmed", "confirmed_at"],
+                                ["Last login", "last_sign_in_at"]
+                            ] %>
+                            <% order_criteria = [
+                                ["Ascending", "ASC"],
+                                ["Descending", "DESC"]
+                            ] %>
+                            <%= form.label :sort, "Sort by", class: "input-group-text" %>
+                            <%= form.select :order, options_for_select(order_criteria, selected: params[:order]), {}, { class: "form-select" } %>
+                            <%= form.select :sort, options_for_select(sort_criteria, params[:sort]), {}, { class: "form-select" } %>
+
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="input-group">
+                            <% search_criteria = [
+                                ["Username", "username"],
+                                ["E-mail Address", "email"]
+                            ] %>
+                            <%= form.label :query, "Query", class: "input-group-text" %>
+                            <%= form.select :property, options_for_select(search_criteria, params[:property]), {}, {class: "form-select"} %>
+                            <%= form.text_field :query, value: params[:query], autocomplete: "admin_user_query", class: "form-control" %>
+                        </div>
+                    </div>
+
+                    <div class="col-1 p-0">
+                        <%= form.submit value: "Search", class: "btn btn-primary" %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </p>
+
     <% @users.each do |user| %>
         <%= render partial: "user_card", locals: {user: user} %>
     <% end %>

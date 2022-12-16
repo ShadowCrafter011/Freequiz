@@ -2,7 +2,25 @@ class Admin::UsersController < ApplicationController
     before_action :require_admin!
 
     def index
-        @users = User.order(:username)
+        return (@users = User.order(:username)) unless params.key? :commit
+
+        if params[:query].present?
+            property = params[:property] == "username" ? "username" : "email"
+            safe_query = ActiveRecord::Base.connection.quote_string(params[:query])
+
+            valid_sort = ["created_at", "updated_at", "confirmed_at", "last_sign_in_at"]
+            valid_direction = ["ASC", "DESC"]
+
+            sort = valid_sort.include?(params[:sort]) ? params[:sort] : "created_at"
+            direction = valid_direction.include?(params[:order]) ? params[:order] : "ASC"
+
+            query_order = Arel.sql("#{property} ILIKE '%#{safe_query}%' DESC")
+            date_order = Arel.sql("#{sort} #{direction}")
+
+            @users = User.order(query_order, date_order)
+        else
+            @users = User.order("#{params[:sort]} #{params[:order]}")
+        end
     end
 
     def edit
