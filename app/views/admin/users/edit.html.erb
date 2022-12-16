@@ -35,8 +35,15 @@
                         <%= link_to "Send password reset E-mail", admin_user_send_password_reset_path(@user.username), class: "btn btn-primary btn-md w-100 mt-1" %>
                     </div>
                     <br>
-                    <div class="text-center">
+                    <div>
+                        <%= link_to "Delete account", admin_user_delete_path(username: @user.username), class: "btn btn-danger btn-md w-100" %>
+                    </div>
+                    <br>
+                    <div>
                         <%= form.submit value: "Save", class: "btn btn-lg btn-success w-100" %>
+                    </div>
+                    <div>
+                        <%= link_to "Cancel", admin_users_path, class: "btn btn-lg btn-secondary w-100 mt-1" %>
                     </div>
                 </div>
             </div>

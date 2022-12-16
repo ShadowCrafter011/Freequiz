@@ -9,12 +9,31 @@ class Admin::UsersController < ApplicationController
         @user = User.find_by(username: params[:username])
     end
 
+    def destroy_token
+        @user = User.find_by(username: params[:username])
+        @token = SecureRandom.hex(32)
+        @user.update(destroy_token: @token, destroy_expire: 1.days.from_now)
+        @user.encrypt_value :destroy_token
+    end
+
+    def destroy
+        token = params[:destroy_token]
+        user = User.find_by(username: params[:username])
+
+        if user.compare_encrypted(:destroy_token, token) && user.destroy_expire > Time.now
+            user.destroy
+            gn n: "User deleted"
+        else
+            gn a: "Could not delete user. Retry again later"
+        end
+        redirect_to admin_users_path
+    end
+
     def update
         user = User.find_by(username: params[:username])
         
         was_verified = user.verified?
         email_before = user.email
-        unconfirmed_email_before = user.unconfirmed_email
 
         unless user.update(edit_params)
             gn a: ["Failed to save user for the following reasons"].concat(user.get_errors)
@@ -25,7 +44,7 @@ class Admin::UsersController < ApplicationController
             user.update(confirmed_at: Time.now, confirmation_token: nil, confirmation_expire: nil)
         end
 
-        if edit_params[:email] != email_before || edit_params[:unconfirmed_email] != unconfirmed_email_before || (!user.verified? && was_verified)
+        if edit_params[:email] != email_before || (!user.verified? && was_verified)
             user.update(confirmed: false, confirmed_at: nil)
             user.send_verification_email
             gn s: "Saved user and verification E-mail was sent"
