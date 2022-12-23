@@ -10,9 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_01_105156) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_17_160657) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "languages", force: :cascade do |t|
+    t.string "name"
+    t.string "locale"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.text "description"
+    t.string "visibility"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.binary "data"
+    t.string "uuid"
+    t.bigint "from"
+    t.bigint "to"
+    t.string "title"
+    t.index ["user_id"], name: "index_quizzes_on_user_id"
+  end
 
   create_table "settings", force: :cascade do |t|
     t.boolean "dark_mode"
@@ -51,5 +72,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_105156) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "quizzes", "users"
   add_foreign_key "settings", "users"
 end

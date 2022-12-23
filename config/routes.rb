@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post "/test", to: "home#test"
 
   draw :user
+  draw :quiz
   draw :api
 
   draw :admin
