@@ -46,16 +46,11 @@ class ApplicationController < ActionController::Base
         @logged_in = login
     end
 
-    def require_admin!
-        return unless logged_in?
-        render "errors/not_allowed" unless @user.admin?
-    end
-    
     def logged_in?
         @logged_in
     end
     helper_method :logged_in?
-    
+
     def require_login!
         unless logged_in?
             gn a: t("general.login_required")
@@ -63,6 +58,11 @@ class ApplicationController < ActionController::Base
             return false
         end
         return true
+    end
+
+    def require_admin!
+        return unless require_login!
+        render "errors/not_allowed" unless @user.admin?
     end
     
     def current_user
@@ -83,17 +83,17 @@ class ApplicationController < ActionController::Base
     end
 
     private
-        def login
-            @user = nil
-            return false unless cookies.encrypted[:_session_token].present?
-            data = cookies.encrypted[:_session_token].to_s.split(";")
+    def login
+        @user = nil
+        return false unless cookies.encrypted[:_session_token].present?
+        data = cookies.encrypted[:_session_token].to_s.split(";")
 
-            # Using find_by because find will throw an exception if the user doesn't exists. Find_by returns nil
-            @user = User.find_by(id: data[0])
-            unless Time.now.to_i < data[1].to_i
-                cookies.delete :_session_token
-                return false
-            end
-            return @user.present?
+        # Using find_by because find will throw an exception if the user doesn't exists. Find_by returns nil
+        @user = User.find_by(id: data[0])
+        unless Time.now.to_i < data[1].to_i
+            cookies.delete :_session_token
+            return false
         end
+        return @user.present?
+    end
 end

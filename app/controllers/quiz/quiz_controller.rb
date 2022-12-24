@@ -1,5 +1,5 @@
 class Quiz::QuizController < ApplicationController
-  before_action :require_login!, :require_beta! do
+  before_action :require_beta! do
     setup_locale "quiz.quiz"
   end
 
@@ -18,6 +18,7 @@ class Quiz::QuizController < ApplicationController
 
   private
   def require_beta!
+    return unless require_login!
     render "errors/beta_wall" unless @user.beta? || @user.admin?
   end
 end
