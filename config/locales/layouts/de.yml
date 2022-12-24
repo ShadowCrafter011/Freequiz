@@ -1,0 +1,11 @@
+de:
+  layouts:
+    application:
+      title: Freequiz - Karteien lernen, gratis für immer
+      account: Konto
+      overview: Übersicht
+      settings: Einstellungen
+      logout: Abmelden
+      login: Anmelden
+      create: Konto erstellen
+      reset_pw: Passwort zurücksetzen
