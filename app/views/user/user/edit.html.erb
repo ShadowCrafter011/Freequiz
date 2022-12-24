@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center w-100 my-4">
     <div class="text-center">
-        <h1><%= tlg "title" %></h1>
+        <h1><%= tp "title" %></h1>
     </div>
 </div>
 
@@ -19,15 +19,15 @@
                     </div>
                     <div>
                         <%= form.label :password, tg("password"), class: "fs-4" %>
-                        <%= form.password_field :password, class: "form-control", placeholder: tlg("can_empty") %>
+                        <%= form.password_field :password, class: "form-control", placeholder: tp("can_empty") %>
                     </div>
                     <div>
-                        <%= form.label :password_confirmation, tlg("password_repeat"), class: "fs-4" %>
-                        <%= form.password_field :password_confirmation, class: "form-control", placeholder: tlg("can_empty") %>
+                        <%= form.label :password_confirmation, tp("password_repeat"), class: "fs-4" %>
+                        <%= form.password_field :password_confirmation, class: "form-control", placeholder: tp("can_empty") %>
                     </div>
                     <div>
-                        <%= form.label :old_password, tlg("old_password"), class: "fs-4" %>
-                        <%= form.password_field :old_password, class: "form-control", placeholder: tlg("can_empty") %>
+                        <%= form.label :old_password, tp("old_password"), class: "fs-4" %>
+                        <%= form.password_field :old_password, class: "form-control", placeholder: tp("can_empty") %>
                     </div><br>
                     <div class="row">
                         <div class="col-6">

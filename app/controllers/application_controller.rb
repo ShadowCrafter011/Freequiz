@@ -1,18 +1,37 @@
 class ApplicationController < ActionController::Base
+    def tp(attribute, replace: nil, html_safe: false)
+        translated = t("#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}")
+        if replace == nil
+            return html_safe ? translated.html_safe : translated
+        end
+
+        replaced = translated.sub("%s", replace)
+        html_safe ? replaced.html_safe : replaced
+    end
+    helper_method :tp
+
     def tg attribute
         t "general.#{attribute}"
     end
+    helper_method :tg
 
-    def tl attribute
-        t "controllers.#{controller_name}.#{action_name}.#{attribute}"
-    end
-    
-    def tlg attribute
-        t "controllers.#{controller_name}.general.#{attribute}"
+    def setup_locale base_path
+        @locale = {
+            path: "#{base_path}.",
+            action_override: false
+        }
     end
 
-    def tp attribute
-        t "#{@locale_path}.#{attribute}"
+    def override_action action
+        @locale[:path] += action
+        @locale[:action_override] = true
+    end
+
+    def override_locale locale
+        @locale = {
+            path: locale,
+            action_override: true
+        }
     end
 
     def require_admin!

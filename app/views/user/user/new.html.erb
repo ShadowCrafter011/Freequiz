@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center w-100 my-4">
     <div class="text-center">
-        <h1><%= tlg("create_account") %></h1>
-        <h4><%= tlg("already_have_account") %> <%= link_to tg("login"), user_login_path %></h4>
+        <h1><%= tp("create_account") %></h1>
+        <h4><%= tp("already_have_account") %> <%= link_to tp("login"), user_login_path %></h4>
     </div>
 </div>
 
@@ -11,27 +11,27 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-4">
                     <div>
-                        <%= form.label :username, tg("username"), class: "fs-4" %>
+                        <%= form.label :username, tp("username"), class: "fs-4" %>
                         <%= form.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
                     </div>
                     <div>
-                        <%= form.label :email, tg("email"), class: "fs-4" %>
+                        <%= form.label :email, tp("email"), class: "fs-4" %>
                         <%= form.text_field :email, autocomplete: "email", class: "form-control" %>
                     </div>
                     <div>
-                        <%= form.label :password, tg("password"), class: "fs-4" %>
+                        <%= form.label :password, tp("password"), class: "fs-4" %>
                         <%= form.password_field :password, class: "form-control" %>
                     </div>
                     <div>
-                        <%= form.label :password_confirmation, tlg("repeat_password"), class: "fs-4" %>
+                        <%= form.label :password_confirmation, tp("repeat_password"), class: "fs-4" %>
                         <%= form.password_field :password_confirmation, class: "form-control" %>
                     </div><br>
                     <div class="d-flex align-items-center justify-content-center">
                         <%= form.check_box :agb, class: "form-check-input mx-1" %>
-                        <%= form.label :agb, tlg("accept_agb"), class: "fs-5" %>
+                        <%= form.label :agb, tp("accept_agb"), class: "fs-5" %>
                     </div><br>
                     <div class="text-center">
-                        <%= form.submit value: tlg("submit_create_account"), class: "btn btn-lg btn-primary" %>
+                        <%= form.submit value: tp("submit_create_account"), class: "btn btn-lg btn-primary" %>
                     </div>
                 </div>
             </div>

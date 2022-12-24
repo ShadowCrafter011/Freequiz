@@ -1,5 +1,7 @@
 class Quiz::QuizController < ApplicationController
-  before_action :require_login!, :require_beta!
+  before_action :require_login!, :require_beta! do
+    setup_locale "quiz.quiz"
+  end
 
   def new
     @quiz = Quiz.new

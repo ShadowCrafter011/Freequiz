@@ -1,5 +1,7 @@
 class User::VerificationController < ApplicationController
-  before_action :require_login!
+  before_action :require_login! do
+    setup_locale "user.verification"
+  end
 
   def verify
     token = params[:verification_token]
@@ -36,16 +38,18 @@ class User::VerificationController < ApplicationController
 
   def pending
     if @user.verified?
-      gn n: tlg("already_verified")
+      gn n: tp("already_verified")
       redirect_to user_path
     end
   end
 
   def send_email
+    override_action "pending"
+
     if @user.send_verification_email
-      gn s: tl("sent")
+      gn s: tp("sent")
     else
-      gn a: tlg("already_verified")
+      gn a: tp("already_verified")
     end
     redirect_to user_path
   end

@@ -1,5 +1,13 @@
 de:
   errors:
-    email_match: Diese E-mail Adresse ist schon mit deinem Konto verknüpft
     old_password_no_match: Altes Passwort ist falsch
     missing_password_fields: Sie müssen Ihr neues Passwort bestätigen und Ihr altes Passwort eingeben
+
+    beta_wall:
+      only_beta: Nur Beta Tester dürfen hier hin
+      send_email: Wenn du Interesse hättest ein Beta Tester zu werden schreib mir eine <a href="mailto:lkoe@bluewin.ch">E-Mail</a>
+
+    not_allowed:
+      title: Es tut uns leid, aber hier darfst du nicht hin
+      return: Zurück zur
+      homepage: Homepage
