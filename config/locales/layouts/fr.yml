@@ -1,0 +1,11 @@
+fr:
+  layouts:
+    application:
+      title: Freequiz - Apprendre des fiches, gratuitement pour toujours
+      account: Compte
+      overview: Détails du compte
+      settings: Réglages
+      logout: Logout
+      login: Login
+      create: Créer un compte
+      reset_pw: Réinitialiser le mot de passe

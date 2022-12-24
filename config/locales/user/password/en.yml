@@ -1,0 +1,18 @@
+en:
+  user:
+    password:
+      reset:
+        reset_password: Reset password
+        not_forgotten: Remembered your password?
+        username: Username or E-mail
+        send_email: Send E-mail
+        wrong_username: Username/E-mail address does not seem to be correct
+        sent_email: E-mail has been sent. Check your mailbox
+      edit:
+        set_new_password: Define new password
+        new_password: New password
+        repeat_password: Repeat password
+        change_password: Change password
+        link_expired: This link has expired. Request a new one here
+        invalid_link: This link is not valid. Request a new one here
+        changed_password: Password was changed and you were automatically logged in

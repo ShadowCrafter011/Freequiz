@@ -1,0 +1,11 @@
+fr:
+  errors:
+    old_password_no_match: L'ancien mot de passe est incorrect
+    missing_password_fields: Vous devez confirmer votre nouveau mot de passe et entrer votre ancien mot de passe.
+    beta_wall:
+      only_beta: Seuls les bêta-testeurs sont autorisés à venir ici.
+      send_email: Si tu veux devenir un bêta testeur, envoie-moi un <a href="mailto:lkoe@bluewin.ch">e-mail</a>.
+    not_allowed:
+      title: Nous sommes désolés, mais tu ne peux pas venir ici.
+      return: Retour à la
+      homepage: Page d'accueil

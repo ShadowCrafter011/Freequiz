@@ -1,8 +1,8 @@
 de:
   general:
     settings:
-      show_email: "E-mail Adresse im öffentlichen Profil anzeigen"
-      dark_mode: "Dunkler Modus"
+      show_email: E-mail Adresse im öffentlichen Profil anzeigen
+      dark_mode: Dunkler Modus
     roles:
       user: Benutzer
       beta: Beta Tester

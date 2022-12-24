@@ -1,0 +1,16 @@
+en:
+  user:
+    sessions:
+      new:
+        already_logged_in: You are already registered
+        login_page: Registration
+        no_account: Don't you have an account yet?
+        forgot_password: Forgot password?
+        reset: Reset
+        remember: Save password
+        login: Login
+        wrong_username: Username/E-mail address does not seem to be correct
+        wrong_password: Password does not match the specified account
+        success: Successfully logged in! Welcome back %s!
+      destroy:
+        success: Successfully deleted account!

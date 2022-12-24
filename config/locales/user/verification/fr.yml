@@ -1,0 +1,19 @@
+fr:
+  user:
+    verification:
+      pending:
+        already_verified: Ton adresse e-mail a déjà été confirmée
+        sent: L'e-mail de confirmation a été envoyé. Il devrait arriver dans votre boîte aux lettres dans quelques minutes. Suivez ensuite les instructions dans l'e-mail.
+        sent_text: Un lien a été envoyé à son adresse e-mail
+        click_link: Veuillez cliquer sur le lien dans cet e-mail pour confirmer votre compte.
+        expires: Le lien expirera le %s
+        expired: Le lien envoyé à votre adresse e-mail a expiré.
+        get_new: Vous pouvez %s en demander un nouveau
+        link: ici
+      success:
+        success: L'adresse e-mail a été confirmée avec succès
+        can_leave: Vous pouvez maintenant quitter cette page
+        expired: Ce lien n'est plus valide
+        here: ici
+        request_new: Vous pouvez %s en demander un nouveau
+        wrong: Quelque chose a mal tourné. Il semble que ce lien ne soit pas valide.

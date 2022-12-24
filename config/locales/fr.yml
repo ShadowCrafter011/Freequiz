@@ -1,0 +1,33 @@
+fr:
+  activerecord:
+    attributes:
+      user:
+        email: Adresse e-mail
+        unconfirmed_email: Adresse e-mail non confirmée
+        username: Nom d'utilisateur
+        password: ""
+        password_confirmation: ""
+        agb: ""
+    errors:
+      models:
+        user:
+          attributes:
+            username:
+              blank: doit être indiqué
+              invalid: peut comporter de 3 à 16 caractères et ne peut contenir que des lettres, des chiffres et des traits de soulignement
+              taken: est déjà utilisé par un autre compte
+            email:
+              blank: doit être indiqué
+              invalid: n'est pas valable
+              taken: est déjà utilisé par un autre utilisateur
+            unconfirmed_email:
+              invalid: n'est pas valable
+              taken: est déjà utilisé par un autre utilisateur
+            password:
+              blank: Le mot de passe doit être indiqué
+              confirmation: Les mots de passe ne correspondent pas.
+              invalid: Le mot de passe doit comporter au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre.
+            password_confirmation:
+              confirmation: Les mots de passe ne correspondent pas.
+            agb:
+              accepted: Vous devez accepter nos conditions générales.
