@@ -47,10 +47,6 @@
     <% end %>
   </head>
 
-  <% if (logged_in = logged_in?) %>
-    <% user = current_user %>
-  <% end %>
-
   <body>
     <nav class="navbar navbar-expand-sm sticky-top" style="background-color: #e3f2fd;">
       <div class="container-fluid">
@@ -67,7 +63,7 @@
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="navbar-nav me-auto mb-2 mb-sm-0">
 
-            <% if logged_in && user.admin? %>
+            <% if logged_in? && @user.admin? %>
               <li class="nav-item dropdown d-flex align-items-center">
                 <a class="nav-link dropdown-toggle fs-5 me-2" href="#" role="button" data-bs-toggle="dropdown">Admin</a>
                 <ul class="dropdown-menu">
@@ -80,7 +76,7 @@
             <li class="nav-item dropdown d-flex align-items-center">
               <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown">Konto</a>
               <ul class="dropdown-menu">
-                <% if logged_in %>
+                <% if logged_in? %>
                   <li><%= link_to "Übersicht", user_path, class: "dropdown-item" %></li>
                   <li><%= link_to "Einstellungen", user_settings_path, class: "dropdown-item" %></li>
                   <li><%= link_to "Abmelden", user_logout_path, class: "dropdown-item" %></li>

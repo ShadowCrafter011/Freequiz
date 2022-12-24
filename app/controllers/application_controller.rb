@@ -1,4 +1,12 @@
 class ApplicationController < ActionController::Base
+    before_action :setup_login
+    around_action :switch_locale
+
+    def switch_locale(&action)
+        locale = logged_in? ? @user.setting.locale.to_sym : I18n.default_locale
+        I18n.with_locale(locale, &action)
+    end
+    
     def tp(attribute, replace: nil, html_safe: false)
         translated = t("#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}")
         if replace == nil
@@ -34,19 +42,22 @@ class ApplicationController < ActionController::Base
         }
     end
 
+    def setup_login
+        @logged_in = login
+    end
+
     def require_admin!
-        return unless require_login!
+        return unless logged_in?
         render "errors/not_allowed" unless @user.admin?
     end
     
     def logged_in?
-        logged_in = login
-        return logged_in
+        @logged_in
     end
     helper_method :logged_in?
     
     def require_login!
-        unless login
+        unless logged_in?
             gn a: t("general.login_required")
             redirect_to(user_login_path(gg: request.path))
             return false
@@ -54,9 +65,8 @@ class ApplicationController < ActionController::Base
         return true
     end
     
-    # must be sure that login or require_login! returns true
     def current_user
-        User.find(cookies.encrypted[:_session_token].to_s.split(";")[0])
+        @user
     end
     helper_method :current_user
     
@@ -74,17 +84,16 @@ class ApplicationController < ActionController::Base
 
     private
         def login
+            @user = nil
             return false unless cookies.encrypted[:_session_token].present?
             data = cookies.encrypted[:_session_token].to_s.split(";")
-            if User.exists?(data[0])
-                user = User.find(data[0])
-                unless Time.now.to_i < data[1].to_i
-                    cookies.delete :_session_token
-                    return false
-                end
-                @user = user
-                return true
+
+            # Using find_by because find will throw an exception if the user doesn't exists. Find_by returns nil
+            @user = User.find_by(id: data[0])
+            unless Time.now.to_i < data[1].to_i
+                cookies.delete :_session_token
+                return false
             end
-            return false
+            return @user.present?
         end
 end

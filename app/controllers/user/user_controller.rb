@@ -114,6 +114,6 @@ class User::UserController < ApplicationController
     end
 
     def setting_params
-      params.require(:setting).permit(Setting::SETTING_KEYS)
+      params.require(:setting).permit(Setting::SETTING_KEYS, :locale)
     end
 end

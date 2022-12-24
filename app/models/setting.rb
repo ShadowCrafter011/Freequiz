@@ -2,6 +2,9 @@ class Setting < ApplicationRecord
   belongs_to :user
 
   SETTING_KEYS = [:dark_mode, :show_email]
+  LOCALES = ["de", "fr", "en"]
+
+  validates :locale, inclusion: { in: LOCALES }
 
   before_create do
     self.dark_mode = false
