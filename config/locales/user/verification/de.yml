@@ -1,0 +1,20 @@
+de:
+  user:
+    verification:
+      pending:
+        already_verified: Deine E-Mail Adresse wurde schon bestätigt
+        sent: Bestätigungs E-mail wurde geschickt. Sie sollte in wenigen Minuten in ihrem Postfach ankommen. Folgen Sie dann den Anweisungen in der E-mail
+        sent_text: Ein Link wurde zu ihrer E-Mail Adresse geschickt
+        click_link: Bitte klicken sie auf den Link in dieser E-mail um ihr Konto zu bestätigen
+        expires: Der Link wird am %s ablaufen
+        expired: Der Link, der zu ihrere E-mail Adresse geschickt wurde, ist abgeloffen
+        get_new: Sie können %s einen neuen anfordern
+        link: hier
+
+      success:
+        success: E-mail Adresse wurde erfolgreich bestätigt
+        can_leave: Sie können nun diese Seite verlassen
+        expired: Dieser Link ist nicht mehr gültig
+        here: hier
+        request_new: Sie können %s einen neuen anfordern
+        wrong: Etwas ist schief geloffen. Es scheint, dass dieser Link nicht gültig ist

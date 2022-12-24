@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="text-center my-4">
+        <h1>Quiz erstellen</h1>
+    </div>
+    <div class="form-group">
+        <div class="d-flex justify-content-center">
+            <%= form_with url: quiz_create_path, model: @quiz do |form| %>
+                <%= form.label :title, "Titel", class: "fs-4" %>
+            <% end %>
+        </div>
+    </div>
+</div>

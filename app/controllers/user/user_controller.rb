@@ -1,11 +1,15 @@
 class User::UserController < ApplicationController
+  before_action do
+    setup_locale "user.user"
+  end
+
   def show
     return unless require_login!
   end
 
   def new
     if logged_in?
-      gn n: tl("already_has_account")
+      gn n: tp("already_has_account")
       return redirect_to user_path
     end
 
@@ -13,10 +17,12 @@ class User::UserController < ApplicationController
   end
 
   def create
+    override_action "new"
+
     @user = User.new(user_params)
 
     unless user_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
-      gn a: tlg("password_regex")
+      gn a: tg("password_regex")
       return render :new, status: :unprocessable_entity
     end
 
@@ -26,7 +32,7 @@ class User::UserController < ApplicationController
     if @user.save      
       cookies.encrypted[:_session_token] = { value: "#{@user.id};#{(Time.now + 14.days).to_i}", expires: Time.now + 14.days }
       
-      gn s: tl("created").sub("%s", @user.username)
+      gn s: tp("created").sub("%s", @user.username)
 
       redirect_to user_verification_pending_path
     else
@@ -40,11 +46,13 @@ class User::UserController < ApplicationController
   end
 
   def update
+    override_action "edit"
+
     return unless require_login!
 
     if edit_params[:password].present?
       unless edit_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
-        gn a: tlg("password_regex")
+        gn a: tg("password_regex")
         return render :edit, status: :unprocessable_entity
       end
     end
@@ -54,8 +62,8 @@ class User::UserController < ApplicationController
       gn a: errors
       render :edit, status: :unprocessable_entity
     else
-      messages = [tl("saved_data")]
-      messages.append(tl("new_email")) if email_changed
+      messages = [tp("saved_data")]
+      messages.append(tp("new_email")) if email_changed
       gn s: messages
       redirect_to user_path
     end
@@ -69,7 +77,7 @@ class User::UserController < ApplicationController
     return unless require_login!
 
     @user.setting.update(setting_params)
-    gn s: tl("saved")
+    gn s: tp("saved")
     redirect_to user_settings_path
   end
 
@@ -88,10 +96,10 @@ class User::UserController < ApplicationController
 
     if @user.compare_encrypted(:destroy_token, token) && @user.destroy_expire > Time.now
       @user.destroy
-      gn n: tl("deleted")
+      gn n: tp("deleted")
       redirect_to root_path
     else
-      gn a: tl("failed")
+      gn a: tp("failed")
       redirect_to user_path
     end
   end
@@ -106,6 +114,6 @@ class User::UserController < ApplicationController
     end
 
     def setting_params
-      params.require(:setting).permit(Setting::SETTING_KEYS)
+      params.require(:setting).permit(Setting::SETTING_KEYS, :locale)
     end
 end

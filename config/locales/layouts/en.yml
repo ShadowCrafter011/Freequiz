@@ -1,0 +1,11 @@
+en:
+  layouts:
+    application:
+      title: Freequiz - Learn flashcards, free forever
+      account: Account
+      overview: Overview
+      settings: Settings
+      logout: Logout
+      login: Login
+      create: Create account
+      reset_pw: Reset password

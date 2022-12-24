@@ -1,0 +1,59 @@
+de:
+  user:
+    user:
+      show:
+        title: Übersicht Ihres Konto
+        column_names:
+          data: Persönliche Daten
+          quizzes: Quizze
+          groups: Lerngruppen
+        data:
+          title_1: Daten
+          title_2: Login Statistiken
+          unconfirmed_email: Nicht bestätigte E-mail Adresse
+          email_verified: E-mail Adresse bestätigt
+          total_logins: Gesamte Logins
+          last_ip: Letzte Login IP Adresse
+          last_at: Letztes login am
+        buttons:
+          edit: Bearbeiten
+          confirm: E-mail Adresse bestätigen
+          delete: Konto löschen
+
+      new:
+        create_account: Freequiz Konto erstellen
+        already_have_account: Hast du schon ein Konto?
+        password: Passwort
+        repeat_password: Passwort wiederholen
+        accept_agb: Ich akzeptiere die AGBs
+        submit_create_account: Account erstellen
+        login: Login
+        username: Benutzername
+        email: E-Mail Adresse
+        already_has_account: Du hast schon ein Konto
+        created: Konto erfolgreich erstellt! Wilkommen bei Freequiz %s!
+
+      edit:
+        title: Kontodaten bearbeiten
+        password_repeat: Passwort wiederholen
+        old_password: Altes Passwort
+        can_empty: Leer lassen um nichts zu ändern
+        saved_data: Daten gespeichert!
+        new_email: Ihre neue E-mail Adresse wird verwendet sobald Sie den Link der in Ihr Postfach geschickt wurde geklickt haben
+
+      settings:
+        settings: Einstellungen
+        save: Speichern
+        
+      update_settings:
+        saved: Einstellungen gespeichert
+
+      request_destroy:
+        sure_to_delete: Wollen Sie wirklich Ihr Konto löschen?
+        cancel: Abbrechen
+        delete_account: Konto Löschen
+        not_reversible: Wenn Sie ihr Konto löschen kann dies nicht rückgangig gemacht werden!
+        
+      destroy:
+        deleted: Konto gelöscht. Schade, dass Sie gehen
+        failed: Etwas ist schief geloffen. Kontaktieren Sie unseren Support wenn dies nochmal passiert

@@ -131,34 +131,10 @@ class Api::UserController < ApplicationController
   def data
     return unless api_require_valid_access_token!
 
-    settings = {}
+    @settings = {}
     for key in Setting::SETTING_KEYS do
-      settings[key] = @user.setting[key]
+      @settings[key] = @user.setting[key]
     end
-
-    json({
-      success: true,
-      data: {
-        username: @user.username,
-        email: @user.email,
-        unconfirmed_email: @user.unconfirmed_email,
-        role: @user.role,
-        created_at: @user.created_at.to_i,
-        updated_at: @user.updated_at.to_i,
-        settings: settings,
-        confirmation: {
-          confirmed: @user.confirmed,
-          confirmed_at: @user.confirmed_at
-        },
-        logins: {
-          count: @user.sign_in_count,
-          current_login_at: @user.current_sign_in_at.to_i,
-          current_login_ip: @user.current_sign_in_ip,
-          last_login_at: @user.last_sign_in_at.to_i,
-          last_login_ip: @user.last_sign_in_ip
-        }
-      }
-    })
   end
 
   private

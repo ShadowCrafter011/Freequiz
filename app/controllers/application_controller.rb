@@ -1,18 +1,63 @@
 class ApplicationController < ActionController::Base
+    before_action :setup_login
+    around_action :switch_locale
+
+    def switch_locale(&action)
+        locale = logged_in? ? @user.setting.locale.to_sym : I18n.default_locale
+        I18n.with_locale(locale, &action)
+    end
+    
+    def tp(attribute, replace: nil, html_safe: false)
+        translated = t("#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}")
+        if replace == nil
+            return html_safe ? translated.html_safe : translated
+        end
+
+        replaced = translated.sub("%s", replace)
+        html_safe ? replaced.html_safe : replaced
+    end
+    helper_method :tp
+
     def tg attribute
         t "general.#{attribute}"
     end
+    helper_method :tg
 
-    def tl attribute
-        t "controllers.#{controller_name}.#{action_name}.#{attribute}"
-    end
-    
-    def tlg attribute
-        t "controllers.#{controller_name}.general.#{attribute}"
+    def setup_locale base_path
+        @locale = {
+            path: "#{base_path}.",
+            action_override: false
+        }
     end
 
-    def tp attribute
-        t "#{@locale_path}.#{attribute}"
+    def override_action action
+        @locale[:path] += action
+        @locale[:action_override] = true
+    end
+
+    def override_locale locale
+        @locale = {
+            path: locale,
+            action_override: true
+        }
+    end
+
+    def setup_login
+        @logged_in = login
+    end
+
+    def logged_in?
+        @logged_in
+    end
+    helper_method :logged_in?
+
+    def require_login!
+        unless logged_in?
+            gn a: t("general.login_required")
+            redirect_to(user_login_path(gg: request.path))
+            return false
+        end
+        return true
     end
 
     def require_admin!
@@ -20,24 +65,8 @@ class ApplicationController < ActionController::Base
         render "errors/not_allowed" unless @user.admin?
     end
     
-    def logged_in?
-        logged_in = login
-        return logged_in
-    end
-    helper_method :logged_in?
-    
-    def require_login!
-        unless login
-            gn a: t("general.login_required")
-            redirect_to(user_login_path(gg: request.path))
-            return false
-        end
-        return true
-    end
-    
-    # must be sure that login or require_login! returns true
     def current_user
-        User.find(cookies.encrypted[:_session_token].to_s.split(";")[0])
+        @user
     end
     helper_method :current_user
     
@@ -54,18 +83,17 @@ class ApplicationController < ActionController::Base
     end
 
     private
-        def login
-            return false unless cookies.encrypted[:_session_token].present?
-            data = cookies.encrypted[:_session_token].to_s.split(";")
-            if User.exists?(data[0])
-                user = User.find(data[0])
-                unless Time.now.to_i < data[1].to_i
-                    cookies.delete :_session_token
-                    return false
-                end
-                @user = user
-                return true
-            end
+    def login
+        @user = nil
+        return false unless cookies.encrypted[:_session_token].present?
+        data = cookies.encrypted[:_session_token].to_s.split(";")
+
+        # Using find_by because find will throw an exception if the user doesn't exists. Find_by returns nil
+        @user = User.find_by(id: data[0])
+        unless Time.now.to_i < data[1].to_i
+            cookies.delete :_session_token
             return false
         end
+        return @user.present?
+    end
 end

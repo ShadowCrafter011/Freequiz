@@ -1,4 +1,8 @@
 class HomeController < ApplicationController
+  before_action do
+    setup_locale "home"
+  end
+  
   def root
   end
 

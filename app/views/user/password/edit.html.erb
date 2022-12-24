@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center w-100 my-4">
     <div class="text-center">
-        <h1><%= tlg("set_new_password") %></h1>
+        <h1><%= tp("set_new_password") %></h1>
     </div>
 </div>
 
@@ -10,15 +10,15 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-4">
                     <div>
-                        <%= form.label :password, tlg("new_password"), class: "fs-4" %>
+                        <%= form.label :password, tp("new_password"), class: "fs-4" %>
                         <%= form.password_field :password, autofocus: true, class: "form-control" %>
                     </div>
                     <div>
-                        <%= form.label :password_confirmation, tlg("repeat_password"), class: "fs-4" %>
+                        <%= form.label :password_confirmation, tp("repeat_password"), class: "fs-4" %>
                         <%= form.password_field :password_confirmation, class: "form-control" %>
                     </div><br>
                     <div class="text-center">
-                        <%= form.submit value: tlg("change_password"), class: "btn btn-lg btn-primary" %>
+                        <%= form.submit value: tp("change_password"), class: "btn btn-lg btn-primary" %>
                     </div>
                 </div>
             </div>

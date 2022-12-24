@@ -1,0 +1,53 @@
+fr:
+  user:
+    user:
+      show:
+        title: Vue d'ensemble de votre compte
+        column_names:
+          data: Données personnelles
+          quizzes: Quizze
+          groups: Groupes d'apprentissage
+        data:
+          title_1: Données
+          title_2: Statistiques de login
+          unconfirmed_email: Adresse e-mail non confirmée
+          email_verified: Adresse électronique confirmée
+          total_logins: Nombre total de logins
+          last_ip: Dernière adresse IP de login
+          last_at: Dernier login
+        buttons:
+          edit: Modifier
+          confirm: Confirmer l'adresse e-mail
+          delete: Supprimer votre compte
+      new:
+        create_account: Créer un compte Freequiz
+        already_have_account: Tu as déjà un compte?
+        password: Mot de passe
+        repeat_password: Répéter le mot de passe
+        accept_agb: J'accepte les conditions générales
+        submit_create_account: Créer un compte
+        login: Connexion
+        username: Nom d'utilisateur
+        email: Adresse électronique
+        already_has_account: Tu as déjà un compte
+        created: Compte créé avec succès! Bienvenue sur Freequiz %s!
+      edit:
+        title: Modifier les données du compte
+        password_repeat: Répéter le mot de passe
+        old_password: Ancien mot de passe
+        can_empty: Laisser vide pour ne rien changer
+        saved_data: Données enregistrées!
+        new_email: Votre nouvelle adresse e-mail sera utilisée dès que vous aurez cliqué sur le lien qui vous a été envoyé dans votre boîte aux lettres.
+      settings:
+        settings: Réglages
+        save: Enregistrer
+      update_settings:
+        saved: Paramètres enregistrés
+      request_destroy:
+        sure_to_delete: Voulez-vous vraiment supprimer votre compte?
+        cancel: Annuler
+        delete_account: Suppression de compte
+        not_reversible: Si vous supprimez votre compte, vous ne pourrez pas revenir en arrière!
+      destroy:
+        deleted: Compte supprimé. Dommage que vous partiez
+        failed: Quelque chose s'est mal passé. Contactez notre support si cela se reproduit

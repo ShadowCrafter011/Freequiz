@@ -1,12 +1,13 @@
 class User < ApplicationRecord
     has_one :setting, dependent: :destroy
+    has_many :quizzes, dependent: :nullify
+
+    ROLES = ["user", "beta", "admin"]
 
     validates :username, uniqueness: { case_sensitive: false }, format: { with: /\A\w{3,16}\z/ }
     validates :email, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :password, confirmation: true
     validates :agb, acceptance: true
-
-    ROLES = ["user", "beta", "admin"]
 
     before_create do
         self.role = "user"

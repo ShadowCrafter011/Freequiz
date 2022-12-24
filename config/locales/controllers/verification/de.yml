@@ -1,7 +1,0 @@
-de:
-  controllers:
-    verification:
-      general:
-        already_verified: Deine E-Mail Adresse wurde schon bestätigt        
-      send_email:
-        sent: Bestätigungs E-mail wurde geschickt. Sie sollte in wenigen Minuten in ihrem Postfach ankommen. Folgen Sie dann den Anweisungen in der E-mail

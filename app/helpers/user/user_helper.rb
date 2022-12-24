@@ -1,4 +1,12 @@
 module User::UserHelper
+    def language_select
+        language_selections = []
+        for locale in Setting::LOCALES do
+            language_selections.append([tg("languages.#{locale}"), locale])
+        end
+        language_selections
+    end
+
     def create_items hash
         data = ""
         hash.each do |key, value|

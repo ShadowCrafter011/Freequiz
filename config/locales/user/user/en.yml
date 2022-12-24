@@ -1,0 +1,53 @@
+en:
+  user:
+    user:
+      show:
+        title: Overview of your account
+        column_names:
+          data: Personal data
+          quizzes: Quizzes
+          groups: Learning groups
+        data:
+          title_1: Data
+          title_2: Login statistics
+          unconfirmed_email: Unconfirmed e-mail address
+          email_verified: E-mail address confirmed
+          total_logins: Total logins
+          last_ip: Last login IP address
+          last_at: Last login on
+        buttons:
+          edit: Edit
+          confirm: Confirm e-mail address
+          delete: Delete account
+      new:
+        create_account: Create Freequiz account
+        already_have_account: Do you already have an account?
+        password: Password
+        repeat_password: Repeat password
+        accept_agb: I accept the terms and conditions
+        submit_create_account: Create account
+        login: Login
+        username: Username
+        email: E-mail address
+        already_has_account: You already have an account
+        created: Account successfully created! Welcome to Freequiz %s!
+      edit:
+        title: Edit account data
+        password_repeat: Repeat password
+        old_password: Old password
+        can_empty: Leave blank to change nothing
+        saved_data: Data saved!
+        new_email: Your new e-mail address will be used as soon as you click on the link sent to your mailbox.
+      settings:
+        settings: Settings
+        save: Save
+      update_settings:
+        saved: Settings saved
+      request_destroy:
+        sure_to_delete: Do you really want to delete your account?
+        cancel: Cancel
+        delete_account: Account Deletion
+        not_reversible: Account deletion cannot be reversed!
+      destroy:
+        deleted: Account deleted. Sad to see you go
+        failed: Something went wrong. Contact our support if this happens again

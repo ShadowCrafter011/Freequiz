@@ -13,6 +13,10 @@ module Freequiz
 
     config.autoload_paths += %W(#{config.root}/lib)
 
+    Dir[Rails.root.join("app/types/**/*.rb")].sort.each do |path|
+      require path
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
