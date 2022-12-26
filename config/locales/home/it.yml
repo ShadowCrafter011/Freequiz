@@ -1,0 +1,8 @@
+it:
+  home:
+    root:
+      welcome: Benvenuti a Freequiz!
+      login: Accedi
+      infos: Informazioni sul conto
+      create_account: Creare un account
+      logout: Disconnettersi

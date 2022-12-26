@@ -1,0 +1,19 @@
+it:
+  user:
+    verification:
+      pending:
+        already_verified: Il vostro indirizzo e-mail è già stato confermato.
+        sent: È stata inviata un'e-mail di conferma. Dovrebbe arrivare nella vostra casella di posta elettronica in pochi minuti. Seguire quindi le istruzioni contenute nell'e-mail
+        sent_text: Un link è stato inviato al suo indirizzo e-mail
+        click_link: Cliccate sul link contenuto in questa e-mail per confermare il vostro account.
+        expires: Il link scadrà il %s
+        expired: Il link inviato al vostro indirizzo e-mail è scaduto.
+        get_new: È possibile richiederne uno nuovo
+        link: qui
+      success:
+        success: L'indirizzo e-mail è stato confermato con successo
+        can_leave: Ora è possibile lasciare questa pagina
+        expired: Questo link non è più valido
+        here: qui
+        request_new: È possibile richiederne uno nuovo
+        wrong: Qualcosa è andato storto. Sembra che questo link non sia valido.

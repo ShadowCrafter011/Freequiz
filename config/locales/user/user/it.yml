@@ -1,0 +1,53 @@
+it:
+  user:
+    user:
+      show:
+        title: Panoramica del vostro conto
+        column_names:
+          data: Dati personali
+          quizzes: Quizze
+          groups: Gruppi di apprendimento
+        data:
+          title_1: Dati
+          title_2: Statistiche di accesso
+          unconfirmed_email: Indirizzo e-mail non confermato
+          email_verified: Indirizzo e-mail confermato
+          total_logins: Totale accessi
+          last_ip: Indirizzo IP dell'ultimo accesso
+          last_at: Ultimo accesso su
+        buttons:
+          edit: Modifica
+          confirm: Confermare l'indirizzo e-mail
+          delete: Cancellare l'account
+      new:
+        create_account: Creare un account Freequiz
+        already_have_account: Avete già un account?
+        password: Passwort
+        repeat_password: Ripetere la password
+        accept_agb: Accetto i termini e le condizioni
+        submit_create_account: Creare un account
+        login: Accesso
+        username: Nome utente
+        email: Indirizzo e-mail
+        already_has_account: Avete già un account
+        created: Account creato con successo! Benvenuti al Freequiz %s!
+      edit:
+        title: Modifica dei dati del conto
+        password_repeat: Ripetere la password
+        old_password: Vecchia password
+        can_empty: Lasciare vuoto per non modificare nulla
+        saved_data: Dati salvati!
+        new_email: Il vostro nuovo indirizzo e-mail sarà utilizzato non appena avrete cliccato sul link inviato alla vostra casella di posta elettronica.
+      settings:
+        settings: Impostazioni
+        save: Risparmiare
+      update_settings:
+        saved: Impostazioni salvate
+      request_destroy:
+        sure_to_delete: Vuoi davvero cancellare il tuo account?
+        cancel: Annullamento
+        delete_account: Cancellazione del conto
+        not_reversible: La cancellazione dell'account non può essere annullata!
+      destroy:
+        deleted: Account cancellato. Peccato che ve ne andiate
+        failed: Qualcosa è andato storto. Contattare l'assistenza se il problema si ripete

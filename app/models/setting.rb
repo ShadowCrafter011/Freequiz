@@ -2,7 +2,7 @@ class Setting < ApplicationRecord
   belongs_to :user
 
   SETTING_KEYS = [:dark_mode, :show_email]
-  LOCALES = ["de", "fr", "en"]
+  LOCALES = ["de", "fr", "it", "en"]
 
   validates :locale, inclusion: { in: LOCALES }
 

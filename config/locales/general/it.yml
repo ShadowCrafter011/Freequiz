@@ -1,0 +1,28 @@
+it:
+  general:
+    settings:
+      show_email: Mostra l'indirizzo e-mail nel profilo pubblico
+      dark_mode: Modalità scura
+    roles:
+      user: Utente
+      beta: Beta Tester
+      admin: Amministratore
+    languages:
+      de: Tedesco
+      fr: Francese
+      en: Inglese
+      it: Italiano
+    email: Indirizzo e-mail
+    emails: Email
+    username: Nome utente
+    email_or_username: Nome utente o e-mail
+    password: Passwort
+    save: Risparmiare
+    c_yes: Ja
+    c_no: No
+    role: Rotolo
+    login: Accesso
+    language: Lingua
+    create_account: Registro
+    login_required: Per accedere a questo sito è necessario aver effettuato il login
+    password_regex: La password deve essere lunga almeno 8 caratteri, contenere una lettera maiuscola, una lettera minuscola e un numero.
