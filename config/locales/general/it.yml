@@ -12,6 +12,17 @@ it:
       fr: Francese
       en: Inglese
       it: Italiano
+      es: Spagnolo
+      la: Latino
+      el: Greco
+      rm: Romancio
+      ja: Giapponese
+      ko: Coreano
+      zh: Cinese
+    visibilities:
+      public: Pubblico
+      private: Privato
+      hidden: Nascosto
     email: Indirizzo e-mail
     emails: Email
     username: Nome utente

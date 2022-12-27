@@ -8,6 +8,12 @@ en:
         password: ""
         password_confirmation: ""
         agb: ""
+      quiz:
+        title: Title
+        visibility: Visibility
+        description: Description
+        from: Language Words
+        to: Language translation
     errors:
       models:
         user:
@@ -31,3 +37,14 @@ en:
               confirmation: Passwords do not match
             agb:
               accepted: You have to accept our terms and conditions
+        quiz:
+          attributes:
+            title:
+              blank: Must be present
+              too_short: is too short
+              too_long: is too long
+            visibility:
+              inclusion: is not valid
+            description:
+              too_short: is too short
+              too_long: is too long

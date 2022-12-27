@@ -1,0 +1,21 @@
+de:
+  quiz:
+    quiz:
+      new:
+        create_quiz: Quiz erstellen
+        title: Titel
+        title_placeholder: Kurzer Titel (mindestens 5 Zeichen)
+        description: Beschreibung
+        description_placeholder: Längere Beschreibung (mindestens 10 Zeichen)
+        lang_1: Sprache Wörter
+        lang_2: Sprache Übersetzung
+        word: Wort
+        translation: Übersetzung
+        add_translation: Kartei hinzufügen (Enter)
+        delete_translation: Löschen
+        create: Quiz erstellen
+        quiz_created: Quiz wurde erstellt
+        visibility: Sichtbarkeit
+
+      show:
+        not_found: Dieses Quiz existiert nicht oder wurde gelöscht

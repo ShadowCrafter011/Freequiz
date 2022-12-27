@@ -12,6 +12,17 @@ de:
       fr: Französisch
       en: Englisch
       it: Italienisch
+      es: Spanisch
+      la: Latein
+      el: Griechisch
+      rm: Romanisch
+      ja: Japanisch
+      ko: Koreanisch
+      zh: Chinesisch
+    visibilities:
+      public: Öffentlich
+      private: Privat
+      hidden: Versteckt
     email: E-mail Adresse
     emails: E-mail
     username: Benutzername

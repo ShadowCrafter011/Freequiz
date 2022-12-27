@@ -64,6 +64,11 @@
             <div class="account-item-container mx-1">
                 <div class="account-item">
                     <h3><%= tp "column_names.quizzes" %></h3>
+                    <div class="text-start fs-4">
+                        <% for quiz in @user.quizzes do %>
+                            <%= link_to quiz.title, quiz_show_path(quiz.uuid) %><br>
+                        <% end %>
+                    </div>
                 </div>
             </div>
         </div>

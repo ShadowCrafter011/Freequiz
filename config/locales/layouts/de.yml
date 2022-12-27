@@ -3,6 +3,8 @@ de:
     application:
       title: Freequiz - Karteien lernen, gratis für immer
       account: Konto
+      quiz: Quiz
+      create_quiz: Quiz erstellen
       overview: Übersicht
       settings: Einstellungen
       logout: Abmelden

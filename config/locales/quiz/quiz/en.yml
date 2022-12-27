@@ -1,0 +1,20 @@
+en:
+  quiz:
+    quiz:
+      new:
+        create_quiz: Create quiz
+        title: Title
+        title_placeholder: Short title (at least 5 characters)
+        description: Description
+        description_placeholder: Longer description (at least 10 characters)
+        lang_1: Language Words
+        lang_2: Language translation
+        word: Word
+        translation: Translation
+        add_translation: Add card index (Enter)
+        delete_translation: Löschen
+        create: Create quiz
+        quiz_created: Quiz was created
+        visibility: Visibility
+      show:
+        not_found: This quiz does not exist or has been deleted

@@ -8,6 +8,13 @@ de:
         password: ""
         password_confirmation: ""
         agb: ""
+      quiz:
+        title: Titel
+        visibility: Sichtbarkeit
+        description: Beschreibung
+        from: Sprache Wörter
+        to: Sprache Übersetzung
+        data: ""
     errors:
       models:
         user:
@@ -30,5 +37,15 @@ de:
             password_confirmation:
               confirmation: Passwörter stimmen nicht überein
             agb:
-              accepted: Du must unsere Allgemeinen Geschäftsbedingungen akzeptieren
-            
+              accepted: Du must unsere Allgemeinen Geschäftsbedingungen akzeptieren       
+        quiz:
+          attributes:
+            title:
+              blank: muss vorhanden sein
+              too_short: ist zu kurz
+              too_long: ist zu lang
+            visibility:
+              inclusion: ist nicht gültig
+            description:
+              too_short: ist zu kurz
+              too_long: ist zu lang

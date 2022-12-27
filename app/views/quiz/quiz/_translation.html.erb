@@ -1,0 +1,7 @@
+<div class="d-flex justify-content-center pb-2 input-group">
+    <%= form.text_field "data[][w]", class: "form-control", placeholder: tp("word"), value: word %>
+    <%= form.text_field "data[][t]", class: "form-control", placeholder: tp("translation"), value: translation %>
+    <div class="input-group-text">
+        <div class="btn-close delete-translation" role="button" aria-label="Delete"></div>
+    </div>
+</div>

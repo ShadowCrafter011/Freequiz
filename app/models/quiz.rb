@@ -5,29 +5,46 @@ class Quiz < ApplicationRecord
 
   VISIBILITIES = ["public", "private", "hidden"]
 
-  validates :title, presence: true, length: { minimum: 5, maximum: 255 }
-  validates :description, presence: true, length: { minimum: 10, maximum: 30000 }
+  validates :title, length: { minimum: 5, maximum: 255 }
+  validates :description, length: { minimum: 10, maximum: 30000 }
   validates :visibility, inclusion: { in: VISIBILITIES }
 
-  validate :validate_langs
-  validate :translation_length
+  validate :validate_langs, :translation_length
 
   attribute :data, :binary_hash
 
   before_create do
-    self.uuid = SecureRandom.hex(4)
+    self.uuid = SecureRandom.base58(6)
     while Quiz.exists? uuid: self.uuid do
-      self.uuid = SecureRandom.hex(4)
+      self.uuid = SecureRandom.base58(6)
     end
+
+    for translation in self.data do
+      self.data.delete(translation) unless translation[:w].present? || translation[:t].present?
+
+      translation[:w] = "Not defined" unless translation[:w].present?
+      translation[:t] = "Not defined" unless translation[:t].present?
+    end
+  end
+
+  def get_errors
+    errors = []
+    for x in self.errors.objects do
+        errors.append x.full_message
+    end
+    return errors
   end
 
   private
   def validate_langs
-    errors.add(:from, "is not a supported language") unless Language.exists?(self.from)
-    errors.add(:to, "is not a supported language") unless Language.exists?(self.to)
+    errors.add(:from, I18n.t("errors.invalid_lang")) unless Language.exists?(self.from)
+    errors.add(:to, I18n.t("errors.invalid_lang")) unless Language.exists?(self.to)
   end
 
   def translation_length
-    errors.add(:data, "must have at least one translation") unless self.data[:translations].length > 0
+    for translation in self.data do
+      return if translation[:w].present? && translation[:t].present?
+    end
+    errors.add(:data, I18n.t("errors.not_enough_translations"))
   end
 end

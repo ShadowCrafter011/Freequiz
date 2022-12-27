@@ -1,0 +1,20 @@
+fr:
+  quiz:
+    quiz:
+      new:
+        create_quiz: Créer un quiz
+        title: Titre
+        title_placeholder: Titre court (au moins 5 caractères)
+        description: Description
+        description_placeholder: Description plus longue (au moins 10 caractères)
+        lang_1: Langue Mots
+        lang_2: Langue Traduction
+        word: Mot
+        translation: Traduction
+        add_translation: Ajouter une fiche (Enter)
+        delete_translation: Supprimer
+        create: Créer un quiz
+        quiz_created: Le quiz a été créé
+        visibility: Visibilité
+      show:
+        not_found: Ce quiz n'existe pas ou a été supprimé
