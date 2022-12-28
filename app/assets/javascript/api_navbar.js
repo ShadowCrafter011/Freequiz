@@ -10,19 +10,24 @@ if (section != null) {
     window.scrollTo(0, section.offsetTop);
 }
     
-for (let item of document.getElementsByClassName("link")) {
-    item.addEventListener("click", e => {
-        location.href = item.getAttribute("href");
-        
-        if (anchorElement != e.target) {
-            for (let removeActive of document.getElementsByClassName("active")) {
-                removeActive.classList.remove("active");
-            }
+add_click_listeners();
+document.addEventListener("turbo:load", add_click_listeners);
 
-            anchorElement = e.target;
-            e.target.classList.add("active");
-        }
-    });
+function add_click_listeners() {
+    for (let item of document.getElementsByClassName("link")) {
+        item.addEventListener("click", e => {
+            location.href = item.getAttribute("href");
+            
+            if (anchorElement != e.target) {
+                for (let removeActive of document.getElementsByClassName("active")) {
+                    removeActive.classList.remove("active");
+                }
+
+                anchorElement = e.target;
+                e.target.classList.add("active");
+            }
+        });
+    }
 }
 
 // document.addEventListener("scroll", () => {
