@@ -3,6 +3,8 @@ class Api::UserController < ApplicationController
 
   protect_from_forgery with: :null_session
   before_action :api_require_valid_bearer_token!
+  skip_before_action :setup_login
+  skip_around_action :switch_locale
 
   def create
     # json parameters like this:
@@ -63,8 +65,8 @@ class Api::UserController < ApplicationController
     return unless api_require_valid_access_token!
 
     token = SecureRandom.hex(32)
-    @user.update(destroy_token: token, destroy_expire: 1.day.from_now)
-    @user.encrypt_value :destroy_token
+    @api_user.update(destroy_token: token, destroy_expire: 1.day.from_now)
+    @api_user.encrypt_value :destroy_token
 
     json({success: true, token: token, expire: 1.day.from_now.to_i})
   end
@@ -74,8 +76,8 @@ class Api::UserController < ApplicationController
 
     token = params[:destroy_token]
 
-    if @user.compare_encrypted(:destroy_token, token) && @user.destroy_expire > Time.now
-      @user.destroy
+    if @api_user.compare_encrypted(:destroy_token, token) && @api_user.destroy_expire > Time.now
+      @api_user.destroy
       json({success: true, message: "User deleted"})
     else
       json({success: false, message: "Couldn't delete user. Wrong token"}, code: :unauthorized)
@@ -102,7 +104,7 @@ class Api::UserController < ApplicationController
       end
     end
 
-    email_changed, errors = @user.change edit_params
+    email_changed, errors = @api_user.change edit_params
 
     return json({success: false, message: "Something went wrong whilst updating the user", errors: errors}, code: :bad_request) if errors.length > 0
     
@@ -120,10 +122,10 @@ class Api::UserController < ApplicationController
 
     return unless api_require_valid_access_token!
 
-    if @user.setting.update(setting_params)
+    if @api_user.setting.update(setting_params)
       json({success: true, message: "Settings updated"})
     else
-      json({success: false, message: "Something went wrong whilst saving the settings", errors: @user.setting.get_errors}, code: :bad_request)
+      json({success: false, message: "Something went wrong whilst saving the settings", errors: @api_user.setting.get_errors}, code: :bad_request)
     end
   end
 
@@ -132,7 +134,7 @@ class Api::UserController < ApplicationController
 
     @settings = {}
     for key in Setting::SETTING_KEYS do
-      @settings[key] = @user.setting[key]
+      @settings[key] = @api_user.setting[key]
     end
   end
 

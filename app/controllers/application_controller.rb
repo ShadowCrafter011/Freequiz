@@ -43,11 +43,11 @@ class ApplicationController < ActionController::Base
     end
 
     def setup_login
-        @logged_in = login
+        login
     end
 
     def logged_in?
-        @logged_in
+        @user.present?
     end
     helper_method :logged_in?
 

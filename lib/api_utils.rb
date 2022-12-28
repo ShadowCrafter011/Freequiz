@@ -15,7 +15,7 @@ module ApiUtils
             decoded = JWT.decode(token, Rails.application.secret_key_base).first.to_options
             
             if decoded[:expire] > Time.now.to_i
-                return (@user = User.find(decoded[:user_id]))
+                return (@api_user = User.find(decoded[:user_id]))
             end
 
             return nil

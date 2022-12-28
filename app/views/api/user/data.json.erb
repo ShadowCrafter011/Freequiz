@@ -1,23 +1,23 @@
 {
     "success": true,
     "data": {
-        "username": "<%= @user.username %>",
-        "email": "<%= @user.email %>",
-        "unconfirmed_email": "<%= @user.unconfirmed_email %>",
-        "role": "<%= @user.role %>",
-        "created_at": "<%= @user.created_at.to_i %>",
-        "updated_at": "<%= @user.updated_at.to_i %>",
+        "username": "<%= @api_user.username %>",
+        "email": "<%= @api_user.email %>",
+        "unconfirmed_email": "<%= @api_user.unconfirmed_email %>",
+        "role": "<%= @api_user.role %>",
+        "created_at": "<%= @api_user.created_at.to_i %>",
+        "updated_at": "<%= @api_user.updated_at.to_i %>",
         "settings": <%= @settings.to_json.html_safe %>,
         "confirmation": {
-            "confirmed": "<%= @user.confirmed %>",
-            "confirmed_at": "<%= @user.confirmed_at %>"
+            "confirmed": "<%= @api_user.confirmed %>",
+            "confirmed_at": "<%= @api_user.confirmed_at %>"
         },
         "logins": {
-            "count": "<%= @user.sign_in_count %>",
-            "current_login_at": "<%= @user.current_sign_in_at.to_i %>",
-            "current_login_ip": "<%= @user.current_sign_in_ip %>",
-            "last_login_at": "<%= @user.last_sign_in_at.to_i %>",
-            "last_login_ip": "<%= @user.last_sign_in_ip %>"
+            "count": "<%= @api_user.sign_in_count %>",
+            "current_login_at": "<%= @api_user.current_sign_in_at.to_i %>",
+            "current_login_ip": "<%= @api_user.current_sign_in_ip %>",
+            "last_login_at": "<%= @api_user.last_sign_in_at.to_i %>",
+            "last_login_ip": "<%= @api_user.last_sign_in_ip %>"
         }
     }
 }
