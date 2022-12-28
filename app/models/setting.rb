@@ -9,6 +9,7 @@ class Setting < ApplicationRecord
   before_create do
     self.dark_mode = false
     self.show_email = true
+    self.locale = "de"
   end
 
   def get_errors
