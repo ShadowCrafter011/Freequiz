@@ -13,7 +13,7 @@ class Quiz::QuizController < ApplicationController
     @quiz = current_user.quizzes.new(quiz_params)
     if @quiz.save
       gn s: tp("quiz_created")
-      redirect_to quiz_show_path(@quiz.uuid)
+      redirect_to quiz_show_path(@quiz)
     else
       gn a: @quiz.get_errors
       render :new, status: :unprocessable_entity
@@ -21,7 +21,7 @@ class Quiz::QuizController < ApplicationController
   end
 
   def show
-    @quiz = Quiz.find_by(uuid: params[:uuid])
+    @quiz = Quiz.find(params[:id])
     
     unless @quiz.present?
       gn n: tp("not_found")

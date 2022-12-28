@@ -14,9 +14,9 @@ class Quiz < ApplicationRecord
   attribute :data, :binary_hash
 
   before_create do
-    self.uuid = SecureRandom.base58(6)
-    while Quiz.exists? uuid: self.uuid do
-      self.uuid = SecureRandom.base58(6)
+    self.id = SecureRandom.base58(6)
+    while Quiz.exists? self.id do
+      self.id = SecureRandom.base58(6)
     end
 
     for translation in self.data do
