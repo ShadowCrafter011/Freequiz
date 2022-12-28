@@ -1,7 +1,12 @@
-const deleteTrigger = document.getElementById("deleteToastBtn");
-const toastDiv = document.getElementById("deleteToast");
+setup_delete_toast();
+document.addEventListener("turbo:load", setup_delete_toast);
 
-deleteTrigger.addEventListener("click", () => {
-    const toast = new bootstrap.Toast(toastDiv);
-    toast.show();
-});
+function setup_delete_toast() {
+    const deleteTrigger = document.getElementById("deleteToastBtn");
+    const toastDiv = document.getElementById("deleteToast");
+
+    deleteTrigger.addEventListener("click", () => {
+        const toast = new bootstrap.Toast(toastDiv);
+        toast.show();
+    });
+}

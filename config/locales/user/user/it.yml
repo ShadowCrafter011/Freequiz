@@ -48,6 +48,7 @@ it:
         cancel: Annullamento
         delete_account: Cancellazione del conto
         not_reversible: La cancellazione dell'account non può essere annullata!
+        delete: Cancellare
       destroy:
         deleted: Account cancellato. Peccato che ve ne andiate
         failed: Qualcosa è andato storto. Contattare l'assistenza se il problema si ripete

@@ -17,5 +17,18 @@ de:
         quiz_created: Quiz wurde erstellt
         visibility: Sichtbarkeit
 
+        save: Speichern
+        title_edit: Quiz bearbeiten
+        saved: Änderungen gespeichert
+
       show:
         not_found: Dieses Quiz existiert nicht oder wurde gelöscht
+        edit: Bearbeiten
+        delete: Löschen
+        cancel: Abbrechen
+        sure_to_delete: Wenn Sie dieses Quiz löschen kann dies nicht mehr rückgängig gemacht werden
+
+      destroy:
+        not_found: Dieses Quiz existiert nicht
+        not_allowed: Sie dürfen dies nicht tun
+        deleted: Quiz wurde gelöscht

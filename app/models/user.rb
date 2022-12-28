@@ -20,16 +20,16 @@ class User < ApplicationRecord
         send_verification_email save: false
     end
 
+    after_create do
+        self.create_setting
+    end
+
     def admin?
         self.role == "admin"
     end
 
     def beta?
         self.role == "beta"
-    end
-
-    after_create do
-        self.create_setting
     end
 
     def change params

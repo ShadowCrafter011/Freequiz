@@ -18,5 +18,5 @@ class Setting < ApplicationRecord
         errors.append x.full_message
     end
     return errors
-end
+  end
 end
