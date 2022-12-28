@@ -1,0 +1,26 @@
+<%= render layout: "api_navbar" do %>
+    <div id="bearer" class="section">
+        <h1>Invalid Bearer token</h1>
+        <h3>Response</h3>
+        Status code: 401<br>
+        <pre>
+{
+    "success": false,
+    "message": "Invalid bearer token"
+}
+        </pre>
+    </div>
+    <hr>
+
+    <div id="access_token" class="section">
+        <h1>Invalid Access token</h1>
+        <h3>Response</h3>
+        Status code: 401
+        <pre>
+{
+    "success": false,
+    "message": "Access token is invalid"
+}
+        </pre>
+    </div>
+<% end %>

@@ -5,7 +5,7 @@ module ApiUtils
     end
 
     def api_require_valid_access_token!
-        json({success: false, message: "Access token is invalid"}, code: 401) unless valid_access_token?
+        json({success: false, message: "Access token is invalid"}, code: :unauthorized) unless valid_access_token?
         return valid_access_token?
     end
 

@@ -1,3 +1,12 @@
 <%= render layout: "api_navbar" do %>
-  Base path: <a href="https://freequiz.herokuapp.com/api/v1">https://freequiz.herokuapp.com/api/v1</a>
+  <div id="path" class="section">
+    <h1>Base path</h1>
+    <a href="https://freequiz.herokuapp.com/api/v1">https://freequiz.herokuapp.com/api/v1</a>
+  </div>
+  <hr>
+
+  <div class="content_type" class="section">
+    <h1>Content type</h1>
+    Content-Type is application/json unless specified otherwise
+  </div>
 <% end %>

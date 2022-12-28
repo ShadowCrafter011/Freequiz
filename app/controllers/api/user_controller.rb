@@ -33,7 +33,7 @@ class Api::UserController < ApplicationController
         success: false,
         message: "Something went wrong whilst creating the user",
         errors: user.get_errors
-      })
+      }, code: 400)
     end
   end
 
@@ -55,8 +55,7 @@ class Api::UserController < ApplicationController
   end
 
   def refresh_token
-    return json({success: false, message: "Invalid access token"}, code: 401) unless valid_access_token?
-
+    return unless api_require_valid_access_token!
     json({success: true, access_token: refresh_access_token})
   end
 
@@ -99,7 +98,7 @@ class Api::UserController < ApplicationController
 
     if edit_params[:password].present?
       unless edit_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
-        return json({success: false, message: "Password doesn't meet requirements"})
+        return json({success: false, message: "Password doesn't meet requirements"}, code: 400)
       end
     end
 
@@ -124,7 +123,7 @@ class Api::UserController < ApplicationController
     if @user.setting.update(setting_params)
       json({success: true, message: "Settings updated"})
     else
-      json({success: false, message: "Something went wrong whilst saving the settings", errors: @user.setting.get_errors})
+      json({success: false, message: "Something went wrong whilst saving the settings", errors: @user.setting.get_errors}, code: :bad_request)
     end
   end
 

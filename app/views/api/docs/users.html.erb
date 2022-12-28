@@ -9,7 +9,6 @@
         </p>
         <p>
             <h3>Content</h3>
-            Content-type: application/json<br>
             <pre>
 {
     "username": "username",
@@ -22,6 +21,7 @@
         </p>
         <p>
             <h3>Response</h3>
+            Status code: 201
             <pre>
 {
     "success": true,
@@ -29,6 +29,14 @@
     "access_token": "access_token"
 }
             </pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            <ul>
+                <li><strong>Missing fields</strong>: Code 400, "Missing username, email, password, password_confirmation or agb"</li>
+                <li><strong>Password requirements</strong>: Code 400, "Password doesn't meet requirements"</li>
+                <li><strong>User couldn't be saved</strong>: Code 400, "Something went wrong whilst creating the user", more info in "errors"</li>
+            </ul>
         </p>
     </div>
     <hr>
@@ -59,6 +67,10 @@
 }
             </pre>
         </p>
+        <p>
+            <h3>Errors</h3>
+            No errors (<%= link_to "general errors", api_docs_general_errors_path, data: {turbo: false} %> apply)
+        </p>
     </div>
     <hr>
 
@@ -83,6 +95,12 @@
     "message": "User deleted"
 }
             </pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            <ul>
+                <li><strong>Wrong token</strong>: Code 401, "Couldn't delete user. Wrong token", token is either invalid or expired</li>
+            </ul>
         </p>
     </div>
     <hr>
@@ -112,6 +130,14 @@
     "access_token": "access_token"
 }
             </pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            <ul>
+                <li><strong>Missing fields</strong>: Code 400, "Missing username or password"</li>
+                <li><strong>User not found</strong>: Code 404, "User doesn't exist"</li>
+                <li><strong>Wrong password</strong>: Code 401, "Wrong password"</li>
+            </ul>
         </p>
         <p>
             <h3>Expiration</h3>
@@ -144,6 +170,10 @@
     "access_token": "access_token"
 }
             </pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            No errors (<%= link_to "general errors", api_docs_general_errors_path, data: {turbo: false} %> apply)
         </p>
     </div>
     <hr>
@@ -195,6 +225,10 @@
 }
             </pre>
         </p>
+        <p>
+            <h3>Errors</h3>
+            No errors (<%= link_to "general errors", api_docs_general_errors_path, data: {turbo: false} %> apply)
+        </p>
     </div>
     <hr>
 
@@ -235,6 +269,13 @@
 }
             </pre>
         </p>
+        <p>
+            <h3>Errors</h3>
+            <ul>
+                <li><strong>Password requirements</strong>: Code 400, "Password doesn't meet requirements"</li>
+                <li><strong>User couldn't be saved</strong>: Code 400, "Something went wrong whilst updating the user", more info in "errors"</li>
+            </ul>
+        </p>
     </div>
     <hr>
 
@@ -270,6 +311,12 @@
     "message": "Settings updated"
 }
             </pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            <ul>
+                <li><strong>Settings couldn't be saved</strong>: Code 400, "Something went wrong whilst saving the settings", more info in "errors"</li>
+            </ul>
         </p>
     </div>
 <% end %>

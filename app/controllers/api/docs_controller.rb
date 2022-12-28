@@ -4,4 +4,5 @@ class Api::DocsController < ApplicationController
   def index; end
   def users; end
   def authentication; end
+  def general_errors; end
 end

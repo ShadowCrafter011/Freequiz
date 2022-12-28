@@ -22,6 +22,8 @@
 
         <%= link_to "Authentication", api_docs_authentication_path, class: "list-group-item list-group-item-action #{activate_tab?(:authentication)}", data: {turbo: false} %>
 
+        <%= link_to "General errors", api_docs_general_errors_path, class: "list-group-item list-group-item-action #{activate_tab?(:general_errors)}", data: {turbo: false} %>
+
         <div class="list-group-item list-group-item-action" role="button" <%= collapse_tab?(:users) %>>
           <div class="dropdown-toggle">Users</div>
           <div id="users" class="collapse list-group list-group-flush mt-2 <%= show_tab?(:users) %>">
