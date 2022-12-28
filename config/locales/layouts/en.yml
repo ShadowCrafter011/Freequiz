@@ -3,6 +3,8 @@ en:
     application:
       title: Freequiz - Learn flashcards, free forever
       account: Account
+      quiz: Quiz
+      create_quiz: Create quiz
       overview: Overview
       settings: Settings
       logout: Logout

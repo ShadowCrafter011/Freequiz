@@ -3,6 +3,8 @@ fr:
     application:
       title: Freequiz - Apprendre des fiches, gratuitement pour toujours
       account: Compte
+      quiz: Quiz
+      create_quiz: Créer un quiz
       overview: Détails du compte
       settings: Réglages
       logout: Logout

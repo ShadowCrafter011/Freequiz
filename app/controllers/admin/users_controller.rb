@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
     before_action :require_admin!
 
     def index
-        return (@users = User.order(:username)) unless params.key? :commit
+        return (@users = User.order(created_at: :desc)) unless params.key? :commit
 
         if params[:query].present?
             property = params[:property] == "username" ? "username" : "email"

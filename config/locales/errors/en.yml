@@ -2,9 +2,14 @@ en:
   errors:
     old_password_no_match: Old password is wrong
     missing_password_fields: You have to confirm your new password and enter your old password.
+
+    invalid_lang: Language is not valid
+    not_enough_translations: Quiz must have at least one word with translation
+
     beta_wall:
       only_beta: Only beta testers are allowed here
       send_email: If you would be interested in becoming a beta tester, please send me an <a href="mailto:lkoe@bluewin.ch">email</a>.
+    
     not_allowed:
       title: We're sorry, but you can't go here.
       return: Back to the

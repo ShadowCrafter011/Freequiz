@@ -31,15 +31,8 @@ class ApplicationController < ActionController::Base
     end
 
     def override_action action
-        @locale[:path] += action
+        @locale[:path] += action.to_s
         @locale[:action_override] = true
-    end
-
-    def override_locale locale
-        @locale = {
-            path: locale,
-            action_override: true
-        }
     end
 
     def setup_login

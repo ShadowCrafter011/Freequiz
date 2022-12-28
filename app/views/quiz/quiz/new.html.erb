@@ -1,12 +1,87 @@
-<div class="container">
+<%= content_for :js, "create_quiz" %>
+
+<style>
+    @media (max-width: 991px) {
+        .top-md {
+            padding-top: 20px;
+        }
+    }
+</style>
+
+<div class="container mb-5">
     <div class="text-center my-4">
-        <h1>Quiz erstellen</h1>
+        <h1><%= tp("create_quiz") %></h1>
     </div>
     <div class="form-group">
-        <div class="d-flex justify-content-center">
-            <%= form_with url: quiz_create_path, model: @quiz do |form| %>
-                <%= form.label :title, "Titel", class: "fs-4" %>
-            <% end %>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+                <%= form_with url: quiz_create_path, model: @quiz do |form| %>
+
+                    <div id="template" class="d-none">
+                        <%= render partial: "translation", locals: { form: form, word: "", translation: "" } %>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="input-group">
+                                <%= form.label :title, tp("title"), class: "fs-4 input-group-text justify-content-center", style: "width: 200px" %>
+                                <%= form.text_field :title, class: "form-control fs-5", placeholder: tp("title_placeholder"), autofocus: true %>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 top-md">
+                            <div class="input-group">
+                                <%= form.label :visibility, tp("visibility"), class: "fs-4 input-group-text justify-content-center" %>
+
+                                <% 
+                                    visibilities = []
+                                    for visibility in Quiz::VISIBILITIES do
+                                        visibilities.append [tg("visibilities.#{visibility}"), visibility]
+                                    end
+                                %>
+
+                                <%= form.select :visibility, visibilities, {}, { class: "form-select fs-5", tabindex: -1 } %>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <%= form.label :description, tp("description"), class: "fs-4 input-group-text justify-content-center", style: "width: 200px" %>
+                        <%= form.text_area :description, class: "form-control fs-5", rows: 2, placeholder: tp("description_placeholder") %>
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div class="w-50 input-group pe-1">
+                            <%= form.label :from, tp("lang_1"), class: "fs-6 input-group-text" %>
+                            <%= form.select :from, Language.selection, {}, { class: "form-select", tabindex: -1 } %>
+                        </div>
+                        <div class="w-50 input-group ps-1">
+                            <%= form.label :to, tp("lang_2"), class: "fs-6 input-group-text" %>
+                            <%= form.select :to, Language.selection, {}, { class: "form-select", tabindex: -1 } %>
+                        </div>
+                    </div>
+                    <br>
+                    
+                    <div id="translations">
+                        <% if @quiz.data.length == 0 %>
+                            <% 4.times do %>
+                                <%= render partial: "translation", locals: { form: form, word: "", translation: "" } %>
+                            <% end %>
+                        <% else %>
+                            <% for translation_pair in @quiz.data do  %>
+                                <% word = translation_pair[:w]; translation = translation_pair[:t] %>
+                                <%= render partial: "translation", locals: { form: form, word: word, translation: translation } %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                    <div>
+                        <div class="btn btn-primary w-100" role="button" onclick="add_translation()"><%= tp("add_translation") %></div>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <%= form.submit value: tp("create"), class: "btn btn-success btn-lg" %>
+                    </div>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>

@@ -2,6 +2,10 @@ fr:
   errors:
     old_password_no_match: L'ancien mot de passe est incorrect
     missing_password_fields: Vous devez confirmer votre nouveau mot de passe et entrer votre ancien mot de passe.
+
+    invalid_lang: La langue n'est pas valide
+    not_enough_translations: Le quiz doit comporter au moins un mot avec une tranduction.
+
     beta_wall:
       only_beta: Seuls les bêta-testeurs sont autorisés à venir ici.
       send_email: Si tu veux devenir un bêta testeur, envoie-moi un <a href="mailto:lkoe@bluewin.ch">e-mail</a>.

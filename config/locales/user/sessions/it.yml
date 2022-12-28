@@ -1,0 +1,16 @@
+it:
+  user:
+    sessions:
+      new:
+        already_logged_in: Siete già registrati
+        login_page: Registrazione
+        no_account: Non hai ancora un account?
+        forgot_password: Password dimenticata?
+        reset: Reset
+        remember: Salva la password
+        login: Einloggen
+        wrong_username: Il nome utente/indirizzo e-mail non sembra essere corretto
+        wrong_password: La password non corrisponde all'account specificato
+        success: Accesso riuscito! Bentornato %s!
+      destroy:
+        success: Cancellazione avvenuta con successo!

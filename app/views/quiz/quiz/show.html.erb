@@ -1,2 +1,24 @@
-<h1>Quiz::Quiz#show</h1>
-<p>Find me in app/views/quiz/quiz/show.html.erb</p>
+<div class="container">
+    <div class="text-center my-4">
+        <h1><%= @quiz.title %></h1>
+        <h4><%= @quiz.description %></h4>
+
+        <ul id="translations" class="list-group list-group-horizontal fs-5">
+            <li class="list-group-item w-50 p-0">
+                <ul class="list-group list-group-flush">
+                    <% for translation in @quiz.data do %>
+                        <li class="list-group-item"><%= translation[:w] %></li>
+                    <% end %>
+                </ul>
+            </li>
+
+            <li class="list-group-item w-50 p-0">
+                <ul class="list-group list-group-flush">
+                    <% for translation in @quiz.data do %>
+                        <li class="list-group-item"><%= translation[:t] %></li>
+                    <% end %>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

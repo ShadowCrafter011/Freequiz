@@ -1,0 +1,13 @@
+it:
+  layouts:
+    application:
+      title: Freequiz - Impara le flashcard, gratis per sempre
+      account: Conto
+      quiz: Quiz
+      create_quiz: Crea quiz
+      overview: Panoramica
+      settings: Impostazioni
+      logout: Disconnettersi
+      login: Accedi
+      create: Creare un account
+      reset_pw: Reimpostare la password

@@ -1,0 +1,50 @@
+it:
+  activerecord:
+    attributes:
+      user:
+        email: Indirizzo e-mail
+        unconfirmed_email: Indirizzo e-mail
+        username: Nome utente
+        password: ""
+        password_confirmation: ""
+        agb: ""
+      quiz:
+        title: Titolo
+        visibility: Visibilità
+        description: Descrizione
+        from: Parole in lingua
+        to: Traduzione linguistica
+    errors:
+      models:
+        user:
+          attributes:
+            username:
+              blank: deve essere specificato
+              invalid: può essere lungo da 3 a 16 caratteri e può essere composto solo da lettere, numeri e trattini bassi.
+              taken: È già utilizzato da un altro account
+            email:
+              blank: deve essere specificato
+              invalid: non è valido
+              taken: è già utilizzato da un altro utente
+            unconfirmed_email:
+              invalid: non è valido
+              taken: è già utilizzato da un altro utente
+            password:
+              blank: È necessario inserire la password
+              confirmation: Le password non corrispondono
+              invalid: La password deve essere lunga almeno 8 caratteri, contenere una lettera maiuscola, una lettera minuscola e un numero.
+            password_confirmation:
+              confirmation: Le password non corrispondono
+            agb:
+              accepted: Dovete accettare i nostri termini e condizioni generali
+        quiz:
+          attributes:
+            title:
+              blank: Deve essere presente
+              too_short: è troppo corto
+              too_long: è troppo lungo
+            visibility:
+              inclusion: non è valido
+            description:
+              too_short: è troppo corto
+              too_long: è troppo lungo

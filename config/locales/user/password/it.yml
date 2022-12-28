@@ -1,0 +1,18 @@
+it:
+  user:
+    password:
+      reset:
+        reset_password: Reimpostare la password
+        not_forgotten: Non avete dimenticato la password?
+        username: Nome utente o e-mail
+        send_email: E-mail schicken
+        wrong_username: Il nome utente/indirizzo e-mail non sembra essere corretto
+        sent_email: L'e-mail è stata inviata. Controllare la casella di posta elettronica
+      edit:
+        set_new_password: Definire una nuova password
+        new_password: Nuova password
+        repeat_password: Ripetere la password
+        change_password: Modifica della password
+        link_expired: Questo link è scaduto. Richiedetene uno nuovo qui
+        invalid_link: Questo link non è valido. Richiedetene uno nuovo qui
+        changed_password: La password è stata modificata ed è stato effettuato il login automatico
