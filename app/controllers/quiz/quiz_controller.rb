@@ -21,7 +21,7 @@ class Quiz::QuizController < ApplicationController
   end
 
   def show
-    @quiz = Quiz.find(params[:id])
+    @quiz = Quiz.find_by(id: params[:id])
     
     unless @quiz.present?
       gn n: tp("not_found")
