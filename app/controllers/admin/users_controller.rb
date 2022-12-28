@@ -24,14 +24,14 @@ class Admin::UsersController < ApplicationController
     end
 
     def edit
-        @user = User.find_by(username: params[:username])
+        @user_target = User.find_by(username: params[:username])
     end
 
     def destroy_token
-        @user = User.find_by(username: params[:username])
+        @user_target = User.find_by(username: params[:username])
         @token = SecureRandom.hex(32)
-        @user.update(destroy_token: @token, destroy_expire: 1.days.from_now)
-        @user.encrypt_value :destroy_token
+        @user_target.update(destroy_token: @token, destroy_expire: 1.days.from_now)
+        @user_target.encrypt_value :destroy_token
     end
 
     def destroy

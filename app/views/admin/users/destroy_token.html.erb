@@ -10,7 +10,7 @@
         <div class="row">
             <% 3.times do %>
                 <div class="col-4">
-                    <%= render partial: "delete_button", locals: {user: @user, token: @token} %>
+                    <%= render partial: "delete_button", locals: {user: @user_target, token: @token} %>
                 </div>
             <% end %>
         </div>
