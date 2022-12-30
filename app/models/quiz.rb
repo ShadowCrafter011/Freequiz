@@ -1,7 +1,7 @@
 class Quiz < ApplicationRecord
   # Quizzes can store up to 5000 translations with 255 characters each
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
   VISIBILITIES = ["public", "private", "hidden"]
 
