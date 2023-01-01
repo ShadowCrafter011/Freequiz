@@ -90,6 +90,7 @@
             <li class="nav-item dropdown d-flex align-items-center">
               <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"><%= t("layouts.application.quiz") %></a>
               <ul class="dropdown-menu">
+                <li><%= link_to t("layouts.application.my_quizzes"), user_quizzes_path, class: "dropdown-item" %></li>
                 <li><%= link_to t("layouts.application.create_quiz"), quiz_create_path, class: "dropdown-item" %></li>
               </ul>
             </li>

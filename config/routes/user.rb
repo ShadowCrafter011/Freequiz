@@ -3,6 +3,8 @@ scope :account do
     get "edit", to: "user/user#edit", as: "user_edit"
     patch "edit", to: "user/user#update"
 
+    get "quizzes", to: "user/user#quizzes", as: "user_quizzes"
+
     get "settings", to: "user/user#settings", as: "user_settings"
     patch "settings", to: "user/user#update_settings"
 

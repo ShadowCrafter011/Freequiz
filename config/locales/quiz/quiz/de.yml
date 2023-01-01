@@ -20,6 +20,7 @@ de:
         save: Speichern
         title_edit: Quiz bearbeiten
         saved: Änderungen gespeichert
+        cancel: Abbrechen
 
       show:
         not_found: Dieses Quiz existiert nicht oder wurde gelöscht
