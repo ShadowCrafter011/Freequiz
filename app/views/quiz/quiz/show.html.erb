@@ -1,5 +1,12 @@
-<% if @user == @quiz.user %>
-    <%= content_for :js, "delete_toast" %>
+<%= content_for :js do %>
+    <%= javascript_include_tag "truncate_show_more", defer: "defer" %>
+    <% if current_user == @quiz.user %>
+        <%= javascript_include_tag "delete_toast", defer: "defer" %>
+    <% end %>
+<% end %>
+
+<% if current_user == @quiz.user %>
+    
 
     <style>
         @media (min-width: 900px) {
@@ -12,6 +19,11 @@
             #deleteToast {
                 flex: 0 0 70vw;
             }
+        }
+
+        .show_controls {
+            cursor: pointer;
+            text-decoration: underline;
         }
     </style>
 
@@ -33,7 +45,21 @@
 <div class="container">
     <div class="text-center my-4">
         <h1><%= @quiz.title %></h1>
-        <h4><%= @quiz.description %></h4>
+        <h4 id="description" class="text-truncate"><%= @quiz.description %></h4>
+        <div id="description_show_more" class="text-center show_controls" style="display: block;">
+            <text onclick="toggle_truncate('description')"><%= tg("show_more") %></text>
+        </div>
+        <div id="description_show_less" class="text-center show_controls" style="display: none;">
+            <text onclick="toggle_truncate('description')"><%= tg("show_less") %></text>
+        </div>
+
+        <script>
+            document.querySelectorAll(".text-truncate").forEach(text => {
+                if (text.offsetWidth >= text.scrollWidth) {
+                    document.querySelector(`#${text.id}_show_more`).style.display = "none";
+                }
+            });
+        </script>
         
         <% if @user == @quiz.user %>
             <p>

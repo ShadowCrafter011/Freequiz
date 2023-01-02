@@ -1,4 +1,6 @@
-<%= content_for :js, "delete_toast" %>
+<%= content_for :js do %>
+    <%= javascript_include_tag "delete_toast", defer: "defer" %>
+<% end %>
 
 <div class="position-fixed w-100 d-flex justify-content-center pe-none sticky-top" style="margin-top: 20px;" z-index="2000">
     <div id="deleteToast" class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">

@@ -1,10 +1,3 @@
-add_click_listeners();
-document.addEventListener("turbo:load", add_click_listeners);
-
-function add_click_listeners() {
-    document.querySelectorAll(".card").forEach(card => {
-        card.addEventListener("click", () => {
-            location.href = card.dataset.href;
-        });
-    });
-}
+$(document).on("click", "div[id='admin_user_cards'] div[class='card']", function(event) {
+    Turbo.visit($(this).attr("href"));
+});

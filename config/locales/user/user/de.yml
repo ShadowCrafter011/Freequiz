@@ -58,3 +58,8 @@ de:
       destroy:
         deleted: Konto gelöscht. Schade, dass Sie gehen
         failed: Etwas ist schief geloffen. Kontaktieren Sie unseren Support wenn dies nochmal passiert
+
+      quizzes:
+        my_quizzes: Meine Quizze
+        description: Beschreibung
+        translation_amount: Anzahl Übersetzungen

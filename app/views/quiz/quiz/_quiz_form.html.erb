@@ -1,4 +1,6 @@
-<%= content_for :js, "create_quiz" %>
+<%= content_for :js do %>
+    <%= javascript_include_tag "create_quiz", defer: "defer" %>
+<% end %>
 
 <style>
     @media (max-width: 991px) {
