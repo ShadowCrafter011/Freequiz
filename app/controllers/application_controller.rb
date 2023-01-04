@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
         else
             locale = logged_in? ? @user.setting.locale.to_sym : I18n.default_locale
             I18n.with_locale(locale, &action)
-            cookies[:locale] = { value: locale, expires: 1.day.from_now }
+            cookies[:locale] = locale
         end
     end
     
