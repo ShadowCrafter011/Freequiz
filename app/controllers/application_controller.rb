@@ -23,8 +23,8 @@ class ApplicationController < ActionController::Base
     end
     helper_method :tp
 
-    def tg attribute
-        t "general.#{attribute}"
+    def tg pre="", attribute
+        t "general.#{pre}#{pre.present? ? "." : ""}#{attribute}"
     end
     helper_method :tg
 

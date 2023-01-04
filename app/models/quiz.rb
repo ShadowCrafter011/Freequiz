@@ -5,8 +5,8 @@ class Quiz < ApplicationRecord
 
   VISIBILITIES = ["public", "private", "hidden"]
 
-  validates :title, length: { minimum: 5, maximum: 255 }
-  validates :description, length: { minimum: 10, maximum: 30000 }
+  validates :title, length: { minimum: 3, maximum: 255 }
+  validates :description, length: { minimum: 5, maximum: 30000 }
   validates :visibility, inclusion: { in: VISIBILITIES }
 
   validate :validate_langs, :translation_length
@@ -20,9 +20,11 @@ class Quiz < ApplicationRecord
   end
 
   before_create do
-    self.id = SecureRandom.base58(6)
+    id_char_num = 5
+    self.id = SecureRandom.base58(id_char_num)
     while Quiz.exists? self.id do
-      self.id = SecureRandom.base58(6)
+      id_char_num += 1
+      self.id = SecureRandom.base58(id_char_num)
     end
 
     for translation in self.data do

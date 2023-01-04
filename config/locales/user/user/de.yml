@@ -63,3 +63,13 @@ de:
         my_quizzes: Meine Quizze
         description: Beschreibung
         translation_amount: Anzahl Übersetzungen
+        visibility: Sichtbarkeit
+        type_title: Titel eintippen
+        search: Suchen
+        sort: Sortieren
+
+        sort_options:
+          first_created: Älteste
+          last_created: Neuste
+          most_translations: Meiste Übersetzungen
+          least_translations: Wenigste Übersetzungen

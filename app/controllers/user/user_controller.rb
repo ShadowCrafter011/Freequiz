@@ -8,7 +8,7 @@ class User::UserController < ApplicationController
   end
 
   def quizzes
-    @quizzes = current_user.quizzes
+    @quizzes = current_user.quizzes.order(created_at: :desc)
   end
 
   def new

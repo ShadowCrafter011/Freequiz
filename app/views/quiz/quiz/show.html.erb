@@ -46,11 +46,11 @@
     <div class="text-center my-4">
         <h1><%= @quiz.title %></h1>
         <h4 id="description" class="text-truncate"><%= @quiz.description %></h4>
-        <div id="description_show_more" class="text-center show_controls" style="display: block;">
-            <text onclick="toggle_truncate('description')"><%= tg("show_more") %></text>
+        <div id="description_show_more" class="text-center" style="display: block;">
+            <text class="show_controls" onclick="toggle_truncate('description')"><%= tg("show_more") %></text>
         </div>
-        <div id="description_show_less" class="text-center show_controls" style="display: none;">
-            <text onclick="toggle_truncate('description')"><%= tg("show_less") %></text>
+        <div id="description_show_less" class="text-center" style="display: none;">
+            <text class="show_controls" onclick="toggle_truncate('description')"><%= tg("show_less") %></text>
         </div>
 
         <script>

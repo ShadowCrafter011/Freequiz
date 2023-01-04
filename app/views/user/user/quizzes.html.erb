@@ -1,3 +1,7 @@
+<%= content_for :js do %>
+    <%= javascript_include_tag "sort_my_quizzes", defer: "defer" %>
+<% end %>
+
 <style>
     .quiz-card {
         background: #abf7b1;
@@ -5,12 +9,55 @@
         border-radius: 5px;
         padding: 10px;
         margin-bottom: 10px;
-        cursor: pointer;
+        
+        text-decoration: none;
+        color: black;
+
+        display: block;
+        width: 100%;
+    }
+
+    .quiz-card:hover {
+        color: black;
+    }
+
+    .quiz-card h3 {
+        text-align: center;
+    }
+
+    h1 {
+        text-align: center;
     }
 </style>
 
 <div class="container">
-    <%= link_to quiz_show_path("16") do %>
-        <div>Hello</div>
-    <% end %>
+    <h1 class="my-4"><%= tp("my_quizzes") %></h1>
+
+    <div id="query-area" class="mb-2">
+        <div class="row">
+            <div class="col-lg-8 form-group pe-0">
+                <div class="d-flex">
+                    <button id="title-query-submit" onclick="filter_title()" class="btn btn-primary me-2"><%= tp("search") %></button>
+                    <input id="title-query" type="text" class="form-control" placeholder="<%= tp("type_title") %>">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <text class="fs-6 input-group-text"><%= tp("sort") %></text>
+                    <select id="sort-selection" class="form-select" onclick="sort()">
+                        <option value="newest"><%= tp("sort_options.last_created") %></option>
+                        <option value="oldest"><%= tp("sort_options.first_created") %></option>
+                        <option value="most_translations"><%= tp("sort_options.most_translations") %></option>
+                        <option value="least_translations"><%= tp("sort_options.least_translations") %></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-container">
+        <% for quiz in @quizzes do %>
+            <%= render partial: "quiz", locals: { quiz: quiz } %>
+        <% end %>
+    </div>
 </div>
