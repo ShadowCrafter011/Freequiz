@@ -1,4 +1,4 @@
-<div class="card" data-href="<%= admin_user_edit_path(user.username) %>">
+<div class="card" href="<%= admin_user_edit_path(user.username) %>">
     <div class="container-fluid px-1">
         <div class="row">
             <div class="col-md-4">
@@ -19,19 +19,21 @@
                 <div>
                     E-mail confirmed: <%= user.verified? %>
                 </div>
-                <div>
-                    Confirmed at: <%= user.confirmed_at %>
-                </div>
+                <% if user.confirmed_at.present? %>
+                    <div>
+                        Confirmed <%= distance_of_time_in_words_to_now(user.confirmed_at, locale: :en) %> ago
+                    </div>
+                <% end %>
             </div>
             <div class="col-md-4">
                 <div>
-                    Created at: <%= user.created_at %>
+                    Created <%= distance_of_time_in_words_to_now(user.created_at, locale: :en) %> ago
                 </div>
                 <div>
-                    Updated at: <%= user.updated_at %>
+                    Updated <%= distance_of_time_in_words_to_now(user.updated_at, locale: :en) %> ago
                 </div>
                 <div>
-                    Last login at: <%= user.last_sign_in_at %>
+                    Last login <%= distance_of_time_in_words_to_now(user.current_sign_in_at, locale: :en) %> ago
                 </div>
             </div>
         </div>
