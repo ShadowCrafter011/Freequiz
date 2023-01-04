@@ -37,3 +37,6 @@ it:
     create_account: Registro
     login_required: Per accedere a questo sito è necessario aver effettuato il login
     password_regex: La password deve essere lunga almeno 8 caratteri, contenere una lettera maiuscola, una lettera minuscola e un numero.
+    show_more: Mostra di più
+    show_less: Mostra meno
+    save: Risparmiare

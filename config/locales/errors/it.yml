@@ -6,6 +6,8 @@ it:
     invalid_lang: La lingua non è valida
     not_enough_translations: Il quiz deve contenere almeno una parola con traduzione
 
+    not_allowed_to_view_quiz: Siamo spiacenti, ma non sei autorizzato a visualizzare questo quiz.
+
     beta_wall:
       only_beta: Qui sono ammessi solo i beta tester
       send_email: Se siete interessati a diventare beta tester, inviatemi un <a href="mailto:lkoe@bluewin.ch">email</a>.

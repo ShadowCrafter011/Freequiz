@@ -6,6 +6,8 @@ en:
     invalid_lang: Language is not valid
     not_enough_translations: Quiz must have at least one word with translation
 
+    not_allowed_to_view_quiz: We are sorry, but you are not allowed to view this quiz.
+
     beta_wall:
       only_beta: Only beta testers are allowed here
       send_email: If you would be interested in becoming a beta tester, please send me an <a href="mailto:lkoe@bluewin.ch">email</a>.

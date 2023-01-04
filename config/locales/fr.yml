@@ -14,6 +14,7 @@ fr:
         description: Description
         from: Langue Mots
         to: Langue Traduction
+        data: ""
     errors:
       models:
         user:

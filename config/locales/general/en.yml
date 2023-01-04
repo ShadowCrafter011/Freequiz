@@ -37,3 +37,5 @@ en:
     create_account: Register
     login_required: You must be logged in to access this page
     password_regex: Password must be at least 8 characters long, contain an upper case letter, a lower case letter and a number
+    show_more: Show more
+    show_less: Show less
