@@ -3,8 +3,13 @@ class ApplicationController < ActionController::Base
     around_action :switch_locale
 
     def switch_locale(&action)
-        locale = logged_in? ? @user.setting.locale.to_sym : I18n.default_locale
-        I18n.with_locale(locale, &action)
+        if (locale = cookies[:locale]).present?
+            I18n.with_locale(locale, &action)
+        else
+            locale = logged_in? ? @user.setting.locale.to_sym : I18n.default_locale
+            I18n.with_locale(locale, &action)
+            cookies[:locale] = { value: locale, expires: 1.day.from_now }
+        end
     end
     
     def tp(attribute, replace: nil, html_safe: false)

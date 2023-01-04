@@ -76,6 +76,9 @@ class User::UserController < ApplicationController
   def update_settings
     @user.setting.update(setting_params)
     gn s: tp("saved")
+
+    cookies[:locale] = { value: @user.setting.locale, expires: 1.day.from_now }
+
     redirect_to user_settings_path
   end
 
