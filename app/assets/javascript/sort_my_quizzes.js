@@ -1,5 +1,30 @@
-function filter_title() {
-    console.log("filter")
+$(document).on("keypress", event => {
+    if (event.key == "Enter") sort_title();
+});
+
+var last_title;
+function sort_title() {
+    let title = $("#title-query").val();
+    if (title == "" || title == last_title) return;
+
+    last_title = title;
+    
+    $(".quiz-container a").each((_, quiz) => {
+        quiz = $(quiz);
+        quiz.data("levenshtein-distance", levenshtein(title, quiz.data("title")));
+    });
+
+    let quiz_container = $(".quiz-container");
+    let quizzes = quiz_container.children();
+
+    let to_sort = create_attribute_array(quizzes, "levenshtein-distance");
+    to_sort.sort((a, b) => {
+        return Object.values(a)[0] - Object.values(b)[0]
+    });
+
+    let new_quiz_nodes = sorted_node_array(to_sort);
+    quiz_container.empty();
+    quiz_container.append(new_quiz_nodes);
 }
 
 var last_filter = "newest";
