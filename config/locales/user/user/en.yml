@@ -54,14 +54,15 @@ en:
         failed: Something went wrong. Contact our support if this happens again
       quizzes:
         my_quizzes: My quizzes
-        description: Description
-        translation_amount: Number of translations
-        visibility: Visibility
         type_title: Type title
         search: Search
         sort: Sort
+        must_be_filled: This field must be filled in
         sort_options:
           first_created: Elders
           last_created: Latest
           most_translations: Most translations
           least_translations: Fewest translations
+      public:
+        not_found: This user does not exist
+        user: User %s

@@ -12,3 +12,6 @@ en:
       login: Login
       create: Create account
       reset_pw: Reset password
+      search_placeholder: Search quiz or user
+      submit_search: Search
+      search_error: This field must be filled in

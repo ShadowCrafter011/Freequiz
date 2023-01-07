@@ -6,6 +6,7 @@ namespace :quiz do
         get "/", to: "quiz#show", as: "show"
         get "edit", to: "quiz#edit", as: "edit"
         patch "edit", to: "quiz#update"
+        get "delete", to: "quiz#request_destroy", as: "request_destroy"
         delete "delete/:destroy_token", to: "quiz#destroy", as: "delete"
     end
 end

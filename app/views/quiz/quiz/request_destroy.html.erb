@@ -1,0 +1,38 @@
+<%= content_for :js do %>
+    <%= javascript_include_tag "delete_toast", defer: "defer" %>
+<% end %>
+
+<style>
+    @media (min-width: 900px) {
+        #deleteToast {
+            flex: 0 0 35vw;
+        }
+    }
+
+    @media (max-width: 900px) {
+        #deleteToast {
+            flex: 0 0 70vw;
+        }
+    }
+</style>
+
+<div class="position-fixed w-100 d-flex justify-content-center pe-none sticky-top" style="margin-top: 20px;" z-index="2000">
+    <div id="deleteToast" class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="widht: 50vw;">
+        <div class="toast-body fs-4">
+            <%= tp("sure_to_delete") %>
+            <div class="mt-2 pt-2 border-top d-flex justify-content-around">
+                <%= link_to tp("delete"), quiz_delete_path(destroy_token: @token), class: "btn btn-danger btn-lg", data: {
+                    turbo_method: :delete
+                } %>
+                <button class="btn btn-secondary btn-lg" type="button" data-bs-dismiss="toast"><%= tp("cancel") %></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>
+    <div class="text-center">
+        <h3><%= tp("really_delete", @quiz.title, true) %></h3>
+        <button class="btn btn-danger btn-lg" type="button" id="deleteToastBtn"><%= tp("delete") %></button>
+    </div>
+</p>

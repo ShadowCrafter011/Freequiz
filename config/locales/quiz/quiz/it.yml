@@ -23,10 +23,14 @@ it:
       show:
         not_found: Questo quiz non esiste o è stato cancellato
         edit: Modifica
-        delete: Löschen
-        cancel: Annullamento
-        sure_to_delete: Se si elimina questo quiz, non è più possibile annullarlo.
+        delete: Cancellare
+        created_by: (creato da %s)
       destroy:
         not_found: Questo quiz non esiste
         not_allowed: Non si deve fare questo
         deleted: Il quiz è stato cancellato
+      request_destroy:
+        delete: Cancellare
+        cancel: Annullamento
+        sure_to_delete: Se si cancella questo quiz, non è possibile annullarlo.
+        really_delete: Volevano davvero cancellare Quiz <em>%s</em>?

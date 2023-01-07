@@ -61,15 +61,17 @@ de:
 
       quizzes:
         my_quizzes: Meine Quizze
-        description: Beschreibung
-        translation_amount: Anzahl Übersetzungen
-        visibility: Sichtbarkeit
         type_title: Titel eintippen
         search: Suchen
         sort: Sortieren
+        must_be_filled: Dieses Feld muss ausgefüllt werden
 
         sort_options:
           first_created: Älteste
           last_created: Neuste
           most_translations: Meiste Übersetzungen
           least_translations: Wenigste Übersetzungen
+
+      public:
+        not_found: Diesen Benutzer gibt es nicht
+        user: Benutzer %s

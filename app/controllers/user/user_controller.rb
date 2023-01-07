@@ -2,9 +2,14 @@ class User::UserController < ApplicationController
   before_action do
     setup_locale "user.user"
   end
-  before_action :require_login!, except: [:new, :create]
+  before_action :require_login!, except: [:new, :create, :public]
 
   def show
+  end
+
+  def public
+    @target = User.find_by(username: params[:username])
+    @quizzes = @target.quizzes.where("visibility = 'public'")
   end
 
   def quizzes

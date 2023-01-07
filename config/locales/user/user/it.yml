@@ -54,14 +54,15 @@ it:
         failed: Qualcosa è andato storto. Contattare l'assistenza se il problema si ripete
       quizzes:
         my_quizzes: I miei quiz
-        description: Descrizione
-        translation_amount: Numero di traduzioni
-        visibility: Visibilità
         type_title: Tipo di titolo
         search: Ricerca
         sort: Ordinamento
+        must_be_filled: Questo campo deve essere compilato
         sort_options:
           first_created: Anziani
           last_created: Ultime novità
           most_translations: La maggior parte delle traduzioni
           least_translations: Il minor numero di traduzioni
+      public:
+        not_found: Questo utente non esiste
+        user: Utente %s

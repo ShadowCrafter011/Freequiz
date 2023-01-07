@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
         end
     end
     
-    def tp(attribute, replace: nil, html_safe: false)
+    def tp(attribute, replace=nil, html_safe=false)
         translated = t("#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}")
         if replace == nil
             return html_safe ? translated.html_safe : translated

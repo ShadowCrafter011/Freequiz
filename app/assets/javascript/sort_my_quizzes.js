@@ -5,7 +5,8 @@ $(document).on("keypress", event => {
 var last_title;
 function sort_title() {
     let title = $("#title-query").val();
-    if (title == "" || title == last_title) return;
+    if (title == "") return invalidate("#title-query");
+    if (title == last_title) return;
 
     last_title = title;
     

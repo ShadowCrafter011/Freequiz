@@ -6,3 +6,8 @@ en:
       infos: Account infos
       create_account: Create account
       logout: Logout
+
+    search:
+      results_for: Search results for %s
+      quizzes: Quizzes
+      users: User

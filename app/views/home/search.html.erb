@@ -1,0 +1,31 @@
+<%= content_for :css do %>
+    <%= stylesheet_link_tag "link_card" %>
+    <%= stylesheet_link_tag "search_results" %>
+<% end %>
+
+<%= content_for :js do %>
+    <%= javascript_include_tag "search_results", defer: "defer" %>
+<% end %>
+
+<div class="container">
+    <h1 class="my-4"><%= tp("results_for", params[:query]) %></h1>
+    <div class="list-group list-group-horizontal text-center controls mb-2">
+        <div id="quizzes-tab" class="tab-control list-group-item w-50 active">
+            <h4 class="mb-0"><%= tp("quizzes") %></h3>
+        </div>
+        <div id="users-tab" class="tab-control list-group-item w-50">
+            <h4 class="mb-0"><%= tp("users") %></h4>
+        </div>
+    </div>
+
+    <div id="quiz-results" class="tab">
+        <% for quiz in @quizzes do %>
+            <%= render partial: "partials/quiz_card", locals: {quiz: quiz} %>
+        <% end %>
+    </div>
+    <div id="user-results" class="tab" style="display: none">
+        <% for user in @users do %>
+            <%= render partial: "user_card", locals: {user: user} %>
+        <% end %>
+    </div>
+</div>

@@ -20,7 +20,7 @@ class User::SessionsController < ApplicationController
 
     unless user.first && user.length == 1
       gn a: tp("wrong_username")
-      return render :new, status: 401
+      return render :new, status: :unprocessable_entity
     end
 
     if user.first.login params[:password]

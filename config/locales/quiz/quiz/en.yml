@@ -24,9 +24,13 @@ en:
         not_found: This quiz does not exist or has been deleted
         edit: Edit
         delete: Delete
-        cancel: Cancel
-        sure_to_delete: If you delete this quiz it cannot be undone
+        created_by: (created by %s)
       destroy:
         not_found: This quiz does not exist
         not_allowed: You must not do this
         deleted: Quiz was deleted
+      request_destroy:
+        delete: Delete
+        cancel: Cancel
+        sure_to_delete: If you delete this quiz it cannot be undone
+        really_delete: Do you really want to delete Quiz <em>%s</em>?

@@ -12,3 +12,6 @@ it:
       login: Accedi
       create: Creare un account
       reset_pw: Reimpostare la password
+      search_placeholder: Ricerca quiz o utente
+      submit_search: Ricerca
+      search_error: Questo campo deve essere compilato

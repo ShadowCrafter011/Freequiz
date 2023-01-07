@@ -1,50 +1,22 @@
 <%= content_for :js do %>
     <%= javascript_include_tag "truncate_show_more", defer: "defer" %>
-    <% if current_user == @quiz.user %>
-        <%= javascript_include_tag "delete_toast", defer: "defer" %>
-    <% end %>
 <% end %>
 
-<% if current_user == @quiz.user %>
-    
-
-    <style>
-        @media (min-width: 900px) {
-            #deleteToast {
-                flex: 0 0 35vw;
-            }
-        }
-
-        @media (max-width: 900px) {
-            #deleteToast {
-                flex: 0 0 70vw;
-            }
-        }
-
-        .show_controls {
-            cursor: pointer;
-            text-decoration: underline;
-        }
-    </style>
-
-    <div class="position-fixed w-100 d-flex justify-content-center pe-none sticky-top" style="margin-top: 20px;" z-index="2000">
-        <div id="deleteToast" class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="widht: 50vw;">
-            <div class="toast-body fs-4">
-                <%= tp("sure_to_delete") %>
-                <div class="mt-2 pt-2 border-top d-flex justify-content-around">
-                    <%= link_to tp("delete"), quiz_delete_path(destroy_token: @token), class: "btn btn-danger btn-lg", data: {
-                        turbo_method: :delete
-                    } %>
-                    <button class="btn btn-secondary btn-lg" type="button" data-bs-dismiss="toast"><%= tp("cancel") %></button>
-                </div>
-            </div>
-        </div>
-    </div>
-<% end %>
+<style>
+    .show_controls {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+</style>
 
 <div class="container">
     <div class="text-center my-4">
-        <h1><%= @quiz.title %></h1>
+        <h1>
+            <%= @quiz.title %>
+            <% if current_user != @quiz.user %>
+                <%= tp("created_by", link_to(@quiz.user.username, user_public_path(@quiz.user.username)), true) %>
+            <% end %>
+        </h1>
         <h4 id="description" class="text-truncate"><%= @quiz.description %></h4>
         <div id="description_show_more" class="text-center" style="display: block;">
             <text class="show_controls" onclick="toggle_truncate('description')"><%= tg("show_more") %></text>
@@ -65,7 +37,7 @@
             <p>
                 <div class="text-center">
                     <%= link_to tp("edit"), quiz_edit_path(@quiz), class: "btn btn-primary" %>
-                    <button class="btn btn-danger" type="button" id="deleteToastBtn"><%= tp("delete") %></button>
+                    <%= link_to tp("delete"), quiz_request_destroy_path(@quiz), class: "btn btn-danger" %>
                 </div>
             </p>
         <% end %>

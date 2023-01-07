@@ -12,3 +12,6 @@ fr:
       login: Login
       create: Créer un compte
       reset_pw: Réinitialiser le mot de passe
+      search_placeholder: Quiz ou recherche d'utilisateurs
+      submit_search: Rechercher
+      search_error: Ce champ doit être rempli

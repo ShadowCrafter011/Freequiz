@@ -27,14 +27,20 @@ class Quiz::QuizController < ApplicationController
     
     return unless check_viewing_privilege
 
-    if @user == @quiz.user
+    unless @quiz.present?
+      gn n: tp("not_found")
+      redirect_to root_path
+    end
+  end
+
+  def request_destroy
+    @quiz = Quiz.find_by(id: params[:quiz_id])
+
+    if @quiz.present? && @user == @quiz.user
       @token = SecureRandom.hex(32)
       @quiz.update(destroy_token: @token, destroy_expire: 1.day.from_now)
       @quiz.encrypt_value :destroy_token
-    end
-
-    unless @quiz.present?
-      gn n: tp("not_found")
+    else
       redirect_to root_path
     end
   end
