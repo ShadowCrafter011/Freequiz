@@ -1,0 +1,7 @@
+fr:
+  partials:
+    quiz_card:
+      description: Description
+      translation_amount: Nombre de traductions
+      visibility: Visibilité
+      creator: Créé par

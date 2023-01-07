@@ -53,7 +53,25 @@ de:
         cancel: Abbrechen
         delete_account: Konto Löschen
         not_reversible: Wenn Sie ihr Konto löschen kann dies nicht rückgangig gemacht werden!
+        delete: Löschen
         
       destroy:
         deleted: Konto gelöscht. Schade, dass Sie gehen
         failed: Etwas ist schief geloffen. Kontaktieren Sie unseren Support wenn dies nochmal passiert
+
+      quizzes:
+        my_quizzes: Meine Quizze
+        type_title: Titel eintippen
+        search: Suchen
+        sort: Sortieren
+        must_be_filled: Dieses Feld muss ausgefüllt werden
+
+        sort_options:
+          first_created: Älteste
+          last_created: Neuste
+          most_translations: Meiste Übersetzungen
+          least_translations: Wenigste Übersetzungen
+
+      public:
+        not_found: Diesen Benutzer gibt es nicht
+        user: Benutzer %s

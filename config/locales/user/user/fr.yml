@@ -48,6 +48,21 @@ fr:
         cancel: Annuler
         delete_account: Suppression de compte
         not_reversible: Si vous supprimez votre compte, vous ne pourrez pas revenir en arrière!
+        delete: Supprimer
       destroy:
         deleted: Compte supprimé. Dommage que vous partiez
         failed: Quelque chose s'est mal passé. Contactez notre support si cela se reproduit
+      quizzes:
+        my_quizzes: Mes quiz
+        type_title: Saisir le titre
+        search: Rechercher
+        sort: Trier
+        must_be_filled: Ce champ doit être rempli
+        sort_options:
+          first_created: Les anciens
+          last_created: Dernier
+          most_translations: La plupart des traductions
+          least_translations: Moins de traductions
+      public:
+        not_found: Cet utilisateur n'existe pas
+        user: Utilisateur %s

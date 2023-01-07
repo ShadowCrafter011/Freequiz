@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_12_30_215825) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "languages", force: :cascade do |t|
@@ -31,6 +32,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_215825) do
     t.bigint "from"
     t.bigint "to"
     t.string "title"
+    t.string "destroy_token"
+    t.datetime "destroy_expire"
     t.index ["user_id"], name: "index_quizzes_on_user_id"
   end
 

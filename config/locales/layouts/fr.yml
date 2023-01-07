@@ -4,6 +4,7 @@ fr:
       title: Freequiz - Apprendre des fiches, gratuitement pour toujours
       account: Compte
       quiz: Quiz
+      my_quizzes: Mes quiz
       create_quiz: Créer un quiz
       overview: Détails du compte
       settings: Réglages
@@ -11,3 +12,6 @@ fr:
       login: Login
       create: Créer un compte
       reset_pw: Réinitialiser le mot de passe
+      search_placeholder: Quiz ou recherche d'utilisateurs
+      submit_search: Rechercher
+      search_error: Ce champ doit être rempli

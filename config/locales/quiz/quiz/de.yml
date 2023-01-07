@@ -4,9 +4,9 @@ de:
       new:
         create_quiz: Quiz erstellen
         title: Titel
-        title_placeholder: Kurzer Titel (mindestens 5 Zeichen)
+        title_placeholder: Kurzer Titel (mindestens 3 Zeichen)
         description: Beschreibung
-        description_placeholder: Längere Beschreibung (mindestens 10 Zeichen)
+        description_placeholder: Längere Beschreibung (mindestens 5 Zeichen)
         lang_1: Sprache Wörter
         lang_2: Sprache Übersetzung
         word: Wort
@@ -17,5 +17,24 @@ de:
         quiz_created: Quiz wurde erstellt
         visibility: Sichtbarkeit
 
+        save: Speichern
+        title_edit: Quiz bearbeiten
+        saved: Änderungen gespeichert
+        cancel: Abbrechen
+
       show:
         not_found: Dieses Quiz existiert nicht oder wurde gelöscht
+        edit: Bearbeiten
+        delete: Löschen
+        created_by: (von %s erstellt)
+        
+      request_destroy:
+        delete: Löschen
+        cancel: Abbrechen
+        sure_to_delete: Wenn Sie dieses Quiz löschen kann dies nicht mehr rückgängig gemacht werden
+        really_delete: Wollten sie Quiz <em>%s</em> wirklich löschen?
+
+      destroy:
+        not_found: Dieses Quiz existiert nicht
+        not_allowed: Sie dürfen dies nicht tun
+        deleted: Quiz wurde gelöscht

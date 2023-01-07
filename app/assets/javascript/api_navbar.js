@@ -1,34 +1,29 @@
 let anchor = location.hash;
 
-var anchorElement = document.querySelector(`[href="${location.pathname}${anchor}"]`);
+var anchorElement = $(`[href="${location.pathname}${anchor}"]`);
 if (anchorElement != null) {
-    anchorElement.classList.add("active");
+    anchorElement.addClass("active");
 }
 
 let section = document.getElementById(anchor);
 if (section != null) {
     window.scrollTo(0, section.offsetTop);
 }
-    
-add_click_listeners();
-document.addEventListener("turbo:load", add_click_listeners);
 
-function add_click_listeners() {
-    for (let item of document.getElementsByClassName("link")) {
-        item.addEventListener("click", e => {
-            location.href = item.getAttribute("href");
+$(document).on("click", "div[id='api-nav-links'] a", function(event) {
+    let item = $( this );
+
+    location.href = item.attr("href");
             
-            if (anchorElement != e.target) {
-                for (let removeActive of document.getElementsByClassName("active")) {
-                    removeActive.classList.remove("active");
-                }
-
-                anchorElement = e.target;
-                e.target.classList.add("active");
-            }
+    if (anchorElement != item) {
+        $(".active").each(function( ) {
+            $(this).removeClass("active");
         });
+
+        anchorElement = item;
+        item.addClass("active");
     }
-}
+});
 
 // document.addEventListener("scroll", () => {
 //     let highest;

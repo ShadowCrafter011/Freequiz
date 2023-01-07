@@ -6,3 +6,8 @@ fr:
       infos: Infos sur le compte
       create_account: Créer un compte
       logout: Logout
+
+    search:
+      results_for: Résultats de recherche pour %s
+      quizzes: Quizs
+      users: Utilisateur

@@ -4,6 +4,7 @@ de:
       title: Freequiz - Karteien lernen, gratis für immer
       account: Konto
       quiz: Quiz
+      my_quizzes: Meine Quizze
       create_quiz: Quiz erstellen
       overview: Übersicht
       settings: Einstellungen
@@ -11,3 +12,6 @@ de:
       login: Anmelden
       create: Konto erstellen
       reset_pw: Passwort zurücksetzen
+      search_placeholder: Quiz oder Benutzer suchen
+      submit_search: Suchen
+      search_error: Dieses Feld muss ausgefüllt werden

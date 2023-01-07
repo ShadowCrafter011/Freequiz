@@ -5,26 +5,52 @@ class Quiz < ApplicationRecord
 
   VISIBILITIES = ["public", "private", "hidden"]
 
-  validates :title, length: { minimum: 5, maximum: 255 }
-  validates :description, length: { minimum: 10, maximum: 30000 }
+  validates :title, length: { minimum: 3, maximum: 255 }
+  validates :description, length: { minimum: 5, maximum: 30000 }
   validates :visibility, inclusion: { in: VISIBILITIES }
 
   validate :validate_langs, :translation_length
 
   attribute :data, :binary_hash
 
+  before_validation do
+    for translation in self.data do
+      self.data.delete(translation) unless translation[:w].present? || translation[:t].present?
+    end
+  end
+
   before_create do
-    self.id = SecureRandom.base58(6)
+    id_char_num = 5
+    self.id = SecureRandom.base58(id_char_num)
     while Quiz.exists? self.id do
-      self.id = SecureRandom.base58(6)
+      id_char_num += 1
+      self.id = SecureRandom.base58(id_char_num)
     end
 
     for translation in self.data do
       self.data.delete(translation) unless translation[:w].present? || translation[:t].present?
 
-      translation[:w] = "Not defined" unless translation[:w].present?
-      translation[:t] = "Not defined" unless translation[:t].present?
+      translation[:w] = "N/D" unless translation[:w].present?
+      translation[:t] = "N/D" unless translation[:t].present?
     end
+  end
+
+  def user_allowed_to_view? user
+    self.visibility == "public" || self.visibility == "hidden" || self.user == user || user.admin?
+  end
+
+  def encrypt_value key
+    for x in 0..8 do
+        self[key] = Digest::SHA256.hexdigest self[key]
+    end
+    self.save
+  end
+
+  def compare_encrypted key, value
+    for x in 0..8 do
+        value = Digest::SHA256.hexdigest value
+    end
+    self[key] == value
   end
 
   def get_errors

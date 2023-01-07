@@ -2,9 +2,18 @@ class User::UserController < ApplicationController
   before_action do
     setup_locale "user.user"
   end
+  before_action :require_login!, except: [:new, :create, :public]
 
   def show
-    return unless require_login!
+  end
+
+  def public
+    @target = User.find_by(username: params[:username])
+    @quizzes = @target.quizzes.where("visibility = 'public'")
+  end
+
+  def quizzes
+    @quizzes = current_user.quizzes.order(created_at: :desc)
   end
 
   def new
@@ -42,13 +51,10 @@ class User::UserController < ApplicationController
   end
 
   def edit
-    return unless require_login!
   end
 
   def update
     override_action "edit"
-
-    return unless require_login!
 
     if edit_params[:password].present?
       unless edit_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
@@ -70,28 +76,24 @@ class User::UserController < ApplicationController
   end
 
   def settings
-    return unless require_login!
   end
 
   def update_settings
-    return unless require_login!
-
     @user.setting.update(setting_params)
     gn s: tp("saved")
+
+    cookies[:locale] = @user.setting.locale
+
     redirect_to user_settings_path
   end
 
   def request_destroy
-    return unless require_login!
-
     @token = SecureRandom.hex(32)
     @user.update(destroy_token: @token, destroy_expire: 1.days.from_now)
     @user.encrypt_value :destroy_token
   end
 
   def destroy
-    return unless require_login!
-
     token = params[:destroy_token]
 
     if @user.compare_encrypted(:destroy_token, token) && @user.destroy_expire > Time.now

@@ -16,5 +16,21 @@ fr:
         create: Créer un quiz
         quiz_created: Le quiz a été créé
         visibility: Visibilité
+        title_edit: Modifier le quiz
+        saved: Modifications enregistrées
+        cancel: Annuler
+        save: Sauvegarder
       show:
         not_found: Ce quiz n'existe pas ou a été supprimé
+        edit: Modifier
+        delete: Supprimer
+        created_by: (créé par %s)
+      destroy:
+        not_found: Ce quiz n'existe pas
+        not_allowed: Vous ne pouvez pas faire cela
+        deleted: Le quiz a été supprimé
+      request_destroy:
+        delete: Supprimer
+        cancel: Annuler
+        sure_to_delete: Si vous supprimez ce quiz, vous ne pourrez pas revenir en arrière.
+        really_delete: Voulez vous vraiment supprimer Quiz <em>%s</em> ?

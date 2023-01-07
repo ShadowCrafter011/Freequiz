@@ -1,0 +1,40 @@
+<%= content_for :js do %>
+    <%= javascript_include_tag "levenshtein", defer: "defer" %>
+    <%= javascript_include_tag "sort_my_quizzes", defer: "defer" %>
+<% end %>
+
+<%= content_for :css do %>
+    <%= stylesheet_link_tag "link_card" %>
+<% end %>
+
+<div class="container">
+    <h1 class="my-4"><%= tp("my_quizzes") %></h1>
+
+    <div id="query-area" class="mb-2">
+        <div class="row">
+            <div class="col-lg-8 form-group pe-0">
+                <div class="d-flex">
+                    <button id="title-query-submit" onclick="sort_title()" class="btn btn-primary me-2"><%= tp("search") %></button>
+                    <input id="title-query" type="text" class="form-control" placeholder="<%= tp("type_title") %>" data-error="<%= tp("must_be_filled") %>">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <text class="fs-6 input-group-text"><%= tp("sort") %></text>
+                    <select id="sort-selection" class="form-select" onclick="sort()">
+                        <option value="newest"><%= tp("sort_options.last_created") %></option>
+                        <option value="oldest"><%= tp("sort_options.first_created") %></option>
+                        <option value="most_translations"><%= tp("sort_options.most_translations") %></option>
+                        <option value="least_translations"><%= tp("sort_options.least_translations") %></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-container">
+        <% for quiz in @quizzes do %>
+            <%= render partial: "partials/quiz_card", locals: { quiz: quiz } %>
+        <% end %>
+    </div>
+</div>

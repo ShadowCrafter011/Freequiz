@@ -1,7 +1,46 @@
+<%= content_for :js do %>
+    <%= javascript_include_tag "truncate_show_more", defer: "defer" %>
+<% end %>
+
+<style>
+    .show_controls {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+</style>
+
 <div class="container">
     <div class="text-center my-4">
-        <h1><%= @quiz.title %></h1>
-        <h4><%= @quiz.description %></h4>
+        <h1>
+            <%= @quiz.title %>
+            <% if current_user != @quiz.user %>
+                <%= tp("created_by", link_to(@quiz.user.username, user_public_path(@quiz.user.username)), true) %>
+            <% end %>
+        </h1>
+        <h4 id="description" class="text-truncate"><%= @quiz.description %></h4>
+        <div id="description_show_more" class="text-center" style="display: block;">
+            <text class="show_controls" onclick="toggle_truncate('description')"><%= tg("show_more") %></text>
+        </div>
+        <div id="description_show_less" class="text-center" style="display: none;">
+            <text class="show_controls" onclick="toggle_truncate('description')"><%= tg("show_less") %></text>
+        </div>
+
+        <script>
+            document.querySelectorAll(".text-truncate").forEach(text => {
+                if (text.offsetWidth >= text.scrollWidth) {
+                    document.querySelector(`#${text.id}_show_more`).style.display = "none";
+                }
+            });
+        </script>
+        
+        <% if @user == @quiz.user %>
+            <p>
+                <div class="text-center">
+                    <%= link_to tp("edit"), quiz_edit_path(@quiz), class: "btn btn-primary" %>
+                    <%= link_to tp("delete"), quiz_request_destroy_path(@quiz), class: "btn btn-danger" %>
+                </div>
+            </p>
+        <% end %>
 
         <ul id="translations" class="list-group list-group-horizontal fs-5">
             <li class="list-group-item w-50 p-0">

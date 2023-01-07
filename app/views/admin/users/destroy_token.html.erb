@@ -1,4 +1,4 @@
-<%= content_for :js, "admin_destroy" %>
+<%= content_for :js do; javascript_include_tag "admin_destroy", defer: "defer"; end %>
 
 <div class="text-center">
     <h1>Are you sure you want to delete this account?</h1>
@@ -7,7 +7,7 @@
     <div><%= link_to "Cancel", admin_user_edit_path(@user.username), class: "btn btn-success btn-lg" %></div>
     <br>
     <div class="container">
-        <div class="row">
+        <div id="delete-button-container" class="row">
             <% 3.times do %>
                 <div class="col-4">
                     <%= render partial: "delete_button", locals: {user: @user_target, token: @token} %>

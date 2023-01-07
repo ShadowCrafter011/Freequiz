@@ -1,4 +1,6 @@
-<%= content_for :js, "admin_users_navigation" %>
+<%= content_for :js do %>
+    <%= javascript_include_tag "admin_users_navigation", defer: "defer" %>
+<% end %>
 
 <style>
     .card {
@@ -15,6 +17,8 @@
     <p>
         <div class="form-group">
             <%= form_with method: :get do |form| %>
+                <%= form.text_field :type, value: "query", hidden: true %>
+
                 <div class="row">
                     <div class="col-5">
                         <div class="input-group">
@@ -55,7 +59,8 @@
         </div>
     </p>
 
-    <% @users.each do |user| %>
-        <%= render partial: "user_card", locals: {user: user} %>
-    <% end %>
+    <div id="admin_user_cards">
+        <% @users.each do |user| %>
+            <%= render partial: "user_card", locals: {user: user} %>
+        <% end %>
 </div>

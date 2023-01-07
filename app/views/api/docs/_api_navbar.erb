@@ -1,4 +1,6 @@
-<%= javascript_include_tag "api_navbar", defer: "defer" %>
+<%= content_for :js do %>
+  <%= javascript_include_tag "api_navbar", defer: "defer" %>
+<% end %>
 
 <style>
   .sticky-sidebar {
@@ -17,7 +19,7 @@
 <div class="container-fluid mt-2">
   <div class="row">
     <div class="col-3 sticky-sidebar">
-      <div class="list-group">
+      <div id="api-nav-links" class="list-group">
         <%= link_to "Index", api_docs_path, class: "list-group-item list-group-item-action #{activate_tab?(:index)}" %>
 
         <%= link_to "Authentication", api_docs_authentication_path, class: "list-group-item list-group-item-action #{activate_tab?(:authentication)}" %>

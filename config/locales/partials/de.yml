@@ -1,0 +1,7 @@
+de:
+  partials:
+    quiz_card:
+      description: Beschreibung
+      translation_amount: Anzahl Übersetzungen
+      visibility: Sichtbarkeit
+      creator: Erstellt von

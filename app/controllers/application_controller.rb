@@ -3,11 +3,16 @@ class ApplicationController < ActionController::Base
     around_action :switch_locale
 
     def switch_locale(&action)
-        locale = logged_in? ? @user.setting.locale.to_sym : I18n.default_locale
-        I18n.with_locale(locale, &action)
+        if (locale = cookies[:locale]).present?
+            I18n.with_locale(locale, &action)
+        else
+            locale = logged_in? ? @user.setting.locale.to_sym : I18n.default_locale
+            I18n.with_locale(locale, &action)
+            cookies[:locale] = locale
+        end
     end
     
-    def tp(attribute, replace: nil, html_safe: false)
+    def tp(attribute, replace=nil, html_safe=false)
         translated = t("#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}")
         if replace == nil
             return html_safe ? translated.html_safe : translated
@@ -18,8 +23,8 @@ class ApplicationController < ActionController::Base
     end
     helper_method :tp
 
-    def tg attribute
-        t "general.#{attribute}"
+    def tg pre="", attribute
+        t "general.#{pre}#{pre.present? ? "." : ""}#{attribute}"
     end
     helper_method :tg
 

@@ -1,6 +1,6 @@
 module Api::DocsHelper
     def link(path_helper, link_name, anchor)
-        link_to link_name, path_helper.call(anchor: anchor), class: "list-group-item list-group-item-action link", data: {turbo: false}
+        link_to link_name, path_helper.call(anchor: anchor), class: "list-group-item list-group-item-action link"
     end
 
     def activate_tab? tab
