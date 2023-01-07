@@ -13,7 +13,7 @@
         </div>
         <% if action_name == "search" %>
             <div class="<%= col %>">
-                <strong><%= t("partials.quiz_card.creator") %></strong>: <%= quiz.user.username %></strong>
+                <strong><%= t("partials.quiz_card.creator") %></strong>: <%= quiz.user.present? ? quiz.user.username : tg("deleted_user") %></strong>
             </div>
         <% end %>
     </div>

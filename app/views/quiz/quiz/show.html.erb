@@ -14,7 +14,11 @@
         <h1>
             <%= @quiz.title %>
             <% if current_user != @quiz.user %>
-                <%= tp("created_by", link_to(@quiz.user.username, user_public_path(@quiz.user.username)), true) %>
+                <% if @quiz.user.present? %>
+                    <%= tp("created_by", link_to(@quiz.user.username, user_public_path(@quiz.user.username)), true) %>
+                <% else %>
+                    <%= tp("created_by", tg("deleted_user")) %>
+                <% end %>
             <% end %>
         </h1>
         <h4 id="description" class="text-truncate"><%= @quiz.description %></h4>
