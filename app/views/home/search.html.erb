@@ -3,29 +3,28 @@
     <%= stylesheet_link_tag "search_results" %>
 <% end %>
 
-<%= content_for :js do %>
-    <%= javascript_include_tag "search_results", defer: "defer" %>
-<% end %>
+<style>
+    a:hover {
+        color: black;
+    }
+</style>
 
 <div class="container">
     <h1 class="my-4"><%= tp("results_for", params[:query]) %></h1>
     <div class="list-group list-group-horizontal text-center controls mb-2">
-        <div id="quizzes-tab" class="tab-control list-group-item w-50 active">
-            <h4 class="mb-0"><%= tp("quizzes") %></h3>
-        </div>
-        <div id="users-tab" class="tab-control list-group-item w-50">
+        <%= link_to search_path(category: "quizzes", query: params[:query], page: params[:page]), class: "list-group-item w-50 #{"active" if @quizzes}" do %>
+            <h4 class="mb-0"><%= tp("quizzes") %></h4>
+        <% end %>
+        <%= link_to search_path(category: "users", query: params[:query], page: params[:page]), class: "list-group-item w-50 #{"active" unless @quizzes}" do %>
             <h4 class="mb-0"><%= tp("users") %></h4>
-        </div>
+        <% end %>
     </div>
 
-    <div id="quiz-results" class="tab">
-        <% for quiz in @quizzes do %>
-            <%= render partial: "partials/quiz_card", locals: {quiz: quiz} %>
+    <% for res in @results do %>
+        <% if @quizzes %>
+            <%= render partial: "partials/quiz_card", locals: {quiz: res} %>
+        <% else %>
+            <%= render partial: "user_card", locals: {user: res} %>
         <% end %>
-    </div>
-    <div id="user-results" class="tab" style="display: none">
-        <% for user in @users do %>
-            <%= render partial: "user_card", locals: {user: user} %>
-        <% end %>
-    </div>
+    <% end %>
 </div>
