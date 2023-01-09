@@ -13,7 +13,7 @@ if (section != null) {
 $(document).on("click", "div[id='api-nav-links'] a", function(event) {
     let item = $( this );
 
-    location.href = item.attr("href");
+    Turbo.visit(item.attr("href"));
             
     if (anchorElement != item) {
         $(".active").each(function( ) {
