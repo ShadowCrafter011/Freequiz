@@ -1,5 +1,8 @@
 function invalidate(id, timeout=5000) {
     var invalid_object = $(id);
+
+    if (invalid_object.hasClass("is-invalid")) return;
+
     invalid_object.addClass("is-invalid");
     invalid_object.data("normal", invalid_object.attr("placeholder"));
     invalid_object.attr("placeholder", invalid_object.data("error"));
