@@ -132,7 +132,7 @@ class Api::UserController < ApplicationController
   def data
     return unless api_require_valid_access_token!
 
-    @settings = {}
+    @settings = { locale: @api_user.setting.locale }
     for key in Setting::SETTING_KEYS do
       @settings[key] = @api_user.setting[key]
     end

@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_07_135258) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_12_090130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
+
+  create_table "bug_reports", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.string "platform"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"
+    t.string "url"
+    t.index ["user_id"], name: "index_bug_reports_on_user_id"
+  end
 
   create_table "languages", force: :cascade do |t|
     t.string "name"
@@ -69,12 +81,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_07_135258) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "bugs_smashed", default: 0
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "bug_reports", "users"
   add_foreign_key "quizzes", "users"
   add_foreign_key "settings", "users"
 end

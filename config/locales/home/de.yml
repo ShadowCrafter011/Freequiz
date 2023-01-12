@@ -8,6 +8,7 @@ de:
       logout: Abmelden
 
     search:
-      results_for: Suchergebnisse für %s
+      results_for: Suchergebnisse für %s,
+      page: Seite %s
       quizzes: Quizze
       users: Benutzer

@@ -3,12 +3,12 @@ class ApplicationController < ActionController::Base
     around_action :switch_locale
 
     def switch_locale(&action)
-        if (locale = cookies[:locale]).present?
+        if (locale = session[:locale]).present?
             I18n.with_locale(locale, &action)
         else
             locale = logged_in? ? @user.setting.locale.to_sym : I18n.default_locale
             I18n.with_locale(locale, &action)
-            cookies[:locale] = locale
+            session[:locale] = locale
         end
     end
     
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
             return html_safe ? translated.html_safe : translated
         end
 
-        replaced = translated.sub("%s", replace)
+        replaced = translated.sub("%s", replace.to_s)
         html_safe ? replaced.html_safe : replaced
     end
     helper_method :tp

@@ -69,7 +69,7 @@
         </p>
         <p>
             <h3>Errors</h3>
-            No errors (<%= link_to "general errors", api_docs_general_errors_path, data: {turbo: false} %> apply)
+            No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
     <hr>
@@ -173,7 +173,7 @@
         </p>
         <p>
             <h3>Errors</h3>
-            No errors (<%= link_to "general errors", api_docs_general_errors_path, data: {turbo: false} %> apply)
+            No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
     <hr>
@@ -207,6 +207,7 @@
         "created_at": 1670099953,
         "updated_at": 1670958427,
     "settings": {
+        "locale": "de",
         "dark_mode": true,
         "show_email": true
     },
@@ -227,7 +228,7 @@
         </p>
         <p>
             <h3>Errors</h3>
-            No errors (<%= link_to "general errors", api_docs_general_errors_path, data: {turbo: false} %> apply)
+            No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
     <hr>
@@ -296,12 +297,17 @@
             <pre>
 {
     "setting": {
-    "dark_mode": true,
-    "show_email": false
+        "locale": "de",
+        "dark_mode": true,
+        "show_email": false
     }
 }
             </pre>
             Not all the parameters need to be present
+        </p>
+        <p>
+            <h3>Locale</h3>
+            Locale can be "de", "fr", "it" or "en"
         </p>
         <p>
             <h3>Response</h3>
