@@ -10,7 +10,7 @@ class Api::BugReportController < ApplicationController
     user = api_current_user
     report = user.present? ? user.bug_reports.new(bug_report_params) : BugReport.new(bug_report_params)
 
-    return json({success: true, message: "Bug report created"}) if report.save
+    return json({success: true, message: "Bug report created"}, code: :created) if report.save
     json({success: false, message: "Could not create bug report"}, code: :unprocessable_entity)
   end
 
