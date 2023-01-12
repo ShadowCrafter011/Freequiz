@@ -15,3 +15,10 @@ de:
       search_placeholder: Quiz oder Benutzer suchen
       submit_search: Suchen
       search_error: Dieses Feld muss ausgefüllt werden
+      bug_report: Bug melden
+
+      title_form: Titel
+      title_placeholder: Bug in ein paar Wörtern zusammenfassen
+      url: URL
+      url_placeholder: Die URL bei der der Bug aufgekommen ist
+      bug_description: "Bug genauer beschreiben\n\n\nSchritte um Bug zu reproduzieren\n\n"

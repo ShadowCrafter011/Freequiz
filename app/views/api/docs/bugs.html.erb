@@ -1,0 +1,43 @@
+<%= render layout: "api_navbar" do %>
+    <div id="create" class="section">
+        <h1>Create Bug report</h1>
+        <p>
+            <a href="https://freequiz.herokuapp.com/api/v1/bug/create">https://freequiz.herokuapp.com/api/v1/bug/create</a>
+        </p>
+        <p>
+            <h3>Request method: PUT</h3>
+        </p>
+        <p>
+            <h3>Authorization</h3>
+            No valid Access-token header is required
+        </p>
+        <p>
+            <h3>Content</h3>
+            <pre>
+{
+    "bug_report": {
+        "title": "title",
+        "body": "body",
+        "url": "url",
+        "platform": "platform"
+    }
+}
+            </pre>
+        </p>
+        <p>
+            <h3>Response</h3>
+            <pre>
+{
+    "success": true,
+    "message": "Bug report created"
+}
+            </pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            <ul>
+                <li><strong>Invalid fields</strong>: Code 401, "Could not create bug report", title or body are either to short or missing</li>
+            </ul>
+        </p>
+    </div>
+<% end %>

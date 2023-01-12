@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   draw :user
   draw :quiz
+  draw :bug_reports
   draw :api
 
   draw :admin

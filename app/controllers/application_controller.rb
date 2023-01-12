@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
             return html_safe ? translated.html_safe : translated
         end
 
-        replaced = translated.sub("%s", replace)
+        replaced = translated.sub("%s", replace.to_s)
         html_safe ? replaced.html_safe : replaced
     end
     helper_method :tp

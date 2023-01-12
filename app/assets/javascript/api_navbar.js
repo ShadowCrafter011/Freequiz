@@ -1,14 +1,16 @@
 let anchor = location.hash;
 
 var anchorElement = $(`[href="${location.pathname}${anchor}"]`);
-if (anchorElement != null) {
-    anchorElement.addClass("active");
-}
-
-let section = document.getElementById(anchor);
-if (section != null) {
-    window.scrollTo(0, section.offsetTop);
-}
+$(document).on("load turbo:load", () => {
+    if (anchorElement != null) {
+        anchorElement.addClass("active");
+    }
+    
+    let section = document.getElementById(anchor);
+    if (section != null) {
+        window.scrollTo(0, section.offsetTop);
+    }
+});
 
 $(document).on("click", "div[id='api-nav-links'] a", function(event) {
     let item = $( this );

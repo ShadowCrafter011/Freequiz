@@ -16,4 +16,4 @@ function check_search() {
 }
 
 const search_value = () => $("#search-form-input").val();
-const search_link = query => `/search?category=quizzes&query=${query}&page=1`
+const search_link = query => `/search?category=quizzes&page=1&query=${query}`
