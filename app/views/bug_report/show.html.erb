@@ -1,2 +1,54 @@
-<h1>BugReport#show</h1>
-<p>Find me in app/views/bug_report/show.html.erb</p>
+<%= content_for :css do %>
+    <%= stylesheet_link_tag "statuses" %>
+    <style>
+        .status-new {
+            border-color: black;
+        }
+
+        .status-btn {
+            width: 15%;
+            margin: 0 2px;
+        }
+    </style>
+<% end %>
+
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center my-4">
+        <h1><%= @bug.title %></h1>
+        <span class="fs-4 status status-<%= @bug.status %>"><%= @bug.status.capitalize %></span>
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">URL</th>
+                <td><%= @bug.url %></td>
+            </tr>
+            <tr>
+                <th scope="row">Platform</th>
+                <td><%= @bug.platform %></td>
+            </tr>
+            <tr>
+                <th scope="row">User agent</th>
+                <td><%= @bug.user_agent %></td>
+            </tr>
+        </tbody>
+    </table>
+    <pre class="border rounded">
+        <h4 class="text-center"><%= @bug.body %></h4>
+    </pre>
+    <div class="d-flex justify-content-center">
+        <% case @bug.status %>
+        <% when "new" %>
+            <%= render partial: "status_btn", locals: { status: "open", submit: "Open", color: "primary" } %>
+            <%= render partial: "status_btn", locals: { status: "closed", submit: "Close", color: "secondary" } %>
+            <%= render partial: "status_btn", locals: { status: "duplicate", submit: "Duplicate", color: "secondary" } %>
+        <% when "open" %>
+            <%= link_to "Solved", bug_status_path(@bug, "solved"), class: "btn btn-success mx-1", style: "width: 15%" %>
+            <%= link_to "Close", bug_status_path(@bug, "closed"), class: "btn btn-secondary mx-1", style: "width: 15%" %>
+        <% when "solved", "closed", "duplicate" %>
+            <%= link_to "Reopen", bug_status_path(@bug, "open"), class: "btn btn-primary mx-1", style: "width: 15%" %>
+        <% end %>
+
+        
+    </div>
+</div>

@@ -78,6 +78,7 @@
                 <ul class="dropdown-menu">
                   <li><%= link_to "Users", admin_users_path, class: "dropdown-item" %></li>
                   <li><%= link_to "API docs", api_docs_path, class: "dropdown-item" %></li>
+                  <li><%= link_to "Bugs (#{BugReport.where(status: "new").count})", bugs_path(category: "new"), class: "dropdown-item" %></li>
                 </ul>
               </li>
             <% end %>
@@ -167,11 +168,17 @@
               </p>
 
               <p class="input-group">
+                <%= form.label :platform, t("layouts.application.platform"), class: "fs-4 input-group-text" %>
+                <%= form.text_field :platform, placeholder: t("layouts.application.platform_placeholder"), class: "form-control" %>
+              </p>
+
+              <p class="input-group">
                 <%= form.label :url, t("layouts.application.url"), class: "fs-4 input-group-text" %>
                 <%= form.text_field :url, placeholder: t("layouts.application.url_placeholder"), class: "form-control" %>
               </p>
 
-              <%= form.text_field :platform, hidden: true, value: request.user_agent  %>
+              <%= form.text_field :user_agent, hidden: true, value: request.user_agent  %>
+              <%= form.text_field :original_url, hidden: true, value: request.path %>
               <%= form.text_area :body, class: "form-control", rows: 6, value: t("layouts.application.bug_description") %>
 
               <div class="text-center mt-2">

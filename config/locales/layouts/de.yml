@@ -22,3 +22,5 @@ de:
       url: URL
       url_placeholder: Die URL bei der der Bug aufgekommen ist
       bug_description: "Bug genauer beschreiben\n\n\nSchritte um Bug zu reproduzieren\n\n"
+      platform: Platform
+      platform_placeholder: Platform (z.B. IOS, Windows)

@@ -16,6 +16,6 @@ class Api::BugReportController < ApplicationController
 
   private
   def bug_report_params
-    params.require(:bug_report).permit(:title, :body, :url, :platform)
+    params.require(:bug_report).permit(:title, :body, :url, :platform, :user_agent)
   end
 end

@@ -1,2 +1,34 @@
-<h1>BugReport#list</h1>
-<p>Find me in app/views/bug_report/list.html.erb</p>
+<%= content_for :css do %>
+    <%= stylesheet_link_tag "link_card" %>
+    <%= stylesheet_link_tag "statuses" %>
+<% end %>
+
+<div class="container">
+    <h1 class="text-center my-4">
+        <% if @category == "all" %>
+            All bug reports
+        <% else %>
+            Bug reports with status <%= @category.downcase %>
+        <% end %>
+    </h1>
+
+    <ul class="list-group list-group-horizontal-sm my-2">
+        <%= link_to "All (#{BugReport.count})", bugs_path(), class: "list-group-item cat-nav #{"active" if @category == "all"}" %>
+        <% for category in BugReport::STATUSES do %>
+            <% bug_amount = BugReport.where(status: category).count %>
+            <%= link_to "#{category.capitalize} (#{bug_amount})", bugs_path(category: category), class: "list-group-item cat-nav #{"active" if @category == category}" %>
+        <% end %>
+    </ul>
+
+    <% for bug in @bug_reports do %>
+        <%= link_to bug_path(bug), class: "link-card" do %>
+            <span class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <h4 class="m-0"><%= bug.title %></h4>
+                    <div class="status status-<%= bug.status %>"><%= bug.status.capitalize %></div>
+                </div>
+                <div class="float-end">Created <%= distance_of_time_in_words_to_now(bug.created_at, locale: :en) %> ago</div>
+            </span>
+        <% end %>
+    <% end %>
+</div>
