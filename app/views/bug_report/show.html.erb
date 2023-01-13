@@ -6,8 +6,19 @@
         }
 
         .status-btn {
-            width: 15%;
             margin: 0 2px;
+        }
+
+        @media (min-width: 768px) {
+            .status-btn {
+                width: 15%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .status-btn {
+                width: 33%;
+            }
         }
     </style>
 <% end %>
@@ -43,12 +54,10 @@
             <%= render partial: "status_btn", locals: { status: "closed", submit: "Close", color: "secondary" } %>
             <%= render partial: "status_btn", locals: { status: "duplicate", submit: "Duplicate", color: "secondary" } %>
         <% when "open" %>
-            <%= link_to "Solved", bug_status_path(@bug, "solved"), class: "btn btn-success mx-1", style: "width: 15%" %>
-            <%= link_to "Close", bug_status_path(@bug, "closed"), class: "btn btn-secondary mx-1", style: "width: 15%" %>
+            <%= render partial: "status_btn", locals: { status: "solved", submit: "Solved", color: "success" } %>
+            <%= render partial: "status_btn", locals: { status: "closed", submit: "Close", color: "secondary" } %>
         <% when "solved", "closed", "duplicate" %>
-            <%= link_to "Reopen", bug_status_path(@bug, "open"), class: "btn btn-primary mx-1", style: "width: 15%" %>
+            <%= render partial: "status_btn", locals: { status: "open", submit: "Reopen", color: "primary" } %>
         <% end %>
-
-        
     </div>
 </div>

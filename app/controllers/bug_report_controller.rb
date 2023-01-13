@@ -27,7 +27,7 @@ class BugReportController < ApplicationController
 
   def status
     if BugReport.find(params[:bug_id]).update(status_params)
-      gn s: "Status updated #{status_params}"
+      gn s: "Status updated"
     else
       gn a: "Status could not be updated"
     end

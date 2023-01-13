@@ -7,6 +7,6 @@ class BugReport < ApplicationRecord
   validates :body, length: { minimum: 10, maximum: 30000 }
 
   before_validation do
-    self.status = "new"
+    self.status ||= "new"
   end
 end
