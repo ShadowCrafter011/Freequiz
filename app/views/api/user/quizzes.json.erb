@@ -1,0 +1,13 @@
+{
+    "data": [
+        <% @quizzes.each_with_index do |quiz, index| %>
+        {
+            "id": "<%= quiz.id %>",
+            "title": "<%= quiz.title %>",
+            "description": "<%= quiz.description %>",
+            "visibility": "<%= quiz.visibility %>",
+            "translations": <%= quiz.data.length %>
+        }<%= "," if index < @quizzes.length - 1 %>
+        <% end %>
+    ]
+}

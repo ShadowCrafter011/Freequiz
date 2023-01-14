@@ -6,19 +6,45 @@ class Api::UserController < ApplicationController
   skip_before_action :setup_login
   skip_around_action :switch_locale
 
+  before_action :api_require_valid_access_token!, only: :quizzes
+
+  def search
+    query = ActiveRecord::Base.connection.quote(params[:query])
+    page = params[:page] || 1
+    offset = page.to_i * 50 - 50
+    @users = User.find_by_sql("SELECT * FROM users ORDER BY SIMILARITY(username, #{query}) DESC LIMIT 50 OFFSET #{offset}")
+  end
+
+  def quizzes
+    page = params[:page] || 1
+    offset = page.to_i * 50 - 50
+    @quizzes = @api_user.quizzes.order(created_at: :desc).limit(50).offset(offset)
+  end
+
+  def public
+    return json({success: false, message: "User doesn't exist"}, :not_found) unless (user = User.find_by(username: params[:username])).present?
+
+    page = params[:page] || 1
+    offset = page.to_i * 50 - 50
+    @quizzes = user.quizzes.order(created_at: :desc).limit(50).offset(offset)
+    render :quizzes
+  end
+
   def create
     # json parameters like this:
     # {
-    #   "username": "username",
-    #   "email": "email",
-    #   "password": "password", 
-    #   "password_confirmation": "password",
-    #   "agb": true
+    #   "user": {
+    #     "username": "username",
+    #     "email": "email",
+    #     "password": "password", 
+    #     "password_confirmation": "password",
+    #     "agb": true
+    #   }
     # }
 
-    return json({success: false, message: "Missing username, email, password, password_confirmation or agb"}, code: 400) unless validate_params :username, :email, :password, :password_confirmation, :agb
+    return json({success: false, message: "Missing username, email, password, password_confirmation or agb"}, 400) unless validate_params(:username, :email, :password, :password_confirmation, :agb, hash: user_params)
 
-    return json({success: false, message: "Password doesn't meet requirements"}, code: 400) unless params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+    return json({success: false, message: "Password doesn't meet requirements"}, 400) unless user_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
 
     user = User.new user_params
     user.current_sign_in_ip = request.remote_ip
@@ -29,18 +55,18 @@ class Api::UserController < ApplicationController
         success: true,
         message: "User created",
         access_token: generate_access_token(user)
-      }, code: 201)
+      }, 201)
     else
       json({
         success: false,
         message: "Something went wrong whilst creating the user",
         errors: user.get_errors
-      }, code: 400)
+      }, 400)
     end
   end
 
   def login
-    return json({success: false, message: "Missing username or password"}, code: 400) unless validate_params :username, :password
+    return json({success: false, message: "Missing username or password"}, 400) unless validate_params :username, :password
 
     user = User.find_by(email: params[:username].downcase)
 
@@ -48,9 +74,9 @@ class Api::UserController < ApplicationController
       user = User.where("lower(username) = ?", params[:username].downcase).first
     end
 
-    return json({success: false, message: "User doesn't exist"}, code: :not_found) unless !!user
+    return json({success: false, message: "User doesn't exist"}, :not_found) unless !!user
 
-    return json({success: false, message: "Wrong password"}, code: 401) unless user.compare_encrypted :password, params[:password]
+    return json({success: false, message: "Wrong password"}, 401) unless user.compare_encrypted :password, params[:password]
     
     user.sign_in request.remote_ip
     json({success: true, access_token: generate_access_token(user)})
@@ -80,7 +106,7 @@ class Api::UserController < ApplicationController
       @api_user.destroy
       json({success: true, message: "User deleted"})
     else
-      json({success: false, message: "Couldn't delete user. Wrong token"}, code: :unauthorized)
+      json({success: false, message: "Couldn't delete user. Wrong token"}, :unauthorized)
     end
   end
 
@@ -100,15 +126,15 @@ class Api::UserController < ApplicationController
 
     if edit_params[:password].present?
       unless edit_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
-        return json({success: false, message: "Password doesn't meet requirements"}, code: 400)
+        return json({success: false, message: "Password doesn't meet requirements"}, 400)
       end
     end
 
     email_changed, errors = @api_user.change edit_params
 
-    return json({success: false, message: "Something went wrong whilst updating the user", errors: errors}, code: :bad_request) if errors.length > 0
+    return json({success: false, message: "Something went wrong whilst updating the user", errors: errors}, :bad_request) if errors.length > 0
     
-    json({success: true, message: "User updated", email_changed: email_changed}, code: :accepted)
+    json({success: true, message: "User updated", email_changed: email_changed}, :accepted)
   end
 
   def update_settings
@@ -125,7 +151,7 @@ class Api::UserController < ApplicationController
     if @api_user.setting.update(setting_params)
       json({success: true, message: "Settings updated"})
     else
-      json({success: false, message: "Something went wrong whilst saving the settings", errors: @api_user.setting.get_errors}, code: :bad_request)
+      json({success: false, message: "Something went wrong whilst saving the settings", errors: @api_user.setting.get_errors}, :bad_request)
     end
   end
 
@@ -148,6 +174,6 @@ class Api::UserController < ApplicationController
     end
 
     def setting_params
-      params.require(:setting).permit(Setting::SETTING_KEYS)
+      params.require(:setting).permit(:locale, Setting::SETTING_KEYS)
     end
 end

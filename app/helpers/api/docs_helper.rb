@@ -12,6 +12,6 @@ module Api::DocsHelper
     end
 
     def collapse_tab? tab
-        action_name == tab.to_s ? "" : "data-bs-target=#users data-bs-toggle=collapse"
+        action_name == tab.to_s ? "" : "data-bs-target=##{tab} data-bs-toggle=collapse"
     end
 end

@@ -5,6 +5,20 @@ class Quiz::QuizController < ApplicationController
     setup_locale "quiz.quiz"
   end
 
+  before_action only: [:cards, :learn] do
+    override_action :show
+
+    @quiz = Quiz.find_by(id: params[:quiz_id])
+    unless @quiz.present? && @quiz.user_allowed_to_view?(current_user)
+      gn n: tp("not_found")
+      redirect_to root_path
+    end
+  end
+
+  def cards; end
+
+  def learn; end
+
   def new
     @quiz = current_user.quizzes.new
   end
@@ -25,12 +39,12 @@ class Quiz::QuizController < ApplicationController
   def show
     @quiz = Quiz.find_by(id: params[:quiz_id])
     
-    return unless check_viewing_privilege
-
     unless @quiz.present?
       gn n: tp("not_found")
-      redirect_to root_path
+      return redirect_to root_path
     end
+    
+    return unless check_viewing_privilege
   end
 
   def request_destroy
@@ -70,6 +84,7 @@ class Quiz::QuizController < ApplicationController
       gn s: tp("saved")
       redirect_to quiz_show_path(@quiz)
     else
+      gn a: @quiz.get_errors
       render :edit, status: :unprocessable_entity
     end
   end
@@ -83,7 +98,7 @@ class Quiz::QuizController < ApplicationController
       redirect_to root_path
     end
 
-    if quiz.compare_encrypted(:destroy_token, token) && quiz.destroy_expire > Time.now
+    if quiz.user == @user && quiz.compare_encrypted(:destroy_token, token) && quiz.destroy_expire > Time.now
       quiz.destroy
       gn n: tp("deleted")
       redirect_to root_path

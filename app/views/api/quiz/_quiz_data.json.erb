@@ -1,0 +1,19 @@
+{
+    "id": "<%= quiz.id %>",
+    "title": "<%= quiz.title %>",
+    "description": "<%= quiz.description %>",
+    "visibility": "<%= quiz.visibility %>",
+    "from": {
+        "id": "<%= quiz.from %>",
+        <% from = Language.find(quiz.from) %>
+        "name": "<%= from.name %>",
+        "locale": "<%= from.locale %>"
+    },
+    "to": {
+        "id": "<%= quiz.to %>",
+        <% to = Language.find(quiz.to) %>
+        "name": "<%= to.name %>",
+        "locale": "<%= to.locale %>"
+    },
+    "data": <%= quiz.learn_data(@api_user).to_json.html_safe %>
+}

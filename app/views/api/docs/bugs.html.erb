@@ -2,7 +2,7 @@
     <div id="create" class="section">
         <h1>Create Bug report</h1>
         <p>
-            <a href="https://freequiz.herokuapp.com/api/v1/bug/create">https://freequiz.herokuapp.com/api/v1/bug/create</a>
+            <a href="https://freequiz.herokuapp.com/api/bug/create">https://freequiz.herokuapp.com/api/bug/create</a>
         </p>
         <p>
             <h3>Request method: PUT</h3>
@@ -19,13 +19,15 @@
         "title": "title",
         "body": "body",
         "url": "url",
-        "platform": "platform"
+        "platform": "platform",
+        "user_agent": "user_agent"
     }
 }
             </pre>
         </p>
         <p>
             <h3>Response</h3>
+            Status code: 201
             <pre>
 {
     "success": true,

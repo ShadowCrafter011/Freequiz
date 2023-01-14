@@ -1,0 +1,52 @@
+<%= content_for :css do %>
+    <%= stylesheet_link_tag "learn/cards" %>
+<% end %>
+
+<%= content_for :js do %>
+    <%= javascript_include_tag "learn/cards", defer: "defer" %>
+    <script>
+        var done_text = "<%= tp("done") %>"
+        var quiz_data = JSON.parse('<%= @quiz.learn_data(current_user).to_json.html_safe %>');
+    </script>
+<% end %>
+
+<div class="flip-body user-select-none text-center">
+    <div class="flip-card-container">
+        <div id="flip-card" class="flip-card w-100 h-100 position-relative">
+            <div id="word" class="flip-card-front flip-card-side bg-primary border-2 border-primary rounded-5"></div>
+            <div id="translation" class="flip-card-back flip-card-side bg-success border-2 border-success rounded-5"></div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="w-800">
+        <div class="row" id="learning">
+            <div class="col-6">
+                <div class="btn btn-lg btn-primary w-100" onclick="learn_again()"><%= tp("learn_again") %></div>
+            </div>
+            <div class="col-6">
+                <div class="btn btn-lg btn-success w-100" onclick="understood()"><%= tp("understood") %></div>
+            </div>
+        </div>    
+        <div id="done" class="d-none">
+            <div class="row">
+                <div class="col-12">
+                    <div class="btn btn-lg btn-success w-100" onclick="reset()"><%= tp("start_over") %></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center mt-2 display-4">
+    <div class="w-800">
+        <div class="row">
+            <div class="col-6 text-center text-primary">
+                <div class="display-6"><%= tp("not_learned") %></div><div id="unlearned"></div>
+            </div>
+            <div class="col-6 text-center text-success">
+                <div class="display-6"><%= tp("learned") %></div><div id="learned"></div>
+            </div>
+        </div>
+    </div>
+</div>

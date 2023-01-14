@@ -2,7 +2,7 @@
     <div id="create" class="section">
         <h1>Create</h1>
         <p>
-            <a href="https://freequiz.herokuapp.com/api/v1/user/create">https://freequiz.herokuapp.com/api/v1/user/create</a>
+            <a href="https://freequiz.herokuapp.com/api/user/create">https://freequiz.herokuapp.com/api/user/create</a>
         </p>
         <p>
             <h3>Request method: PUT</h3>
@@ -10,12 +10,14 @@
         <p>
             <h3>Content</h3>
             <pre>
-{
-    "username": "username",
-    "email": "email",
-    "password": "password", 
-    "password_confirmation": "password",
-    "agb": true
+{  
+    "user": {
+        "username": "username",
+        "email": "email",
+        "password": "password", 
+        "password_confirmation": "password",
+        "agb": true
+    }
 }
             </pre>
         </p>
@@ -44,7 +46,7 @@
     <div id="delete_token" class="section">
         <h1>Delete Token</h1>
         <p>
-            <a href="https://freequiz.herokuapp.com/api/v1/user/delete_token">https://freequiz.herokuapp.com/api/v1/user/delete_token</a>
+            <a href="https://freequiz.herokuapp.com/api/user/delete_token">https://freequiz.herokuapp.com/api/user/delete_token</a>
         </p>
         <p>
             <h3>Request method: GET</h3>
@@ -59,6 +61,7 @@
         </p>
         <p>
             <h3>Response</h3>
+            Status code: 200
             <pre>
 {
     "success": true,
@@ -77,7 +80,7 @@
     <div id="delete" class="section">
         <h1>Delete</h1>
         <p>
-            <a href="https://freequiz.herokuapp.com/api/v1/user/delete/delete_token">https://freequiz.herokuapp.com/api/v1/user/delete/delete_token</a><br>
+            <a href="https://freequiz.herokuapp.com/api/user/delete/delete_token">https://freequiz.herokuapp.com/api/user/delete/delete_token</a><br>
             Replace delete_token with token gotten by <a href="#delete_token">this request</a>
         </p>
         <p>
@@ -89,6 +92,7 @@
         </p>
         <p>
             <h3>Response</h3>
+            Status code: 200
             <pre>
 {
     "success": true,
@@ -108,7 +112,7 @@
     <div id="login" class="section">
         <h1>Login</h1>
         <p>
-            <a href="https://freequiz.herokuapp.com/api/v1/user/login">https://freequiz.herokuapp.com/api/v1/user/login</a><br>
+            <a href="https://freequiz.herokuapp.com/api/user/login">https://freequiz.herokuapp.com/api/user/login</a><br>
         </p>
         <p>
             <h3>Request method: POST</h3>
@@ -124,6 +128,7 @@
         </p>
         <p>
             <h3>Response</h3>
+            Status code: 200
             <pre>
 {
     "success": true,
@@ -149,7 +154,7 @@
     <div id="refresh" class="section">
         <h1>Refresh</h1>
         <p>
-            <a href="https://freequiz.herokuapp.com/api/v1/user/refresh">https://freequiz.herokuapp.com/api/v1/user/refresh</a><br>
+            <a href="https://freequiz.herokuapp.com/api/user/refresh">https://freequiz.herokuapp.com/api/user/refresh</a><br>
         </p>
         <p>
             <h3>Request method: POST</h3>
@@ -164,6 +169,7 @@
         </p>
         <p>
             <h3>Response</h3>
+            Status code: 200
             <pre>
 {
     "success": true,
@@ -181,7 +187,7 @@
     <div id="data" class="section">
         <h1>Data</h1>
         <p>
-            <a href="https://freequiz.herokuapp.com/api/v1/user/data">https://freequiz.herokuapp.com/api/v1/user/data</a><br>
+            <a href="https://freequiz.herokuapp.com/api/user/data">https://freequiz.herokuapp.com/api/user/data</a><br>
         </p>
         <p>
             <h3>Request method: GET</h3>
@@ -196,6 +202,7 @@
         </p>
         <p>
             <h3>Response</h3>
+            Status code: 200
             <pre>
 {
     "success": true,
@@ -204,23 +211,24 @@
         "email": "email",
         "unconfirmed_email": "unconfirmed_email" or null,
         "role": "role",
+        "quizzes": 0,
         "created_at": 1670099953,
         "updated_at": 1670958427,
-    "settings": {
-        "locale": "de",
-        "dark_mode": true,
-        "show_email": true
-    },
-    "confirmation": {
-        "confirmed": true,
-        "confirmed_at": "2022-12-07T19:06:03.071Z"
-    },
-    "logins": {
-        "count": 6,
-        "current_login_at": 1670958426,
-        "current_login_ip": "::1",
-        "last_login_at": 1670859165,
-        "last_login_ip": "127.0.0.1"
+        "settings": {
+            "locale": "de",
+            "dark_mode": true,
+            "show_email": true
+        },
+        "confirmation": {
+            "confirmed": true,
+            "confirmed_at": "2022-12-07T19:06:03.071Z"
+        },
+        "logins": {
+            "count": 6,
+            "current_login_at": 1670958426,
+            "current_login_ip": "::1",
+            "last_login_at": 1670859165,
+            "last_login_ip": "127.0.0.1"
         }
     }
 }
@@ -233,10 +241,140 @@
     </div>
     <hr>
 
+    <div id="search" class="section">
+        <h1>Search</h1>
+        <p>
+            <a href="https://freequiz.herokuapp.com/api/user/search/page?query=username">https://freequiz.herokuapp.com/api/user/search/page?query=username</a><br>
+            Replace page with desired page. If omitted page 1 will be used. Returns 50 users per page<br>
+            Replace username with username you are looking for
+        </p>
+        <p>
+            <h3>Request method: GET</h3>
+        </p>
+        <p>
+            <h3>Content</h3>
+            No content
+        </p>
+        <p>
+            <h3>Response</h3>
+            Status code: 200
+            <pre>
+{
+    "data": [{
+            "username": "username",
+            "role": "admin",
+            "quizzes": 10
+        },
+        {
+            "username": "username",
+            "role": "beta",
+            "quizzes": 0
+        },
+        {
+            "username": "username",
+            "role": "user",
+            "quizzes": 0
+        }
+    ]
+}
+            </pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
+        </p>
+    </div>
+    <hr>
+
+    <div id="user_quizzes" class="section">
+        <h1>Quizzes</h1>
+        <p>
+            <a href="https://freequiz.herokuapp.com/api/user/quizzes/page">https://freequiz.herokuapp.com/api/user/quizzes/page</a><br>
+            Replace page with desired page. If omitted page 1 will be used. Returns 50 quizzes per page
+        </p>
+        <p>
+            <h3>Request method: GET</h3>
+        </p>
+        <p>
+            <h3>Content</h3>
+            No content
+        </p>
+        <p>
+            <h3>Response</h3>
+            Status code: 200
+            <pre>
+{
+    "data": [{
+            "title": "title",
+            "description": "description",
+            "visibility": "public",
+            "translations": 10
+        },
+        {
+            "title": "title",
+            "description": "description",
+            "visibility": "public",
+            "translations": 10
+        }
+    ]
+}
+            </pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
+        </p>
+    </div>
+    <hr>
+
+    <div id="public" class="section">
+        <h1>Public</h1>
+        <p>
+            <a href="https://freequiz.herokuapp.com/api/user/username/public/page">https://freequiz.herokuapp.com/api/user/username/public/page</a><br>
+            Replace username with the targetted users one<br>
+            Replace page with desired page. If omitted page 1 will be used. Returns 50 quizzes per page
+        </p>
+        <p>
+            <h3>Request method: GET</h3>
+        </p>
+        <p>
+            <h3>Content</h3>
+            No content
+        </p>
+        <p>
+            <h3>Response</h3>
+            Status code: 200
+            <pre>
+{
+    "data": [{
+            "title": "title",
+            "description": "description",
+            "visibility": "public",
+            "translations": 10
+        },
+        {
+            "title": "title",
+            "description": "description",
+            "visibility": "public",
+            "translations": 10
+        }
+    ]
+}
+            </pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            <ul>
+                <li><strong>Not found</strong>: Code 404, "User doesn't exist"</li>
+            </ul>
+        </p>
+    </div>
+    <hr>
+
     <div id="update" class="section">
         <h1>Update</h1>
         <p>
-            <a href="https://freequiz.herokuapp.com/api/v1/user/update">https://freequiz.herokuapp.com/api/v1/user/update</a><br>
+            <a href="https://freequiz.herokuapp.com/api/user/update">https://freequiz.herokuapp.com/api/user/update</a><br>
         </p>
         <p>
             <h3>Request method: PATCH</h3>
@@ -262,6 +400,7 @@
         </p>
         <p>
             <h3>Response</h3>
+            Status code: 202
             <pre>
 {
     "success": true,
@@ -283,7 +422,7 @@
     <div id="settings" class="section mb-5">
         <h1>Settings</h1>
         <p>
-            <a href="https://freequiz.herokuapp.com/api/v1/user/settings">https://freequiz.herokuapp.com/api/v1/user/settings</a><br>
+            <a href="https://freequiz.herokuapp.com/api/user/settings">https://freequiz.herokuapp.com/api/user/settings</a><br>
         </p>
         <p>
             <h3>Request method: PATCH</h3>
@@ -311,6 +450,7 @@
         </p>
         <p>
             <h3>Response</h3>
+            Status code: 202
             <pre>
 {
     "success": true,

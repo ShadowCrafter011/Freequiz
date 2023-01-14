@@ -10,12 +10,12 @@ class Api::BugReportController < ApplicationController
     user = api_current_user
     report = user.present? ? user.bug_reports.new(bug_report_params) : BugReport.new(bug_report_params)
 
-    return json({success: true, message: "Bug report created"}, code: :created) if report.save
-    json({success: false, message: "Could not create bug report"}, code: :unprocessable_entity)
+    return json({success: true, message: "Bug report created"}, :created) if report.save
+    json({success: false, message: "Could not create bug report"}, :unprocessable_entity)
   end
 
   private
   def bug_report_params
-    params.require(:bug_report).permit(:title, :body, :url, :platform)
+    params.require(:bug_report).permit(:title, :body, :url, :platform, :user_agent)
   end
 end

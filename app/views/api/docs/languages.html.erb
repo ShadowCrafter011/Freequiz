@@ -1,0 +1,39 @@
+<%= render layout: "api_navbar" do %>
+    <div id="languages">
+        <h1>Get language list</h1>
+        <p>
+            <a href="https://freequiz.herokuapp.com/api/languages">https://freequiz.herokuapp.com/api/languages</a>
+        </p>
+        <p>
+            <h3>Request method: GET</h3>
+        </p>
+        <p>
+            <h3>Content</h3>
+            No content
+        </p>
+        <p>
+            <h3>Response</h3>
+            Status code: 200
+            <pre>
+{
+    "success": true,
+    "data": {
+        "1": {
+            "name": "german",
+            "locale": "de"
+        },
+        "2": {
+            "name": "french",
+            "locale": "fr"
+        },
+        ...
+    }
+}
+            </pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
+        </p>
+    </div>
+<% end %>

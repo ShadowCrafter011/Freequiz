@@ -2,6 +2,7 @@ class Quiz < ApplicationRecord
   # Quizzes can store up to 5000 translations with 255 characters each
 
   belongs_to :user, optional: true
+  has_many :scores, dependent: :destroy
 
   VISIBILITIES = ["public", "private", "hidden"]
 
@@ -12,6 +13,25 @@ class Quiz < ApplicationRecord
   validate :validate_langs, :translation_length
 
   attribute :data, :binary_hash
+
+  before_save do
+    hashes = []
+    for translation in self.data do
+      hash = Digest::SHA256.hexdigest(translation.values.join)[0..5]
+      hashes.append(hash)
+      translation[:hash] = hash
+
+      translation[:w] = translation[:w].gsub("'", "").gsub("\"", "")
+      translation[:t] = translation[:t].gsub("'", "").gsub("\"", "")
+    end
+
+    for score in self.scores do
+      for hash in hashes do
+        score.data[hash] ||= Array.new(Score::MODES.length, 0)
+      end
+      score.save
+    end
+  end
 
   before_validation do
     for translation in self.data do
@@ -35,7 +55,19 @@ class Quiz < ApplicationRecord
     end
   end
 
+  def learn_data user
+    score = user.scores.find_by(quiz_id: self.id) || user.scores.create(quiz_id: self.id) if user.present?
+
+    c_data = self.data.clone
+    for d in c_data do
+      score_data = user.present? ? score.get_data(d[:hash]) : Score.empty
+      d[:favorite] = score_data[:favorite]
+      d[:score] = score_data[:score]
+    end
+  end
+
   def user_allowed_to_view? user
+    return (self.visibility == "public" || self.visibility == "hidden") unless user.present?
     self.visibility == "public" || self.visibility == "hidden" || self.user == user || user.admin?
   end
 
