@@ -5,6 +5,7 @@
         "email": "<%= @api_user.email %>",
         "unconfirmed_email": "<%= @api_user.unconfirmed_email %>",
         "role": "<%= @api_user.role %>",
+        "quizzes": <%= @api_user.quizzes.count %>,
         "created_at": "<%= @api_user.created_at.to_i %>",
         "updated_at": "<%= @api_user.updated_at.to_i %>",
         "settings": <%= @settings.to_json.html_safe %>,

@@ -1,0 +1,11 @@
+{
+    "data": [
+        <% @users.each_with_index do |user, index| %>
+        {
+            "username": "<%= user.username %>",
+            "role": "<%= user.role %>",
+            "quizzes": <%= user.quizzes.count %>
+        }<%= "," if index < @users.length - 1 %>
+        <% end %>
+    ]
+}

@@ -27,6 +27,15 @@ de:
         edit: Bearbeiten
         delete: Löschen
         created_by: (von %s erstellt)
+        cards: Kartei Karten
+
+        # Learning cards
+        done: Glückwunsch, du hast alles gelernt!
+        learn_again: Nochmal lernen
+        understood: Verstanden
+        start_over: Nochmals lernen
+        not_learned: "Noch nicht gelernt: "
+        learned: "Gelernt: "
         
       request_destroy:
         delete: Löschen

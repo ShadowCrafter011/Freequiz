@@ -42,6 +42,7 @@
                 <div class="text-center">
                     <%= link_to tp("edit"), quiz_edit_path(@quiz), class: "btn btn-primary" %>
                     <%= link_to tp("delete"), quiz_request_destroy_path(@quiz), class: "btn btn-danger" %>
+                    <%= link_to tp("cards"), quiz_cards_path(@quiz), class: "btn btn-primary" %>
                 </div>
             </p>
         <% end %>

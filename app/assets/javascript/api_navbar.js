@@ -1,7 +1,9 @@
-let anchor = location.hash;
+let anchor, anchorElement;
 
-var anchorElement = $(`[href="${location.pathname}${anchor}"]`);
-$(document).on("load turbo:load", () => {
+$(document).on("turbo:load", () => {
+    anchor = location.hash;
+    anchorElement = $(`[href="${location.pathname}${anchor}"]`);
+
     if (anchorElement != null) {
         anchorElement.addClass("active");
     }
@@ -12,10 +14,10 @@ $(document).on("load turbo:load", () => {
     }
 });
 
-$(document).on("click", "div[id='api-nav-links'] a", function(event) {
+$(document).on("click", "div[id='api-nav-links'] a", function() {
     let item = $( this );
 
-    Turbo.visit(item.attr("href"));
+    location.href = item.attr("href");
             
     if (anchorElement != item) {
         $(".active").each(function( ) {

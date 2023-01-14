@@ -28,6 +28,8 @@
 
         <%= link_to "Bug reports", api_docs_bugs_path, class: "list-group-item list-group-item-action #{activate_tab?(:bugs)}" %>
 
+        <%= link_to "Languages", api_docs_languages_path, class: "list-group-item list-group-item-action #{activate_tab?(:languages)}" %>
+
         <div class="list-group-item list-group-item-action" role="button" <%= collapse_tab?(:users) %>>
           <div class="dropdown-toggle">Users</div>
           <div id="users" class="collapse list-group list-group-flush mt-2 <%= show_tab?(:users) %>">
@@ -38,12 +40,36 @@
                           ["login", "login"],
                           ["refresh", "refresh"],
                           ["data", "data"],
+                          ["search", "search"],
+                          ["quizzes", "user_quizzes"],
+                          ["public", "public"],
                           ["update", "update"],
                           ["settings", "settings"]
                         ] %>
 
             <% links.each do |link_name, anchor| %>
               <%= link(method(:api_docs_users_path), link_name, anchor) %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="list-group-item list-group-item-action" role="button" <%= collapse_tab?(:quizzes) %>>
+          <div class="dropdown-toggle">Quizzes</div>
+          <div id="quizzes" class="collapse list-group list-group-flush mt-2 <%= show_tab?(:quizzes) %>">
+
+            <% links = [  ["create", "create"],
+                          ["delete token", "delete_token"],
+                          ["delete", "delete"],
+                          ["data", "data"],
+                          ["search", "search"],
+                          ["update", "update"],
+                          ["favorites", "favorites"],
+                          ["score", "score"],
+                          ["reset score", "reset_score"]
+                        ] %>
+
+            <% links.each do |link_name, anchor| %>
+              <%= link(method(:api_docs_quizzes_path), link_name, anchor) %>
             <% end %>
           </div>
         </div>
