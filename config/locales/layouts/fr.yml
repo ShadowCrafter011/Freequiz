@@ -15,3 +15,12 @@ fr:
       search_placeholder: Quiz ou recherche d'utilisateurs
       submit_search: Rechercher
       search_error: Ce champ doit être rempli
+      bug_report: Signaler un bug
+
+      title_form: Titre
+      title_placeholder: Résumer le bug en quelques mots
+      url: URL
+      url_placeholder: L'URL où le bug est apparu
+      bug_description: "Décrire le bug de manière plus détaillée\n\n\nÉtapes pour reproduire le bug\n\n"
+      platform: Plate-forme
+      platform_placeholder: Plateforme (par ex. IOS, Windows)

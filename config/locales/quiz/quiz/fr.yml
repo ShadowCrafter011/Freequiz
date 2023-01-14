@@ -25,6 +25,15 @@ fr:
         edit: Modifier
         delete: Supprimer
         created_by: (créé par %s)
+
+        # Cards
+        cards: Fichies
+        done: Félicitations, tu as tout appris !
+        learn_again: Apprendre à nouveau
+        understood: Compris
+        start_over: Apprendre à nouveau
+        not_learned: "Pas encore appris: "
+        learned: "Appris : "
       destroy:
         not_found: Ce quiz n'existe pas
         not_allowed: Vous ne pouvez pas faire cela

@@ -25,6 +25,15 @@ en:
         edit: Edit
         delete: Delete
         created_by: (created by %s)
+
+        # Cards
+        cards: Cards
+        done: Congratulations, you have learned everything!
+        learn_again: Learn again
+        understood: Understood
+        start_over: Learn again
+        not_learned: "Not yet learned: "
+        learned: "Learned: "
       destroy:
         not_found: This quiz does not exist
         not_allowed: You must not do this

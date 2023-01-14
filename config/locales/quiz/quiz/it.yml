@@ -25,6 +25,15 @@ it:
         edit: Modifica
         delete: Cancellare
         created_by: (creato da %s)
+
+        # Cards
+        cards: Schede di carta
+        done: Congratulazioni, avete imparato tutto!
+        learn_again: Imparare di nuovo
+        understood: Capito
+        start_over: Imparare di nuovo
+        not_learned: "Non ancora appreso: "
+        learned: "Imparato: "
       destroy:
         not_found: Questo quiz non esiste
         not_allowed: Non si deve fare questo

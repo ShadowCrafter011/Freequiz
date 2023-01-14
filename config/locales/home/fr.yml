@@ -10,4 +10,5 @@ fr:
     search:
       results_for: Résultats de recherche pour %s
       quizzes: Quizs
+      page: Page %s
       users: Utilisateur
