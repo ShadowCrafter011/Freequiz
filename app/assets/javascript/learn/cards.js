@@ -4,6 +4,7 @@ $(document).on("click", "#flip-card", function() {
     $(this).toggleClass("flipped");
 });
 
+setup();
 $(document).on("turbo:load", setup);
 
 function load_elements() {
@@ -30,6 +31,7 @@ function setup() {
 
     current_card = select_card();
     set_card(current_card);
+    console.log(quiz_data.length)
 }
 
 async function reset_flip() {
