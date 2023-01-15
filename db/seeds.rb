@@ -23,8 +23,10 @@ Language.create([
     { name: "chinese", locale: "zh" }
 ])
 
+system_id = User.find_by(username: "System").id
+
 for x in 1..20 do
-    quiz = Quiz.new(user_id: 1, title: "Automatic Quiz ##{x}", description: "This Quiz was generated randomly", data: [], from: 3, to: 1, visibility: "public")
+    quiz = Quiz.new(user_id: system_id, title: "Automatic Quiz ##{x}", description: "This Quiz was generated randomly", data: [], from: 3, to: 1, visibility: "public")
     
     10.times do
         word = HTTParty.get("https://random-word-api.herokuapp.com/word")[0]
@@ -38,6 +40,6 @@ for x in 1..20 do
 end
 
 for x in 21..1000 do
-    Quiz.create(user_id: 1, title: "Automatic Quiz ##{x}", description: "This Quiz was generated automatically", data: [{w: "Tree", t: "Baum"}], from: 3, to: 1, visibility: "public")
+    Quiz.create(user_id: system_id, title: "Automatic Quiz ##{x}", description: "This Quiz was generated automatically", data: [{w: "Tree", t: "Baum"}], from: 3, to: 1, visibility: "public")
     puts "Generated Quiz ##{x}"
 end
