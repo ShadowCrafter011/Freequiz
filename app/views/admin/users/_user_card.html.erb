@@ -26,15 +26,21 @@
                 <% end %>
             </div>
             <div class="col-md-4">
-                <div>
-                    Created <%= distance_of_time_in_words_to_now(user.created_at, locale: :en) %> ago
-                </div>
-                <div>
-                    Updated <%= distance_of_time_in_words_to_now(user.updated_at, locale: :en) %> ago
-                </div>
-                <div>
-                    Last login <%= distance_of_time_in_words_to_now(user.current_sign_in_at, locale: :en) %> ago
-                </div>
+                <% if user.created_at.present? %>
+                    <div>
+                        Created <%= distance_of_time_in_words_to_now(user.created_at, locale: :en) %> ago
+                    </div>
+                <% end %>
+                <% if user.updated_at.present? %>
+                    <div>
+                        Updated <%= distance_of_time_in_words_to_now(user.updated_at, locale: :en) %> ago
+                    </div>
+                <% end %>
+                <% if user.current_sign_in_at.present? %>
+                    <div>
+                        Last login <%= distance_of_time_in_words_to_now(user.current_sign_in_at, locale: :en) %> ago
+                    </div>
+                <% end %>
             </div>
         </div>
     </div>
