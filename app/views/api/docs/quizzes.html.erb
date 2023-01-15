@@ -173,7 +173,7 @@
             <pre>
 {
     "success": true,
-    "data": {
+    "quiz_data": {
         "id": "id",
         "title": "title",
         "description": "description",
@@ -244,19 +244,40 @@
             Status code: 200
             <pre>
 {
+    "success": true,
     "data": [{
             "id": "id",
             "title": "title",
             "description": "description",
             "visibility": "public",
-            "translations": 1
+            "translations": 1,
+            "from": {
+                "id": "1",
+                "name": "german",
+                "locale": "de"
+            },
+            "to": {
+                "id": "3",
+                "name": "english",
+                "locale": "en"
+            }
         },
         {
             "id": "id",
             "title": "title",
             "description": "description",
             "visibility": "public",
-            "translations": 10
+            "translations": 10,
+            "from": {
+                "id": "1",
+                "name": "german",
+                "locale": "de"
+            },
+            "to": {
+                "id": "3",
+                "name": "english",
+                "locale": "en"
+            }
         }
     ]
 }
