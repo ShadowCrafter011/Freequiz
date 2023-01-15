@@ -10,17 +10,17 @@ system_user = User.create(username: "System", email: "system@freequiz.ch", passw
 system_user.update(role: "admin", confirmed: true, password: "71ba800fb1961f975e0bbfb555aae2c2fa38f2e268c5f6f0333b2ee9aca74523")
 
 Language.create([
-    { name: "german", locale: "de" },
-    { name: "french", locale: "fr" },
-    { name: "english", locale: "en" },
-    { name: "spanish", locale: "es" },
-    { name: "italian", locale: "it"},
-    { name: "latin", locale: "la" },
-    { name: "greek", locale: "el" },
-    { name: "romansh", locale: "rm" },
-    { name: "japanese", locale: "ja" },
-    { name: "korean", locale: "ko" },
-    { name: "chinese", locale: "zh" }
+    { id: 1, name: "german", locale: "de" },
+    { id: 2, name: "french", locale: "fr" },
+    { id: 3, name: "english", locale: "en" },
+    { id: 4, name: "spanish", locale: "es" },
+    { id: 5, name: "italian", locale: "it"},
+    { id: 6, name: "latin", locale: "la" },
+    { id: 7, name: "greek", locale: "el" },
+    { id: 8, name: "romansh", locale: "rm" },
+    { id: 9, name: "japanese", locale: "ja" },
+    { id: 10, name: "korean", locale: "ko" },
+    { id: 11, name: "chinese", locale: "zh" }
 ])
 
 system_id = User.find_by(username: "System").id
