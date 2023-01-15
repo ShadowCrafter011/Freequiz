@@ -3,11 +3,11 @@
 <% end %>
 
 <%= content_for :js do %>
-    <%= javascript_include_tag "learn/cards", defer: "defer" %>
     <script>
         var done_text = "<%= tp("done") %>"
         var quiz_data = JSON.parse('<%= @quiz.learn_data(current_user).to_json.html_safe %>');
     </script>
+    <%= javascript_include_tag "learn/cards", defer: "defer" %>
 <% end %>
 
 <div class="flip-body user-select-none text-center">
