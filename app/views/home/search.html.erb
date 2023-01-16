@@ -10,7 +10,7 @@
 </style>
 
 <div class="container">
-    <h1 class="my-4"><%= tp("results_for", params[:query]) %> <%= tp("page", @page) %></h1>
+    <h1 class="my-4"><%= tp("results_for", params[:query]) %> <%= tp("page", @page.to_i + 1) %></h1>
     <div class="list-group list-group-horizontal text-center controls mb-2">
         <%= link_to search_path(category: "quizzes", query: params[:query], page: @page), class: "list-group-item w-50 #{"active" if @quizzes}" do %>
             <h4 class="mb-0"><%= tp("quizzes") %></h4>

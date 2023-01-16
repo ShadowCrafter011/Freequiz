@@ -121,7 +121,7 @@ class Api::QuizController < ApplicationController
 
         next unless score_index.present? && score.data.include?(hash.to_sym)
 
-        score.data[hash.to_sym][score_index] += value.to_i
+        score.data[hash.to_sym][score_index] = value.to_i
       end
     end
     score.save
