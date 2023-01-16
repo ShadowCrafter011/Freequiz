@@ -4,7 +4,7 @@
     "description": "<%= quiz.description %>",
     "visibility": "<%= quiz.visibility %>",
     "created_by": "<%= quiz.user.present? ? quiz.user.username : "Deleted User" %>",
-    "owner": "<%= quiz.user.present? ? quiz.user == @api_user : false %>",
+    "owner": <%= quiz.user.present? ? quiz.user == @api_user : false %>,
     "from": {
         "id": "<%= quiz.from %>",
         <% from = Language.find(quiz.from) %>
