@@ -3,6 +3,7 @@ class User < ApplicationRecord
     has_many :quizzes, dependent: :nullify
     has_many :scores, dependent: :destroy
     has_many :bug_reports, dependent: :nullify
+    has_many :transactions, dependent: :nullify
 
     ROLES = ["user", "beta", "admin"]
 

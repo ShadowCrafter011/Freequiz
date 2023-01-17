@@ -1,0 +1,23 @@
+<div class="container text-center">
+    <div class="d-flex justify-content-center">
+        <h1 class="rounded-pill py-1 px-3 my-4 bg-<%= color(@transaction.amount) %> border-<%= color(@transaction.amount) %>">
+            <%= "+" if @transaction.amount > 0 %><%= @transaction.amount %>
+        </h1>
+    </div>
+
+    <h4 class="mb-2">Created by: <%= @transaction.user.present? ? @transaction.user.username : "Deleted" %></h4>
+    <div class="fs-5">
+        <%= @transaction.description %>
+    </div>
+    <% unless @transaction.removed %>
+        <%= link_to "Remove", admin_delete_transaction_path, class: "btn btn-secondary", data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+        } %>
+    <% else %>
+        <%= link_to "Add back", admin_restore_transaction_path, class: "btn btn-secondary", data: {
+            turbo_method: :patch,
+            turbo_confirm: "Are you sure?"
+        } %>
+    <% end %>
+</div>

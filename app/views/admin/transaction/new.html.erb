@@ -1,0 +1,30 @@
+<%= content_for :css do %>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+  
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+<% end %>
+
+<div class="container" style="max-width: 750px">
+    <h1 class="text-center my-4">Create Transaction</h1>
+    <%= form_with url: admin_new_transaction_path, model: @transaction do |form| %>
+        <p class="input-group">
+            <%= form.label :amount, "Amount", class: "input-group-text fs-4" %>
+            <%= form.number_field :amount, step: "0.01", placeholder: "Adding: 2.1, +2.5, Removing: -2.3", class: "form-control" %>
+        </p>
+        <p class="input-group">
+            <%= form.label :description, "Description", class: "input-group-text fs-4" %>
+            <%= form.text_area :description, placeholder: "Describe what was done in this transaction", class: "form-control" %>
+        </p>
+        <p class="text-center">
+            <%= form.submit value: "Save transaction", class: "btn btn-success" %>
+        </p>
+    <% end %>
+</div>

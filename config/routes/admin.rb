@@ -1,7 +1,20 @@
 namespace :admin do
     get "users", to: "users#index", as: "users"
 
-    get "user"
+    scope :transactions do
+        get "/", to: "transaction#list", as: "transactions"
+        get "removed", to: "transaction#removed", as: "removed_transactions"
+
+        get "create", to: "transaction#new", as: "new_transaction"
+        post "create", to: "transaction#create"
+        
+        scope ":transaction_id" do
+            get "/", to: "transaction#show", as: "show_transaction"
+
+            delete "delete", to: "transaction#delete", as: "delete_transaction"
+            patch "restore", to: "transaction#restore", as: "restore_transaction"
+        end
+    end
     
     scope :user do
         scope ":username" do

@@ -1,0 +1,19 @@
+<%= content_for :css do %>
+    <%= stylesheet_link_tag "admin/transaction" %>
+<% end %>
+
+<div class="container text-center">
+    <h1 class="my-4">Finance</h1>
+    <div class="d-flex justify-content-evenly align-items-center">
+        <h2>Total: <span class="text-<%= color(@total) %>"><%= @total %></span></h2>
+        <div>
+            <%= link_to "Create Transaction", admin_new_transaction_path, class: "btn btn-primary" %>
+            <%= link_to "Removed Transactions", admin_removed_transactions_path, class: "btn btn-secondary" %>
+        </div>
+    </div>
+    <div>
+        <% for transaction in @transactions do %>
+            <%= render partial: "transaction", locals: { transaction: transaction } %>
+        <% end %>
+    </div>
+</div>

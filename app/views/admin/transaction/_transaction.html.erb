@@ -1,0 +1,7 @@
+<a href="<%= admin_show_transaction_path(transaction) %>" class="transaction d-flex align-items-center my-3">
+    <h4><%= transaction.user.present? ? transaction.user.username : "Deleted" %></h4>
+    <h5 class="rounded-pill ms-2 py-1 px-2 bg-<%= color(transaction.amount) %> border-<%= color(transaction.amount) %>">
+        <%= "+" if transaction.amount > 0 %><%= transaction.amount %>
+    </h5>
+    <h4 class="text-truncate ms-2"><%= transaction.description %></h4>
+</a>

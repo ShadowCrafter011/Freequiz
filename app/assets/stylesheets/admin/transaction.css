@@ -1,0 +1,21 @@
+.transaction {
+    text-decoration: none;
+    color: black;
+
+    border: 2px solid rgba(0, 0, 0, .7);
+    border-radius: 10px;
+
+    padding: 5px 0;
+}
+
+.transaction:hover {
+    color: black;
+}
+
+.transaction h4 {
+    margin: 0 10px;
+}
+
+.transaction h5 {
+    margin: 0 10px;
+}
