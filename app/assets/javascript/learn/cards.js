@@ -18,6 +18,7 @@ function load_elements() {
 }
 
 function setup() {
+    console.log("load")
     load_elements();
 
     available = [];
@@ -31,7 +32,6 @@ function setup() {
 
     current_card = select_card();
     set_card(current_card);
-    console.log(quiz_data.length)
 }
 
 async function reset_flip() {

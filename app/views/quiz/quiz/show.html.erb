@@ -37,15 +37,13 @@
             });
         </script>
         
-        <% if @user == @quiz.user %>
-            <p>
-                <div class="text-center">
-                    <%= link_to tp("edit"), quiz_edit_path(@quiz), class: "btn btn-primary" %>
-                    <%= link_to tp("delete"), quiz_request_destroy_path(@quiz), class: "btn btn-danger" %>
-                    <%= link_to tp("cards"), quiz_cards_path(@quiz), class: "btn btn-primary" %>
-                </div>
-            </p>
-        <% end %>
+        <p class="text-center">
+            <%= link_to tp("cards"), quiz_cards_path(@quiz), class: "btn btn-primary" %>
+            <% if @user == @quiz.user %>
+                <%= link_to tp("edit"), quiz_edit_path(@quiz), class: "btn btn-primary" %>
+                <%= link_to tp("delete"), quiz_request_destroy_path(@quiz), class: "btn btn-danger" %>
+            <% end %>
+        </p>
 
         <ul id="translations" class="list-group list-group-horizontal fs-5">
             <li class="list-group-item w-50 p-0">
