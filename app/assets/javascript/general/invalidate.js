@@ -14,5 +14,5 @@ function invalidate_element(element, timeout=5000) {
 }
 
 function invalidate(id, timeout=5000) {
-    invalidate_element($(id, timeout));    
+    invalidate_element($(id), timeout);    
 }

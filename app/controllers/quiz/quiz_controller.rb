@@ -1,12 +1,15 @@
 class Quiz::QuizController < ApplicationController
   include QuizUtils
+  include ApiUtils
   
-  before_action :require_beta! do
+  before_action :require_login!, :require_beta! do
     setup_locale "quiz.quiz"
   end
 
   before_action only: [:cards, :learn] do
     override_action :show
+
+    @access_token = generate_access_token(current_user, 5.days.from_now.to_i)
 
     @quiz = Quiz.find_by(id: params[:quiz_id])
     unless @quiz.present? && @quiz.user_allowed_to_view?(current_user)
