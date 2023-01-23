@@ -22,7 +22,9 @@ class Api::QuizController < ApplicationController
 
     @quiz = @api_user.quizzes.new(quiz_params)
 
-    return json({success: false, message: "Not enough translations"}, :bad_request) unless @quiz.valid? && @quiz.data.length > 0
+    return json({success: false, message: "Some parameters don't meet requirements"}, :bad_request) unless @quiz.valid?
+
+    return json({success: false, message: "Not enough translations"}, :bad_request) unless @quiz.data.length > 0
 
     return json({success: false, message: "Something went wrong whilst creating the quiz", errors: @quiz.get_errors}, :unprocessable_entity) unless @quiz.save
 
