@@ -7,10 +7,10 @@
             <h1 class="text-center"><%= t("layouts.application.bug_report") %></h1>
 
             <div class="container">
-                <%= form_with model: BugReport.new, url: bug_report_path do |form| %>
+                <%= form_with model: BugReport.new, url: bug_report_path, data: { controller: "validation--bug-report", action: "validation--bug-report#check" } do |form| %>
                     <p class="input-group">
                         <%= form.label :title, t("layouts.application.title_form"), class: "fs-4 input-group-text" %>
-                        <%= form.text_field :title, placeholder: t("layouts.application.title_placeholder"), class: "form-control" %>
+                        <%= form.text_field :title, placeholder: t("layouts.application.title_placeholder"), class: "form-control", data: { validation__bug_report_target: "title" } %>
                     </p>
 
                     <p class="input-group">
@@ -20,12 +20,12 @@
 
                     <p class="input-group">
                         <%= form.label :url, t("layouts.application.url"), class: "fs-4 input-group-text" %>
-                        <%= form.text_field :url, placeholder: t("layouts.application.url_placeholder"), class: "form-control" %>
+                        <%= form.text_field :url, placeholder: t("layouts.application.url_placeholder"), class: "form-control", data: { validation__bug_report_target: "url" } %>
                     </p>
 
                     <%= form.text_field :user_agent, hidden: true, value: request.user_agent  %>
                     <%= form.text_field :original_url, hidden: true, value: request.path %>
-                    <%= form.text_area :body, class: "form-control", rows: 6, value: t("layouts.application.bug_description") %>
+                    <%= form.text_area :body, class: "form-control", rows: 6, value: t("layouts.application.bug_description"), data: { validation__bug_report_target: "body" } %>
 
                     <div class="text-center mt-2">
                         <%= form.submit class: "btn btn-success btn-lg", value: t("layouts.application.bug_report"), data: {disable_with: false} %>

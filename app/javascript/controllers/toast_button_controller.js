@@ -9,6 +9,5 @@ export default class extends Controller {
 
   show() {
     this.toast.show();
-    console.log("show")
   }
 }

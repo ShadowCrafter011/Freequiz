@@ -49,9 +49,9 @@
                 </li>
 
             </ul>
-            <%= form_with id: "search-form", class: "d-flex" do |form| %>
-                <%= form.text_field :query, id: "search-form-input", class: "form-control me-2", placeholder: t("layouts.application.search_placeholder"), data: {error: t("layouts.application.search_error")} %>
-                <div id="search-form-submit" role="button" type="submit" class="btn btn-outline-success"><%= t("layouts.application.submit_search") %></div>
+            <%= form_with id: "search-form", class: "d-flex", data: { controller: "search", action: "search#submit" } do |form| %>
+                <%= form.text_field :query, id: "search-form-input", class: "form-control me-2", placeholder: t("layouts.application.search_placeholder"), data: { error: t("layouts.application.search_error"), search_target: "query" } %>
+                <div role="button" type="submit" class="btn btn-outline-success" data-action="click->search#check"><%= t("layouts.application.submit_search") %></div>
             <% end %>
         
             <div role="button" title="<%= t("layouts.application.bug_report") %>" data-controller="toast-button" data-target="#bug-report" data-action="click->toast-button#show">
