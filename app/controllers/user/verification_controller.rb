@@ -4,14 +4,9 @@ class User::VerificationController < ApplicationController
   end
 
   def verify
-    token = params[:verification_token]
+    @user = User.find_signed params[:verification_token], purpose: :verify_email
 
-    if @user.confirmation_expire == nil || Time.now > @user.confirmation_expire
-      return redirect_to user_verification_success_path(expired: 1)
-    end
-
-    if @user.compare_encrypted :confirmation_token, token
-
+    if @user
       if @user.verified? && @user.unconfirmed_email.present?
         @user.email = @user.unconfirmed_email
         @user.unconfirmed_email = nil
@@ -20,8 +15,6 @@ class User::VerificationController < ApplicationController
       end
 
       @user.confirmed_at = Time.now
-      @user.confirmation_token = nil
-      @user.confirmation_expire = nil
       @user.save
 
       redirect_to user_verification_success_path

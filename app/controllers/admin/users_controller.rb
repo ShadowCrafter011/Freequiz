@@ -56,7 +56,7 @@ class Admin::UsersController < ApplicationController
         end
 
         if edit_params[:confirmed] && !was_verified
-            user.update(confirmed_at: Time.now, confirmation_token: nil, confirmation_expire: nil)
+            user.update(confirmed_at: Time.now)
         end
 
         if edit_params[:email] != email_before || (!user.verified? && was_verified)

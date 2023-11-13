@@ -20,7 +20,7 @@ class User < ApplicationRecord
 
         encrypt_value :password, save: false
 
-        send_verification_email save: false
+        send_verification_email
     end
 
     after_create do
@@ -53,8 +53,6 @@ class User < ApplicationRecord
                     end
                 elsif params[:email] == self.email && self.unconfirmed_email.present?
                     self.unconfirmed_email = nil
-                    self.confirmation_expire = nil
-                    self.confirmation_token = nil
                 end
             else
                 errors.append("Ein anderer Benutzer verwendet diese E-mail Adresse schon")
@@ -89,20 +87,18 @@ class User < ApplicationRecord
         encrypt_value :password_reset_token
     end
     
-    def send_verification_email save: true
+    def send_verification_email
         if verified? && (!self.unconfirmed_email.present? || self.unconfirmed_email == self.email)
             return false
         end
 
-        self.confirmation_token = SecureRandom.hex 32
-        self.confirmation_expire = Time.now + 7.days
+        token = self.signed_id purpose: :verify_email, expires_in: 7.days
         
         if verified? && self.unconfirmed_email.present?
-            UserMailer.with(email: self.unconfirmed_email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
+            UserMailer.with(email: self.unconfirmed_email, username: self.username, token: token).verification_email.deliver_later
         else
-            UserMailer.with(email: self.email, username: self.username, token: self.confirmation_token).verification_email.deliver_later
+            UserMailer.with(email: self.email, username: self.username, token: token).verification_email.deliver_later
         end
-        encrypt_value :confirmation_token, save: save
         return true
     end
 
