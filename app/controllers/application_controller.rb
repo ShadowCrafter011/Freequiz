@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
-    before_action :setup_login
+    before_action :require_https!, :setup_login
     around_action :switch_locale
+
+    def require_https!
+        redirect_to :protocol => "https://" unless (request.ssl? || request.local?)
+    end
 
     def switch_locale(&action)
         if (locale = session[:locale]).present?
@@ -11,7 +15,7 @@ class ApplicationController < ActionController::Base
             session[:locale] = locale
         end
     end
-    
+
     def tp(attribute, replace=nil, html_safe=false)
         translated = t("#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}")
         if replace == nil
@@ -62,12 +66,12 @@ class ApplicationController < ActionController::Base
         return unless require_login!
         render "errors/not_allowed" unless @user.admin?
     end
-    
+
     def current_user
         @user
     end
     helper_method :current_user
-    
+
     def gn **messages
         for key in [:s, :a, :n] do
             unless messages[key].present?
@@ -76,7 +80,7 @@ class ApplicationController < ActionController::Base
             end
             messages[key] = [messages[key]] if messages[key].is_a? String
         end
-        
+
         session[:notifications] = messages
     end
 
