@@ -88,15 +88,13 @@ class User::UserController < ApplicationController
   end
 
   def request_destroy
-    @token = SecureRandom.hex(32)
-    @user.update(destroy_token: @token, destroy_expire: 1.days.from_now)
-    @user.encrypt_value :destroy_token
+    @token = @user.signed_id purpose: :destroy_user, expires_in: 1.day
   end
 
-  def destroy
-    token = params[:destroy_token]
+  def destroy 
+    user.find_signed params[:destroy_token], purpose: :destroy_user
 
-    if @user.compare_encrypted(:destroy_token, token) && @user.destroy_expire > Time.now
+    if user.present? && user == @user
       @user.destroy
       gn n: tp("deleted")
       redirect_to root_path

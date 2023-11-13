@@ -29,16 +29,13 @@ class Admin::UsersController < ApplicationController
 
     def destroy_token
         @user_target = User.find_by(username: params[:username])
-        @token = SecureRandom.hex(32)
-        @user_target.update(destroy_token: @token, destroy_expire: 1.days.from_now)
-        @user_target.encrypt_value :destroy_token
+        @token = @user_target.signed_id purpose: :destroy_user, expires_in: 1.day
     end
 
     def destroy
-        token = params[:destroy_token]
-        user = User.find_by(username: params[:username])
+        user = User.find_signed params[:destroy_token], purpose: :destroy_user
 
-        if user.compare_encrypted(:destroy_token, token) && user.destroy_expire > Time.now
+        if user.present?
             user.destroy
             gn n: "User deleted"
         else

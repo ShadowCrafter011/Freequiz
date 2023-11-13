@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_17_083540) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_13_182522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -88,15 +88,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_17_083540) do
     t.string "password"
     t.string "role"
     t.boolean "agb"
-    t.string "destroy_token"
-    t.datetime "destroy_expire"
-    t.string "confirmation_token"
-    t.datetime "confirmation_expire"
     t.string "unconfirmed_email"
     t.boolean "confirmed"
     t.datetime "confirmed_at"
-    t.string "password_reset_token"
-    t.datetime "password_reset_expire"
     t.integer "sign_in_count"
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
@@ -105,9 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_17_083540) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "bugs_smashed", default: 0
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 

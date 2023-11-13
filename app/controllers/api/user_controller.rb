@@ -44,7 +44,7 @@ class Api::UserController < ApplicationController
 
     return json({success: false, message: "Missing username, email, password, password_confirmation or agb"}, 400) unless validate_params(:username, :email, :password, :password_confirmation, :agb, hash: user_params)
 
-    return json({success: false, message: "Password doesn't meet requirements"}, 400) unless user_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+    return json({success: false, message: "Password doesn't meet requirements"}, 400) unless user_params[:password].match? (/\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/)
 
     user = User.new user_params
     user.current_sign_in_ip = request.remote_ip
@@ -89,21 +89,16 @@ class Api::UserController < ApplicationController
 
   def request_delete_token
     return unless api_require_valid_access_token!
-
-    token = SecureRandom.hex(32)
-    @api_user.update(destroy_token: token, destroy_expire: 1.day.from_now)
-    @api_user.encrypt_value :destroy_token
-
-    json({success: true, token: token, expire: 1.day.from_now.to_i})
+    json({success: true, token: @api_user.signed_id(purpose: :destroy_user, expires_in: 1.day), expire: 1.day.from_now.to_i})
   end
 
   def destroy
     return unless api_require_valid_access_token!
 
-    token = params[:destroy_token]
+    user = User.find_signed(params[:destroy_token], purpose: :destroy_user)
 
-    if @api_user.compare_encrypted(:destroy_token, token) && @api_user.destroy_expire > Time.now
-      @api_user.destroy
+    if user.present? && user == @api_user
+      user.destroy
       json({success: true, message: "User deleted"})
     else
       json({success: false, message: "Couldn't delete user. Wrong token"}, :unauthorized)
@@ -125,7 +120,7 @@ class Api::UserController < ApplicationController
     return unless api_require_valid_access_token!
 
     if edit_params[:password].present?
-      unless edit_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+      unless edit_params[:password].match? (/\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/)
         return json({success: false, message: "Password doesn't meet requirements"}, 400)
       end
     end
