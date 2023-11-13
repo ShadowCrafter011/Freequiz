@@ -115,14 +115,14 @@ class User < ApplicationRecord
     end
 
     def compare_encrypted key, value
-        for x in 0..8 do
+        for _ in 0..8 do
             value = Digest::SHA256.hexdigest value
         end
         self[key] == value
     end
 
     def encrypt_password
-        for x in 0..8 do
+        for _ in 0..8 do
             self.password = Digest::SHA256.hexdigest self.password
             self.password_confirmation = Digest::SHA256.hexdigest self.password_confirmation
         end
@@ -130,7 +130,7 @@ class User < ApplicationRecord
     end
 
     def encrypt_value key, save: true
-        for x in 0..8 do
+        for _ in 0..8 do
             self[key] = Digest::SHA256.hexdigest self[key]
         end
         self.save if save
