@@ -30,7 +30,7 @@ class User::UserController < ApplicationController
 
     @user = User.new(user_params)
 
-    unless user_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+    unless user_params[:password].match? (/\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/)
       gn a: tg("password_regex")
       return render :new, status: :unprocessable_entity
     end
@@ -38,9 +38,9 @@ class User::UserController < ApplicationController
     @user.current_sign_in_ip = request.remote_ip
     @user.current_sign_in_at = Time.now
 
-    if @user.save      
+    if @user.save
       cookies.encrypted[:_session_token] = { value: "#{@user.id};#{(Time.now + 14.days).to_i}", expires: Time.now + 14.days }
-      
+
       gn s: tp("created").sub("%s", @user.username)
 
       redirect_to user_verification_pending_path
@@ -57,12 +57,12 @@ class User::UserController < ApplicationController
     override_action "edit"
 
     if edit_params[:password].present?
-      unless edit_params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+      unless edit_params[:password].match? (/\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/)
         gn a: tg("password_regex")
         return render :edit, status: :unprocessable_entity
       end
     end
-    
+
     email_changed, errors = @user.change(edit_params)
     if errors.length > 0
       gn a: errors
@@ -91,8 +91,8 @@ class User::UserController < ApplicationController
     @token = @user.signed_id purpose: :destroy_user, expires_in: 1.day
   end
 
-  def destroy 
-    user.find_signed params[:destroy_token], purpose: :destroy_user
+  def destroy
+    user = User.find_signed params[:destroy_token], purpose: :destroy_user
 
     if user.present? && user == @user
       @user.destroy
