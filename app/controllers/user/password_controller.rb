@@ -1,8 +1,8 @@
-class User::PasswordController < ApplicationController  
+class User::PasswordController < ApplicationController
   before_action do
     setup_locale "user.password"
   end
-  
+
   def reset; end
 
   def send_email
@@ -23,22 +23,28 @@ class User::PasswordController < ApplicationController
   end
 
   def edit
-    user, valid = validate_token
-    return unless valid
+    user = User.find_signed params[:password_reset_token], purpose: :reset_password
+    unless user.present?
+      gn a: tp("invalid_link")
+      return redirect_to root_path
+    end
   end
 
   def update
     override_action "edit"
 
-    user, valid = validate_token
-    return unless valid
+    user = User.find_signed params[:password_reset_token], purpose: :reset_password
+    unless user.present?
+      gn a: tp("invalid_link")
+      return redirect_to root_path
+    end
 
-    unless params[:password].match? /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+    unless params[:password].match? (/\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/)
       gn a: tg("password_regex")
       return render :edit, status: :unprocessable_entity
     end
 
-    if user.update(password: params[:password], password_confirmation: params[:password_confirmation], password_reset_token: nil, password_reset_expire: nil)
+    if user.update(password: params[:password], password_confirmation: params[:password_confirmation])
       user.encrypt_password
 
       expire = 14.days.from_now
@@ -52,28 +58,4 @@ class User::PasswordController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-
-  private
-    def validate_token
-      token = params[:password_reset_token]
-      for x in 0..8 do
-        token = Digest::SHA256.hexdigest token
-      end
-
-      if (user = User.find_by(password_reset_token: token)).present?
-        unless Time.now < user.password_reset_expire
-          gn a: tp("link_expired")
-          redirect_to user_password_reset_path
-  
-          return [nil, false]
-        end
-  
-        return [user, true]
-      end
-      
-      gn a: tp("invalid_link")
-      redirect_to user_password_reset_path
-
-      return [nil, false]
-    end
 end

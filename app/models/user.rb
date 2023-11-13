@@ -38,7 +38,7 @@ class User < ApplicationRecord
     def change params
         errors = []
         self.username = params[:username] if params[:username].present?
-        
+
         email_changed = false
         if params[:email].present? && params[:email].match?(URI::MailTo::EMAIL_REGEXP)
             user_with_email = User.find_by(email: params[:email]) || User.find_by(unconfirmed_email: params[:email])
@@ -80,20 +80,17 @@ class User < ApplicationRecord
     end
 
     def send_reset_password_email
-        self.password_reset_token = SecureRandom.hex 32
-        self.password_reset_expire = Time.now + 7.days
-
-        UserMailer.with(email: self.email, username: self.username, token: self.password_reset_token).password_reset_email.deliver_later
-        encrypt_value :password_reset_token
+        token = self.signed_id purpose: :reset_password, expires_in: 1.day
+        UserMailer.with(email: self.email, username: self.username, token: token).password_reset_email.deliver_later
     end
-    
+
     def send_verification_email
         if verified? && (!self.unconfirmed_email.present? || self.unconfirmed_email == self.email)
             return false
         end
 
         token = self.signed_id purpose: :verify_email, expires_in: 7.days
-        
+
         if verified? && self.unconfirmed_email.present?
             UserMailer.with(email: self.unconfirmed_email, username: self.username, token: token).verification_email.deliver_later
         else
