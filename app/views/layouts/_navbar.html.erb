@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-md sticky-top" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <div class="d-flex align-items-center fs-3">
+                <%= image_tag "freequiz/freequiz_logo.png", height: "30px" %> <strong>Freequiz</strong>
+            </div>
+        </a>
+
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+
+                <% if logged_in? && @user.admin? %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fs-5 me-2" href="#" role="button" data-bs-toggle="dropdown">Admin</a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to "Users", admin_users_path, class: "dropdown-item" %></li>
+                            <li><%= link_to "Transactions", admin_transactions_path, class: "dropdown-item" %></li>
+                            <li><%= link_to "API docs", api_docs_path, class: "dropdown-item" %></li>
+                            <li><%= link_to "Bugs (#{BugReport.where(status: "new").count})", bugs_path(category: "new"), class: "dropdown-item" %></li>
+                        </ul>
+                    </li>
+                <% end %>
+        
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fs-5 me-2" href="#" role="button" data-bs-toggle="dropdown"><%= t("layouts.application.account") %></a>
+                    <ul class="dropdown-menu">
+                        <% if logged_in? %>
+                            <li><%= link_to t("layouts.application.overview"), user_path, class: "dropdown-item" %></li>
+                            <li><%= link_to t("layouts.application.settings"), user_settings_path, class: "dropdown-item" %></li>
+                            <li><%= link_to t("layouts.application.logout"), user_logout_path, class: "dropdown-item" %></li>
+                        <% else %>
+                            <li><%= link_to t("layouts.application.login"), user_login_path, class: "dropdown-item" %></li>
+                            <li><%= link_to t("layouts.application.create"), user_create_path, class: "dropdown-item" %></li>
+                            <li><%= link_to t("layouts.application.reset_pw"), user_password_reset_path, class: "dropdown-item" %></li>
+                        <% end %>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"><%= t("layouts.application.quiz") %></a>
+                    <ul class="dropdown-menu">
+                        <li><%= link_to t("layouts.application.my_quizzes"), user_quizzes_path, class: "dropdown-item" %></li>
+                        <li><%= link_to t("layouts.application.create_quiz"), quiz_create_path, class: "dropdown-item" %></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <%= form_with id: "search-form", class: "d-flex" do |form| %>
+                <%= form.text_field :query, id: "search-form-input", class: "form-control me-2", placeholder: t("layouts.application.search_placeholder"), data: {error: t("layouts.application.search_error")} %>
+                <div id="search-form-submit" role="button" type="submit" class="btn btn-outline-success"><%= t("layouts.application.submit_search") %></div>
+            <% end %>
+        
+            <div role="button" title="<%= t("layouts.application.bug_report") %>" data-controller="toast-button" data-target="#bug-report" data-action="click->toast-button#show">
+                <%= image_tag "misc/bug.png", height: "40px", class: "btn btn-outline-success ms-2" %>
+            </div>
+        </div>
+    </div>
+</nav>

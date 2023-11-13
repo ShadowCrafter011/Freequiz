@@ -1,10 +1,13 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
-  config.default_url_options = { host: "localhost", port: 3000 }
+  config.hosts << "f.shadowcloud.ch"
+  config.hosts << "freequiz.shadowcloud.ch"
+  
+  config.action_mailer.default_url_options = { host: "f.shadowcloud.ch" }
+
+  config.default_url_options = { host: "f.shadowcloud.ch" }
 
   config.action_mailer.delivery_method = :smtp
 

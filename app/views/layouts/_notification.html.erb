@@ -1,0 +1,23 @@
+<div class="position-fixed w-100 d-flex justify-content-center pe-none sticky-top" z-index="2000">
+    <div id="notification" class="toast notification m-2 bg-white" role="alert" data-bs-autohide="false" aria-live="assertive" aria-atomic="true" data-controller="notification">
+        <div class="toast-header">
+            <%= image_tag "freequiz/freequiz_logo.png", width: 50, height: 50, class: "m-1" %>
+            <strong class="fs-1 me-auto">Freequiz</strong>
+            <button type="button" class="btn btn-lg btn-close mx-1" data-bs-dismiss="toast" aria-label="close"></button>
+        </div>
+
+        <div id="notifications_body" class="toast-body" data-notification-target="body">
+            <% if (messages = notifications) %>
+                <% colors = {s: "success", a: "danger", n: "body"} %>
+                <% messages.each do |color, array| %>
+                    <% for msg in array do %>
+                        <div class="text-<%= colors[color.to_sym] %> fs-4"><%= msg %></div>
+                        <% unless array.index(msg) == array.length - 1 %>
+                            <hr>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>
