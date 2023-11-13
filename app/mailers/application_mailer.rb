@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "Freequiz <noreply@shadowcrafter.org>"
+  default from: email_address_with_name("noreply@freequiz.ch", "Freequiz")
   layout "mailer"
 end
