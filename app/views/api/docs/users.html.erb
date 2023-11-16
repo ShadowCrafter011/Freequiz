@@ -9,8 +9,7 @@
         </p>
         <p>
             <h3>Content</h3>
-            <pre>
-{  
+<pre><code class="lang-json" data-controller="prism">{  
     "user": {
         "username": "username",
         "email": "email",
@@ -18,19 +17,16 @@
         "password_confirmation": "password",
         "agb": true
     }
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Response</h3>
             Status code: 201
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "message": "User created",
     "access_token": "access_token"
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -62,13 +58,11 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "token": "delete_token",
     "expire": 1671044638
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -93,12 +87,10 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "message": "User deleted"
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -119,22 +111,18 @@
         </p>
         <p>
             <h3>Content</h3>
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "username": "username", 
     "password": "password"
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "access_token": "access_token"
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -170,12 +158,10 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "access_token": "access_token"
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -203,8 +189,7 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "data": {
         "username": "username",
@@ -231,8 +216,7 @@
             "last_login_ip": "127.0.0.1"
         }
     }
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -258,8 +242,7 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "data": [{
             "username": "username",
@@ -277,8 +260,7 @@
             "quizzes": 0
         }
     ]
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -303,8 +285,7 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "data": [{
             "title": "title",
@@ -319,8 +300,7 @@
             "translations": 10
         }
     ]
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -346,8 +326,7 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "data": [{
             "title": "title",
@@ -362,8 +341,7 @@
             "translations": 10
         }
     ]
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -388,8 +366,7 @@
         </p>
         <p>
             <h3>Content</h3>
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "user": {
         "username": "username",
         "email": "email",
@@ -397,20 +374,17 @@
         "password_confirmation": "password",
         "old_password": "old_password"
     }
-}
-            </pre>
+}</code></pre>
             Not all parameters have to be sent if the user didn't update them. Only password, password_confirmation and old_password must be sent together.
         </p>
         <p>
             <h3>Response</h3>
             Status code: 202
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "message": "User updated",
     "email_changed": false
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -436,15 +410,13 @@
         </p>
         <p>
             <h3>Content</h3>
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "setting": {
         "locale": "de",
         "dark_mode": true,
         "show_email": false
     }
-}
-            </pre>
+}</code></pre>
             Not all the parameters need to be present
         </p>
         <p>
@@ -454,12 +426,10 @@
         <p>
             <h3>Response</h3>
             Status code: 202
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "message": "Settings updated"
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>

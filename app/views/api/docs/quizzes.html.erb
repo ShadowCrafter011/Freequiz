@@ -9,8 +9,7 @@
         </p>
         <p>
             <h3>Content</h3>
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "quiz": {
   	    "title": "title",
         "description": "description",
@@ -22,14 +21,12 @@
             {"w": "Strasse", "t": "Road"}
         ]
     }
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Response</h3>
             Status code: 201
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "message": "Quiz created",
     "quiz_data": {
@@ -71,8 +68,7 @@
             }
         }]
     }
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -102,13 +98,11 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "token": "delete_token",
     "expire": 1673811699
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -137,12 +131,10 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "message": "Quiz deleted"
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -171,8 +163,7 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "quiz_data": {
         "id": "id",
@@ -215,8 +206,7 @@
             }
         }]
     }
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -245,8 +235,7 @@
         <p>
             <h3>Response</h3>
             Status code: 200
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "data": [{
             "id": "id",
@@ -283,14 +272,14 @@
             }
         }
     ]
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
             No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
+    <hr>
 
     <div id="update" class="section">
         <h1>Update</h1>
@@ -303,10 +292,9 @@
         </p>
         <p>
             <h3>Content</h3>
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "quiz": {
-  	    "title": "title",
+        "title": "title",
         "description": "description",
         "visibility": "public/private/hidden",
         "from": "language ID",
@@ -316,14 +304,12 @@
             {"w": "Strasse", "t": "Road"}
         ]
     }
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Response</h3>
             Status code: 202
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "message": "Quiz updated",
     "quiz_data": {
@@ -365,8 +351,7 @@
             }
         }]
     }
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -389,24 +374,20 @@
         </p>
         <p>
             <h3>Content</h3>
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
   	"favorites": {
   		"add": ["translation hash"],
   		"remove": ["translation hash"]
   	}
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Response</h3>
             Status code: 202
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "message": "Favorites updated"
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -429,25 +410,21 @@
         <p>
             <h3>Content</h3>
             Integers provided override the previous score. If no Integer is set for a specific mode it wont get updated. Available modes are smart, write, multi and cards
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
   	"score": {
   		"d42064": {"cards": 2, "multi": -1},
   		"6beab0": {"smart": 1},
       	"ab49c1": {"write": -2}
   	}
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Response</h3>
             Status code: 202
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "message": "Score updated"
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>
@@ -476,12 +453,10 @@
         <p>
             <h3>Response</h3>
             Status code: 202
-            <pre>
-{
+<pre><code class="lang-json" data-controller="prism">{
     "success": true,
     "message": "Score was reset for mode smart/write/multi/cards"
-}
-            </pre>
+}</code></pre>
         </p>
         <p>
             <h3>Errors</h3>

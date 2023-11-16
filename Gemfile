@@ -9,6 +9,7 @@ gem "ffi"
 gem "jquery-rails"
 gem "httparty"
 gem "bootstrap"
+gem "prism-rails"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
