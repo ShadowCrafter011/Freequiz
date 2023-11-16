@@ -1,4 +1,4 @@
-function levenshtein(s, t) {
+export default function levenshtein(s, t) {
     if (s === t) {
         return 0;
     }

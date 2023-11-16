@@ -1,7 +1,3 @@
-<%= content_for :js do %>
-    <%= javascript_include_tag "truncate_show_more", defer: "defer" %>
-<% end %>
-
 <style>
     .show_controls {
         cursor: pointer;
@@ -21,21 +17,15 @@
                 <% end %>
             <% end %>
         </h1>
-        <h4 id="description" class="text-truncate"><%= @quiz.description %></h4>
-        <div id="description_show_more" class="text-center" style="display: block;">
-            <text class="show_controls" onclick="toggle_truncate('description')"><%= tg("show_more") %></text>
+        <div data-controller="show-more">
+            <h4 class="text-truncate mb-0" data-show-more-target="target"><%= @quiz.description %></h4>
+            <div class="text-center pb-2 d-block" data-show-more-target="showMore">
+                <span class="show_controls" data-action="click->show-more#show_more"><%= tg("show_more") %></span>
+            </div>
+            <div class="text-center pb-2 d-none" data-show-more-target="showLess">
+                <span class="show_controls" data-action="click->show-more#show_less"><%= tg("show_less") %></span>
+            </div>
         </div>
-        <div id="description_show_less" class="text-center" style="display: none;">
-            <text class="show_controls" onclick="toggle_truncate('description')"><%= tg("show_less") %></text>
-        </div>
-
-        <script>
-            document.querySelectorAll(".text-truncate").forEach(text => {
-                if (text.offsetWidth >= text.scrollWidth) {
-                    document.querySelector(`#${text.id}_show_more`).style.display = "none";
-                }
-            });
-        </script>
         
         <p class="text-center">
             <%= link_to tp("cards"), quiz_cards_path(@quiz), class: "btn btn-primary" %>

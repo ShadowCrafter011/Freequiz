@@ -1,0 +1,28 @@
+<style>
+  .sticky-sidebar {
+    position: sticky;
+    top: 75px;
+    height: 100%;
+  }
+
+  .section {
+    padding-top: 70px;
+    margin-top: -50px;
+  }
+</style>
+
+
+<div id="api-navbar" class="container-fluid mt-2" data-controller="admin--api-navbar">
+  <div class="row">
+    <div class="col-3 ms-2 sticky-sidebar">
+      <div class="d-none" data-admin--api-navbar-target="actionName"><%= action_name %></div>
+      <div class="d-none" data-admin--api-navbar-target="anchor"><%= params[:subsection] %></div>
+      <h3>Table of contents</h3>
+      <%= render_navbar %>
+    </div>
+    <div class="col-8">
+      <!-- content -->
+      <%= yield %>
+    </div>
+  </div>
+</div>

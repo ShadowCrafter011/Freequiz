@@ -1,16 +1,9 @@
 <div class="d-flex justify-content-center mt-3">
     <div class="text-center">
+        <h1><%= tp("sent_text") %></h1>
+        <h3><% tp("click_link") %></h3>
 
-        <% if Time.now < @user.confirmation_expire  %>
-            <h1><%= tp("sent_text") %></h1>
-            <h3><% tp("click_link") %></h3>
-            <h3><%= tp("expires", @user.confirmation_expire.to_formatted_s(:long)) %></h3>
-
-        <% else %>
-            <h1><%= tp("expired") %></h1>
-            <h3><%= tp("get_new", link_to(tp("link"), user_verification_send_path), true) %></h3>
-
-        <% end %>
+        <h3><%= tp("get_new", link_to(tp("link"), user_verification_send_path), true) %></h3>
 
         <%= image_tag "freequiz/freequiz_logo_big.png", height: "300vh", class: "mt-3" %>
     </div>

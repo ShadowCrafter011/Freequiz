@@ -19,6 +19,7 @@
     width: 800px;
     height: 400px;
     perspective: 10000px;
+    cursor: pointer;
 }
 
 .flip-card-side {

@@ -1,56 +1,46 @@
-<%= content_for :css do %>
-    <%= stylesheet_link_tag "learn/cards" %>
-<% end %>
+<div data-controller="learn--cards">
+    <div class="d-none" data-learn--cards-target="accessToken"><%= @access_token %></div>
+    <div class="d-none" data-learn--cards-target="quizID"><%= @quiz.id %></div>
+    <div class="d-none" data-learn--cards-target="doneText"><%= tp("done") %></div>
 
-<%= content_for :js do %>
-    <%= javascript_include_tag "learn/cards" %>
-<% end %>
-
-<div class="flip-body user-select-none text-center">
-    <div class="flip-card-container">
-        <div id="flip-card" class="flip-card w-100 h-100 position-relative">
-            <div id="word" class="flip-card-front flip-card-side bg-primary border-2 border-primary rounded-5"></div>
-            <div id="translation" class="flip-card-back flip-card-side bg-success border-2 border-success rounded-5"></div>
+    <div class="flip-body user-select-none text-center">
+        <div class="flip-card-container" data-action="click->learn--cards#flip">
+            <div data-learn--cards-target="flipCard" class="flip-card w-100 h-100 position-relative">
+                <div data-learn--cards-target="word" class="flip-card-front flip-card-side bg-primary border-2 border-primary rounded-5"></div>
+                <div data-learn--cards-target="translation" class="flip-card-back flip-card-side bg-success border-2 border-success rounded-5"></div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="d-flex justify-content-center">
-    <div class="w-800">
-        <div class="row" id="learning">
-            <div class="col-6">
-                <div class="btn btn-lg btn-primary w-100" onclick="learn_again()"><%= tp("learn_again") %></div>
+    <div class="d-flex justify-content-center">
+        <div class="w-800">
+            <div class="row" data-learn--cards-target="learning">
+                <div class="col-6">
+                    <div class="btn btn-lg btn-primary w-100" data-action="click->learn--cards#learn_again"><%= tp("learn_again") %></div>
+                </div>
+                <div class="col-6">
+                    <div class="btn btn-lg btn-success w-100" data-action="click->learn--cards#understood"><%= tp("understood") %></div>
+                </div>
+            </div>    
+            <div class="d-none" data-learn--cards-target="done">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="btn btn-lg btn-success w-100" data-action="click->learn--cards#reset"><%= tp("start_over") %></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-6">
-                <div class="btn btn-lg btn-success w-100" onclick="understood()"><%= tp("understood") %></div>
-            </div>
-        </div>    
-        <div id="done" class="d-none">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mt-2 display-4">
+        <div class="w-800">
             <div class="row">
-                <div class="col-12">
-                    <div class="btn btn-lg btn-success w-100" onclick="reset()"><%= tp("start_over") %></div>
+                <div class="col-6 text-center text-primary">
+                    <div class="display-6"><%= tp("not_learned") %></div><div data-learn--cards-target="unlearned"></div>
+                </div>
+                <div class="col-6 text-center text-success">
+                    <div class="display-6"><%= tp("learned") %></div><div data-learn--cards-target="learned"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="d-flex justify-content-center mt-2 display-4">
-    <div class="w-800">
-        <div class="row">
-            <div class="col-6 text-center text-primary">
-                <div class="display-6"><%= tp("not_learned") %></div><div id="unlearned"></div>
-            </div>
-            <div class="col-6 text-center text-success">
-                <div class="display-6"><%= tp("learned") %></div><div id="learned"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    var access_token = "<%= @access_token %>";
-    var quiz_id = "<%= @quiz.id %>";
-    var done_text = "<%= tp("done") %>";
-
-    setup();
-</script>
