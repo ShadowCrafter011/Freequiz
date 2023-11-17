@@ -3,6 +3,7 @@ class Api::QuizController < ApplicationController
 
   protect_from_forgery with: :null_session
   before_action :api_require_valid_bearer_token!, except: [:data, :score, :reset_score, :favorite]
+  before_action :locale_en
   skip_before_action :setup_login
   skip_around_action :switch_locale
 

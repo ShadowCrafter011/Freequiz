@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
         redirect_to :protocol => "https://" unless (request.ssl? || request.local?)
     end
 
+    def locale_en(&action)
+        I18n.with_locale(:en, &action)
+    end
+
     def switch_locale(&action)
         if (locale = session[:locale]).present?
             I18n.with_locale(locale, &action)
