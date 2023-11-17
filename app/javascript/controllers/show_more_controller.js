@@ -8,6 +8,10 @@ export default class extends Controller {
     this.target = $(this.targetTarget);
     this.show_more_btn = $(this.showMoreTarget);
     this.show_less_btn = $(this.showLessTarget);
+
+    if (this.is_truncated(this.target)) {
+      this.toggle_display([this.show_more_btn]);
+    }
   }
 
   show_more() {
@@ -18,6 +22,10 @@ export default class extends Controller {
   show_less() {
     this.target.addClass("text-truncate");
     this.toggle_display([this.show_more_btn, this.show_less_btn]);
+  }
+
+  is_truncated(element) {
+    return (element.outerWidth() < element[0].scrollWidth);
   }
 
   toggle_display(elements) {

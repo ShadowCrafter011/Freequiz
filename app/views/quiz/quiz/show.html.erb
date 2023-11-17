@@ -19,7 +19,7 @@
         </h1>
         <div data-controller="show-more">
             <h4 class="text-truncate mb-0" data-show-more-target="target"><%= @quiz.description %></h4>
-            <div class="text-center pb-2 d-block" data-show-more-target="showMore">
+            <div class="text-center pb-2 d-none" data-show-more-target="showMore">
                 <span class="show_controls" data-action="click->show-more#show_more"><%= tg("show_more") %></span>
             </div>
             <div class="text-center pb-2 d-none" data-show-more-target="showLess">
