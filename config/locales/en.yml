@@ -22,7 +22,7 @@ en:
             username:
               blank: must be specified
               invalid: can be 3-16 characters long and may only consist of letters, numbers and underscores
-              taken: Is already used by another account
+              taken: is already used by another account
             email:
               blank: must be specified
               invalid: is not valid
