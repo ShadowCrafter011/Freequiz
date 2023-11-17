@@ -133,7 +133,7 @@ export default class extends Controller {
     }
 
     async set_card(index) {
-        if (!index) return;
+        if (index == null) return;
         this.word.text(this.quiz_data[index].w);
         await this.reset_flip();
         this.translation.text(this.quiz_data[index].t);
