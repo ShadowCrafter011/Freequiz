@@ -72,25 +72,21 @@ class Quiz < ApplicationRecord
   end
 
   def encrypt_value key
-    for x in 0..8 do
+    for _ in 0..8 do
         self[key] = Digest::SHA256.hexdigest self[key]
     end
     self.save
   end
 
   def compare_encrypted key, value
-    for x in 0..8 do
+    for _ in 0..8 do
         value = Digest::SHA256.hexdigest value
     end
     self[key] == value
   end
 
   def get_errors
-    errors = []
-    for x in self.errors.objects do
-        errors.append x.full_message
-    end
-    return errors
+    self.errors.full_messages
   end
 
   private

@@ -12,7 +12,9 @@ class Api::BugReportController < ApplicationController
     report = user.present? ? user.bug_reports.new(bug_report_params) : BugReport.new(bug_report_params)
 
     return json({success: true, message: "Bug report created"}, :created) if report.save
-    json({success: false, message: "Could not create bug report"}, :unprocessable_entity)
+
+    # TODO: Add error token
+    json({success: false, token: "record.invalid", errors: report.errors.details, message: "Could not create bug report"}, :unprocessable_entity)
   end
 
   private

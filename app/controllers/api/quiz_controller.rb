@@ -19,27 +19,29 @@ class Api::QuizController < ApplicationController
   end
 
   def create
-    return json({success: false, message: "Missing title, description, from, to or visibility"}, :bad_request) unless validate_params(:title, :description, :from, :to, :visibility, hash: quiz_params)
+    return json({success: false, token: "fields.missing", message: "Missing title, description, from, to or visibility"}, :bad_request) unless validate_params(:title, :description, :from, :to, :visibility, hash: quiz_params)
 
     @quiz = @api_user.quizzes.new(quiz_params)
 
-    return json({success: false, message: "Some parameters don't meet requirements"}, :bad_request) unless @quiz.valid?
+    # TODO: Add error token
+    return json({success: false, token: "record.invalid", errors: @quiz.errors.details, message: "Some parameters don't meet requirements"}, :bad_request) unless @quiz.valid?
 
-    return json({success: false, message: "Not enough translations"}, :bad_request) unless @quiz.data.length > 0
+    return json({success: false, token: "translations.notenough", message: "Not enough translations"}, :bad_request) unless @quiz.data.length > 0
 
-    return json({success: false, message: "Something went wrong whilst creating the quiz", errors: @quiz.get_errors}, :unprocessable_entity) unless @quiz.save
+    # TODO: Add error token
+    return json({success: false, token: "record.invalid", errors: @quiz.errors.details, message: "Something went wrong whilst creating the quiz"}, :unprocessable_entity) unless @quiz.save
 
     render nothing: true, status: :created
   end
 
   def data
-    return json({success: false, message: "Quiz doesn't exist"}, :not_found) unless (@quiz = Quiz.find_by(id: params[:quiz_id])).present?
-    return json({success: false, message: "User is not allowed to view Quiz"}, :unauthorized) unless @quiz.user_allowed_to_view? api_current_user
+    return json({success: false, token: "quiz.notfound", message: "Quiz doesn't exist"}, :not_found) unless (@quiz = Quiz.find_by(id: params[:quiz_id])).present?
+    return json({success: false, token: "user.notallowed", message: "User is not allowed to view Quiz"}, :unauthorized) unless @quiz.user_allowed_to_view? api_current_user
   end
 
   def request_destroy
-    return json({success: false, message: "Quiz doesn't exist"}, :not_found) unless (quiz = Quiz.find_by(id: params[:quiz_id])).present?
-    return json({success: false, message: "User is not allowed to manage this Quiz"}, :unauthorized) unless quiz.user == @api_user
+    return json({success: false, token: "quiz.notfound", message: "Quiz doesn't exist"}, :not_found) unless (quiz = Quiz.find_by(id: params[:quiz_id])).present?
+    return json({success: false, token: "user.notallowed", message: "User is not allowed to manage this Quiz"}, :unauthorized) unless quiz.user == @api_user
 
     token = SecureRandom.hex(32)
     expire = 1.day.from_now
@@ -50,26 +52,27 @@ class Api::QuizController < ApplicationController
   end
 
   def destroy
-    return json({success: false, message: "Quiz doesn't exist"}, :not_found) unless (quiz = Quiz.find_by(id: params[:quiz_id])).present?
-    return json({success: false, message: "User is not allowed to manage this Quiz"}, :unauthorized) unless quiz.user == @api_user
-    return json({success: false, message: "Token expired"}, :unauthorized) unless quiz.destroy_expire > Time.now
-    return json({success: false, message: "Token is invalid"}, :unauthorized) unless quiz.compare_encrypted :destroy_token, params[:destroy_token]
+    return json({success: false, token: "quiz.notfound", message: "Quiz doesn't exist"}, :not_found) unless (quiz = Quiz.find_by(id: params[:quiz_id])).present?
+    return json({success: false, token: "user.notallowed", message: "User is not allowed to manage this Quiz"}, :unauthorized) unless quiz.user == @api_user
+    return json({success: false, token: "token.expired", message: "Token expired"}, :unauthorized) unless quiz.destroy_expire > Time.now
+    return json({success: false, token: "token.invalid", message: "Token is invalid"}, :unauthorized) unless quiz.compare_encrypted :destroy_token, params[:destroy_token]
 
     quiz.destroy
     json({success: true, message: "Quiz deleted"})
   end
 
   def update
-    return json({success: false, message: "Quiz doesn't exist or is not owned by user"}, :not_found) unless (@quiz = @api_user.quizzes.find_by(id: params[:quiz_id])).present?
+    return json({success: false, tokne: "quiz.notfound", message: "Quiz doesn't exist or is not owned by user"}, :not_found) unless (@quiz = @api_user.quizzes.find_by(id: params[:quiz_id])).present?
 
-    return json({success: false, message: "Something went wrong whilst saving the Quiz", errors: @quiz.get_errors}, :bad_request) unless @quiz.update(quiz_params)
+    # TODO: Add error token
+    return json({success: false, token: "record.invalid", errors: @quiz.errors.details, message: "Something went wrong whilst saving the Quiz"}, :bad_request) unless @quiz.update(quiz_params)
 
     render nothing: true, status: :accepted
   end
 
   def score
-    return json({success: false, message: "Quiz doesn't exist"}, :not_found) unless (quiz = Quiz.find_by(id: params[:quiz_id])).present?
-    return json({success: false, message: "Missing score"}, :bad_request) unless (score_data = params[:score]).present?
+    return json({success: false, token: "quiz.notfound", message: "Quiz doesn't exist"}, :not_found) unless (quiz = Quiz.find_by(id: params[:quiz_id])).present?
+    return json({success: false, token: "fields.missing", message: "Missing score"}, :bad_request) unless (score_data = params[:score]).present?
     score_data = params[:score]
 
     score = @api_user.scores.find_by(quiz_id: quiz.id)
@@ -78,7 +81,7 @@ class Api::QuizController < ApplicationController
   end
 
   def reset_score
-    return json({success: false, message: "Quiz doesn't exist"}, :not_found) unless (quiz = Quiz.find_by(id: params[:quiz_id])).present?
+    return json({success: false, token: "quiz.notfound", message: "Quiz doesn't exist"}, :not_found) unless (quiz = Quiz.find_by(id: params[:quiz_id])).present?
 
     score = @api_user.scores.find_by(quiz_id: quiz.id)
     index = Score::MODES.values.index(params[:mode])
@@ -92,7 +95,7 @@ class Api::QuizController < ApplicationController
   end
 
   def favorite
-    return json({success: false, message: "Quiz doesn't exist"}, :not_found) unless (quiz = Quiz.find_by(id: params[:quiz_id])).present?
+    return json({success: false, token: "quiz.notfound", message: "Quiz doesn't exist"}, :not_found) unless (quiz = Quiz.find_by(id: params[:quiz_id])).present?
     
     score = @api_user.scores.find_by(quiz_id: quiz.id)
     if favorite_params.has_key? :add

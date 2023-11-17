@@ -34,7 +34,20 @@
         <p>
             <h3>Errors</h3>
             <ul>
-                <li><strong>Invalid fields</strong>: Code 401, "Could not create bug report", title or body are either to short or missing</li>
+                <li>
+                    <strong>Invalid fields (record.invalid)</strong>: Code 422, "Could not create bug report", title or body are either to short or missing
+                    <pre><code class="lang-json" data-controller="prism">{
+    "success": false,
+    "token": "record.invalid",
+    "errors": {
+        "title": [{
+            "error": "too_short",
+            "count": 3
+        }]
+    },
+    "message": "Could not create bug report"
+}</code></pre>
+                </li>
             </ul>
         </p>
     </div>

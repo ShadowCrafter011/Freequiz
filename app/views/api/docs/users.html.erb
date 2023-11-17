@@ -31,9 +31,40 @@
         <p>
             <h3>Errors</h3>
             <ul>
-                <li><strong>Missing fields</strong>: Code 400, "Missing username, email, password, password_confirmation or agb"</li>
-                <li><strong>Password requirements</strong>: Code 400, "Password doesn't meet requirements"</li>
-                <li><strong>User couldn't be saved</strong>: Code 400, "Something went wrong whilst creating the user", more info in "errors"</li>
+                <li>
+                    <strong>Missing fields (fields.missing)</strong>: Code 400, "Missing username, email, password, password_confirmation or agb"
+                    <pre><code class="lang-json" data-controller="prism">{
+    "success": false,
+    "token": "fields.missing",
+    "message": "Missing username, email, password, password_confirmation or agb"
+}</code></pre>
+                </li>
+                <li>
+                    <strong>Password requirements (password.invalid)</strong>: Code 400, "Password doesn't meet requirements"
+                    <pre><code class="lang-json" data-controller="prism">{
+    "success": false,
+    "token": "password.invalid",
+    "message": "Password doesn't meet requirements"
+}</code></pre>
+                </li>
+                <li>
+                    <strong>User couldn't be saved (record.invalid)</strong>: Code 400, "Something went wrong whilst creating the user", more info in "errors"
+                    <pre><code class="lang-json" data-controller="prism">{
+    "success": false,
+    "token": "record.invalid",
+    "errors": {
+        "username": [{
+            "error": "taken",
+            "value": "Lukas"
+        }],
+        "email": [{
+            "error": "invalid",
+            "value": "email"
+        }]
+    },
+    "message": "Something went wrong whilst creating the user"
+}</code></pre>
+                </li>
             </ul>
         </p>
     </div>
@@ -95,7 +126,7 @@
         <p>
             <h3>Errors</h3>
             <ul>
-                <li><strong>Wrong token</strong>: Code 401, "Couldn't delete user. Wrong token", token is either invalid or expired</li>
+                <li><strong>Wrong token (token.invalid)</strong>: Code 401, "Couldn't delete user. Wrong token", token is either invalid or expired</li>
             </ul>
         </p>
     </div>
@@ -127,9 +158,9 @@
         <p>
             <h3>Errors</h3>
             <ul>
-                <li><strong>Missing fields</strong>: Code 400, "Missing username or password"</li>
-                <li><strong>User not found</strong>: Code 404, "User doesn't exist"</li>
-                <li><strong>Wrong password</strong>: Code 401, "Wrong password"</li>
+                <li><strong>Missing fields (fields.missing)</strong>: Code 400, "Missing username or password"</li>
+                <li><strong>User not found (user.notfound)</strong>: Code 404, "User doesn't exist"</li>
+                <li><strong>Wrong password (password.invalid)</strong>: Code 401, "Wrong password"</li>
             </ul>
         </p>
         <p>
@@ -346,7 +377,7 @@
         <p>
             <h3>Errors</h3>
             <ul>
-                <li><strong>Not found</strong>: Code 404, "User doesn't exist"</li>
+                <li><strong>Not found (user.notfound)</strong>: Code 404, "User doesn't exist"</li>
             </ul>
         </p>
     </div>
@@ -389,8 +420,25 @@
         <p>
             <h3>Errors</h3>
             <ul>
-                <li><strong>Password requirements</strong>: Code 400, "Password doesn't meet requirements"</li>
-                <li><strong>User couldn't be saved</strong>: Code 400, "Something went wrong whilst updating the user", more info in "errors"</li>
+                <li><strong>Password requirements (password.invalid)</strong>: Code 400, "Password doesn't meet requirements"</li>
+                <li>
+                    <strong>User couldn't be saved (record.invalid)</strong>: Code 400, "Something went wrong whilst updating the user", more info in "errors"
+                    <pre><code class="lang-json" data-controller="prism">{
+    "success": false,
+    "token": "record.invalid",
+    "errors": {
+        "username": [{
+            "error": "taken",
+            "value": "Lukas"
+        }],
+        "email": [{
+            "error": "invalid",
+            "value": "email"
+        }]
+    },
+    "message": "Something went wrong whilst creating the user"
+}</code></pre>
+                </li>
             </ul>
         </p>
     </div>
@@ -434,7 +482,7 @@
         <p>
             <h3>Errors</h3>
             <ul>
-                <li><strong>Settings couldn't be saved</strong>: Code 400, "Something went wrong whilst saving the settings", more info in "errors"</li>
+                <li><strong>Settings couldn't be saved (record.invalid)</strong>: Code 400, "Something went wrong whilst saving the settings", more info in "errors"</li>
             </ul>
         </p>
     </div>

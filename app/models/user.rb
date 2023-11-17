@@ -139,10 +139,6 @@ class User < ApplicationRecord
     end
 
     def get_errors
-        errors = []
-        for x in self.errors.objects do
-            errors.append x.full_message
-        end
-        return errors
+        self.errors.full_messages
     end
 end
