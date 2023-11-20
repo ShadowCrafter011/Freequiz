@@ -10,5 +10,6 @@ namespace :quiz do
         delete "delete/:destroy_token", to: "quiz#destroy", as: "delete"
 
         get "cards", to: "quiz#cards", as: "cards"
+        get "write", to: "quiz#write", as: "write"
     end
 end

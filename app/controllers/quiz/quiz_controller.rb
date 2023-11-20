@@ -19,8 +19,7 @@ class Quiz::QuizController < ApplicationController
   end
 
   def cards; end
-
-  def learn; end
+  def write; end
 
   def new
     @quiz = current_user.quizzes.new

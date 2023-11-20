@@ -32,3 +32,6 @@
 
 # Ignore .env file
 .env
+
+# Ignore translation scripe
+translate.sh

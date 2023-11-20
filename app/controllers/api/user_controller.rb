@@ -157,7 +157,6 @@ class Api::UserController < ApplicationController
     if @api_user.setting.update(setting_params)
       json({success: true, message: "Settings updated"})
     else
-      # TODO: Add error token
       json({success: false, token: "record.invalid", errors: @api_user.setting.errors.details, message: "Something went wrong whilst saving the settings"}, :bad_request)
     end
   end
