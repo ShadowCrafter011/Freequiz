@@ -18,13 +18,12 @@ class User < ApplicationRecord
         self.sign_in_count = 1
         self.email = self.email.downcase
 
-        encrypt_value :password, save: false
-
-        send_verification_email
+        self.encrypt_value :password, save: false
     end
 
     after_create do
         self.create_setting
+        self.send_verification_email
     end
 
     def admin?
