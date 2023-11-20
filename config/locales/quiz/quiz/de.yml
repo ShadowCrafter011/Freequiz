@@ -28,6 +28,7 @@ de:
         delete: Löschen
         created_by: (von %s erstellt)
         cards: Kartei Karten
+        write: Schreiben
 
         # Learning cards
         done: Glückwunsch, du hast alles gelernt!

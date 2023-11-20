@@ -23,12 +23,10 @@ class Api::QuizController < ApplicationController
 
     @quiz = @api_user.quizzes.new(quiz_params)
 
-    # TODO: Add error token
     return json({success: false, token: "record.invalid", errors: @quiz.errors.details, message: "Some parameters don't meet requirements"}, :bad_request) unless @quiz.valid?
 
     return json({success: false, token: "translations.notenough", message: "Not enough translations"}, :bad_request) unless @quiz.data.length > 0
 
-    # TODO: Add error token
     return json({success: false, token: "record.invalid", errors: @quiz.errors.details, message: "Something went wrong whilst creating the quiz"}, :unprocessable_entity) unless @quiz.save
 
     render nothing: true, status: :created
@@ -64,7 +62,6 @@ class Api::QuizController < ApplicationController
   def update
     return json({success: false, tokne: "quiz.notfound", message: "Quiz doesn't exist or is not owned by user"}, :not_found) unless (@quiz = @api_user.quizzes.find_by(id: params[:quiz_id])).present?
 
-    # TODO: Add error token
     return json({success: false, token: "record.invalid", errors: @quiz.errors.details, message: "Something went wrong whilst saving the Quiz"}, :bad_request) unless @quiz.update(quiz_params)
 
     render nothing: true, status: :accepted
