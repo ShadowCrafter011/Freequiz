@@ -70,6 +70,37 @@
     </div>
     <hr>
 
+        <div id="exists" class="section">
+        <h1>Exists</h1>
+        <p>
+            <a href="https://freequiz.ch/api/user/exists/col/query">https://freequiz.ch/api/user/exists/col/query</a>
+            <br>
+            Replace col with either <code>email</code> or <code>username</code> depending of your query
+            <br>
+            Replace <code>query</code> with the value you would like to check
+        </p>
+        <p>
+            <h3>Request method: GET</h3>
+        </p>
+        <p>
+            <h3>Content</h3>
+            No content
+        </p>
+        <p>
+            <h3>Response</h3>
+            Status code: 200
+            <pre><code class="lang-json" data-controller="prism">{
+    "success": true,
+    "exists": true
+}</code></pre>
+        </p>
+        <p>
+            <h3>Errors</h3>
+            No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
+        </p>
+    </div>
+    <hr>
+
     <div id="delete_token" class="section">
         <h1>Delete Token</h1>
         <p>

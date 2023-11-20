@@ -26,6 +26,7 @@ module Api::DocsHelper
                 id: "users",
                 subsections: {
                     create: "Create",
+                    exists: "Exists",
                     delete_token: "Delete token",
                     delete: "Delete",
                     login: "Login",

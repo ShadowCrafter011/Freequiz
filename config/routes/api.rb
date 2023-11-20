@@ -4,6 +4,8 @@ namespace :api do
             put "create", to: "user#create"
             post "login", to: "user#login"
             post "refresh", to: "user#refresh_token"
+
+            get "exists/:attr/:query", to: "user#exists"
             
             get "search(/:page)", to: "user#search"
 

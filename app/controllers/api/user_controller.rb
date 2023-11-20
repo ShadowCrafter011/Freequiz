@@ -31,6 +31,15 @@ class Api::UserController < ApplicationController
     render :quizzes
   end
 
+  def exists
+    type = params[:attr] == "email" ? "email" : "username"
+    user = User.where("lower(#{type}) = ?", params[:query].downcase)
+    json({
+      success: true,
+      exists: user.first.present?
+    })
+  end
+
   def create
     # json parameters like this:
     # {
@@ -58,7 +67,6 @@ class Api::UserController < ApplicationController
         access_token: generate_access_token(user)
       }, 201)
     else
-      # TODO: Add error token
       json({
         success: false,
         token: "record.invalid",
@@ -130,7 +138,6 @@ class Api::UserController < ApplicationController
 
     email_changed, errors = @api_user.change edit_params
 
-    # TODO: Add error token
     return json({success: false, token: "record.invalid", errors: @api_user.errors.details, message: "Something went wrong whilst updating the user"}, :bad_request) if errors.length > 0
     
     json({success: true, message: "User updated", email_changed: email_changed}, :accepted)
