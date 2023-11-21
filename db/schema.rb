@@ -35,7 +35,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_182522) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "quizzes", id: :serial, force: :cascade do |t|
+  create_table "quizzes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "uuid", null: false
     t.text "description"
     t.string "visibility"
     t.bigint "user_id"
@@ -48,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_182522) do
     t.string "destroy_token"
     t.datetime "destroy_expire"
     t.index ["user_id"], name: "index_quizzes_on_user_id"
+    t.index ["uuid"], name: "index_quizzes_on_uuid", unique: true
   end
 
   create_table "scores", force: :cascade do |t|
@@ -105,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_182522) do
 
   add_foreign_key "bug_reports", "users"
   add_foreign_key "quizzes", "users"
-  add_foreign_key "scores", "quizzes"
+  add_foreign_key "scores", "quizzes", primary_key: "uuid"
   add_foreign_key "scores", "users"
   add_foreign_key "settings", "users"
   add_foreign_key "transactions", "users"

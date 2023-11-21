@@ -11,7 +11,7 @@ class Quiz::QuizController < ApplicationController
 
     @access_token = generate_access_token(current_user, 5.days.from_now.to_i)
 
-    @quiz = Quiz.find_by(id: params[:quiz_id])
+    @quiz = Quiz.find_by(uuid: params[:quiz_id])
     unless @quiz.present? && @quiz.user_allowed_to_view?(current_user)
       gn n: tp("not_found")
       redirect_to root_path
@@ -39,7 +39,7 @@ class Quiz::QuizController < ApplicationController
   end
 
   def show
-    @quiz = Quiz.find_by(id: params[:quiz_id])
+    @quiz = Quiz.find_by(uuid: params[:quiz_id])
     
     unless @quiz.present?
       gn n: tp("not_found")
@@ -50,7 +50,7 @@ class Quiz::QuizController < ApplicationController
   end
 
   def request_destroy
-    @quiz = Quiz.find_by(id: params[:quiz_id])
+    @quiz = Quiz.find_by(uuid: params[:quiz_id])
 
     if @quiz.present? && @user == @quiz.user
       @token = SecureRandom.hex(32)
@@ -64,7 +64,7 @@ class Quiz::QuizController < ApplicationController
   def edit
     override_action "new"
 
-    @quiz = @user.quizzes.find_by(id: params[:quiz_id])
+    @quiz = @user.quizzes.find_by(uuid: params[:quiz_id])
 
     unless @quiz.present?
       gn n: tp("not_found")
@@ -75,7 +75,7 @@ class Quiz::QuizController < ApplicationController
   def update
     override_action "new"
 
-    @quiz = @user.quizzes.find_by(id: params[:quiz_id])
+    @quiz = @user.quizzes.find_by(uuid: params[:quiz_id])
 
     unless @quiz.present?
       gn n: tp("not_found")
@@ -92,7 +92,7 @@ class Quiz::QuizController < ApplicationController
   end
 
   def destroy
-    quiz = @user.quizzes.find_by(id: params[:quiz_id])
+    quiz = @user.quizzes.find_by(uuid: params[:quiz_id])
     token = params[:destroy_token]
 
     unless quiz.present?

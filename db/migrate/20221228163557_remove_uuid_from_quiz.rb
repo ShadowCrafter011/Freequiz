@@ -1,5 +1,5 @@
 class RemoveUuidFromQuiz < ActiveRecord::Migration[7.0]
   def change
-    remove_column :quizzes, :uuid
+    # remove_column :quizzes, :uuid
   end
 end
