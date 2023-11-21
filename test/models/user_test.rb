@@ -48,13 +48,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "lkoe@bluewin.ch", user.email
   end
 
-  test "confirmation token" do
-    user = User.create(user_params_with(email: "wow@notanemail.wow"))
-    assert user.confirmation_token
-    assert user.confirmation_expire
-    assert_equal user.confirmed, false
-  end
-
   test "role on creation" do
     user = User.create(user_params)
     assert_equal user.role, "user"

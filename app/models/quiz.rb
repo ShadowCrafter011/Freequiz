@@ -1,6 +1,8 @@
 class Quiz < ApplicationRecord
   # Quizzes can store up to 5000 translations with 255 characters each
 
+  self.primary_key = :uuid
+
   belongs_to :user, optional: true
   has_many :scores, dependent: :destroy
 
@@ -41,10 +43,10 @@ class Quiz < ApplicationRecord
 
   before_create do
     id_char_num = 5
-    self.id = SecureRandom.base58(id_char_num)
-    while Quiz.exists? self.id do
+    self.uuid = SecureRandom.base58(id_char_num)
+    while Quiz.exists? self.uuid do
       id_char_num += 1
-      self.id = SecureRandom.base58(id_char_num)
+      self.uuid = SecureRandom.base58(id_char_num)
     end
 
     for translation in self.data do

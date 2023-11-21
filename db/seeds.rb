@@ -25,21 +25,23 @@ Language.create([
 
 system_id = User.find_by(username: "System").id
 
-for x in 1..20 do
-    quiz = Quiz.new(user_id: system_id, title: "Automatic Quiz ##{x}", description: "This Quiz was generated randomly", data: [], from: 3, to: 1, visibility: "public")
-    
-    10.times do
-        word = HTTParty.get("https://random-word-api.herokuapp.com/word")[0]
-        query = { text: word, source_lang: "EN", target_lang: "DE" }
-        headers = { Authorization: "DeepL-Auth-Key 05641ada-4439-cdfd-109f-539ebb0059ca:fx" }
-        translation = HTTParty.post("https://api-free.deepl.com/v2/translate", query: query, headers: headers)["translations"][0]["text"]
-        quiz.data.append({ w: word, t: translation })
-    end
-    quiz.save
-    puts "Generated Quiz ##{x}"
-end
+deepl_auth_key = Rails.application.credentials.dig(:deepl_auth_key)
 
-for x in 21..1000 do
-    Quiz.create(user_id: system_id, title: "Automatic Quiz ##{x}", description: "This Quiz was generated automatically", data: [{w: "Tree", t: "Baum"}], from: 3, to: 1, visibility: "public")
-    puts "Generated Quiz ##{x}"
-end
+# for x in 1..10 do
+#     quiz = Quiz.new(user_id: system_id, title: "Automatic Quiz ##{x}", description: "This Quiz was generated randomly", data: [], from: 3, to: 1, visibility: "public")
+    
+#     10.times do
+#         word = HTTParty.get("https://random-word-api.herokuapp.com/word")[0]
+#         query = { text: word, source_lang: "EN", target_lang: "DE" }
+#         headers = { Authorization: "DeepL-Auth-Key #{deepl_auth_key}" }
+#         translation = HTTParty.post("https://api-free.deepl.com/v2/translate", query: query, headers: headers)["translations"][0]["text"]
+#         quiz.data.append({ w: word, t: translation })
+#     end
+#     quiz.save
+#     puts "Generated Quiz ##{x}"
+# end
+
+# for x in 11..50 do
+#     Quiz.create(user_id: system_id, title: "Automatic Quiz ##{x}", description: "This Quiz was generated automatically", data: [{w: "Tree", t: "Baum"}], from: 3, to: 1, visibility: "public")
+#     puts "Generated Quiz ##{x}"
+# end
