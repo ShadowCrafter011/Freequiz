@@ -1,4 +1,4 @@
-<%= link_to quiz_show_path(quiz), id: quiz.id, class: "link-card", data: { title: quiz.title, translations: quiz.data.length, created: quiz.created_at.to_i, visibility: quiz.visibility } do %>
+<%= link_to quiz_show_path(quiz.uuid), id: quiz.id, class: "link-card", data: { title: quiz.title, translations: quiz.data.length, created: quiz.created_at.to_i, visibility: quiz.visibility } do %>
     <h3><%= quiz.title %></h3>
     <div class="row text-center">
         <% col = (action_name == "quizzes" || action_name == "public") ? "col-md-4" : "col-md-3" %>

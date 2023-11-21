@@ -31,7 +31,7 @@ class Quiz::QuizController < ApplicationController
     @quiz = current_user.quizzes.new(quiz_params)
     if @quiz.save
       gn s: tp("quiz_created")
-      redirect_to quiz_show_path(@quiz)
+      redirect_to quiz_show_path(@quiz.uuid)
     else
       gn a: @quiz.get_errors
       render :new, status: :unprocessable_entity
@@ -84,7 +84,7 @@ class Quiz::QuizController < ApplicationController
 
     if @quiz.update(quiz_params)
       gn s: tp("saved")
-      redirect_to quiz_show_path(@quiz)
+      redirect_to quiz_show_path(@quiz.uuid)
     else
       gn a: @quiz.get_errors
       render :edit, status: :unprocessable_entity

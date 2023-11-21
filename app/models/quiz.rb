@@ -1,8 +1,6 @@
 class Quiz < ApplicationRecord
   # Quizzes can store up to 5000 translations with 255 characters each
 
-  self.primary_key = :uuid
-
   belongs_to :user, optional: true
   has_many :scores, dependent: :destroy
 
