@@ -63,10 +63,6 @@ group :development, :test do
   gem "dotenv-rails"
 
   gem "bundler-audit"
-
-  gem "brakeman"
-  
-  gem "rubocop"
 end
 
 group :development do
