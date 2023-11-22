@@ -90,16 +90,7 @@ class ApplicationController < ActionController::Base
 
     private
     def login
-        @user = nil
-        return false unless cookies.encrypted[:_session_token].present?
-        data = cookies.encrypted[:_session_token].to_s.split(";")
-
-        # Using find_by because find will throw an exception if the user doesn't exists. Find_by returns nil
-        @user = User.find_by(id: data[0])
-        unless Time.now.to_i < data[1].to_i
-            cookies.delete :_session_token
-            return false
-        end
-        return @user.present?
+        @user = User.find_signed cookies.encrypted[:_session_token], purpose: :login
+        @user.present?
     end
 end

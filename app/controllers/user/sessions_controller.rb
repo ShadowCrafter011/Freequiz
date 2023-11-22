@@ -24,8 +24,10 @@ class User::SessionsController < ApplicationController
     end
 
     if user.first.login params[:password]
-      expire = Time.now + (params[:remember] == "1" ? 14.days : 1.days)
-      cookies.encrypted[:_session_token] = { value: "#{user.first.id};#{expire.to_i}", expires: expire }
+      expires_in = params[:remember] == "1" ? 20.years : 1.days
+      token = user.first.signed_id purpose: :login, expires_in: expires_in
+
+      cookies.encrypted[:_session_token] = { value: token, expires: Time.now + expires_in }
 
       gn s: tp("success").sub("%s", user.first.username)
 
