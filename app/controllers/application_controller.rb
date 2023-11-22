@@ -1,10 +1,6 @@
 class ApplicationController < ActionController::Base
-    before_action :require_https!, :setup_login
+    before_action :setup_login
     around_action :switch_locale
-
-    def require_https!
-        redirect_to :protocol => "https://" unless (request.ssl? || request.local?)
-    end
 
     def locale_en(&action)
         I18n.with_locale(:en, &action)

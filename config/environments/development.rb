@@ -2,6 +2,8 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
 
+  config.force_ssl = true
+
   config.hosts << "dev.freequiz.ch"
 
   config.action_mailer.default_url_options = { host: "dev.freequiz.ch" }
