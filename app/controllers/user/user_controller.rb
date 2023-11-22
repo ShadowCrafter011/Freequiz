@@ -39,7 +39,10 @@ class User::UserController < ApplicationController
     @user.current_sign_in_at = Time.now
 
     if @user.save
-      cookies.encrypted[:_session_token] = { value: "#{@user.id};#{(Time.now + 14.days).to_i}", expires: Time.now + 14.days }
+      expires_in = 14.days
+      token = @user.signed_id purpose: :login, expires_in: expires_in
+
+      cookies.encrypted[:_session_token] = { value: token, expires: Time.now + expires_in }
 
       gn s: tp("created").sub("%s", @user.username)
 

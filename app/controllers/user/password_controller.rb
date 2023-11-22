@@ -47,8 +47,11 @@ class User::PasswordController < ApplicationController
     if user.update(password: params[:password], password_confirmation: params[:password_confirmation])
       user.encrypt_password
 
-      expire = 14.days.from_now
-      cookies.encrypted[:_session_token] = { value: "#{user.id};#{expire.to_i}", expires: expire }
+      expires_in = 14.days
+      token = user.signed_id purpose: :login, expires_in: expires_in
+
+      cookies.encrypted[:_session_token] = { value: token, expires: Time.now + expires_in }
+      
       user.sign_in request.remote_ip
 
       gn s: tp("changed_password")

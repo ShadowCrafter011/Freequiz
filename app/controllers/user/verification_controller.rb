@@ -1,5 +1,7 @@
 class User::VerificationController < ApplicationController
-  before_action :require_login! do
+  before_action :require_login!, except: :verify
+
+  before_action do
     setup_locale "user.verification"
   end
 
