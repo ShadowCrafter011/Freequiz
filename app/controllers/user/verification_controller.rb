@@ -19,11 +19,10 @@ class User::VerificationController < ApplicationController
       @user.confirmed_at = Time.now
       @user.save
 
-      # redirect_to user_verification_success_path
+      redirect_to user_verification_success_path
     else
-      # redirect_to user_verification_success_path(invalid: 1)
+      redirect_to user_verification_success_path(invalid: 1)
     end
-    render json: {user: @user, token: params[:verification_token]}
   end
 
   def success
