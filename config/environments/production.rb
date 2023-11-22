@@ -2,9 +2,9 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
 
-  config.action_mailer.default_url_options = { host: "freequiz.ch" }
+  config.action_mailer.default_url_options = { host: "www.freequiz.ch" }
 
-  config.default_url_options = { host: "freequiz.ch" }
+  config.default_url_options = { host: "www.freequiz.ch" }
 
   config.action_mailer.delivery_method = :smtp
 
