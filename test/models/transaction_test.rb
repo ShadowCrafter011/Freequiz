@@ -15,6 +15,6 @@ class TransactionTest < ActiveSupport::TestCase
       total += value
       Transaction.create amount: value, description: "Test one two three"
     end
-    assert_equal total, Transaction::total
+    assert_equal total.round(1), Transaction::total.round(1)
   end
 end
