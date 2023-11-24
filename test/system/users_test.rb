@@ -17,6 +17,10 @@ class UsersTest < ApplicationSystemTestCase
     User.create username: "Test", password: "hallO123", email: "test@freequiz.ch", agb: true
   end
 
+  def t key
+    I18n.t key
+  end
+
   def login password: "hallO123"
     visit user_login_url
     assert_text I18n.t "user.sessions.new.login_page"
@@ -107,7 +111,15 @@ class UsersTest < ApplicationSystemTestCase
     assert_text I18n.t("user.sessions.new.success").sub("%s", "Test")
   end
 
-  # test "deleting account" do
-    
-  # end
+  test "deleting account" do
+    add_user_to_db
+    login
+
+    click_on t "user.user.show.buttons.delete"
+    assert_text t "user.user.request_destroy.delete_account"
+    click_on t "user.user.request_destroy.delete"
+    assert_text t "user.user.request_destroy.sure_to_delete"
+    click_on id: "delete-btn"
+    assert_text t "user.user.destroy.deleted"
+  end
 end
