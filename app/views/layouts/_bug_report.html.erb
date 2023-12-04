@@ -7,7 +7,7 @@
             <h1 class="text-center"><%= t("layouts.application.bug_report") %></h1>
 
             <div class="container">
-                <%= form_with model: BugReport.new, url: bug_report_path, data: { controller: "validation--bug-report", action: "validation--bug-report#check" } do |form| %>
+                <%= form_with model: BugReport.new, url: bug_report_path, data: { controller: "validation--bug-report dirtyform", action: "validation--bug-report#check" } do |form| %>
                     <p class="input-group">
                         <%= form.label :title, t("layouts.application.title_form"), class: "fs-4 input-group-text" %>
                         <%= form.text_field :title, placeholder: t("layouts.application.title_placeholder"), class: "form-control", data: { validation__bug_report_target: "title" } %>

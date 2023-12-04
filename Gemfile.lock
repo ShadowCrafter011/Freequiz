@@ -121,6 +121,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jquery-dirtyforms-rails (2.0.0)
     jquery-rails (4.6.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -269,6 +270,7 @@ DEPENDENCIES
   i18n
   importmap-rails
   jbuilder
+  jquery-dirtyforms-rails
   jquery-rails
   jwt
   pg (~> 1.1)

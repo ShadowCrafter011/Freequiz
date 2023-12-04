@@ -10,3 +10,4 @@ pin "@popperjs/core", to: "popper.js", preload: true
 pin "jquery", to: "jquery.js"
 pin "jquery-most-visible", to: "https://unpkg.com/most-visible@2.0.0/dist/most-visible.min.js"
 pin "jaro-winkler", to: "https://ga.jspm.io/npm:jaro-winkler@0.2.8/index.js"
+pin "dirtyforms", to: "jquery.dirtyforms.js"

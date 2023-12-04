@@ -13,7 +13,7 @@
     <div class="form-group">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
-                <%= form_with url: url, model: @quiz, method: method, data: { controller: "create-quiz" } do |form| %>
+                <%= form_with url: url, model: @quiz, method: method, data: { controller: "create-quiz dirtyform" } do |form| %>
 
                     <div id="template" class="d-none" data-create-quiz-target="template">
                         <%= render partial: "translation", locals: { form: form, word: "", translation: "" } %>
@@ -23,7 +23,7 @@
                         <div class="col-lg-8">
                             <div class="input-group">
                                 <%= form.label :title, tp("title"), class: "fs-4 input-group-text justify-content-center", style: "width: 200px" %>
-                                <%= form.text_field :title, class: "form-control fs-5", placeholder: tp("title_placeholder"), autofocus: true %>
+                                <%= form.text_field :title, class: "form-control fs-5", placeholder: tp("title_placeholder"), autofocus: true, data: {test_id: "quiz-title"} %>
                             </div>
                         </div>
                         <div class="col-lg-4 top-md">
@@ -37,7 +37,7 @@
                                     end
                                 %>
 
-                                <%= form.select :visibility, visibilities, {}, { class: "form-select fs-5", tabindex: -1 } %>
+                                <%= form.select :visibility, visibilities, {}, { class: "form-select fs-5", tabindex: -1, data: {test_id: "quiz-visibility"} } %>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                     </div>
                     <br>
                     <div class="text-center">
-                        <%= form.submit value: commit, class: "btn btn-success btn-lg" %>
+                        <%= form.submit value: commit, class: "btn btn-success btn-lg", data: {test_id: "quiz-create"} %>
                         <%= link_to tp("cancel"), method == :patch ? quiz_show_path(@quiz.uuid) : user_path, class: "btn btn-secondary btn-lg" %>
                     </div>
                 <% end %>
