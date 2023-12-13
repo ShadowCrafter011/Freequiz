@@ -16,7 +16,7 @@
                 <%= form_with url: url, model: @quiz, method: method, data: { controller: "create-quiz dirtyform" } do |form| %>
 
                     <div id="template" class="d-none" data-create-quiz-target="template">
-                        <%= render partial: "translation", locals: { form: form, word: "", translation: "" } %>
+                        <%= render partial: "translation", locals: { form: form, word: "", translation: "", id: "template" } %>
                     </div>
 
                     <div class="row">
@@ -44,30 +44,30 @@
                     <br>
                     <div class="input-group">
                         <%= form.label :description, tp("description"), class: "fs-4 input-group-text justify-content-center", style: "width: 200px" %>
-                        <%= form.text_area :description, class: "form-control fs-5", rows: 2, placeholder: tp("description_placeholder") %>
+                        <%= form.text_area :description, class: "form-control fs-5", rows: 2, placeholder: tp("description_placeholder"), data: { test_id: "quiz-description" } %>
                     </div>
                     <br>
                     <div class="d-flex justify-content-center">
                         <div class="w-50 input-group pe-1">
                             <%= form.label :from, tp("lang_1"), class: "fs-6 input-group-text" %>
-                            <%= form.select :from, Language.selection, {}, { class: "form-select", tabindex: -1 } %>
+                            <%= form.select :from, Language.selection, {}, { class: "form-select", tabindex: -1, data: { test_id: "from-lang" } } %>
                         </div>
                         <div class="w-50 input-group ps-1">
                             <%= form.label :to, tp("lang_2"), class: "fs-6 input-group-text" %>
-                            <%= form.select :to, Language.selection, {}, { class: "form-select", tabindex: -1 } %>
+                            <%= form.select :to, Language.selection, {}, { class: "form-select", tabindex: -1, data: { test_id: "to-lang" } } %>
                         </div>
                     </div>
                     <br>
                     
                     <div id="translations" data-create-quiz-target="translations">
                         <% if @quiz.data.length == 0 %>
-                            <% 4.times do %>
-                                <%= render partial: "translation", locals: { form: form, word: "", translation: "" } %>
+                            <% 4.times do |x| %>
+                                <%= render partial: "translation", locals: { form: form, word: "", translation: "", id: x } %>
                             <% end %>
                         <% else %>
-                            <% for translation_pair in @quiz.data do  %>
+                            <% @quiz.data.each_with_index do |translation_pair, x| %>
                                 <% word = translation_pair[:w]; translation = translation_pair[:t] %>
-                                <%= render partial: "translation", locals: { form: form, word: word, translation: translation } %>
+                                <%= render partial: "translation", locals: { form: form, word: word, translation: translation, id: x } %>
                             <% end %>
                         <% end %>
                     </div>

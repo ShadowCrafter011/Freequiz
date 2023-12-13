@@ -1,9 +1,45 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  locale: MyString
+  name: german
+  locale: de
 
 two:
-  name: MyString
-  locale: MyString
+  name: french
+  locale: fr
+
+three:
+  name: italian
+  locale: it
+
+four:
+  name: english
+  locale: en
+
+five:
+  name: spanish
+  locale: es
+
+six:
+  name: latin
+  locale: la
+
+seven:
+  name: greek
+  locale: el
+
+eight:
+  name: romansh
+  locale: rm
+
+nine:
+  name: japanese
+  locale: ja
+
+ten:
+  name: korean
+  locale: ko
+
+eleven:
+  name: chinese
+  locale: zh

@@ -1,7 +1,7 @@
 class Quiz::QuizController < ApplicationController
   include QuizUtils
   include ApiUtils
-  
+
   before_action :require_login!, :require_beta! do
     setup_locale "quiz.quiz"
   end
@@ -11,7 +11,7 @@ class Quiz::QuizController < ApplicationController
 
     @access_token = generate_access_token(current_user, 5.days.from_now.to_i)
 
-    @quiz = Quiz.find_by(uuid: params[:quiz_id])
+    @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
     unless @quiz.present? && @quiz.user_allowed_to_view?(current_user)
       gn n: tp("not_found")
       redirect_to root_path
@@ -27,7 +27,7 @@ class Quiz::QuizController < ApplicationController
 
   def create
     override_action :new
-    
+
     @quiz = current_user.quizzes.new(quiz_params)
     if @quiz.save
       gn s: tp("quiz_created")
@@ -39,18 +39,18 @@ class Quiz::QuizController < ApplicationController
   end
 
   def show
-    @quiz = Quiz.find_by(uuid: params[:quiz_id])
-    
+    @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
+
     unless @quiz.present?
       gn n: tp("not_found")
       return redirect_to root_path
     end
-    
+
     return unless check_viewing_privilege
   end
 
   def request_destroy
-    @quiz = Quiz.find_by(uuid: params[:quiz_id])
+    @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
 
     if @quiz.present? && @user == @quiz.user
       @token = SecureRandom.hex(32)
@@ -64,7 +64,7 @@ class Quiz::QuizController < ApplicationController
   def edit
     override_action "new"
 
-    @quiz = @user.quizzes.find_by(uuid: params[:quiz_id])
+    @quiz = @user.quizzes.find_by(uuid: params[:quiz_uuid])
 
     unless @quiz.present?
       gn n: tp("not_found")
@@ -75,7 +75,7 @@ class Quiz::QuizController < ApplicationController
   def update
     override_action "new"
 
-    @quiz = @user.quizzes.find_by(uuid: params[:quiz_id])
+    @quiz = @user.quizzes.find_by(uuid: params[:quiz_uuid])
 
     unless @quiz.present?
       gn n: tp("not_found")
@@ -92,7 +92,7 @@ class Quiz::QuizController < ApplicationController
   end
 
   def destroy
-    quiz = @user.quizzes.find_by(uuid: params[:quiz_id])
+    quiz = @user.quizzes.find_by(uuid: params[:quiz_uuid])
     token = params[:destroy_token]
 
     unless quiz.present?

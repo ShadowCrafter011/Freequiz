@@ -13,7 +13,7 @@ class User < ApplicationRecord
     validates :agb, acceptance: true
 
     before_create do
-        self.role = "user"
+        self.role = "user" unless self.role.present?
         self.confirmed = false
         self.sign_in_count = 1
         self.email = self.email.downcase

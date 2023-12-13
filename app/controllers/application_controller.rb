@@ -84,6 +84,11 @@ class ApplicationController < ActionController::Base
         session[:notifications] = messages
     end
 
+    def test_id id
+        "data-test-id=\"#{id}\"".html_safe unless Rails.env.production?
+    end
+    helper_method :test_id
+
     private
     def login
         @user = User.find_signed cookies.encrypted[:_session_token], purpose: :login
