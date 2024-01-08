@@ -1,28 +1,3 @@
-<%= content_for :css do %>
-    <%= stylesheet_link_tag "statuses" %>
-    <style>
-        .status-new {
-            border-color: black;
-        }
-
-        .status-btn {
-            margin: 0 2px;
-        }
-
-        @media (min-width: 768px) {
-            .status-btn {
-                width: 15%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .status-btn {
-                width: 33%;
-            }
-        }
-    </style>
-<% end %>
-
 <div class="container">
     <div class="d-flex justify-content-center align-items-center my-4">
         <h1><%= @bug.title %></h1>
@@ -42,11 +17,15 @@
                 <th scope="row">User agent</th>
                 <td><%= @bug.user_agent %></td>
             </tr>
+            <tr>
+                <th scope="row">Reported by</th>
+                <td><%= @bug.user.present? ? link_to(@bug.user.username, admin_user_edit_path(@bug.user)) : "Guest" %></td>
+            </tr>
         </tbody>
     </table>
-    <pre class="border rounded">
-        <h4 class="text-center"><%= @bug.body %></h4>
-    </pre>
+    
+    
+
     <div class="d-flex justify-content-center">
         <% case @bug.status %>
         <% when "new" %>
