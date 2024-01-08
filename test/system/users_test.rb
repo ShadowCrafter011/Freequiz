@@ -17,6 +17,9 @@ class UsersTest < ApplicationSystemTestCase
 
   test "no account with same username or email" do
     create_user
+    close_notice
+    visit user_logout_path
+    close_notice
     create_user
     assert_current_path user_create_path
     assert_text I18n.t "activerecord.errors.models.user.attributes.username.taken"
