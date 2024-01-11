@@ -1,57 +1,54 @@
 class Score < ApplicationRecord
-  belongs_to :quiz
-  belongs_to :user
+    belongs_to :quiz
+    belongs_to :user
 
-  attribute :data, :binary_hash
-  attribute :favorites, :binary_hash
+    attribute :data, :binary_hash
+    attribute :favorites, :binary_hash
 
-  MODES = {
-    0 => "smart",
-    1 => "write",
-    2 => "multi",
-    3 => "cards"
-  }
+    MODES = { 0 => "smart", 1 => "write", 2 => "multi", 3 => "cards" }.freeze
 
-  before_create do
-    self.total = 0
-    self.favorites = []
+    before_create do
+        self.total = 0
+        self.favorites = []
 
-    quiz = Quiz.find(self.quiz_id)
-    for translation in quiz.data do
-      self.data[translation[:hash]] = Array.new(MODES.length, 0)
+        quiz = Quiz.find(quiz_id)
+        quiz.data.each do |translation|
+            data[translation[:hash]] = Array.new(MODES.length, 0)
+        end
     end
-  end
 
-  after_find do
-    if self.data.values.first.length < MODES.length
-      for hash in self.data.keys do
-        self.data[hash].concat(Array.new(MODES.length - self.data[hash].length, 0))
-      end
-      self.save
+    after_find do
+        if data.values.first.length < MODES.length
+            data.each_key do |hash|
+                data[hash].concat(
+                    Array.new(MODES.length - data[hash].length, 0)
+                )
+            end
+            save
+        end
     end
-  end
 
-  def self.empty
-    output = { favorite: false, score: {} }
-    for x in 0..(MODES.length - 1) do
-      output[:score][MODES[x]] = 0
+    def self.empty
+        output = { favorite: false, score: {} }
+        MODES.each do |mode|
+            output[:score][mode] = 0
+        end
+        output
     end
-    return output
-  end
 
-  def get_data hash
-    array = self.data[hash.to_sym] || Array.new(MODES.length, 0)
-    output = { favorite: self.favorites.include?(hash.to_s), score: {} }
-    for x in 0..(MODES.length - 1) do
-      output[:score][MODES[x]] = array[x]
+    def get_data(hash)
+        array = data[hash.to_sym] || Array.new(MODES.length, 0)
+        output = { favorite: favorites.include?(hash.to_s), score: {} }
+        MODES.each do |mode|
+            output[:score][mode] = array[x]
+        end
+        output
     end
-    return output
-  end
 
-  def reset
-    for hash, score in self.data do
-      self.data[hash] = 0
+    def reset
+        data.each_key do |hash|
+            data[hash] = 0
+        end
+        save
     end
-    self.save
-  end
 end

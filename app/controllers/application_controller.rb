@@ -16,30 +16,28 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def tp(attribute, replace=nil, html_safe=false)
-        translated = t("#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}")
-        if replace == nil
-            return html_safe ? translated.html_safe : translated
-        end
+    def tp(attribute, replace = nil, html_safe: false)
+        translated =
+            t(
+                "#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}"
+            )
+        return html_safe ? translated.html_safe : translated if replace.nil?
 
         replaced = translated.sub("%s", replace.to_s)
         html_safe ? replaced.html_safe : replaced
     end
     helper_method :tp
 
-    def tg pre="", attribute
+    def tg(attribute, pre = "")
         t "general.#{pre}#{pre.present? ? "." : ""}#{attribute}"
     end
     helper_method :tg
 
-    def setup_locale base_path
-        @locale = {
-            path: "#{base_path}.",
-            action_override: false
-        }
+    def setup_locale(base_path)
+        @locale = { path: "#{base_path}.", action_override: false }
     end
 
-    def override_action action
+    def override_action(action)
         @locale[:path] += action.to_s
         @locale[:action_override] = true
     end
@@ -59,11 +57,12 @@ class ApplicationController < ActionController::Base
             redirect_to(user_login_path(gg: request.path))
             return false
         end
-        return true
+        true
     end
 
     def require_admin!
         return unless require_login!
+
         render "errors/not_allowed" unless @user.admin?
     end
 
@@ -72,8 +71,8 @@ class ApplicationController < ActionController::Base
     end
     helper_method :current_user
 
-    def gn **messages
-        for key in [:s, :a, :n] do
+    def gn(**messages)
+        %i[s a n].each do |key|
             unless messages[key].present?
                 messages[key] = []
                 next
@@ -84,12 +83,13 @@ class ApplicationController < ActionController::Base
         session[:notifications] = messages
     end
 
-    def test_id id
+    def test_id(id)
         "data-test-id=\"#{id}\"".html_safe unless Rails.env.production?
     end
     helper_method :test_id
 
     private
+
     def login
         @user = User.find_signed cookies.encrypted[:_session_token], purpose: :login
         @user.present?

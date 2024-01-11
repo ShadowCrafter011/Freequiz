@@ -24,4 +24,3 @@ en:
       bug_description: "Describe bug in more detail\n\n\nSteps to reproduce bug\n\n"
       platform: Platform
       platform_placeholder: Platform (e.g. IOS, Windows)
-

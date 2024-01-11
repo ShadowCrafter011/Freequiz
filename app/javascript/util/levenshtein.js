@@ -2,17 +2,26 @@ export default function levenshtein(s, t) {
     if (s === t) {
         return 0;
     }
-    var n = s.length, m = t.length;
+    var n = s.length,
+        m = t.length;
     if (n === 0 || m === 0) {
         return n + m;
     }
-    var x = 0, y, a, b, c, d, g, h, k;
+    var x = 0,
+        y,
+        a,
+        b,
+        c,
+        d,
+        g,
+        h,
+        k;
     var p = new Array(n);
-    for (y = 0; y < n;) {
+    for (y = 0; y < n; ) {
         p[y] = ++y;
     }
 
-    for (; (x + 3) < m; x += 4) {
+    for (; x + 3 < m; x += 4) {
         var e1 = t.charCodeAt(x);
         var e2 = t.charCodeAt(x + 1);
         var e3 = t.charCodeAt(x + 2);
@@ -26,36 +35,32 @@ export default function levenshtein(s, t) {
             k = s.charCodeAt(y);
             a = p[y];
             if (a < c || b < c) {
-                c = (a > b ? b + 1 : a + 1);
-            }
-            else {
+                c = a > b ? b + 1 : a + 1;
+            } else {
                 if (e1 !== k) {
                     c++;
                 }
             }
 
             if (c < b || d < b) {
-                b = (c > d ? d + 1 : c + 1);
-            }
-            else {
+                b = c > d ? d + 1 : c + 1;
+            } else {
                 if (e2 !== k) {
                     b++;
                 }
             }
 
             if (b < d || g < d) {
-                d = (b > g ? g + 1 : b + 1);
-            }
-            else {
+                d = b > g ? g + 1 : b + 1;
+            } else {
                 if (e3 !== k) {
                     d++;
                 }
             }
 
             if (d < g || h < g) {
-                g = (d > h ? h + 1 : d + 1);
-            }
-            else {
+                g = d > h ? h + 1 : d + 1;
+            } else {
                 if (e4 !== k) {
                     g++;
                 }
@@ -68,20 +73,18 @@ export default function levenshtein(s, t) {
         }
     }
 
-    for (; x < m;) {
+    for (; x < m; ) {
         var e = t.charCodeAt(x);
         c = x;
         d = ++x;
         for (y = 0; y < n; y++) {
             a = p[y];
             if (a < c || d < c) {
-                d = (a > d ? d + 1 : a + 1);
-            }
-            else {
+                d = a > d ? d + 1 : a + 1;
+            } else {
                 if (e !== s.charCodeAt(y)) {
                     d = c + 1;
-                }
-                else {
+                } else {
                     d = c;
                 }
             }

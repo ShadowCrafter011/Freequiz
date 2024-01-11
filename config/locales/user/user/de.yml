@@ -44,7 +44,7 @@ de:
       settings:
         settings: Einstellungen
         save: Speichern
-        
+
       update_settings:
         saved: Einstellungen gespeichert
 
@@ -54,7 +54,7 @@ de:
         delete_account: Konto Löschen
         not_reversible: Wenn Sie ihr Konto löschen kann dies nicht rückgangig gemacht werden!
         delete: Löschen
-        
+
       destroy:
         deleted: Konto gelöscht. Schade, dass Sie gehen
         failed: Etwas ist schief geloffen. Kontaktieren Sie unseren Support wenn dies nochmal passiert

@@ -1,90 +1,89 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+    config.force_ssl = true
 
-  config.force_ssl = true
+    config.hosts << "dev.freequiz.ch"
 
-  config.hosts << "dev.freequiz.ch"
+    config.action_mailer.default_url_options = { host: "dev.freequiz.ch" }
 
-  config.action_mailer.default_url_options = { host: "dev.freequiz.ch" }
+    config.default_url_options = { host: "dev.freequiz.ch" }
 
-  config.default_url_options = { host: "dev.freequiz.ch" }
+    config.action_mailer.delivery_method = :smtp
 
-  config.action_mailer.delivery_method = :smtp
-
-  config.action_mailer.smtp_settings = {
-    :address              => "mail.infomaniak.ch",
-    :port                 => 587,
-    :user_name            => "noreply@freequiz.ch",
-    :password             => Rails.application.credentials.dig(:noreply_password),
-    :authentication       => "login",
-    :enable_starttls_auto => true
-  }
-
-  # Settings specified here will take precedence over those in config/application.rb.
-
-  # In the development environment your application's code is reloaded any time
-  # it changes. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
-  config.cache_classes = false
-
-  # Do not eager load code on boot.
-  config.eager_load = false
-
-  # Show full error reports.
-  config.consider_all_requests_local = true
-
-  # Enable server timing
-  config.server_timing = true
-
-  # Enable/disable caching. By default caching is disabled.
-  # Run rails dev:cache to toggle caching.
-  if Rails.root.join("tmp/caching-dev.txt").exist?
-    config.action_controller.perform_caching = true
-    config.action_controller.enable_fragment_cache_logging = true
-
-    config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=#{2.days.to_i}"
+    config.action_mailer.smtp_settings = {
+        address: "mail.infomaniak.ch",
+        port: 587,
+        user_name: "noreply@freequiz.ch",
+        password: Rails.application.credentials[:noreply_password],
+        authentication: "login",
+        enable_starttls_auto: true
     }
-  else
-    config.action_controller.perform_caching = false
 
-    config.cache_store = :null_store
-  end
+    # Settings specified here will take precedence over those in config/application.rb.
 
-  # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+    # In the development environment your application's code is reloaded any time
+    # it changes. This slows down response time but is perfect for development
+    # since you don't have to restart the web server when you make code changes.
+    config.cache_classes = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = true
+    # Do not eager load code on boot.
+    config.eager_load = false
 
-  config.action_mailer.perform_caching = false
+    # Show full error reports.
+    config.consider_all_requests_local = true
 
-  # Print deprecation notices to the Rails logger.
-  config.active_support.deprecation = :log
+    # Enable server timing
+    config.server_timing = true
 
-  # Raise exceptions for disallowed deprecations.
-  config.active_support.disallowed_deprecation = :raise
+    # Enable/disable caching. By default caching is disabled.
+    # Run rails dev:cache to toggle caching.
+    if Rails.root.join("tmp/caching-dev.txt").exist?
+        config.action_controller.perform_caching = true
+        config.action_controller.enable_fragment_cache_logging = true
 
-  # Tell Active Support which deprecation messages to disallow.
-  config.active_support.disallowed_deprecation_warnings = []
+        config.cache_store = :memory_store
+        config.public_file_server.headers = {
+            "Cache-Control" => "public, max-age=#{2.days.to_i}"
+        }
+    else
+        config.action_controller.perform_caching = false
 
-  # Raise an error on page load if there are pending migrations.
-  config.active_record.migration_error = :page_load
+        config.cache_store = :null_store
+    end
 
-  # Highlight code that triggered database queries in logs.
-  config.active_record.verbose_query_logs = true
+    # Store uploaded files on the local file system (see config/storage.yml for options).
+    config.active_storage.service = :local
 
-  # Suppress logger output for asset requests.
-  config.assets.quiet = true
+    # Don't care if the mailer can't send.
+    config.action_mailer.raise_delivery_errors = true
 
-  # Raises error for missing translations.
-  # config.i18n.raise_on_missing_translations = true
+    config.action_mailer.perform_caching = false
 
-  # Annotate rendered view with file names.
-  # config.action_view.annotate_rendered_view_with_filenames = true
+    # Print deprecation notices to the Rails logger.
+    config.active_support.deprecation = :log
 
-  # Uncomment if you wish to allow Action Cable access from any origin.
-  # config.action_cable.disable_request_forgery_protection = true
+    # Raise exceptions for disallowed deprecations.
+    config.active_support.disallowed_deprecation = :raise
+
+    # Tell Active Support which deprecation messages to disallow.
+    config.active_support.disallowed_deprecation_warnings = []
+
+    # Raise an error on page load if there are pending migrations.
+    config.active_record.migration_error = :page_load
+
+    # Highlight code that triggered database queries in logs.
+    config.active_record.verbose_query_logs = true
+
+    # Suppress logger output for asset requests.
+    config.assets.quiet = true
+
+    # Raises error for missing translations.
+    # config.i18n.raise_on_missing_translations = true
+
+    # Annotate rendered view with file names.
+    # config.action_view.annotate_rendered_view_with_filenames = true
+
+    # Uncomment if you wish to allow Action Cable access from any origin.
+    # config.action_cable.disable_request_forgery_protection = true
 end

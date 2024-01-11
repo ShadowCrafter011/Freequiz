@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  data: 
-  total: 
+  data:
+  total:
   quiz: one
   user: one
 
 two:
-  data: 
-  total: 
+  data:
+  total:
   quiz: two
   user: two

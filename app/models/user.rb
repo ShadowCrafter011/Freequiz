@@ -5,67 +5,83 @@ class User < ApplicationRecord
     has_many :bug_reports, dependent: :nullify
     has_many :transactions, dependent: :nullify
 
-    ROLES = ["user", "beta", "admin"]
+    ROLES = %w[user beta admin].freeze
 
-    validates :username, uniqueness: { case_sensitive: false }, format: { with: /\A\w{3,16}\z/ }
-    validates :email, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
+    validates :username,
+              uniqueness: {
+                  case_sensitive: false
+              },
+              format: {
+                  with: /\A\w{3,16}\z/
+              }
+    validates :email,
+              uniqueness: {
+                  case_sensitive: false
+              },
+              format: {
+                  with: URI::MailTo::EMAIL_REGEXP
+              }
     validates :password, confirmation: true
     validates :agb, acceptance: true
 
     before_create do
-        self.role = "user" unless self.role.present?
+        self.role = "user" unless role.present?
         self.confirmed = false
         self.sign_in_count = 1
-        self.email = self.email.downcase
+        self.email = email.downcase
 
-        self.encrypt_value :password, save: false
+        encrypt_value :password, save: false
     end
 
     after_create do
-        self.create_setting
-        self.send_verification_email
+        create_setting
+        send_verification_email
     end
 
     def admin?
-        self.role == "admin"
+        role == "admin"
     end
 
     def beta?
-        self.role == "beta"
+        role == "beta"
     end
 
-    def change params
+    def change(params)
         errors = []
         self.username = params[:username] if params[:username].present?
 
         email_changed = false
-        if params[:email].present? && params[:email].match?(URI::MailTo::EMAIL_REGEXP)
-            user_with_email = User.find_by(email: params[:email]) || User.find_by(unconfirmed_email: params[:email])
+        if params[:email].present? &&
+           params[:email].match?(URI::MailTo::EMAIL_REGEXP)
+            user_with_email =
+                User.find_by(email: params[:email]) ||
+                User.find_by(unconfirmed_email: params[:email])
 
             if !user_with_email.present? || user_with_email == self
-                if params[:email].present? && params[:email] != self.email
+                if params[:email].present? && params[:email] != email
                     self.unconfirmed_email = params[:email]
                     email_changed = true
                     unless send_verification_email
                         self.unconfirmed_email = nil
                         email_changed = false
                     end
-                elsif params[:email] == self.email && self.unconfirmed_email.present?
+                elsif params[:email] == email && unconfirmed_email.present?
                     self.unconfirmed_email = nil
                 end
             else
-                errors.append("Ein anderer Benutzer verwendet diese E-mail Adresse schon")
+                errors.append(
+                    "Ein anderer Benutzer verwendet diese E-mail Adresse schon"
+                )
             end
-        else
-            errors.append("E-mail ist ungültig") if params[:email].present?
+        elsif params[:email].present?
+            errors.append("E-mail ist ungültig")
         end
 
         if params[:password].present?
-            if params[:password_confirmation].present? && params[:old_password].present?
+            if params[:password_confirmation].present? &&
+               params[:old_password].present?
                 if compare_encrypted :password, params[:old_password]
-                    if self.update(params.slice(:password, :password_confirmation))
-                        encrypt_password
-                    end
+                    encrypt_password if update(params.slice(:password, :password_confirmation))
                 else
                     errors.append(I18n.t("errors.old_password_no_match"))
                 end
@@ -74,70 +90,88 @@ class User < ApplicationRecord
             end
         end
 
-        self.save
-        return [email_changed, get_errors.concat(errors)]
+        save
+        [email_changed, get_errors.concat(errors)]
     end
 
     def send_reset_password_email
-        token = self.signed_id purpose: :reset_password, expires_in: 1.day
-        UserMailer.with(email: self.email, username: self.username, token: token).password_reset_email.deliver_later
+        token = signed_id purpose: :reset_password, expires_in: 1.day
+        UserMailer
+            .with(email:, username:, token:)
+            .password_reset_email
+            .deliver_later
     end
 
     def send_verification_email
-        if verified? && (!self.unconfirmed_email.present? || self.unconfirmed_email == self.email)
+        if verified? &&
+           (
+               !unconfirmed_email.present? ||
+                   unconfirmed_email == email
+           )
             return false
         end
 
-        token = self.signed_id purpose: :verify_email, expires_in: 7.days
+        token = signed_id purpose: :verify_email, expires_in: 7.days
 
-        if verified? && self.unconfirmed_email.present?
-            UserMailer.with(email: self.unconfirmed_email, username: self.username, token: token).verification_email.deliver_later
+        if verified? && unconfirmed_email.present?
+            UserMailer
+                .with(
+                    email: unconfirmed_email,
+                    username:,
+                    token:
+                )
+                .verification_email
+                .deliver_later
         else
-            UserMailer.with(email: self.email, username: self.username, token: token).verification_email.deliver_later
+            UserMailer
+                .with(email:, username:, token:)
+                .verification_email
+                .deliver_later
         end
-        return true
+        true
     end
 
     def verified?
-        self.confirmed
+        confirmed
     end
 
-    def login password
+    def login(password)
         compare_encrypted :password, password
     end
 
-    def compare_encrypted key, value
-        for _ in 0..8 do
+    def compare_encrypted(key, value)
+        9.times do
             value = Digest::SHA256.hexdigest value
         end
         self[key] == value
     end
 
     def encrypt_password
-        for _ in 0..8 do
-            self.password = Digest::SHA256.hexdigest self.password
-            self.password_confirmation = Digest::SHA256.hexdigest self.password_confirmation
+        9.times do
+            self.password = Digest::SHA256.hexdigest password
+            self.password_confirmation =
+                Digest::SHA256.hexdigest password_confirmation
         end
-        self.save
+        save
     end
 
-    def encrypt_value key, save: true
-        for _ in 0..8 do
+    def encrypt_value(key, save: true)
+        9.times do
             self[key] = Digest::SHA256.hexdigest self[key]
         end
         self.save if save
     end
 
-    def sign_in ip
+    def sign_in(ip)
         self.sign_in_count += 1
-        self.last_sign_in_at = self.current_sign_in_at
+        self.last_sign_in_at = current_sign_in_at
         self.current_sign_in_at = Time.now
-        self.last_sign_in_ip = self.current_sign_in_ip
+        self.last_sign_in_ip = current_sign_in_ip
         self.current_sign_in_ip = ip
-        self.save
+        save
     end
 
     def get_errors
-        self.errors.full_messages
+        errors.full_messages
     end
 end

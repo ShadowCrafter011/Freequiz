@@ -37,7 +37,7 @@ de:
         start_over: Nochmals lernen
         not_learned: "Noch nicht gelernt: "
         learned: "Gelernt: "
-        
+
       request_destroy:
         delete: Löschen
         cancel: Abbrechen

@@ -1,13 +1,13 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="notification"
 export default class extends Controller {
-  static targets = ["body"];
+    static targets = ["body"];
 
-  connect() {
-    let body = $(this.bodyTarget);
-    if (body.children().length > 0) {
-      bootstrap.Toast.getOrCreateInstance(this.element).show();
+    connect() {
+        let body = $(this.bodyTarget);
+        if (body.children().length > 0) {
+            bootstrap.Toast.getOrCreateInstance(this.element).show();
+        }
     }
-  }
 }

@@ -37,7 +37,7 @@ de:
             password_confirmation:
               confirmation: Passwörter stimmen nicht überein
             agb:
-              accepted: Du must unsere Allgemeinen Geschäftsbedingungen akzeptieren       
+              accepted: Du must unsere Allgemeinen Geschäftsbedingungen akzeptieren
         quiz:
           attributes:
             title:

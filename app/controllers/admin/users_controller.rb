@@ -1,18 +1,19 @@
 class Admin::UsersController < ApplicationController
     before_action :require_admin!
-    
+
     def index
-        return (@users = User.order(created_at: :desc)) unless params.key? :commit
+        return(@users = User.order(created_at: :desc)) unless params.key? :commit
 
         if params[:type].present? && params[:type] == "query"
             property = params[:property] == "username" ? "username" : "email"
             safe_query = ActiveRecord::Base.connection.quote_string(params[:query])
 
-            valid_sort = ["created_at", "updated_at", "confirmed_at", "last_sign_in_at"]
-            valid_direction = ["ASC", "DESC"]
+            valid_sort = %w[created_at updated_at confirmed_at last_sign_in_at]
+            valid_direction = %w[ASC DESC]
 
             sort = valid_sort.include?(params[:sort]) ? params[:sort] : "created_at"
-            direction = valid_direction.include?(params[:order]) ? params[:order] : "ASC"
+            direction =
+                valid_direction.include?(params[:order]) ? params[:order] : "ASC"
 
             query_order = Arel.sql("#{property} ILIKE '%#{safe_query}%' DESC")
             date_order = Arel.sql("#{sort} #{direction}")
@@ -46,18 +47,18 @@ class Admin::UsersController < ApplicationController
 
     def update
         user = User.find_by(username: params[:username])
-        
+
         was_verified = user.verified?
         email_before = user.email
 
         unless user.update(edit_params)
-            gn a: ["Failed to save user for the following reasons"].concat(user.get_errors)
+            gn a: ["Failed to save user for the following reasons"].concat(
+                user.get_errors
+            )
             return render :edit, status: :unprocessable_entity
         end
 
-        if edit_params[:confirmed] && !was_verified
-            user.update(confirmed_at: Time.now)
-        end
+        user.update(confirmed_at: Time.now) if edit_params[:confirmed] && !was_verified
 
         if edit_params[:email] != email_before || (!user.verified? && was_verified)
             user.update(confirmed: false, confirmed_at: nil)
@@ -73,7 +74,10 @@ class Admin::UsersController < ApplicationController
         user = User.find_by(username: params[:username])
         sent = user.send_verification_email
         gn s: "Verification E-mail sent to user (#{user.email})" if sent
-        gn n: "Verification E-mail wasn't sent because either the user is already verified or something went wrong" unless sent
+        unless sent
+            gn n:
+                      "Verification E-mail wasn't sent because either the user is already verified or something went wrong"
+        end
         redirect_to admin_user_edit_path(user.username)
     end
 
@@ -90,13 +94,23 @@ class Admin::UsersController < ApplicationController
 
     def send_email
         user = User.find_by(username: params[:username])
-        AdminMailer.with(email: user.email, subject: params[:subject], body: params[:body]).email_to_user.deliver_later
+        AdminMailer
+            .with(email: user.email, subject: params[:subject], body: params[:body])
+            .email_to_user
+            .deliver_later
         gn s: "E-mail sent to user (#{user.email})"
         redirect_to admin_user_edit_path(user.username)
     end
 
     private
-        def edit_params
-            params.require(:user).permit(:username, :email, :unconfirmed_email, :role, :confirmed)
-        end
+
+    def edit_params
+        params.require(:user).permit(
+            :username,
+            :email,
+            :unconfirmed_email,
+            :role,
+            :confirmed
+        )
+    end
 end

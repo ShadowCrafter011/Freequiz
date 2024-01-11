@@ -6,7 +6,7 @@ namespace :api do
             post "refresh", to: "user#refresh_token"
 
             get "exists/:attr/:query", to: "user#exists"
-            
+
             get "search(/:page)", to: "user#search"
 
             get "quizzes(/:page)", to: "user#quizzes"
@@ -38,7 +38,7 @@ namespace :api do
                 delete "delete/:destroy_token", to: "quiz#destroy"
             end
         end
-        
+
         get "languages", to: "api#languages"
 
         put "bug/create", to: "bug_report#create"

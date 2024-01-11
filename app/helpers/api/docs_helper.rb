@@ -1,27 +1,27 @@
 module Api::DocsHelper
     def nav_data
         {
-            :api_docs_path => {
+            api_docs_path: {
                 name: "Index",
                 id: "index"
             },
-            :api_docs_authentication_path => {
+            api_docs_authentication_path: {
                 name: "Authentication",
                 id: "authentication"
             },
-            :api_docs_general_errors_path => {
+            api_docs_general_errors_path: {
                 name: "General errors",
                 id: "general_errors"
             },
-            :api_docs_bugs_path => {
+            api_docs_bugs_path: {
                 name: "Bug reports",
                 id: "bugs"
             },
-            :api_docs_languages_path => {
+            api_docs_languages_path: {
                 name: "Languages",
                 id: "languages"
             },
-            :api_docs_users_path => {
+            api_docs_users_path: {
                 name: "Users",
                 id: "users",
                 subsections: {
@@ -39,7 +39,7 @@ module Api::DocsHelper
                     settings: "Settings"
                 }
             },
-            :api_docs_quizzes_path => {
+            api_docs_quizzes_path: {
                 name: "Quizzes",
                 id: "quizzes",
                 subsections: {
@@ -63,14 +63,36 @@ module Api::DocsHelper
             path = data[0]
             other_data = data[1]
             name = other_data[:name]
-            
+
             links.append "<div data-section='#{other_data[:id]}' class='section-parent'>"
 
-            links.append(render(partial: "api_navbar_link", locals: { indent: 0, link_name: name, index: index + 1, path: method(path).call, id: other_data[:id] }))
+            links.append(
+                render(
+                    partial: "api_navbar_link",
+                    locals: {
+                        indent: 0,
+                        link_name: name,
+                        index: index + 1,
+                        path: method(path).call,
+                        id: other_data[:id]
+                    }
+                )
+            )
 
             if other_data.key? :subsections
                 other_data[:subsections].each_with_index do |sub_data, sub_index|
-                    links.append(render(partial: "api_navbar_link", locals: { indent: 1, link_name: sub_data[1], index: "#{index + 1}.#{sub_index + 1}", path: method(path).call(anchor: sub_data[0]), id: sub_data[0] }))
+                    links.append(
+                        render(
+                            partial: "api_navbar_link",
+                            locals: {
+                                indent: 1,
+                                link_name: sub_data[1],
+                                index: "#{index + 1}.#{sub_index + 1}",
+                                path: method(path).call(anchor: sub_data[0]),
+                                id: sub_data[0]
+                            }
+                        )
+                    )
                 end
             end
 
@@ -80,18 +102,24 @@ module Api::DocsHelper
     end
 
     def link(path_helper, link_name, anchor)
-        link_to link_name, path_helper.call(anchor: anchor), class: "list-group-item list-group-item-action link"
+        link_to link_name,
+                path_helper.call(anchor:),
+                class: "list-group-item list-group-item-action link"
     end
 
-    def activate_tab? tab
+    def activate_tab?(tab)
         action_name == tab.to_s ? "active" : ""
     end
 
-    def show_tab? tab
+    def show_tab?(tab)
         action_name == tab.to_s ? "show" : ""
     end
 
-    def collapse_tab? tab
-        action_name == tab.to_s ? "" : "data-bs-target=##{tab} data-bs-toggle=collapse"
+    def collapse_tab?(tab)
+        if action_name == tab.to_s
+            ""
+        else
+            "data-bs-target=##{tab} data-bs-toggle=collapse"
+        end
     end
 end
