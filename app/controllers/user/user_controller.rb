@@ -21,7 +21,7 @@ class User::UserController < ApplicationController
             return redirect_to user_path
         end
 
-        @user = User.new
+        @new_user = User.new
     end
 
     def create
