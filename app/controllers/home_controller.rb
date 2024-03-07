@@ -37,4 +37,6 @@ class HomeController < ApplicationController
     end
 
     def root; end
+
+    def sponsors; end
 end

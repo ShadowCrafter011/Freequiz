@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
     root "home#root"
+    get "sponsors", to: "home#sponsors", as: "sponsors"
 
     get "search", to: "home#search", as: "search"
 

@@ -1,3 +1,130 @@
+<nav
+    class="sticky start-0 top-0 z-20 w-full border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-900 shadow-sm"
+    data-controller="navbar-expand"
+>
+    <div
+        class="grid md:grid-cols-3 grid-cols-2 w-full items-center p-4"
+    >
+        <%= link_to root_path, class: "flex items-center" do %>
+            <%= image_tag "freequiz/freequiz_logo", class: "h-8", alt: "Freequiz
+            Logo" %>
+            <span
+                class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white"
+            >
+                Freequiz
+            </span>
+        <% end %>
+        <div
+            class="flex justify-end items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse"
+        >   
+            <div class="relative flex flex-col" data-controller="dropdown">
+                <div
+                    class="flex items-center space-x-2 md:me-3 py-1 px-1 xsm:px-2 rounded hover:bg-gray-300 cursor-pointer"
+                    data-action="click->dropdown#toggle"
+                >
+                    <%= image_tag "flags/#{I18n.locale}", class: "rounded h-5" %>
+                    <span class="hidden xsm:block"><%= tg("languages.#{I18n.locale}") %></span>
+                </div>
+                <div class="hidden absolute z-10 xsm:w-36 bg-white rounded outline outline-gray-200" data-dropdown-target="menu">
+                    <div
+                        class="flex items-center space-x-2 py-1 px-1 md:px-2 rounded cursor-pointer"
+                        data-action="click->dropdown#toggle"
+                    >
+                        <%= image_tag "flags/#{I18n.locale}", class: "rounded h-5" %>
+                        <span class="hidden xsm:block"><%= tg("languages.#{I18n.locale}") %></span>
+                    </div>
+                    <hr>
+                    <% Setting::LOCALES.excluding(I18n.locale.to_s).each do |loc| %>
+                        <%= render partial: "layouts/language_button", locals: { locale: loc } %>
+                    <% end %>
+                </div>
+            </div>
+            <% unless logged_in? %>
+                <div class="max-[500px]:hidden flex space-x-1">
+                    <%= link_to tg("login"), user_login_path, class: "btn-primary" %>
+                    <%= link_to tg("create_account"), user_create_path, class: "btn-primary-empty" %>
+                </div>
+            <% else %>
+                <div class="relative" data-controller="dropdown">
+                    <%= image_tag "freequiz/freequiz_logo", class: "rounded-full h-8 outline outline-blue-700 cursor-pointer", data: { action: "click->dropdown#toggle" } %>
+                    <div
+                        class="hidden bg-white shadow-lg absolute z-10 top-0 end-0 translate-x-2 -translate-y-2 rounded outline outline-gray-200 p-2"
+                        data-dropdown-target="menu"
+                    >
+                        <div class="w-44 relative">
+                            <%= image_tag "freequiz/freequiz_logo", class: "absolute top-0 right-0 rounded-full h-8 outline outline-blue-600 cursor-pointer", data: { action: "click->dropdown#toggle" } %>
+                            <div class="flex flex-col space-y-2 py-1">
+                                <span class="mb-1"><%= @user.username %></span>
+                                <hr>
+                                <%= link_to t("layouts.application.overview"), user_path, class: "nav-link" %>
+                                <%= link_to t("layouts.application.settings"), user_settings_path, class: "nav-link" %>
+                                <hr>
+                                <%= link_to t("layouts.application.logout"), user_logout_path, class: "nav-link" %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            <button
+                data-action="navbar-expand#toggle"
+                type="button"
+                class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-sticky"
+                aria-expanded="false"
+            >
+                <span class="sr-only">Open main menu</span>
+                <svg
+                    class="h-5 w-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 17 14"
+                >
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15"
+                    />
+                </svg>
+            </button>
+        </div>
+        <div
+            class="hidden w-full items-center justify-center md:order-1 md:flex md:w-auto md:col-span-1 col-span-2"
+            id="navbar-sticky"
+            data-navbar-expand-target="menu"
+        >
+            <ul
+                class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800 md:dark:bg-gray-900 whitespace-nowrap"
+            >
+                <li>
+                    <%= link_to tg("home"), root_path, class: nav_class("home#root") %>
+                </li>
+                <% if logged_in? %>
+                    <li>
+                        <%= link_to tg("library"), user_library_path, class: nav_class("user#library") %>
+                    </li>
+                <% end %>
+                <li>
+                    <%= link_to tg("sponsors"), sponsors_path, class: nav_class("home#sponsors") %>
+                </li>
+                <% unless logged_in? %>
+                    <li>
+                        <div class="min-[501px]:hidden max-[270px]:flex-col max-[270px]:space-y-1 flex min-[270px]:space-x-1 mx-3 my-2">
+                            <%= link_to tg("login"), user_login_path, class: "btn-primary flex-1" %>
+                            <%= link_to tg("create_account"), user_create_path, class: "btn-primary-empty flex-1" %>
+                        </div>
+                    </li>
+                <% else %>
+                    
+                <% end %>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--
 <nav class="navbar navbar-expand-md sticky-top" style="background-color: #e3f2fd;">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
@@ -60,3 +187,4 @@
         </div>
     </div>
 </nav>
+-->

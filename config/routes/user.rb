@@ -4,6 +4,7 @@ scope :account do
     patch "edit", to: "user/user#update"
 
     get "quizzes", to: "user/user#quizzes", as: "user_quizzes"
+    get "library", to: "user/user#library", as: "user_library"
 
     get "settings", to: "user/user#settings", as: "user_settings"
     patch "settings", to: "user/user#update_settings"
@@ -33,8 +34,10 @@ scope :verify do
     get ":verification_token", to: "user/verification#verify", as: "user_verify"
 end
 
-get "sign_up", to: "user/user#new", as: "user_create"
-post "sign_up", to: "user/user#create"
+patch "language", to: "user/user#change_lang", as: "change_language"
+
+get "signup", to: "user/user#new", as: "user_create"
+post "signup", to: "user/user#create"
 
 get "login", to: "user/sessions#new", as: "user_login"
 post "login", to: "user/sessions#create"

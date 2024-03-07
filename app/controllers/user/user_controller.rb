@@ -13,6 +13,8 @@ class User::UserController < ApplicationController
         @quizzes = current_user.quizzes.order(created_at: :desc)
     end
 
+    def library; end
+
     def new
         if logged_in?
             gn n: tp("already_has_account")
@@ -80,6 +82,13 @@ class User::UserController < ApplicationController
     end
 
     def settings; end
+
+    def change_lang
+        @user.setting.update locale: params[:locale] if Setting::LOCALES.include? params[:locale]
+
+        session[:locale] = @user.setting.locale
+        redirect_to params[:return_to]
+    end
 
     def update_settings
         @user.setting.update(setting_params)

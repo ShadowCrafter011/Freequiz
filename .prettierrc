@@ -1,13 +1,10 @@
 {
     "plugins": ["prettier-plugin-tailwindcss"],
-    "rubySingleQuote": false,
     "tabWidth": 4,
     "overrides": [
         {
             "files": "*.yml",
-            "options": {
-                "tabWidth": 2
-            }
+            "options": { "tabWidth": 2 }
         }
     ]
 }
