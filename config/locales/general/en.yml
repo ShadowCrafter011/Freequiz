@@ -30,7 +30,7 @@ en:
     password: Passwort
     save: Save
     c_yes: Ja
-    c_no: "No"
+    c_no: No
     role: Role
     login: Login
     language: Language
@@ -41,3 +41,7 @@ en:
     show_less: Show less
     homepage: Homepage
     deleted_user: Deleted user
+    home: Home
+    library: My library
+    discover: Discover
+    sponsors: Sponsors
