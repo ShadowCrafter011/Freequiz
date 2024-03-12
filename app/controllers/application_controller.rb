@@ -66,6 +66,11 @@ class ApplicationController < ActionController::Base
         render "errors/not_allowed" unless @user.admin?
     end
 
+    def user_admin?
+        logged_in? && @user.admin?
+    end
+    helper_method :user_admin?
+
     def current_user
         @user
     end
