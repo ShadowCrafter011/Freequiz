@@ -4,6 +4,7 @@ AllCops:
     - "bin/*"
     - "db/schema.rb"
     - "config/puma.rb"
+  NewCops: enable
 
 Layout/IndentationWidth:
   Width: 4
