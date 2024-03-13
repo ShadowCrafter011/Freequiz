@@ -1,34 +1,19 @@
-<div class="d-flex justify-content-center w-100 my-4">
-    <div class="text-center">
-        <h1><%= tp("login_page") %></h1>
-        <h4><%= tp("no_account") %> <%= link_to tg("create_account"), user_create_path %></h4>
-    </div>
-</div>
+<h1><%= tp("login_page") %></h1>
+<h5><%= tp("no_account") %> <%= link_to tg("create_account"), user_create_path %></h5>
 
-<div class="form-group">
-    <% path = params[:gg].present? ? user_login_path(gg: params[:gg]) : user_login_path %>
-    <%= form_with url: path do |form| %>
-        <div class="container-fluid">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-4">
-                    <div>
-                        <%= form.label :username, tg("email_or_username"), class: "fs-4" %>
-                        <%= form.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
-                    </div>
-                    <div>
-                        <%= form.label :password, tg("password"), class: "fs-4" %>
-                        <%= form.password_field :password, class: "form-control" %>
-                    </div><br>
-                    <h4 class="text-center"><%= tp("forgot_password") %> <%= link_to tp("reset"), user_password_reset_path %></h4>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <%= form.check_box :remember, class: "form-check-input mx-1", checked: "checked" %>
-                        <%= form.label :remember, tp("remember"), class: "fs-5" %>
-                    </div><br>
-                    <div class="text-center">
-                        <%= form.submit value: tp("login"), class: "btn btn-lg btn-primary" %>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <% end %>
-</div>
+<%= form_with url: user_login_path do |form| %>
+    <%= form.text_field :gg, hidden: true, value: @return_path %>
+    <div class="text-field-container">
+        <%= form.text_field :username, autofocus: true, autocomplete: false, placeholder: tg("email_or_username"), class: "text-field" %>
+    </div>
+    <div class="text-field-container">
+        <%= form.password_field :password, autocomplete: false, placeholder: tg("password"), class: "text-field" %>
+        <%= form.submit value: tp("login"), class: "form-submit" %>
+    </div>
+    <div class="flex items-center justify-center gap-1 m-2">
+        <%= form.check_box :remember, checked: "checked", class: "border-teal-700 text-teal-700 focus:outline-none focus:ring-transparent rounded" %>
+        <%= form.label :remember, tp("remember") %>
+    </div>
+<% end %>
+
+<h5><%= tp("forgot_password") %> <%= link_to tp("reset"), user_password_reset_path %></h5>

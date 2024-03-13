@@ -7,8 +7,8 @@ de:
         no_account: Hast du noch kein Konto?
         forgot_password: Passwort vergessen?
         reset: Zurücksetzen
-        remember: Passwort speichern
-        login: Einloggen
+        remember: Angemeldet bleiben
+        login: Anmelden
         wrong_username: Benutzername/E-mail Adresse scheint nicht zu stimmen
         wrong_password: Passwort passt nicht zum angegebenen Konto
         success: Erfolgreich angemeldet! Wilkommen zurück %s!

@@ -1,24 +1,9 @@
-<div class="d-flex justify-content-center w-100 my-4">
-    <div class="text-center">
-        <h1><%= tp("reset_password") %></h1>
-        <h4><%= tp("not_forgotten") %> <%= link_to tg("login"), user_login_path %></h4>
-    </div>
-</div>
+<h1><%= tp("reset_password") %></h1>
+<h5><%= tp("not_forgotten") %> <%= link_to tg("login"), user_login_path %></h5>
 
-<div class="form-group">
-    <%= form_with url: user_password_reset_path do |form| %>
-        <div class="container-fluid">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-4">
-                    <div>
-                        <%= form.label :username, tp("username"), class: "fs-4" %>
-                        <%= form.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
-                    </div><br>
-                    <div class="text-center">
-                        <%= form.submit value: tp("send_email"), class: "btn btn-lg btn-primary" %>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <% end %>
-</div>
+<%= form_with url: user_password_reset_path do |form| %>
+    <div class="text-field-container">
+        <%= form.text_field :username, autofocus: true, autocomplete: false, placeholder: tp("username"), class: "text-field" %>
+        <%= form.submit value: tp("reset"), class: "form-submit" %>
+    </div>
+<% end %>

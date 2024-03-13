@@ -2,7 +2,8 @@ de:
   user:
     password:
       reset:
-        reset_password: Passwort zurücksetzen
+        reset: Zurücksetzen
+        reset_password: Password zurücksetzen
         not_forgotten: Passwort doch nicht vergessen?
         username: Benutzername oder E-mail
         send_email: E-mail schicken
@@ -13,7 +14,7 @@ de:
         set_new_password: Neues Passwort definieren
         new_password: Neues Passwort
         repeat_password: Passwort wiederholen
-        change_password: Passwort ändern
+        change_password: Speichern
         link_expired: Dieser Link ist abgeloffen. Fordern Sie hier einen neuen an
         invalid_link: Dieser Link ist nicht gültig. Fordern Sie hier einen neuen an
         changed_password: Passwort wurde geändert und Sie wurden automatisch eingeloggt

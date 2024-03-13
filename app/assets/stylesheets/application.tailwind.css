@@ -1,5 +1,7 @@
+@import "headings";
 @import "button";
 @import "navbar";
+@import "form";
 
 @tailwind base;
 @tailwind components;
@@ -7,10 +9,10 @@
 
 @layer components {
     .container {
-        @apply mx-auto mt-8;
+        @apply mx-auto mt-6;
     }
 
-    h1 {
-        @apply text-center text-2xl font-medium;
+    a {
+        @apply text-blue-600 transition-colors hover:text-blue-700;
     }
 }

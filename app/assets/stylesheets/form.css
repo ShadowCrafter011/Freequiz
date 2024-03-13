@@ -1,0 +1,17 @@
+@layer components {
+    form {
+        @apply my-2 flex flex-col items-center;
+    }
+
+    .text-field-container {
+        @apply flex w-full max-w-96 border-b border-teal-700;
+    }
+
+    .text-field {
+        @apply w-full border-none before:border-b focus:ring-0;
+    }
+
+    .form-submit {
+        @apply m-1 cursor-pointer rounded bg-teal-700 px-2 text-white hover:bg-teal-800;
+    }
+}

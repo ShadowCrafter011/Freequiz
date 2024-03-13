@@ -6,7 +6,7 @@ class User::SessionsController < ApplicationController
             gn n: tp("already_logged_in")
             redirect_to user_path
         end
-        @params = params[:gg]
+        @return_path = params[:gg]
     end
 
     def create
@@ -22,13 +22,12 @@ class User::SessionsController < ApplicationController
         end
 
         if user.first.login params[:password]
-            expires_in = params[:remember] == "1" ? 20.years : 1.days
+            remember = params[:remember] == "1"
+            expires_in = remember ? 20.years : 1.days
             token = user.first.signed_id(purpose: :login, expires_in:)
 
-            cookies.encrypted[:_session_token] = {
-                value: token,
-                expires: Time.now + expires_in
-            }
+            cookies.encrypted.permanent[:_session_token] = token if remember
+            cookies.encrypted[:_session_token] = token unless remember
 
             gn s: tp("success").sub("%s", user.first.username)
 

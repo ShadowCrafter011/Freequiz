@@ -12,6 +12,6 @@
     }
 
     .nav-link {
-        @apply cursor-pointer rounded px-2 py-1 hover:bg-blue-700 hover:text-white;
+        @apply cursor-pointer rounded px-2 py-1 text-black hover:bg-blue-700 hover:text-white;
     }
 }
