@@ -4,3 +4,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .container {
+        @apply mx-auto mt-8;
+    }
+
+    h1 {
+        @apply text-center text-2xl font-medium;
+    }
+}

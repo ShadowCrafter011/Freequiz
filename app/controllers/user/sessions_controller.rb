@@ -33,6 +33,8 @@ class User::SessionsController < ApplicationController
             gn s: tp("success").sub("%s", user.first.username)
 
             user.first.sign_in request.remote_ip
+            # Reset the locale in session store to allow the saved one to take over
+            session[:locale] = nil
             redirect_to(params[:gg].present? ? params[:gg] : user_path)
         else
             gn a: tp("wrong_password")
@@ -42,6 +44,7 @@ class User::SessionsController < ApplicationController
 
     def destroy
         cookies.delete :_session_token
+        session[:locale] = nil
         gn n: tp("success")
         redirect_to user_login_path
     end

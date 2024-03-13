@@ -1,1 +1,9 @@
-
+<% unless logged_in? %>
+    <div class="flex justify-center">
+        <span class="flex">
+            <% Setting::LOCALES.each do |locale| %>
+                <%= render partial: "language_button", locals: { locale: } %>
+            <% end %>
+        </span>
+    </div>
+<% end %>

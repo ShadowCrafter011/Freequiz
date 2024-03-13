@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>">
+<html lang=<%= I18n.locale %>>
   <head>
     <title><%= @title || t("layouts.application.title") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,10 +12,8 @@
   </head>
   <body>
     <%= render partial: "layouts/navbar" %>
-    <!--
-    <%= render partial: "layouts/notification" %>
-    <%= render partial: "layouts/bug_report" %>
-    -->
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    <div>
   </body>
 </html>

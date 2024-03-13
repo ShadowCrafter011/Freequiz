@@ -1,6 +1,6 @@
 class User::UserController < ApplicationController
     before_action { setup_locale "user.user" }
-    before_action :require_login!, except: %i[new create public]
+    before_action :require_login!, except: %i[new create public change_lang]
 
     def show; end
 
@@ -84,9 +84,14 @@ class User::UserController < ApplicationController
     def settings; end
 
     def change_lang
-        @user.setting.update locale: params[:locale] if Setting::LOCALES.include? params[:locale]
+        if logged_in?
+            @user.setting.update locale: params[:locale] if Setting::LOCALES.include? params[:locale]
 
-        session[:locale] = @user.setting.locale
+            session[:locale] = @user.setting.locale
+        else
+            cookies.permanent[:locale] = params[:locale]
+            session[:locale] = params[:locale]
+        end
         redirect_to params[:return_to]
     end
 

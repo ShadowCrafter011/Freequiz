@@ -1,4 +1,8 @@
 @layer components {
+    .nav {
+        @apply sticky start-0 top-0 z-20 w-full border-b border-gray-200 bg-white shadow-sm dark:border-gray-600 dark:bg-gray-900;
+    }
+
     .nav-dropdown-current {
         @apply block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 md:dark:text-blue-500;
     }

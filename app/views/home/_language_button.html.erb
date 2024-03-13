@@ -1,0 +1,9 @@
+<%= form_with url: change_language_path, method: :patch, class: "border-2 border-s-0 first:border-s-2 first:rounded-l last:rounded-r #{"bg-blue-700 border-blue-700 text-white" if I18n.locale == locale.to_sym}" do |form| %>
+    <%= form.text_field :return_to, hidden: true, value: request.path %>
+    <%= form.text_field :locale, hidden: true, value: locale %>
+    <%= form.button type: :submit, class: "flex items-center gap-2 px-4 py-1" do  %>
+        <%= image_tag "flags/#{locale}", class: "h-6 rounded" %>
+        <%= tg "languages.#{locale}" %>
+    <% end %>
+<% end %>
+

@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
         if (locale = session[:locale]).present?
             I18n.with_locale(locale, &action)
         else
-            locale = logged_in? ? @user.setting.locale.to_sym : I18n.default_locale
+            locale = logged_in? ? @user.setting.locale.to_sym : cookies[:locale]
+            locale ||= I18n.default_locale
             I18n.with_locale(locale, &action)
             session[:locale] = locale
         end
@@ -26,7 +27,8 @@ class ApplicationController < ActionController::Base
         replaced = translated.sub("%s", replace.to_s)
         html_safe ? replaced.html_safe : replaced
     end
-    helper_method :tp
+    alias tl tp
+    helper_method :tp, :tl
 
     def tg(attribute, pre = "")
         t "general.#{pre}#{pre.present? ? "." : ""}#{attribute}"
