@@ -9,6 +9,7 @@
         "*.html.erb": "erb",
         "*.css": "tailwindcss"
     },
+    "emmet.includeLanguages": { "erb": "html" },
     "[ruby]": {
         "editor.defaultFormatter": "Shopify.ruby-lsp",
         "editor.formatOnSave": true
