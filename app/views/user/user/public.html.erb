@@ -1,7 +1,3 @@
-<%= content_for :css do %>
-    <%= stylesheet_link_tag "link_card" %>
-<% end %>
-
 <% if @target.present? %>
     <div class="container text-center">
         <h1 class="my-4"><%= tp("user", @target.username) %></h1>
