@@ -3,6 +3,18 @@
         @apply cursor-pointer rounded-lg bg-blue-700 px-4 py-2 text-center text-sm font-medium leading-6 text-white hover:bg-blue-800 hover:text-white focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700;
     }
 
+    .btn-primary-sleek {
+        @apply btn-primary py-1;
+    }
+
+    .btn-danger {
+        @apply btn-primary bg-red-700 hover:bg-red-800;
+    }
+
+    .btn-danger-sleek {
+        @apply btn-danger py-1;
+    }
+
     .btn-primary-empty {
         @apply btn-primary cursor-pointer bg-white text-black ring-1 ring-blue-600 hover:text-white;
     }

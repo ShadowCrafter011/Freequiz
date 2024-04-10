@@ -2,7 +2,20 @@ class User::UserController < ApplicationController
     before_action { setup_locale "user.user" }
     before_action :require_login!, except: %i[new create public change_lang]
 
-    def show; end
+    def show
+        @user_data = {
+            tg("username") => @user.username,
+            tg("email") => @user.email,
+            tp("data.unconfirmed_email") => @user.unconfirmed_email,
+            tp("data.email_verified") => @user.verified? ? tg("c_yes") : tg("c_no"),
+            tg("role") => tg("roles.#{@user.role}")
+        }.compact
+
+        @login_data = {
+            tp("data.total_logins") => @user.sign_in_count,
+            tp("data.last_at") => @user.current_sign_in_at
+        }
+    end
 
     def public
         @target = User.find_by(username: params[:username])

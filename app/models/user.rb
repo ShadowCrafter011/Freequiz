@@ -46,6 +46,11 @@ class User < ApplicationRecord
         role == "beta"
     end
 
+    def avatar_url
+        seed = Digest::SHA1.hexdigest created_at.to_s
+        "https://api.dicebear.com/8.x/shapes/svg?&seed=#{seed}"
+    end
+
     def change(params)
         errors = []
         self.username = params[:username] if params[:username].present?
