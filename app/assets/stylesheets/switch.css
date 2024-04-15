@@ -1,0 +1,5 @@
+@layer components {
+    .switch {
+        @apply relative h-6 w-11 cursor-pointer rounded-full border-transparent bg-gray-300 p-px text-transparent transition-colors duration-150 ease-in-out before:mb-1.5 before:inline-block before:size-5 before:translate-x-0 before:rounded-full before:bg-gray-100 before:shadow before:transition checked:bg-none checked:text-blue-600 checked:before:translate-x-full focus:ring-transparent;
+    }
+}

@@ -2,6 +2,7 @@
 @import "button";
 @import "navbar";
 @import "form";
+@import "switch";
 
 @tailwind base;
 @tailwind components;

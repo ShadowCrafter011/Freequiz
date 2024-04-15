@@ -1,5 +1,10 @@
+<h1><%= tp("settings") %></h1>
+<input type="checkbox" name="" id="" class="switch">
+<%= form_with url: user_settings_path, model: @user.setting do |form| %>
+
+<% end %>
+
 <div class="container text-center" style="max-width: 750px">
-    <h1 class="my-4"><%= tp("settings") %></h1>
     <%= form_with url: user_settings_path, model: @user.setting do |form| %>
         <div class="d-flex justify-content-around">
             <%= form.label :locale, tg("language"), class: "fs-4"  %>
