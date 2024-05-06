@@ -40,7 +40,7 @@ class User::UserController < ApplicationController
     def create
         override_action "new"
 
-        @user = User.new(user_params)
+        @new_user = User.new(user_params)
 
         unless user_params[:password].match?(
             /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
@@ -49,23 +49,23 @@ class User::UserController < ApplicationController
             return render :new, status: :unprocessable_entity
         end
 
-        @user.current_sign_in_ip = request.remote_ip
-        @user.current_sign_in_at = Time.now
+        @new_user.current_sign_in_ip = request.remote_ip
+        @new_user.current_sign_in_at = Time.now
 
-        if @user.save
+        if @new_user.save
             expires_in = 14.days
-            token = @user.signed_id(purpose: :login, expires_in:)
+            token = @new_user.signed_id(purpose: :login, expires_in:)
 
             cookies.encrypted[:_session_token] = {
                 value: token,
                 expires: Time.now + expires_in
             }
 
-            gn s: tp("created").sub("%s", @user.username)
+            gn s: tp("created").sub("%s", @new_user.username)
 
             redirect_to user_verification_pending_path
         else
-            gn a: @user.get_errors
+            gn a: @new_user.get_errors
             render :new, status: :unprocessable_entity
         end
     end

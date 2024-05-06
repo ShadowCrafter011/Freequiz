@@ -4,9 +4,9 @@ en:
       new:
         create_quiz: Create quiz
         title: Title
-        title_placeholder: Short title (at least 5 characters)
+        title_placeholder: Short title (at least 3 characters)
         description: Description
-        description_placeholder: Longer description (at least 10 characters)
+        description_placeholder: Longer description (optional)
         lang_1: Language Words
         lang_2: Language translation
         word: Word

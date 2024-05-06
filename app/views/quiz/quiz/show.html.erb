@@ -1,57 +1,23 @@
-<style>
-    .show_controls {
-        cursor: pointer;
-        text-decoration: underline;
-    }
-</style>
+<h1><%= @quiz.title %></h1>
 
-<div class="container">
-    <div class="text-center my-4">
-        <h1>
-            <%= @quiz.title %>
-            <% if current_user != @quiz.user %>
-                <% if @quiz.user.present? %>
-                    <%= tp("created_by", link_to(@quiz.user.username, user_public_path(@quiz.user.username)), true) %>
-                <% else %>
-                    <%= tp("created_by", tg("deleted_user")) %>
-                <% end %>
-            <% end %>
-        </h1>
-        <div data-controller="show-more">
-            <h4 class="text-truncate mb-0" data-show-more-target="target"><%= @quiz.description %></h4>
-            <div class="text-center pb-2 d-none" data-show-more-target="showMore">
-                <span class="show_controls" data-action="click->show-more#show_more"><%= tg("show_more") %></span>
-            </div>
-            <div class="text-center pb-2 d-none" data-show-more-target="showLess">
-                <span class="show_controls" data-action="click->show-more#show_less"><%= tg("show_less") %></span>
-            </div>
+<% if @quiz.description.present? %>
+    <h4 class="line-clamp-3"><%= @quiz.description %></h4>
+<% end %>
+
+<div class="flex md:flex-row flex-col gap-2">
+    <%= link_to tp("cards"), quiz_cards_path, class: "btn-primary grow basis-0" %>
+    <%= link_to tp("write"), quiz_write_path, class: "btn-primary grow basis-0" %>
+    <% if @quiz.user == @user %>
+        <%= link_to tp("edit"), quiz_edit_path, class: "btn-primary grow basis-0" %>
+        <%= link_to tp("delete"), quiz_request_destroy_path, class: "btn-danger grow basis-0" %>
+    <% end %>
+</div>
+
+<div class="rounded mt-2 border divide-gray-300 divide-y border-gray-300">
+    <% @quiz.translations.each do |translation| %>
+        <div class="flex divide-x divide-gray-300">
+            <div class="grow basis-0 p-2"><%= translation.word %></div>
+            <div class="grow basis-0 p-2"><%= translation.translation %></div>
         </div>
-        
-        <p class="text-center my-2">
-            <%= link_to tp("cards"), quiz_cards_path(@quiz.uuid), class: "btn btn-primary" %>
-            <%= link_to tp("write"), quiz_write_path(@quiz.uuid), class: "btn btn-primary" %>
-            <% if @user == @quiz.user %>
-                <%= link_to tp("edit"), quiz_edit_path(@quiz.uuid), class: "btn btn-primary" %>
-                <%= link_to tp("delete"), quiz_request_destroy_path(@quiz.uuid), class: "btn btn-danger" %>
-            <% end %>
-        </p>
-
-        <ul id="translations" class="list-group list-group-horizontal fs-5">
-            <li class="list-group-item w-50 p-0">
-                <ul class="list-group list-group-flush">
-                    <% for translation in @quiz.data do %>
-                        <li class="list-group-item"><%= translation[:w] %></li>
-                    <% end %>
-                </ul>
-            </li>
-
-            <li class="list-group-item w-50 p-0">
-                <ul class="list-group list-group-flush">
-                    <% for translation in @quiz.data do %>
-                        <li class="list-group-item"><%= translation[:t] %></li>
-                    <% end %>
-                </ul>
-            </li>
-        </ul>
-    </div>
+    <% end %>
 </div>

@@ -8,7 +8,7 @@ class Quiz < ApplicationRecord
     VISIBILITIES = %w[public private hidden].freeze
 
     validates :title, length: { minimum: 3, maximum: 255 }
-    validates :description, length: { minimum: 5, maximum: 30_000 }
+    validates :description, length: { maximum: 30_000 }
     validates :visibility, inclusion: { in: VISIBILITIES }
 
     validate :validate_langs, :translation_length
