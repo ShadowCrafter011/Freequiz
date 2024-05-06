@@ -12,7 +12,7 @@ class Api::UserController < ApplicationController
     def search
         query = ActiveRecord::Base.connection.quote(params[:query])
         page = params[:page] || 1
-        offset = page.to_i * 50 - 50
+        offset = (page.to_i * 50) - 50
         @users =
             User.find_by_sql(
                 "SELECT * FROM users ORDER BY SIMILARITY(username, #{query}) DESC LIMIT 50 OFFSET #{offset}"
@@ -21,7 +21,7 @@ class Api::UserController < ApplicationController
 
     def quizzes
         page = params[:page] || 1
-        offset = page.to_i * 50 - 50
+        offset = (page.to_i * 50) - 50
         @quizzes =
             @api_user.quizzes.order(created_at: :desc).limit(50).offset(offset)
     end
@@ -41,7 +41,7 @@ class Api::UserController < ApplicationController
         end
 
         page = params[:page] || 1
-        offset = page.to_i * 50 - 50
+        offset = (page.to_i * 50) - 50
         @quizzes =
             user
             .quizzes

@@ -1,6 +1,10 @@
 @layer components {
     .btn-primary {
-        @apply cursor-pointer rounded-lg bg-blue-700 px-4 py-2 text-center text-sm font-medium leading-6 text-white hover:bg-blue-800 hover:text-white focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700;
+        @apply cursor-pointer rounded-lg bg-blue-700 px-4 py-2 text-center text-sm font-medium leading-6 text-white transition-colors duration-150 hover:bg-blue-800 hover:text-white focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700;
+    }
+
+    .btn-success {
+        @apply btn-primary bg-green-700 hover:bg-green-900;
     }
 
     .btn-primary-sleek {

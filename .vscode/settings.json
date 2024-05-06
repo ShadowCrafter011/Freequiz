@@ -1,6 +1,7 @@
 {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
     "tailwindCSS.experimental.classRegex": [
         "class:\\s*\"([^\"]*)\"",
         "class:\\s*'([^']*)'"
@@ -15,7 +16,9 @@
         "editor.formatOnSave": true
     },
     "rubyLsp.formatter": "rubocop",
-    "rubyLsp.rubyVersionManager": "rbenv",
+    "rubyLsp.rubyVersionManager": {
+        "identifier": "rbenv"
+    },
     "rubyLsp.enabledFeatures": {
         "codeActions": true,
         "diagnostics": true,

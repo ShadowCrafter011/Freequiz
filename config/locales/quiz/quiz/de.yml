@@ -12,6 +12,7 @@ de:
         word: Wort
         translation: Übersetzung
         add_translation: Kartei hinzufügen (Enter)
+        remove_translation: Kartei entfernen
         delete_translation: Löschen
         create: Quiz erstellen
         quiz_created: Quiz wurde erstellt

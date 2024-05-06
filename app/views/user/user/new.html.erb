@@ -1,7 +1,7 @@
 <h1><%= tp("create_account") %></h1>
 <h4><%= tp("already_have_account") %> <%= link_to tp("login"), user_login_path %></h4>
 
-<%= form_with url: user_create_path, model: @new_user do |form| %>
+<%= form_with url: user_create_path, model: @new_user, class: "flex flex-col items-center my-2" do |form| %>
     <div class="text-field-container">
         <%= form.text_field :username, autofocus: true, autocomplete: false, placeholder: tp("username"), class: "text-field" %>
     </div>

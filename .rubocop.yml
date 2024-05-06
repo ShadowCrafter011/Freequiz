@@ -15,6 +15,9 @@ Layout/LineLength:
 Metrics:
   Enabled: false
 
+Style/ZeroLengthPredicate:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

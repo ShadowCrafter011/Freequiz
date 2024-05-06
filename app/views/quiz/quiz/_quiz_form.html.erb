@@ -1,86 +1,46 @@
-<style>
-    @media (max-width: 991px) {
-        .top-md {
-            padding-top: 20px;
-        }
-    }
-</style>
-
-<div class="container mb-5">
-    <div class="text-center my-4">
-        <h1><%= title %></h1>
-    </div>
-    <div class="form-group">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-10">
-                <%= form_with url: url, model: @quiz, method: method, data: { controller: "create-quiz dirtyform" } do |form| %>
-
-                    <div id="template" class="d-none" data-create-quiz-target="template">
-                        <%= render partial: "translation", locals: { form: form, word: "", translation: "", id: "template" } %>
+<%= form_with model: @quiz, url: quiz_create_path do |form| %>
+    <div class="flex justify-center">
+        <div class="grow max-w-5xl space-y-2">
+            <div class="flex md:flex-row flex-col gap-2">
+                <div class="md:grow flex sm:flex-row flex-col rounded border border-gray-300">
+                    <span class="py-2 px-5 text-center sm:text-start text-xl bg-gray-200"><%= tp "title" %></span>
+                    <%= form.text_field :title, placeholder: tp("title_placeholder"), class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600" %>
+                </div>
+                <%= form.select :visibility, Quiz::VISIBILITIES.map { |v| [tg("visibilities.#{v}"), v] }, {}, { class: "rounded border-gray-300 focus:ring-1 focus:ring-teal-600 focus:border-teal-600" } %>
+            </div>
+            <div class="flex sm:flex-row flex-col rounded border border-gray-300">
+                <div class="flex items-center justify-center py-2 px-5 bg-gray-200">
+                    <span class="text-xl"><%= tp "description" %></span>
+                </div>
+                <%= form.text_area :description, placeholder: tp("description_placeholder"), class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600 min-h-10" %>
+            </div>
+            <div class="flex md:flex-row flex-col gap-2">
+                <%= render partial: "translation_lang", locals: { form: form, field: :from, name: tp("lang_1") } %>
+                <%= render partial: "translation_lang", locals: { form: form, field: :to, name: tp("lang_2") } %>
+            </div>
+            <%= form.fields_for :translations do |translation_form| %>
+                <div
+                    data-controller="delete-translation"
+                    class="relative flex rounded sm:flex-row flex-col border border-gray-300 sm:divide-y-0 sm:divide-x divide-x-0 divide-y divide-gray-300"
+                >
+                    <div class="absolute pointer-events-none w-full h-full flex items-center px-2">
+                        <div data-delete-translation-target="strikeThrough" class="hidden border-t border-gray-500 w-full"></div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="input-group">
-                                <%= form.label :title, tp("title"), class: "fs-4 input-group-text justify-content-center", style: "width: 200px" %>
-                                <%= form.text_field :title, class: "form-control fs-5", placeholder: tp("title_placeholder"), autofocus: true, data: {test_id: "quiz-title"} %>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 top-md">
-                            <div class="input-group">
-                                <%= form.label :visibility, tp("visibility"), class: "fs-4 input-group-text justify-content-center" %>
-
-                                <% 
-                                    visibilities = []
-                                    for visibility in Quiz::VISIBILITIES do
-                                        visibilities.append [tg("visibilities.#{visibility}"), visibility]
-                                    end
-                                %>
-
-                                <%= form.select :visibility, visibilities, {}, { class: "form-select fs-5", tabindex: -1, data: {test_id: "quiz-visibility"} } %>
-                            </div>
-                        </div>
+                    <%= translation_form.text_field :_destroy, hidden: true, value: "0", data: { delete_translation_target: "field" } %>
+                    <%= translation_form.text_field :word, placeholder: tp("word"), class: "grow rounded-t sm:rounded-e-none sm:rounded-s focus:outline-2 focus:outline-teal-600 focus:-outline-offset-2 border-none focus:ring-0" %>
+                    <%= translation_form.text_field :translation, placeholder: tp("translation"), class: "grow focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600 focus:ring-0" %>
+                    <div data-action="click->delete-translation#toggle" class="px-2 py-1 flex justify-center items-center gap-2 cursor-pointer" title="<%= tp("remove_translation") %>">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="26px" class="fill-gray-500 hover:fill-black transition-colors" viewBox="0 0 10 10" fill="none">
+                            <path d="M 2 1 C 1 0 0 1 1 2 L 8 9 C 9 10 10 9 9 8 Z" />
+                            <path d="M 8 1 C 9 0 10 1 9 2 L 2 9 C 1 10 0 9 1 8 Z" />
+                        </svg>
+                        <span class="sm:hidden text-xl"><%= tp "remove_translation" %></span>
                     </div>
-                    <br>
-                    <div class="input-group">
-                        <%= form.label :description, tp("description"), class: "fs-4 input-group-text justify-content-center", style: "width: 200px" %>
-                        <%= form.text_area :description, class: "form-control fs-5", rows: 2, placeholder: tp("description_placeholder"), data: { test_id: "quiz-description" } %>
-                    </div>
-                    <br>
-                    <div class="d-flex justify-content-center">
-                        <div class="w-50 input-group pe-1">
-                            <%= form.label :from, tp("lang_1"), class: "fs-6 input-group-text" %>
-                            <%= form.select :from, Language.selection, {}, { class: "form-select", tabindex: -1, data: { test_id: "from-lang" } } %>
-                        </div>
-                        <div class="w-50 input-group ps-1">
-                            <%= form.label :to, tp("lang_2"), class: "fs-6 input-group-text" %>
-                            <%= form.select :to, Language.selection, {}, { class: "form-select", tabindex: -1, data: { test_id: "to-lang" } } %>
-                        </div>
-                    </div>
-                    <br>
-                    
-                    <div id="translations" data-create-quiz-target="translations">
-                        <% if @quiz.data.length == 0 %>
-                            <% 4.times do |x| %>
-                                <%= render partial: "translation", locals: { form: form, word: "", translation: "", id: x } %>
-                            <% end %>
-                        <% else %>
-                            <% @quiz.data.each_with_index do |translation_pair, x| %>
-                                <% word = translation_pair[:w]; translation = translation_pair[:t] %>
-                                <%= render partial: "translation", locals: { form: form, word: word, translation: translation, id: x } %>
-                            <% end %>
-                        <% end %>
-                    </div>
-                    <div>
-                        <div class="btn btn-primary w-100" role="button" data-action="click->create-quiz#add_translation"><%= tp("add_translation") %></div>
-                    </div>
-                    <br>
-                    <div class="text-center">
-                        <%= form.submit value: commit, class: "btn btn-success btn-lg", data: {test_id: "quiz-create"} %>
-                        <%= link_to tp("cancel"), method == :patch ? quiz_show_path(@quiz.uuid) : user_path, class: "btn btn-secondary btn-lg" %>
-                    </div>
-                <% end %>
+                </div>
+            <% end %>
+            <div class="flex justify-center">
+                <%= form.submit tp("create"), class: "btn-success text-xl" %>
             </div>
         </div>
     </div>
-</div>
+<% end %>

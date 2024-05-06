@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_11_153930) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_06_122420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -42,24 +42,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_11_153930) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.binary "data"
     t.bigint "from"
     t.bigint "to"
     t.string "title"
-    t.string "destroy_token"
-    t.datetime "destroy_expire"
     t.index ["user_id"], name: "index_quizzes_on_user_id"
     t.index ["uuid"], name: "index_quizzes_on_uuid", unique: true
   end
 
   create_table "scores", force: :cascade do |t|
-    t.binary "data"
-    t.bigint "total"
+    t.integer "cards"
+    t.integer "learn"
+    t.integer "write"
     t.bigint "quiz_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.binary "favorites"
     t.index ["quiz_id"], name: "index_scores_on_quiz_id"
     t.index ["user_id"], name: "index_scores_on_user_id"
   end
@@ -82,6 +79,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_11_153930) do
     t.datetime "updated_at", null: false
     t.boolean "removed", default: false
     t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
+
+  create_table "translations", force: :cascade do |t|
+    t.string "word"
+    t.string "translation"
+    t.bigint "quiz_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_translations_on_quiz_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -111,4 +117,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_11_153930) do
   add_foreign_key "scores", "users"
   add_foreign_key "settings", "users"
   add_foreign_key "transactions", "users"
+  add_foreign_key "translations", "quizzes"
 end

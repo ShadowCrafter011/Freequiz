@@ -20,21 +20,25 @@ class Quiz::QuizController < ApplicationController
 
     def cards; end
 
+    def learn; end
+
     def write; end
 
     def new
-        @quiz = current_user.quizzes.new
+        @quiz = @user.quizzes.new
+        4.times { @quiz.translations.build }
     end
 
     def create
         override_action :new
 
-        @quiz = current_user.quizzes.new(quiz_params)
+        @quiz = @user.quizzes.new(quiz_params)
         if @quiz.save
             gn s: tp("quiz_created")
             redirect_to quiz_show_path(@quiz.uuid)
         else
-            gn a: @quiz.get_errors
+            puts @quiz.get_errors
+            4.times { @quiz.translations.build } if @quiz.translations.count.zero?
             render :new, status: :unprocessable_entity
         end
     end
@@ -53,6 +57,7 @@ class Quiz::QuizController < ApplicationController
     def request_destroy
         @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
 
+        # TODO: Fix this shit with JWT
         if @quiz.present? && @user == @quiz.user
             @token = SecureRandom.hex(32)
             @quiz.update(destroy_token: @token, destroy_expire: 1.day.from_now)
@@ -120,7 +125,7 @@ class Quiz::QuizController < ApplicationController
             :from,
             :to,
             :visibility,
-            data: %i[w t]
+            translations_attributes: %i[id word translation _destroy]
         )
     end
 

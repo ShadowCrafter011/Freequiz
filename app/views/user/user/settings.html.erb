@@ -1,21 +1,19 @@
 <h1><%= tp("settings") %></h1>
-<input type="checkbox" name="" id="" class="switch">
+
 <%= form_with url: user_settings_path, model: @user.setting do |form| %>
-
-<% end %>
-
-<div class="container text-center" style="max-width: 750px">
-    <%= form_with url: user_settings_path, model: @user.setting do |form| %>
-        <div class="d-flex justify-content-around">
-            <%= form.label :locale, tg("language"), class: "fs-4"  %>
-            <%= form.select :locale, language_select, {}, { class: "form-select", style: "max-width: 200px" } %>
+    <div class="flex justify-center">
+        <div class="grow max-w-3xl divide-y">
+            <% Setting::SETTING_KEYS.each do |key| %>
+                <div class="flex justify-between items-center py-2">
+                    <div>
+                        <%= tg "settings.#{key}" %>
+                    </div>
+                    <%= form.check_box key, class: "switch" %>
+                </div>
+            <% end %>
         </div>
-        <hr>
-
-        <%= settings_form form, @user.setting, [
-            {attr: :show_email, hr: true},
-            {attr: :dark_mode, hr: false}
-        ] %><br>
-        <%= form.submit value: tp("save"), class: "btn btn-lg btn-success" %>
-    <% end %>
-</div>
+    </div>
+    <div class="flex justify-center my-2">
+        <%= form.submit value: tp("save"), class: "btn-success" %>
+    </div>
+<% end %>
