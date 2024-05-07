@@ -1,4 +1,4 @@
 class Score < ApplicationRecord
-    belongs_to :user, dependent: :destroy
-    belongs_to :quiz, dependent: :destroy
+    belongs_to :user
+    belongs_to :quiz
 end

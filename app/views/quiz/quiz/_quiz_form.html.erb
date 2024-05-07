@@ -1,4 +1,6 @@
-<%= form_with model: @quiz, url: quiz_create_path do |form| %>
+<h1><%= title %></h1>
+
+<%= form_with model: @quiz, method:, url: do |form| %>
     <div class="flex justify-center">
         <div class="grow max-w-5xl space-y-2">
             <div class="flex md:flex-row flex-col gap-2">
@@ -18,28 +20,17 @@
                 <%= render partial: "translation_lang", locals: { form: form, field: :from, name: tp("lang_1") } %>
                 <%= render partial: "translation_lang", locals: { form: form, field: :to, name: tp("lang_2") } %>
             </div>
-            <%= form.fields_for :translations do |translation_form| %>
-                <div
-                    data-controller="delete-translation"
-                    class="relative flex rounded sm:flex-row flex-col border border-gray-300 sm:divide-y-0 sm:divide-x divide-x-0 divide-y divide-gray-300"
-                >
-                    <div class="absolute pointer-events-none w-full h-full flex items-center px-2">
-                        <div data-delete-translation-target="strikeThrough" class="hidden border-t border-gray-500 w-full"></div>
-                    </div>
-                    <%= translation_form.text_field :_destroy, hidden: true, value: "0", data: { delete_translation_target: "field" } %>
-                    <%= translation_form.text_field :word, placeholder: tp("word"), class: "grow rounded-t sm:rounded-e-none sm:rounded-s focus:outline-2 focus:outline-teal-600 focus:-outline-offset-2 border-none focus:ring-0" %>
-                    <%= translation_form.text_field :translation, placeholder: tp("translation"), class: "grow focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600 focus:ring-0" %>
-                    <div data-action="click->delete-translation#toggle" class="px-2 py-1 flex justify-center items-center gap-2 cursor-pointer" title="<%= tp("remove_translation") %>">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="26px" class="fill-gray-500 hover:fill-black transition-colors" viewBox="0 0 10 10" fill="none">
-                            <path d="M 2 1 C 1 0 0 1 1 2 L 8 9 C 9 10 10 9 9 8 Z" />
-                            <path d="M 8 1 C 9 0 10 1 9 2 L 2 9 C 1 10 0 9 1 8 Z" />
-                        </svg>
-                        <span class="sm:hidden text-xl"><%= tp "remove_translation" %></span>
-                    </div>
+            <div data-controller="create-quiz" class="space-y-2">
+                <div data-create-quiz-target="translations" class="space-y-2">
+                    <%= form.fields_for :translations do |translation_form| %>
+                        <%= render partial: "translation_form", locals: { translation_form: } %>
+                    <% end %>
                 </div>
-            <% end %>
-            <div class="flex justify-center">
-                <%= form.submit tp("create"), class: "btn-success text-xl" %>
+                <button data-action="create-quiz#add_translation" class="btn-primary-sleek w-full"><%= tp "add_translation" %></button>
+            </div>
+            <div class="flex justify-around gap-2">
+                <%= form.submit commit, class: "btn-success text-xl" %>
+                <%= link_to tp("cancel"), user_path, class: "btn-primary text-xl" %>
             </div>
         </div>
     </div>

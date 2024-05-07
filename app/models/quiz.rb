@@ -11,7 +11,7 @@ class Quiz < ApplicationRecord
     validates :description, length: { maximum: 30_000 }
     validates :visibility, inclusion: { in: VISIBILITIES }
 
-    validate :validate_langs, :translation_length
+    validate :validate_langs
 
     before_create do
         id_char_num = 5
@@ -69,11 +69,5 @@ class Quiz < ApplicationRecord
         return if Language.exists?(to)
 
         errors.add(:to, I18n.t("errors.invalid_lang"))
-    end
-
-    def translation_length
-        return unless translations.size.zero?
-
-        errors.add(:translations, I18n.t("errors.not_enough_translations"))
     end
 end

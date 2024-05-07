@@ -14,10 +14,14 @@
 </div>
 
 <div class="rounded mt-2 border divide-gray-300 divide-y border-gray-300">
-    <% @quiz.translations.each do |translation| %>
-        <div class="flex divide-x divide-gray-300">
-            <div class="grow basis-0 p-2"><%= translation.word %></div>
-            <div class="grow basis-0 p-2"><%= translation.translation %></div>
-        </div>
+    <% if @quiz.translations.count.positive? %>
+        <% @quiz.translations.each do |translation| %>
+            <div class="flex divide-x divide-gray-300">
+                <div class="grow basis-0 p-2"><%= translation.word %></div>
+                <div class="grow basis-0 p-2"><%= translation.translation %></div>
+            </div>
+        <% end %>
+    <% else %>
+        <h4><%= tp "no_translations" %></h4>
     <% end %>
 </div>

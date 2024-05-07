@@ -71,6 +71,7 @@ class Quiz::QuizController < ApplicationController
         override_action "new"
 
         @quiz = @user.quizzes.find_by(uuid: params[:quiz_uuid])
+        4.times { @quiz.translations.build } unless @quiz.translations.count.positive?
 
         return if @quiz.present?
 

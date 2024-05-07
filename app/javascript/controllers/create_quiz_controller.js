@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="create-quiz"
 export default class extends Controller {
-    static targets = ["translations", "template"];
+    static targets = ["translations"];
 
     connect() {
         $(document).on("keydown", (e) => {
@@ -12,27 +12,34 @@ export default class extends Controller {
 
     add_translation(event) {
         event.preventDefault();
-        let translations = $(this.translationsTarget);
-        let template = $(this.templateTarget);
-        let translation_amount = translations.children().length;
-        let new_translation = translations.append(
-            template.children().first().clone(true),
-        );
-        let word = new_translation.find(
-            "[data-test-id='quiz-translation-template-word']",
-        );
-        let translation = new_translation.find(
-            "[data-test-id='quiz-translation-template-translation']",
-        );
-        console.log(word);
-        word.attr(
-            "data-test-id",
-            `quiz-translation-${translation_amount}-word`,
-        );
-        translation.attr(
-            "data-test-id",
-            `quiz-translation-${translation_amount}-translation`,
-        );
+
+        let template = $(this.translationsTarget)
+            .children()
+            .first()
+            .clone(true);
+        template
+            .find('[data-create-quiz-target="strikeThrough"]')
+            .addClass("hidden");
+
+        let destroy = template.find('[data-create-quiz-target="destroy"]');
+        destroy.val("0");
+        let inputs = template.find('[data-create-quiz-target="input"]');
+        inputs.val("");
+
+        let all = inputs.add(destroy);
+        this.replace_attr(all, "name");
+        this.replace_attr(all, "id");
+
+        $(this.translationsTarget).append(template);
         window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    replace_attr(collection, attr) {
+        for (let node of collection) {
+            $(node).attr(
+                attr,
+                $(node).attr(attr).replace(/(\d+)/gm, new Date().getTime()),
+            );
+        }
     }
 }

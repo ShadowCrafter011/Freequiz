@@ -25,6 +25,7 @@ de:
 
       show:
         not_found: Dieses Quiz existiert nicht oder wurde gelöscht
+        no_translations: Dieses Quiz hat noch keine Karteien
         edit: Bearbeiten
         delete: Löschen
         created_by: (von %s erstellt)
