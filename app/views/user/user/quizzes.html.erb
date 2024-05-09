@@ -27,7 +27,7 @@
                     <% end %>
                 </span>
             </div>
-            <span><%= time_ago_in_words(quiz.created_at) %></span>
+            <span><%= tp "ago" %> <%= time_ago_in_words(quiz.created_at) %> <%= tp "created" %></span>
         <% end %>
     <% end %>
 </div>

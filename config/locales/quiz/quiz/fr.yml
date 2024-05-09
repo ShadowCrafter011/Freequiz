@@ -20,6 +20,7 @@ fr:
         saved: Modifications enregistrées
         cancel: Annuler
         save: Sauvegarder
+        remove_translation: Supprimer la fiche
       show:
         not_found: Ce quiz n'existe pas ou a été supprimé
         edit: Modifier
@@ -33,6 +34,7 @@ fr:
         not_learned: "Pas encore appris: "
         learned: "Appris : "
         write: Écrire
+        no_translations: Ce quiz n'a pas encore de fiches
       destroy:
         not_found: Ce quiz n'existe pas
         not_allowed: Vous ne pouvez pas faire cela

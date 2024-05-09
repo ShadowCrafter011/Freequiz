@@ -63,6 +63,10 @@ en:
           last_created: Latest
           most_translations: Most translations
           least_translations: Fewest translations
+        translations: Card indexes
+        translation: Card index
+        ago: Before
+        created: created
       public:
         not_found: This user does not exist
         user: User %s

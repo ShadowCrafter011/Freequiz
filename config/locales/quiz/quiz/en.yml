@@ -20,6 +20,7 @@ en:
         saved: Changes saved
         cancel: Cancel
         save: Save
+        remove_translation: Remove file
       show:
         not_found: This quiz does not exist or has been deleted
         edit: Edit
@@ -33,6 +34,7 @@ en:
         not_learned: "Not yet learned: "
         learned: "Learned: "
         write: Writing
+        no_translations: This quiz has no files yet
       destroy:
         not_found: This quiz does not exist
         not_allowed: You must not do this

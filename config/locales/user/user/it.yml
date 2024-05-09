@@ -63,6 +63,10 @@ it:
           last_created: Ultime novità
           most_translations: La maggior parte delle traduzioni
           least_translations: Il minor numero di traduzioni
+        translations: Indici a schede
+        translation: Indice delle schede
+        ago: Prima
+        created: creato
       public:
         not_found: Questo utente non esiste
         user: Utente %s

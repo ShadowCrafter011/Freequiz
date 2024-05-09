@@ -8,6 +8,7 @@ it:
         send_email: E-mail schicken
         wrong_username: Il nome utente/indirizzo e-mail non sembra essere corretto
         sent_email: L'e-mail è stata inviata. Controllare la casella di posta elettronica
+        reset: Reset
       edit:
         set_new_password: Definire una nuova password
         new_password: Nuova password
