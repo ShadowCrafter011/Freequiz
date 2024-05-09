@@ -65,6 +65,8 @@ de:
         search: Suchen
         sort: Sortieren
         must_be_filled: Dieses Feld muss ausgefüllt werden
+        translations: Karteien
+        translation: Kartei
 
         sort_options:
           first_created: Älteste

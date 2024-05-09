@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_06_122420) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_09_201732) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_06_122420) do
     t.bigint "from"
     t.bigint "to"
     t.string "title"
+    t.integer "translations_count", default: 0
     t.index ["user_id"], name: "index_quizzes_on_user_id"
     t.index ["uuid"], name: "index_quizzes_on_uuid", unique: true
   end

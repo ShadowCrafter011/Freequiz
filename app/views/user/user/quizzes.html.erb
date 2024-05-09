@@ -1,31 +1,33 @@
-<div class="container" data-controller="sort-quizzes">
-    <h1 class="my-4"><%= tp("my_quizzes") %></h1>
+<h1><%= tp "my_quizzes" %></h1>
 
-    <div id="query-area" class="mb-2">
-        <div class="row">
-            <div class="col-sm-8 form-group pe-0">
-                <div class="d-flex">
-                    <button data-action="click->sort-quizzes#sort" class="btn btn-primary me-2"><%= tp("search") %></button>
-                    <input data-sort-quizzes-target="titleQuery" data-action="keydown.enter->sort-quizzes#sort" type="text" class="form-control" placeholder="<%= tp("type_title") %>" data-error="<%= tp("must_be_filled") %>">
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <span class="fs-6 input-group-text"><%= tp("sort") %></span>
-                    <select data-action="click->sort-quizzes#sort" data-sort-quizzes-target="order" class="form-select">
-                        <option value="newest"><%= tp("sort_options.last_created") %></option>
-                        <option value="oldest"><%= tp("sort_options.first_created") %></option>
-                        <option value="most_translations"><%= tp("sort_options.most_translations") %></option>
-                        <option value="least_translations"><%= tp("sort_options.least_translations") %></option>
-                    </select>
-                </div>
-            </div>
-        </div>
+<%= form_with url: user_quizzes_path, method: :get, class: "flex gap-2" do |form| %>
+    <%= form.text_field :title, value: params[:title], placeholder: tp("type_title"), class: "grow border-gray-300 rounded focus:border-teal-600 focus:ring-teal-600" %>
+    <div class="flex rounded border border-gray-300 divide-gray-300 divide-x">
+        <span class="text-xl flex items-center h-full px-2 bg-gray-200"><%= tp "sort" %></span>
+        <%= form.select :sort, [
+            [tp("sort_options.last_created"), "newest"],
+            [tp("sort_options.first_created"), "oldest"],
+            [tp("sort_options.most_translations"), "most_translations"],
+            [tp("sort_options.least_translations"), "least_translations"]
+        ], { selected: params[:sort] }, { class: "border-none rounded-e focus:border-teal-600 focus:ring-teal-700" } %>
     </div>
+    <%= form.submit tp("search"), class: "btn-primary text-xl" %>
+<% end %>
 
-    <div class="quiz-container" data-sort-quizzes-target="quizzes">
-        <% for quiz in @quizzes do %>
-            <%= render partial: "partials/quiz_card", locals: { quiz: quiz } %>
+<div class="mt-2 flex flex-col gap-2">
+    <% @quizzes.each do |quiz| %>
+        <%= link_to quiz_show_path(quiz.uuid), class: "rounded p-2 flex gap-2 justify-between items-center hover:bg-blue-600 hover:text-white text-black" do %>
+            <div class="flex items-center gap-2">
+                <span><%= quiz.title %></span>
+                <span>
+                    <% unless quiz.translations_count == 1 %>
+                        <%= quiz.translations_count %> <%= tp "translations" %>
+                    <% else %>
+                        <%= quiz.translations_count %> <%= tp "translation" %>
+                    <% end %>
+                </span>
+            </div>
+            <span><%= time_ago_in_words(quiz.created_at) %></span>
         <% end %>
-    </div>
+    <% end %>
 </div>

@@ -23,7 +23,24 @@ class User::UserController < ApplicationController
     end
 
     def quizzes
-        @quizzes = current_user.quizzes.order(created_at: :desc)
+        title = ActiveRecord::Base.connection.quote_string params[:title] if params[:title].present?
+        @quizzes = if params[:title]
+                       @user.quizzes
+                            .order(Arel.sql("SIMILARITY(title, '#{title}') DESC"))
+                   else
+                       @user.quizzes.all
+                   end
+
+        @quizzes = case params[:sort]
+                   when "oldest"
+                       @quizzes.order(created_at: :asc)
+                   when "most_translations"
+                       @quizzes.order(translations_count: :desc)
+                   when "least_translations"
+                       @quizzes.order(translations_count: :asc)
+                   else
+                       @quizzes.order(created_at: :desc)
+                   end
     end
 
     def library; end
