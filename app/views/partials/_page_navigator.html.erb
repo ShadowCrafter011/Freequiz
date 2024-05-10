@@ -1,17 +1,19 @@
 <% if pages > 1 %>
     <div class="flex justify-center">
         <div class="mb-12 flex rounded border border-gray-300 divide-gray-300 divide-x">
-            <% if ["1", "2", "3"].include?(params[:page]) || params[:page].nil? %>
+            <% if ["1", "2", "3"].include?(params[:page]) || pages < 6 || params[:page].nil? %>
                 <% [5, pages].min.times do |page| %>
                     <%= render partial: "partials/page_button", locals: { params:, page: page + 1 } %>
                 <% end %>
-                <% if pages > 6 %>
-                    <div class="py-2 px-4">...</div>
+                <% if pages > 5 %>
+                    <% if pages > 6 %>
+                        <div class="py-2 px-4">...</div>
+                    <% end %>
                     <%= render partial: "partials/page_button", locals: { params:, page: pages } %>
                 <% end %>
             <% else %>
                 <%= render partial: "partials/page_button", locals: { params:, page: 1 } %>
-                <% if params[:page].to_i > 4 %>
+                <% if params[:page].to_i >= 5 && pages > 6 %>
                     <div class="py-2 px-4">...</div>
                 <% end %>
                 <% 5.times do |page| %>
