@@ -23,24 +23,10 @@ class User::UserController < ApplicationController
     end
 
     def quizzes
-        title = ActiveRecord::Base.connection.quote_string params[:title] if params[:title].present?
-        @quizzes = if params[:title]
-                       @user.quizzes
-                            .order(Arel.sql("SIMILARITY(title, '#{title}') DESC"))
-                   else
-                       @user.quizzes.all
-                   end
-
-        @quizzes = case params[:sort]
-                   when "oldest"
-                       @quizzes.order(created_at: :asc)
-                   when "most_translations"
-                       @quizzes.order(translations_count: :desc)
-                   when "least_translations"
-                       @quizzes.order(translations_count: :asc)
-                   else
-                       @quizzes.order(created_at: :desc)
-                   end
+        result = Quiz.search_user_quizzes @user, params
+        @quizzes = result.first
+        @pages = result.last
+        @params = user_quizzes_params
     end
 
     def library; end
@@ -175,5 +161,9 @@ class User::UserController < ApplicationController
 
     def setting_params
         params.require(:setting).permit(Setting::SETTING_KEYS, :locale)
+    end
+
+    def user_quizzes_params
+        params.permit(:title, :sort, :commit, :page)
     end
 end

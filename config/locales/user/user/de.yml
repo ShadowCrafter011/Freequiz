@@ -67,8 +67,7 @@ de:
         must_be_filled: Dieses Feld muss ausgefüllt werden
         translations: Karteien
         translation: Kartei
-        ago: Vor
-        created: erstellt
+        ago: Vor %{time_ago} erstellt
 
         sort_options:
           first_created: Älteste

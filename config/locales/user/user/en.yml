@@ -65,8 +65,7 @@ en:
           least_translations: Fewest translations
         translations: Card indexes
         translation: Card index
-        ago: Before
-        created: created
+        ago: Created %{time_ago} ago
       public:
         not_found: This user does not exist
         user: User %s

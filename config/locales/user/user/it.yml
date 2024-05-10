@@ -65,8 +65,7 @@ it:
           least_translations: Il minor numero di traduzioni
         translations: Indici a schede
         translation: Indice delle schede
-        ago: Prima
-        created: creato
+        ago: Creato prima di %{time_ago}
       public:
         not_found: Questo utente non esiste
         user: Utente %s

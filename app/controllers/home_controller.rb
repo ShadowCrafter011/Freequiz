@@ -7,9 +7,9 @@ class HomeController < ApplicationController
         page = params[:page].to_i
 
         item_count = @quizzes ? Quiz.count : User.count
-        @max_page = item_count / 50 + ((item_count % 50).positive? ? 1 : 0)
+        @max_page = (item_count / 50) + ((item_count % 50).positive? ? 1 : 0)
         @page = [page, @max_page].min
-        offset = [0, @page * 50 - 50].max
+        offset = [0, (@page * 50) - 50].max
         # puts "count: #{item_count}, max: #{@max_page}, q_page: #{page}, page: #{@page}, offset: #{offset}"
 
         available = Array(1..@max_page)

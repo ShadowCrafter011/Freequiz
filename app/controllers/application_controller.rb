@@ -2,30 +2,26 @@ class ApplicationController < ActionController::Base
     before_action :setup_login
     around_action :switch_locale
 
-    def locale_en(&action)
-        I18n.with_locale(:en, &action)
+    def locale_en(&)
+        I18n.with_locale(:en, &)
     end
 
-    def switch_locale(&action)
+    def switch_locale(&)
         if (locale = session[:locale]).present?
-            I18n.with_locale(locale, &action)
+            I18n.with_locale(locale, &)
         else
             locale = logged_in? ? @user.setting.locale.to_sym : cookies[:locale]
             locale ||= I18n.default_locale
-            I18n.with_locale(locale, &action)
+            I18n.with_locale(locale, &)
             session[:locale] = locale
         end
     end
 
-    def tp(attribute, replace = nil, html_safe: false)
-        translated =
-            t(
-                "#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}"
-            )
-        return html_safe ? translated.html_safe : translated if replace.nil?
-
-        replaced = translated.sub("%s", replace.to_s)
-        html_safe ? replaced.html_safe : replaced
+    def tp(attribute, **args)
+        t(
+            "#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}",
+            **args
+        )
     end
     alias tl tp
     helper_method :tp, :tl

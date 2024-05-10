@@ -65,8 +65,7 @@ fr:
           least_translations: Moins de traductions
         translations: Fichiers
         translation: Fiche
-        ago: Avant
-        created: créé
+        ago: Créé il y a %{time_ago}
       public:
         not_found: Cet utilisateur n'existe pas
         user: Utilisateur %s

@@ -22,6 +22,31 @@ class Quiz < ApplicationRecord
         end
     end
 
+    def self.search_user_quizzes(user, params)
+        title = ActiveRecord::Base.connection.quote_string params[:title] if params[:title].present?
+        quizzes = if params[:title]
+                      user.quizzes
+                          .order(Arel.sql("SIMILARITY(title, '#{title}') DESC"))
+                  else
+                      user.quizzes.all
+                  end
+
+        quizzes = case params[:sort]
+                  when "oldest"
+                      quizzes.order(created_at: :asc)
+                  when "most_translations"
+                      quizzes.order(translations_count: :desc)
+                  when "least_translations"
+                      quizzes.order(translations_count: :asc)
+                  else
+                      quizzes.order(created_at: :desc)
+                  end
+
+        pages = user.quizzes.count.fdiv(50).ceil
+        quizzes = quizzes.limit(50).offset(((params[:page] || 1).to_i - 1) * 50)
+        [quizzes, pages]
+    end
+
     def learn_data(user)
         if user.present?
             score =
