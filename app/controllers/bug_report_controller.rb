@@ -4,8 +4,7 @@ class BugReportController < ApplicationController
 
     before_action only: %i[show status] do
         @bug = BugReport.find_by(id: params[:bug_id])
-        gn a: "This bug report doesn't exist" unless @bug.present?
-        redirect_to bugs_path(category: "new") unless @bug.present?
+        redirect_to bugs_path(category: "new"), alert: "This bug report doesn't exist" unless @bug.present?
     end
 
     def create
@@ -18,10 +17,10 @@ class BugReportController < ApplicationController
                     BugReport.new(bug_params)
                 end
             )
-        if report.save!
-            gn s: tp("bug_report_created")
+        if report.save
+            flash.notice = tp("bug_report_created")
         else
-            gn a: tp("failed_to_create")
+            flash.alert =  tp("failed_to_create")
         end
         redirect_to bug_report_params[:original_url]
     end
@@ -43,9 +42,9 @@ class BugReportController < ApplicationController
 
     def status
         if @bug.update(status_params)
-            gn s: "Status updated"
+            flash.notice = "Status updated"
         else
-            gn a: "Status could not be updated"
+            flash.alert =  "Status could not be updated"
         end
         redirect_to bug_path(@bug.id)
     end

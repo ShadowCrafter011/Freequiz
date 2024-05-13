@@ -8,10 +8,9 @@ class Admin::TransactionController < ApplicationController
     def create
         @transaction = current_user.transactions.new(transaction_params)
         if @transaction.save
-            gn s: "Transaction created"
-            redirect_to admin_transactions_path
+            redirect_to admin_transactions_path, notice: "Transaction created"
         else
-            gn a: "Transaction could not be saved"
+            flash.now.alert = "Transaction could not be saved"
             render :new, status: :unprocessable_entity
         end
     end
@@ -26,8 +25,7 @@ class Admin::TransactionController < ApplicationController
 
         return if @transaction.present?
 
-        gn n: "Transaction doesn't exist"
-        redirect_to admin_transactions_path
+        redirect_to admin_transactions_path, notice: "Transaction doesn't exist"
     end
 
     def removed
@@ -51,13 +49,9 @@ class Admin::TransactionController < ApplicationController
     def update_transaction_removed(value)
         transaction = Transaction.find_by(id: params[:transaction_id])
 
-        unless transaction.present?
-            gn n: "Transaction doesn't exist"
-            redirect_to admin_transactions_path
-        end
+        redirect_to admin_transactions_path, notice: "Transaction doesn't exist" unless transaction.present?
 
         transaction.update(removed: value)
-        gn s: "Transaction #{value ? "removed" : "restored"}"
-        redirect_to admin_transactions_path
+        redirect_to admin_transactions_path, notice: "Transaction #{value ? "removed" : "restored"}"
     end
 end

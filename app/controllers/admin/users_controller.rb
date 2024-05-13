@@ -38,9 +38,9 @@ class Admin::UsersController < ApplicationController
 
         if user.present?
             user.destroy
-            gn n: "User deleted"
+            flash.notice = "User deleted"
         else
-            gn a: "Could not delete user. Retry again later"
+            flash.alert = "Could not delete user. Retry again later"
         end
         redirect_to admin_users_path
     end
@@ -52,7 +52,7 @@ class Admin::UsersController < ApplicationController
         email_before = user.email
 
         unless user.update(edit_params)
-            gn a: ["Failed to save user for the following reasons"].concat(
+            flash.now.alert = ["Failed to save user for the following reasons"].concat(
                 user.get_errors
             )
             return render :edit, status: :unprocessable_entity
@@ -63,9 +63,9 @@ class Admin::UsersController < ApplicationController
         if edit_params[:email] != email_before || (!user.verified? && was_verified)
             user.update(confirmed: false, confirmed_at: nil)
             user.send_verification_email
-            gn s: "Saved user and verification E-mail was sent"
+            flash.notice = "Saved user and verification E-mail was sent"
         else
-            gn s: "Saved user"
+            flash.notice = "Saved user"
         end
         redirect_to admin_user_edit_path(user.username)
     end
@@ -73,19 +73,14 @@ class Admin::UsersController < ApplicationController
     def send_verification
         user = User.find_by(username: params[:username])
         sent = user.send_verification_email
-        gn s: "Verification E-mail sent to user (#{user.email})" if sent
-        unless sent
-            gn n:
-                      "Verification E-mail wasn't sent because either the user is already verified or something went wrong"
-        end
-        redirect_to admin_user_edit_path(user.username)
+        notice = sent ? "Verification E-mail sent to user (#{user.email})" : "Verification E-mail wasn't sent because either the user is already verified or something went wrong"
+        redirect_to admin_user_edit_path(user.username), notice:
     end
 
     def send_password_reset
         user = User.find_by(username: params[:username])
         user.send_reset_password_email
-        gn s: "Password reset E-mail sent to user (#{user.email})"
-        redirect_to admin_user_edit_path(user.username)
+        redirect_to admin_user_edit_path(user.username), notice: "Password reset E-mail sent to user (#{user.email})"
     end
 
     def prepare_email
@@ -98,8 +93,7 @@ class Admin::UsersController < ApplicationController
             .with(email: user.email, subject: params[:subject], body: params[:body])
             .email_to_user
             .deliver_later
-        gn s: "E-mail sent to user (#{user.email})"
-        redirect_to admin_user_edit_path(user.username)
+        redirect_to admin_user_edit_path(user.username), notice: "E-mail sent to user (#{user.email})"
     end
 
     private

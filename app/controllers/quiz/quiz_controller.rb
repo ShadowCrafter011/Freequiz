@@ -1,5 +1,4 @@
 class Quiz::QuizController < ApplicationController
-    include QuizUtils
     include ApiUtils
 
     before_action :require_login!, :require_beta! do
@@ -12,10 +11,7 @@ class Quiz::QuizController < ApplicationController
         @access_token = generate_access_token(current_user, 5.days.from_now.to_i)
 
         @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
-        unless @quiz.present? && @quiz.user_allowed_to_view?(current_user)
-            gn n: tp("not_found")
-            redirect_to root_path
-        end
+        redirect_to root_path, notice: tp("not_found") unless @quiz.present? && @quiz.user_allowed_to_view?(current_user)
     end
 
     def cards; end
@@ -34,8 +30,7 @@ class Quiz::QuizController < ApplicationController
 
         @quiz = @user.quizzes.new(quiz_params)
         if @quiz.save
-            gn s: tp("quiz_created")
-            redirect_to quiz_show_path(@quiz.uuid)
+            redirect_to quiz_show_path(@quiz.uuid), notice: tp("quiz_created")
         else
             puts @quiz.get_errors
             4.times { @quiz.translations.build } if @quiz.translations.count.zero?
@@ -46,12 +41,9 @@ class Quiz::QuizController < ApplicationController
     def show
         @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
 
-        unless @quiz.present?
-            gn n: tp("not_found")
-            return redirect_to root_path
-        end
+        return redirect_to root_path, notice: tp("not_found") unless @quiz.present?
 
-        nil unless check_viewing_privilege
+        redirect_to root_path, alert: t("errors.not_allowed_to_view_quiz") unless @quiz.user_allowed_to_view? @user
     end
 
     def request_destroy
@@ -75,8 +67,7 @@ class Quiz::QuizController < ApplicationController
 
         return if @quiz.present?
 
-        gn n: tp("not_found")
-        redirect_to root_path
+        redirect_to root_path, notice: tp("not_found")
     end
 
     def update
@@ -84,16 +75,12 @@ class Quiz::QuizController < ApplicationController
 
         @quiz = @user.quizzes.find_by(uuid: params[:quiz_uuid])
 
-        unless @quiz.present?
-            gn n: tp("not_found")
-            redirect_to root_path
-        end
+        redirect_to root_path, notice: tp("not_found") unless @quiz.present?
 
         if @quiz.update(quiz_params)
-            gn s: tp("saved")
-            redirect_to quiz_show_path(@quiz.uuid)
+            redirect_to quiz_show_path(@quiz.uuid), notice: tp("saved")
         else
-            gn a: @quiz.get_errors
+            flash.now.alert = @quiz.get_errors
             render :edit, status: :unprocessable_entity
         end
     end
@@ -102,17 +89,14 @@ class Quiz::QuizController < ApplicationController
         quiz = @user.quizzes.find_by(uuid: params[:quiz_uuid])
         token = params[:destroy_token]
 
-        unless quiz.present?
-            gn n: tp("not_found")
-            redirect_to root_path
-        end
+        redirect_to root_path, notice: tp("not_found") unless quiz.present?
 
         if quiz.user == @user && quiz.compare_encrypted(:destroy_token, token) &&
            quiz.destroy_expire > Time.now
             quiz.destroy
-            gn n: tp("deleted")
+            flash.notice = tp("deleted")
         else
-            gn a: tp("not_allowed")
+            flash.alert = tp("not_allowed")
         end
         redirect_to root_path
     end

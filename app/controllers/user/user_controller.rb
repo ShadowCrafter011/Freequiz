@@ -32,10 +32,7 @@ class User::UserController < ApplicationController
     def library; end
 
     def new
-        if logged_in?
-            gn n: tp("already_has_account")
-            return redirect_to user_path
-        end
+        return redirect_to user_path, notice: tp("already_has_account") if logged_in?
 
         @new_user = User.new
     end
@@ -48,7 +45,7 @@ class User::UserController < ApplicationController
         unless user_params[:password].match?(
             /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
         )
-            gn a: tg("password_regex")
+            flash.now.alert = tg("password_regex")
             return render :new, status: :unprocessable_entity
         end
 
@@ -64,11 +61,9 @@ class User::UserController < ApplicationController
                 expires: Time.now + expires_in
             }
 
-            gn s: tp("created").sub("%s", @new_user.username)
-
-            redirect_to user_verification_pending_path
+            redirect_to user_verification_pending_path, notice: tp("created").sub("%s", @new_user.username)
         else
-            gn a: @new_user.get_errors
+            flash.now.alert = @new_user.get_errors
             render :new, status: :unprocessable_entity
         end
     end
@@ -81,19 +76,18 @@ class User::UserController < ApplicationController
         if edit_params[:password].present? && !edit_params[:password].match?(
             /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
         )
-            gn a: tg("password_regex")
+            flash.now.alert = tg("password_regex")
             return render :edit, status: :unprocessable_entity
         end
 
         email_changed, errors = @user.change(edit_params)
         if errors.length.positive?
-            gn a: errors
+            flash.now.alert = errors
             render :edit, status: :unprocessable_entity
         else
             messages = [tp("saved_data")]
             messages.append(tp("new_email")) if email_changed
-            gn s: messages
-            redirect_to user_path
+            redirect_to user_path, notice: messages
         end
     end
 
@@ -113,11 +107,10 @@ class User::UserController < ApplicationController
 
     def update_settings
         @user.setting.update(setting_params)
-        gn s: tp("saved")
 
         session[:locale] = @user.setting.locale
 
-        redirect_to user_settings_path
+        redirect_to user_settings_path, notice: tp("saved")
     end
 
     def request_destroy
@@ -129,11 +122,9 @@ class User::UserController < ApplicationController
 
         if user.present? && user == @user
             @user.destroy
-            gn n: tp("deleted")
-            redirect_to root_path
+            redirect_to root_path, notice: tp("deleted")
         else
-            gn a: tp("failed")
-            redirect_to user_path
+            redirect_to user_path, alert: tp("failed")
         end
     end
 

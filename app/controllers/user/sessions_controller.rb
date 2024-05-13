@@ -2,10 +2,7 @@ class User::SessionsController < ApplicationController
     before_action { setup_locale "user.sessions" }
 
     def new
-        if logged_in?
-            gn n: tp("already_logged_in")
-            redirect_to user_path
-        end
+        redirect_to user_path, notice: tp("already_logged_in") if logged_in?
         @return_path = params[:gg]
     end
 
@@ -17,7 +14,7 @@ class User::SessionsController < ApplicationController
         user = [User.find_by(email: params[:username].downcase)] unless user.first
 
         unless user.first && user.length == 1
-            gn a: tp("wrong_username")
+            flash.now.alert = tp("wrong_username")
             return render :new, status: :unprocessable_entity
         end
 
@@ -29,14 +26,12 @@ class User::SessionsController < ApplicationController
             cookies.encrypted.permanent[:_session_token] = token if remember
             cookies.encrypted[:_session_token] = token unless remember
 
-            gn s: tp("success").sub("%s", user.first.username)
-
             user.first.sign_in request.remote_ip
             # Reset the locale in session store to allow the saved one to take over
             session[:locale] = nil
-            redirect_to(params[:gg].present? ? params[:gg] : user_path)
+            redirect_to(params[:gg].present? ? params[:gg] : user_path, notice: tp("success").sub("%s", user.first.username))
         else
-            gn a: tp("wrong_password")
+            flash.now.alert = tp("wrong_password")
             render :new, status: 401
         end
     end
@@ -44,7 +39,6 @@ class User::SessionsController < ApplicationController
     def destroy
         cookies.delete :_session_token
         session[:locale] = nil
-        gn n: tp("success")
-        redirect_to user_login_path
+        redirect_to user_login_path, notice: tp("success")
     end
 end

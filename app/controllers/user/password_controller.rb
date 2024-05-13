@@ -11,13 +11,12 @@ class User::PasswordController < ApplicationController
         user = [User.find_by(email: params[:username].downcase)] unless user.first
 
         unless user.first && user.length == 1
-            gn a: tp("wrong_username")
+            flash.now.alert = tp("wrong_username")
             return render :reset, status: 401
         end
 
         user.first.send_reset_password_email
-        gn s: tp("sent_email")
-        redirect_to root_path
+        redirect_to root_path, notice: tp("sent_email")
     end
 
     def edit
@@ -25,24 +24,19 @@ class User::PasswordController < ApplicationController
             User.find_signed params[:password_reset_token], purpose: :reset_password
         return if user.present?
 
-        gn a: tp("invalid_link")
-        redirect_to root_path
+        redirect_to root_path, alert: tp("invalid_link")
     end
 
     def update
         override_action "edit"
 
-        user =
-            User.find_signed params[:password_reset_token], purpose: :reset_password
-        unless user.present?
-            gn a: tp("invalid_link")
-            return redirect_to root_path
-        end
+        user = User.find_signed params[:password_reset_token], purpose: :reset_password
+        return redirect_to root_path, alert: tp("invalid_link") unless user.present?
 
         unless params[:password].match?(
             /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
         )
-            gn a: tg("password_regex")
+            flash.now.alert = tg("password_regex")
             return render :edit, status: :unprocessable_entity
         end
 
@@ -62,10 +56,9 @@ class User::PasswordController < ApplicationController
 
             user.sign_in request.remote_ip
 
-            gn s: tp("changed_password")
-            redirect_to user_path
+            redirect_to user_path, notice: tp("changed_password")
         else
-            gn a: user.get_errors
+            flash.now.alert = user.get_errors
             render :edit, status: :unprocessable_entity
         end
     end

@@ -1,6 +1,7 @@
 module ApiUtils
     def api_require_valid_bearer_token!
         token = request.headers["Authorization"]
+        # TODO: PUT THIS IN RAILS CREDENTIALS! ALSO IN THE API DOCS
         unless token ==
                "Bearer 3b589393da6bc000705e75c9ae2fec24442fe09bad96b1f31645f9813abc1924"
             json(

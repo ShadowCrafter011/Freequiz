@@ -33,18 +33,12 @@ class User::VerificationController < ApplicationController
     def pending
         return unless @user.verified?
 
-        gn n: tp("already_verified")
-        redirect_to user_path
+        redirect_to user_path, notice: tp("already_verified")
     end
 
     def send_email
         override_action "pending"
 
-        if @user.send_verification_email
-            gn s: tp("sent")
-        else
-            gn a: tp("already_verified")
-        end
-        redirect_to user_path
+        redirect_to user_path, notice: @user.send_verification_email ? tp("sent") : tp("already_verified")
     end
 end
