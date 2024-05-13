@@ -8,7 +8,11 @@ export default class extends Controller {
         if ($(this.element).data("show") == false) return;
 
         this.toggle();
-        $(this.progressTarget).removeClass("-translate-x-1/2 scale-x-0");
+
+        setTimeout(() => {
+            $(this.progressTarget).removeClass("-translate-x-1/2 scale-x-0");
+        });
+
         let regex = /duration-\[(\d+)ms\]/gm;
         let duration = regex.exec($(this.progressTarget).attr("class"))[1];
         this.timeout = setTimeout(this.toggle.bind(this), duration);
