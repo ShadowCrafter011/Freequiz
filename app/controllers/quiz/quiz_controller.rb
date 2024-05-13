@@ -32,7 +32,7 @@ class Quiz::QuizController < ApplicationController
         if @quiz.save
             redirect_to quiz_show_path(@quiz.uuid), notice: tp("quiz_created")
         else
-            puts @quiz.get_errors
+            flash.now.alert = @quiz.get_errors
             4.times { @quiz.translations.build } if @quiz.translations.count.zero?
             render :new, status: :unprocessable_entity
         end
