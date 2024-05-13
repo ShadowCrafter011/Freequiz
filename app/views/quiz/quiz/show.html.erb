@@ -15,7 +15,7 @@
 
 <div class="rounded mt-2 border divide-gray-300 divide-y border-gray-300">
     <% if @quiz.translations.count.positive? %>
-        <% @quiz.translations.each do |translation| %>
+        <% @quiz.translations.order(created_at: :asc).each do |translation| %>
             <div class="flex divide-x divide-gray-300">
                 <div class="grow basis-0 p-2"><%= translation.word %></div>
                 <div class="grow basis-0 p-2"><%= translation.translation %></div>
