@@ -22,7 +22,7 @@
             </div>
             <div data-controller="create-quiz" class="space-y-2">
                 <div data-create-quiz-target="translations" class="space-y-2">
-                    <%= form.fields_for :translations, @quiz.translations.order(created_at: :asc) do |translation_form| %>
+                    <%= form.fields_for :translations, @quiz.translations.sort_by {|t| t.created_at} do |translation_form| %>
                         <%= render partial: "translation_form", locals: { translation_form: } %>
                     <% end %>
                 </div>
