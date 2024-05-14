@@ -29,42 +29,24 @@ module ApiUtils
 
     def api_current_user
         token = request.headers["Access-token"]
-        decoded =
-            JWT.decode(token, Rails.application.secret_key_base).first.to_options
-
-        return(@api_user = User.find_by(id: decoded[:user_id])) if decoded[:expire] > Time.now.to_i
-
-        nil
-    rescue StandardError # JWT::VerificationError
-        nil
+        @api_user = User.find_signed token, purpose: :api_token
     end
 
     def valid_access_token?
         !!api_current_user
     end
 
-    def generate_access_token(user, expire = 1.year.from_now.to_i)
-        payload = { user_id: user.id, expire: }
-
-        JWT.encode(payload, Rails.application.secret_key_base)
+    def generate_access_token(user, expires_in = 20.years)
+        user.signed_id purpose: :api_token, expires_in:
     end
 
     def refresh_access_token
         token = request.headers["Access-token"]
+        user = User.find_signed token, purpose: :api_token
 
-        begin
-            decoded =
-                JWT.decode(token, Rails.application.secret_key_base).first.to_options
+        return nil unless user.present?
 
-            if decoded[:expire] > Time.now.to_i
-                payload = { user_id: decoded[:user_id], expire: 1.year.from_now.to_i }
-                return JWT.encode(payload, Rails.application.secret_key_base)
-            end
-
-            nil
-        rescue StandardError # JWT::VerificationError
-            nil
-        end
+        generate_access_token user
     end
 
     def validate_params(*check, hash: params)

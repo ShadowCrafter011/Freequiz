@@ -8,7 +8,7 @@ class Quiz::QuizController < ApplicationController
     before_action only: %i[cards learn] do
         override_action :show
 
-        @access_token = generate_access_token(current_user, 5.days.from_now.to_i)
+        @access_token = generate_access_token(current_user, 5.days)
 
         @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
         redirect_to root_path, notice: tp("not_found") unless @quiz.present? && @quiz.user_allowed_to_view?(current_user)
