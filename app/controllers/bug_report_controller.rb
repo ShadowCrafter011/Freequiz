@@ -8,13 +8,12 @@ class BugReportController < ApplicationController
     end
 
     def create
-        bug_params = bug_report_params.except(:original_url)
         report =
             (
                 if current_user.present?
-                    current_user.bug_reports.new(bug_params)
+                    current_user.bug_reports.new(bug_report_params)
                 else
-                    BugReport.new(bug_params)
+                    BugReport.new(bug_report_params)
                 end
             )
         if report.save
@@ -22,7 +21,7 @@ class BugReportController < ApplicationController
         else
             flash.alert =  tp("failed_to_create")
         end
-        redirect_to bug_report_params[:original_url]
+        redirect_to bug_report_params[:created_from]
     end
 
     def list
@@ -55,10 +54,15 @@ class BugReportController < ApplicationController
         params.require(:bug_report).permit(
             :title,
             :body,
+            :steps,
             :url,
             :platform,
             :user_agent,
-            :original_url
+            :created_from,
+            :ip,
+            :request_method,
+            :media_type,
+            :post_parameters
         )
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_09_201732) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_14_183850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -25,6 +25,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_09_201732) do
     t.string "status"
     t.string "url"
     t.string "user_agent"
+    t.string "created_from"
+    t.text "steps"
+    t.string "ip"
+    t.string "request_method"
+    t.string "media_type"
+    t.string "post_parameters"
     t.index ["user_id"], name: "index_bug_reports_on_user_id"
   end
 

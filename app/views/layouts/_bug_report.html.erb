@@ -1,34 +1,49 @@
-<div class="position-fixed w-100 d-flex justify-content-center sticky-top" z-index="2000">
-    <div id="bug-report" class="toast m-2 bg-white" data-bs-autohide="false" aria-live="assertive" aria-atomic="true">
-
-        <button type="button" class="btn btn-lg btn-close d-relative float-end p-3" data-bs-dismiss="toast" aria-label="close"></button>
-
-        <div class="toast-body">
-            <h1 class="text-center"><%= t("layouts.application.bug_report") %></h1>
-
-            <div class="container">
-                <%= form_with model: BugReport.new, url: bug_report_path, data: { controller: "validation--bug-report dirtyform", action: "validation--bug-report#check" } do |form| %>
-                    <p class="input-group">
-                        <%= form.label :title, t("layouts.application.title_form"), class: "fs-4 input-group-text" %>
-                        <%= form.text_field :title, placeholder: t("layouts.application.title_placeholder"), class: "form-control", data: { validation__bug_report_target: "title" } %>
-                    </p>
-
-                    <p class="input-group">
-                        <%= form.label :platform, t("layouts.application.platform"), class: "fs-4 input-group-text" %>
-                        <%= form.text_field :platform, placeholder: t("layouts.application.platform_placeholder"), class: "form-control" %>
-                    </p>
-
-                    <p class="input-group">
-                        <%= form.label :url, t("layouts.application.url"), class: "fs-4 input-group-text" %>
-                        <%= form.text_field :url, placeholder: t("layouts.application.url_placeholder"), class: "form-control", data: { validation__bug_report_target: "url" } %>
-                    </p>
-
+<div id="bug-report-form" class="opacity-0 pointer-events-none absolute z-30 transition-opacity">
+    <div class="h-screen w-screen flex justify-center items-center">
+        <div class="h-full mx-5 grow flex flex-col max-w-7xl">
+            <div class="relative rounded-md grow my-5 p-5 shadow-lg bg-white border-2 border-blue-600">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    data-close="popup"
+                    height="26px"
+                    class="absolute right-5 top-5 fill-gray-500 hover:fill-black transition-colors cursor-pointer"
+                    viewBox="0 0 10 10"
+                    fill="none"
+                >
+                    <path d="M 2 1 C 1 0 0 1 1 2 L 8 9 C 9 10 10 9 9 8 Z" />
+                    <path d="M 8 1 C 9 0 10 1 9 2 L 2 9 C 1 10 0 9 1 8 Z" />
+                </svg>
+                <h1><%= t "layouts.application.bug_report" %></h1>
+                <%= form_with model: BugReport.new, url: bug_report_path, class: "space-y-5" do |form| %>
                     <%= form.text_field :user_agent, hidden: true, value: request.user_agent  %>
-                    <%= form.text_field :original_url, hidden: true, value: request.path %>
-                    <%= form.text_area :body, class: "form-control", rows: 6, value: t("layouts.application.bug_description"), data: { validation__bug_report_target: "body" } %>
+                    <%= form.text_field :created_from, hidden: true, value: request.original_url %>
+                    <%= form.text_field :ip, hidden: true, value: request.remote_ip %>
+                    <%= form.text_field :request_method, hidden: true, value: request.request_method %>
+                    <%= form.text_field :media_type, hidden: true, value: request.media_type %>
+                    <%= form.text_field :post_parameters, hidden: true, value: request.POST %>
 
-                    <div class="text-center mt-2">
-                        <%= form.submit class: "btn btn-success btn-lg", value: t("layouts.application.bug_report"), data: {disable_with: false} %>
+                    <div class="flex gap-2 items-center border-b-2 border-teal-700 pb-1">
+                        <%= form.label :title, t("layouts.application.title_form"), class: "text-xl font-bold" %>
+                        <%= form.text_field :title, placeholder: t("layouts.application.title_placeholder"), class: "text-field" %>
+                    </div>
+                    <div class="flex gap-2 items-center border-b-2 border-teal-700 pb-1">
+                        <%= form.label :platform, t("layouts.application.platform"), class: "text-xl font-bold" %>
+                        <%= form.text_field :platform, placeholder: t("layouts.application.platform_placeholder"), class: "text-field" %>
+                    </div>
+                    <div class="flex gap-2 items-center border-b-2 border-teal-700 pb-1">
+                        <%= form.label :url, t("layouts.application.url"), class: "text-xl font-bold" %>
+                        <%= form.text_field :url, placeholder: t("layouts.application.url_placeholder"), class: "text-field" %>
+                    </div>
+                    <div class="flex gap-2 items-baseline border-b-2 border-teal-700 pb-1">
+                        <%= form.label :body, t("layouts.application.body"), class: "text-xl font-bold" %>
+                        <%= form.text_area :body, placeholder: t("layouts.application.body_placeholder"), class: "text-field" %>
+                    </div>
+                    <div class="flex gap-2 items-baseline border-b-2 border-teal-700 pb-1">
+                        <%= form.label :steps, t("layouts.application.steps"), class: "text-xl font-bold" %>
+                        <%= form.text_area :steps, placeholder: t("layouts.application.steps_placeholder"), class: "text-field" %>
+                    </div>
+                    <div class="flex justify-center">
+                        <%= form.submit t("layouts.application.bug_report"), class: "btn-success text-xl" %>
                     </div>
                 <% end %>
             </div>

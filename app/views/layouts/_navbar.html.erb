@@ -15,7 +15,7 @@
             </span>
         <% end %>
         <div
-            class="flex justify-end items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse"
+            class="flex justify-end items-center gap-1 md:gap-0 md:order-2 rtl:space-x-reverse"
         >
             <% if logged_in? %>
                 <div class="relative flex flex-col" data-controller="dropdown">
@@ -57,6 +57,15 @@
                             <%= image_tag @user.avatar_url, class: "absolute top-0 right-0 rounded-full h-8 outline outline-blue-600 cursor-pointer", data: { action: "click->dropdown#toggle" } %>
                             <div class="flex flex-col space-y-2 py-1">
                                 <span class="mb-1"><%= @user.username %></span>
+                                <hr>
+                                <button
+                                    data-controller="popup"
+                                    data-action="popup#show"
+                                    data-target="#bug-report-form"
+                                    class="nav-link text-start"
+                                >
+                                    <%= t "layouts.application.bug_report" %>
+                                </button>
                                 <hr>
                                 <%= link_to t("layouts.application.overview"), user_path, class: "nav-link" %>
                                 <%= link_to t("layouts.application.settings"), user_settings_path, class: "nav-link" %>
