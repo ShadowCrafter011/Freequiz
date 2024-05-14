@@ -1,6 +1,6 @@
 <%= render layout: "api_navbar" do %>
     <div id="bearer" class="section">
         <h1>Bearer token</h1>
-        Authentication header must be set to <code>Bearer 3b589393da6bc000705e75c9ae2fec24442fe09bad96b1f31645f9813abc1924</code> for every request
+        Authentication header must be set to <code><%= Rails.application.credentials[:api_bearer_token] %></code> for every request
     </div>
 <% end %>
