@@ -112,6 +112,9 @@ class Quiz::QuizController < ApplicationController
     def require_beta!
         return unless require_login!
 
-        render "errors/beta_wall" unless @user.beta? || @user.admin?
+        return if @user.beta? || @user.admin?
+
+        @title = "Beta Blocker"
+        render "errors/beta_wall"
     end
 end
