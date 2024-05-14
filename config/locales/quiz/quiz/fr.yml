@@ -43,4 +43,4 @@ fr:
         delete: Supprimer
         cancel: Annuler
         sure_to_delete: Si vous supprimez ce quiz, vous ne pourrez pas revenir en arrière.
-        really_delete: Voulez vous vraiment supprimer Quiz <em>%s</em> ?
+        really_delete: Voulez vous vraiment supprimer le Quiz %{quiz}?

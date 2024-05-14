@@ -44,7 +44,7 @@ de:
         delete: Löschen
         cancel: Abbrechen
         sure_to_delete: Wenn Sie dieses Quiz löschen kann dies nicht mehr rückgängig gemacht werden
-        really_delete: Wollten sie Quiz <em>%s</em> wirklich löschen?
+        really_delete: Wollten sie das Quiz %{quiz} wirklich löschen?
 
       destroy:
         not_found: Dieses Quiz existiert nicht

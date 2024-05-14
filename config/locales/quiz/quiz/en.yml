@@ -43,4 +43,4 @@ en:
         delete: Delete
         cancel: Cancel
         sure_to_delete: If you delete this quiz it cannot be undone
-        really_delete: Do you really want to delete Quiz <em>%s</em>?
+        really_delete: Do you really want to delete the Quiz %{quiz}?

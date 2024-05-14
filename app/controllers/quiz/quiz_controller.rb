@@ -47,13 +47,10 @@ class Quiz::QuizController < ApplicationController
     end
 
     def request_destroy
-        @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
+        @quiz = @user.quizzes.find_by(uuid: params[:quiz_uuid])
 
-        # TODO: Fix this shit with JWT
-        if @quiz.present? && @user == @quiz.user
-            @token = SecureRandom.hex(32)
-            @quiz.update(destroy_token: @token, destroy_expire: 1.day.from_now)
-            @quiz.encrypt_value :destroy_token
+        if @quiz.present?
+            @token = @quiz.signed_id purpose: :destroy_quiz, expires_in: 1.day
         else
             redirect_to root_path
         end
@@ -86,13 +83,11 @@ class Quiz::QuizController < ApplicationController
     end
 
     def destroy
-        quiz = @user.quizzes.find_by(uuid: params[:quiz_uuid])
-        token = params[:destroy_token]
+        quiz = Quiz.find_signed params[:destroy_token], purpose: :destroy_quiz
 
-        redirect_to root_path, notice: tp("not_found") unless quiz.present?
+        return redirect_to root_path, notice: tp("not_found") unless quiz.present?
 
-        if quiz.user == @user && quiz.compare_encrypted(:destroy_token, token) &&
-           quiz.destroy_expire > Time.now
+        if quiz.user == @user
             quiz.destroy
             flash.notice = tp("deleted")
         else
