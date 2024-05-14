@@ -1,29 +1,21 @@
-<div class="container">
-    <h1 class="text-center my-4">
-        <% if @category == "all" %>
-            All bug reports
-        <% else %>
-            Bug reports with status <%= @category.downcase %>
-        <% end %>
-    </h1>
+<h1><%= @category == "all" ? "All bug reports" : "Bug reports with status #{@category.downcase}" %></h1>
 
-    <ul class="list-group list-group-horizontal-sm my-2">
-        <%= link_to "All (#{BugReport.count})", bugs_path(), class: "list-group-item cat-nav #{"active" if @category == "all"}" %>
-        <% for category in BugReport::STATUSES do %>
-            <% bug_amount = BugReport.where(status: category).count %>
-            <%= link_to "#{category.capitalize} (#{bug_amount})", bugs_path(category: category), class: "list-group-item cat-nav #{"active" if @category == category}" %>
-        <% end %>
-    </ul>
+<div class="mt-3 flex text-center rounded border border-gray-300 divide-x divide-gray-300">
+    <%= link_to "All (#{BugReport.count})", bugs_path, class: "rounded-s py-2 grow basis-0 transition-colors #{@category == "all" ? "text-white hover:text-white bg-blue-600" : "text-black hover:text-white hover:bg-blue-600"}" %>
+    <% for category in BugReport::STATUSES do %>
+        <% bug_amount = BugReport.where(status: category).count %>
+        <%= link_to "#{category.capitalize} (#{bug_amount})", bugs_path(category: category), class: "last:rounded-e py-2 grow basis-0 transition-colors #{@category == category ? "text-white hover:text-white bg-blue-600" : "text-black hover:text-white hover:bg-blue-600"}" %>
+    <% end %>
+</div>
 
-    <% for bug in @bug_reports do %>
-        <%= link_to bug_path(bug), class: "link-card" do %>
-            <span class="d-flex justify-content-between">
-                <div class="d-flex">
-                    <h4 class="m-0"><%= bug.title %></h4>
-                    <div class="status status-<%= bug.status %>"><%= bug.status.capitalize %></div>
-                </div>
-                <div class="float-end">Created <%= distance_of_time_in_words_to_now(bug.created_at, locale: :en) %> ago</div>
-            </span>
+<div class="mt-5 space-y-2">
+    <% @bug_reports.each do |bug_report| %>
+        <%= link_to bug_path(bug_report), class: "rounded border border-gray-300 p-2 flex justify-between items-center text-black hover:text-white bg-gray-50 hover:bg-blue-600" do %>
+            <div class="flex items-center gap-2">
+                <span class="font-bold"><%= bug_report.status.capitalize %></span>
+                <span><%= bug_report.title %></span>
+            </div>
+            <span>Created <%= distance_of_time_in_words_to_now(bug_report.created_at, locale: :en) %> ago</span>
         <% end %>
     <% end %>
 </div>
