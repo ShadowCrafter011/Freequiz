@@ -1,7 +1,19 @@
 <h1><%= @quiz.title %></h1>
 
 <% if @quiz.description.present? %>
-    <h4 class="line-clamp-3"><%= @quiz.description %></h4>
+    <div data-controller="show-more">
+        <h4 data-show-more-target="target" class="line-clamp-3"><%= @quiz.description %></h4>
+        <h4
+            data-show-more-target="showMore"
+            data-action="click->show-more#show_more"
+            class="hidden underline cursor-pointer"
+        ><%= tg "show_more" %></h4>
+        <h4
+            data-show-more-target="showLess"
+            data-action="click->show-more#show_less"
+            class="hidden underline cursor-pointer"
+        ><%= tg "show_less" %></h4>
+    </div>
 <% end %>
 
 <div class="flex md:flex-row flex-col gap-2">

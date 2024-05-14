@@ -15,12 +15,12 @@ export default class extends Controller {
     }
 
     show_more() {
-        this.target.removeClass("text-truncate");
+        this.target.removeClass("line-clamp-3");
         this.toggle_display([this.show_more_btn, this.show_less_btn]);
     }
 
     show_less() {
-        this.target.addClass("text-truncate");
+        this.target.addClass("line-clamp-3");
         this.toggle_display([this.show_more_btn, this.show_less_btn]);
     }
 
@@ -29,9 +29,6 @@ export default class extends Controller {
     }
 
     toggle_display(elements) {
-        elements.forEach((element) => {
-            element.toggleClass("d-block");
-            element.toggleClass("d-none");
-        });
+        elements.forEach((element) => element.toggleClass("hidden"));
     }
 }
