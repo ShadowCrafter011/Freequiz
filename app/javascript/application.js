@@ -4,5 +4,4 @@ import "controllers";
 // import "@popperjs/core";
 // import "bootstrap";
 import "jquery";
-import "./util/prism.min";
 import "dirtyforms";
