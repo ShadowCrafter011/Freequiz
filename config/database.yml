@@ -22,7 +22,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
   user: postgres
-  password: <%= ENV["PG_PASSWORD"] %>
+  password: <%= Rails.application.credentials[:pg_password] %>
 
 development:
   <<: *default
