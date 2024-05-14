@@ -35,8 +35,8 @@
                             <span class="hidden xsm:block"><%= tg("languages.#{I18n.locale}") %></span>
                         </div>
                         <hr>
-                        <% Setting::LOCALES.excluding(I18n.locale.to_s).each do |loc| %>
-                            <%= render partial: "layouts/language_button", locals: { locale: loc } %>
+                        <% Setting::LOCALES.excluding(I18n.locale.to_s).each do |locale| %>
+                            <%= render partial: "layouts/language_button", locals: { locale: } %>
                         <% end %>
                     </div>
                 </div>
@@ -128,8 +128,6 @@
                             <%= link_to tg("create_account"), user_create_path, class: "btn-primary-empty flex-1" %>
                         </div>
                     </li>
-                <% else %>
-                    
                 <% end %>
             </ul>
         </div>

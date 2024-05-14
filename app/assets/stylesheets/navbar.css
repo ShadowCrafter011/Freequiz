@@ -4,7 +4,7 @@
     }
 
     .nav-dropdown-current {
-        @apply block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 md:dark:text-blue-500;
+        @apply block rounded bg-blue-700 px-3 py-2 text-white no-underline hover:text-white md:bg-transparent md:p-0 md:text-blue-700 md:underline md:hover:text-blue-700 md:dark:text-blue-500;
     }
 
     .nav-dropdown {
