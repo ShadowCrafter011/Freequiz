@@ -3,16 +3,16 @@
         @apply cursor-pointer rounded-lg bg-blue-700 px-4 py-2 text-center text-sm font-medium leading-6 text-white transition-colors duration-150 hover:bg-blue-800 hover:text-white focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700;
     }
 
+    .btn-primary-sleek {
+        @apply btn-primary py-1;
+    }
+
     .btn-success {
         @apply btn-primary bg-green-700 hover:bg-green-900;
     }
 
-    .btn-danger {
-        @apply btn-primary bg-red-600 hover:bg-red-800;
-    }
-
-    .btn-primary-sleek {
-        @apply btn-primary py-1;
+    .btn-success-sleek {
+        @apply btn-success py-1;
     }
 
     .btn-danger {
@@ -25,5 +25,9 @@
 
     .btn-primary-empty {
         @apply btn-primary cursor-pointer bg-white text-black ring-1 ring-blue-600 hover:text-white;
+    }
+
+    .btn-secondary {
+        @apply btn-primary bg-gray-50 text-black outline outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-100 hover:text-black;
     }
 }

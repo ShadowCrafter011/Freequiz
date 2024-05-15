@@ -1,21 +1,15 @@
-<div class="container text-center">
-    <div class="d-flex justify-content-center">
-        <h1 class="rounded-pill py-1 px-3 my-4 bg-<%= color(@transaction.amount) %> border-<%= color(@transaction.amount) %>">
-            <%= "+" if @transaction.amount > 0 %><%= @transaction.amount %>
-        </h1>
-    </div>
+<h1 class="<%= @transaction.color %>"><%= "+" if @transaction.amount.positive? %><%= @transaction.amount %></h1>
+<h4>Created by <%= @transaction.user.present? ? @transaction.user.username : "Deleted" %> <%= distance_of_time_in_words_to_now(@transaction.created_at, locale: :en) %> ago</h4>
+<h4><%= @transaction.description %></h4>
 
-    <h4 class="mb-2">Created by: <%= @transaction.user.present? ? @transaction.user.username : "Deleted" %></h4>
-    <div class="fs-5">
-        <%= @transaction.description %>
-    </div>
+<div class="flex">
     <% unless @transaction.removed %>
-        <%= link_to "Remove", admin_delete_transaction_path, class: "btn btn-secondary", data: {
+        <%= link_to "Remove", admin_delete_transaction_path, class: "btn-secondary grow", data: {
             turbo_method: :delete,
             turbo_confirm: "Are you sure?"
         } %>
     <% else %>
-        <%= link_to "Add back", admin_restore_transaction_path, class: "btn btn-secondary", data: {
+        <%= link_to "Add back", admin_restore_transaction_path, class: "btn-secondary grow", data: {
             turbo_method: :patch,
             turbo_confirm: "Are you sure?"
         } %>

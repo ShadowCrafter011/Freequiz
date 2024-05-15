@@ -11,4 +11,22 @@ class Transaction < ApplicationRecord
         end
         total
     end
+
+    def color
+        Transaction.number_color amount
+    end
+
+    def self.color
+        Transaction.number_color Transaction.total
+    end
+
+    def self.number_color(num)
+        if num.positive?
+            "text-green-600"
+        elsif num.negative?
+            "text-red-600"
+        else
+            "text-black"
+        end
+    end
 end

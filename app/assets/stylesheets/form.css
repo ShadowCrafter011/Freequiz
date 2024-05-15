@@ -3,6 +3,12 @@
         @apply my-2 flex flex-col items-center;
     }
 
+    input[type="number"].no-number-input-controls::-webkit-inner-spin-button,
+    input[type="number"].no-number-input-controls::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
     .text-field-container {
         @apply flex w-full max-w-96 border-b border-teal-700;
     }

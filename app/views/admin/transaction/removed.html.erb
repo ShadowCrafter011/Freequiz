@@ -1,9 +1,10 @@
-<div class="container text-center">
-    <h1 class="my-4">Removed Transactions</h1>
-    <%= link_to "Back to Transactions", admin_transactions_path, class: "btn btn-secondary" %>
-    <div>
-        <% for transaction in @transactions do %>
-            <%= render partial: "transaction", locals: { transaction: transaction } %>
-        <% end %>
-    </div>
+<h1>Removed Transactions</h1>
+<div class="flex mb-2">
+    <%= link_to "Back to Transactions", admin_transactions_path, class: "grow btn-secondary" %>
+</div>
+
+<div class="mt-2 flex flex-col gap-2">
+    <% @transactions.each do |transaction| %>
+        <%= render partial: "transaction", locals: { transaction: } %>
+    <% end %>
 </div>
