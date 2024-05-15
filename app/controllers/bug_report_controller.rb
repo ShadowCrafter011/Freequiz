@@ -1,5 +1,6 @@
 class BugReportController < ApplicationController
     before_action :require_admin!, except: :create
+    before_action :require_login!
     before_action { setup_locale "bug_report" }
 
     before_action only: %i[show status] do
@@ -8,14 +9,7 @@ class BugReportController < ApplicationController
     end
 
     def create
-        report =
-            (
-                if current_user.present?
-                    current_user.bug_reports.new(bug_report_params)
-                else
-                    BugReport.new(bug_report_params)
-                end
-            )
+        report = current_user.bug_reports.new(bug_report_params)
         if report.save
             flash.notice = tp("bug_report_created")
         else
