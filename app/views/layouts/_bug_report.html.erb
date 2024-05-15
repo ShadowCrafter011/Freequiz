@@ -32,7 +32,7 @@
                     </div>
                     <div class="flex gap-2 items-center border-b-2 border-teal-700 pb-1">
                         <%= form.label :url, t("layouts.application.url"), class: "text-xl font-bold" %>
-                        <%= form.text_field :url, placeholder: t("layouts.application.url_placeholder"), class: "text-field" %>
+                        <%= form.text_field :url, value: request.original_url, placeholder: t("layouts.application.url_placeholder"), class: "text-field" %>
                     </div>
                     <div class="flex gap-2 items-baseline border-b-2 border-teal-700 pb-1">
                         <%= form.label :body, t("layouts.application.body"), class: "text-xl font-bold" %>

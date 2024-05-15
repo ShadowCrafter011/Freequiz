@@ -13,7 +13,7 @@
         <%= link_to bug_path(bug_report), class: "rounded border border-gray-300 p-2 flex justify-between items-center text-black hover:text-white bg-gray-50 hover:bg-blue-600" do %>
             <div class="flex items-center gap-2">
                 <span class="font-bold"><%= bug_report.status.capitalize %></span>
-                <span><%= bug_report.title %></span>
+                <span><%= bug_report.get_title %></span>
             </div>
             <span>Created <%= distance_of_time_in_words_to_now(bug_report.created_at, locale: :en) %> ago</span>
         <% end %>

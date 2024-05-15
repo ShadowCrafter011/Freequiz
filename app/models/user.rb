@@ -179,4 +179,8 @@ class User < ApplicationRecord
     def get_errors
         errors.full_messages
     end
+
+    def bugs_smashed
+        bug_reports.where(status: "solved").count
+    end
 end
