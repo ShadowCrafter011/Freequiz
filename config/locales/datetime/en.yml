@@ -30,7 +30,7 @@ en:
         one: "%{count} minute"
         other: "%{count} minutes"
       x_days:
-        one: "%{count} Tag"
+        one: "%{count} day"
         other: "%{count} days"
       x_months:
         one: "%{count} month"

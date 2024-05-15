@@ -1,26 +1,13 @@
-<div class="form-group">
-    <div class="container">
-        <div class="text-center">
-            <h1>Send E-mail</h1>
-            <h4>Send an E-mail to the user <%= @user.username %> (<%= @user.email %>)</h4>
+<h1>Send E-mail</h1>
+<h4>Send an E-mail to the user <%= @user.username %> (<%= @user.email %>)</h4>
+
+<%= form_with url: admin_user_send_email_path(@user.username) do |form| %>
+    <div class="flex flex-col gap-2">
+        <div class="flex rounded border border-gray-300 divide-x divide-gray-300">
+            <%= form.label :subject, "Subject", class: "p-2 rounded-s bg-gray-100" %>
+            <%= form.text_field :subject, class: "grow rounded-e border-0 border-s focus:ring-0" %>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <%= form_with url: admin_user_send_email_path(@user.username) do |form| %>
-                    <div>
-                        <%= form.label :subject, "Subject", class: "fs-4" %>
-                        <%= form.text_field :subject, autocomplete: "off", class: "form-control" %>
-                    </div>
-                    <div>
-                        <%= form.label :body, "Body", class: "fs-4" %>
-                        <%= form.text_area :body, autocomplete: "off", class: "form-control", style: "height: 200px" %>
-                    </div>
-                    <br>
-                    <div class="d-flex justify-content-center">
-                        <%= form.submit value: "Send", class: "btn btn-success btn-lg", style: "width: 100px;" %>
-                    </div>
-                <% end %>
-            </div>
-        </div>
+        <%= form.text_area :body, placeholder: "E-mail body", rows: 10, class: "rounded border-gray-300 focus:ring-teal-700 focus:border-teal-700" %>
+        <%= form.submit "Send", class: "btn-success text-lg" %>
     </div>
-</div>
+<% end %>

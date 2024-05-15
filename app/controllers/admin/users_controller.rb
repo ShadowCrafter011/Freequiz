@@ -2,6 +2,21 @@ class Admin::UsersController < ApplicationController
     before_action :require_admin!
 
     def index
+        @sort_criteria = [
+            ["Date created", "created_at"],
+            ["Date updated", "updated_at"],
+            ["Date confirmed", "confirmed_at"],
+            ["Last login", "last_sign_in_at"]
+        ]
+        @order_criteria = [
+            %w[Descending DESC],
+            %w[Ascending ASC]
+        ]
+        @property_criteria = [
+            %w[Username username],
+            ["E-mail Address", "email"]
+        ]
+
         return(@users = User.order(created_at: :desc)) unless params.key? :commit
 
         if params[:type].present? && params[:type] == "query"

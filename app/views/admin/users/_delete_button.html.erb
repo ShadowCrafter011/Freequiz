@@ -1,1 +1,1 @@
-<%= button_to "Delete", admin_user_delete_path(username: user.username, destroy_token: token), method: :delete, class: "btn btn-danger btn-md delete-btn", data: { admin__destroy_user_target: "button", action: "admin--destroy-user#click" } %>
+<%= button_to "Delete", admin_user_delete_path(username: user.username, destroy_token: token), method: :delete, class: "btn-danger", data: { admin__destroy_user_target: "button", action: "admin--destroy-user#click" } %>

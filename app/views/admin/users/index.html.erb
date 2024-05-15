@@ -1,51 +1,41 @@
-<div class="container mt-3" style="max-width: 1000px;">
-    <p>
-        <div class="form-group">
-            <%= form_with method: :get do |form| %>
-                <%= form.text_field :type, value: "query", hidden: true %>
-
-                <div class="row">
-                    <div class="col-5">
-                        <div class="input-group">
-                            <% sort_criteria = [
-                                ["Date created", "created_at"],
-                                ["Date updated", "updated_at"],
-                                ["Date confirmed", "confirmed_at"],
-                                ["Last login", "last_sign_in_at"]
-                            ] %>
-                            <% order_criteria = [
-                                ["Descending", "DESC"],
-                                ["Ascending", "ASC"]
-                            ] %>
-                            <%= form.label :sort, "Sort by", class: "input-group-text" %>
-                            <%= form.select :order, options_for_select(order_criteria, selected: params[:order]), {}, { class: "form-select" } %>
-                            <%= form.select :sort, options_for_select(sort_criteria, params[:sort]), {}, { class: "form-select" } %>
-
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="input-group">
-                            <% search_criteria = [
-                                ["Username", "username"],
-                                ["E-mail Address", "email"]
-                            ] %>
-                            <%= form.label :query, "Query", class: "input-group-text" %>
-                            <%= form.select :property, options_for_select(search_criteria, params[:property]), {}, {class: "form-select"} %>
-                            <%= form.text_field :query, value: params[:query], autocomplete: "admin_user_query", class: "form-control" %>
-                        </div>
-                    </div>
-
-                    <div class="col-1 p-0">
-                        <%= form.submit value: "Search", class: "btn btn-primary" %>
-                    </div>
-                </div>
-            <% end %>
+<%= form_with method: :get do  |form| %>
+    <%= form.text_field :type, value: "query", hidden: true %>
+    <div class="flex flex-col min-[1024px]:flex-row gap-2">
+        <div class="shrink flex rounded border border-gray-300 divide-x divide-gray-300">
+            <div class="p-2 bg-gray-100 rounded-s">Sort by</div>
+            <%= form.select :sort, @sort_criteria, { selected: params[:sort] }, { class: "grow border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer" } %>
+            <%= form.select :order, @order_criteria, { selected: params[:order] }, { class: "grow rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer" } %>
         </div>
-    </p>
+        <div class="grow flex rounded border border-gray-300 divide-x divide-gray-300">
+            <div class="p-2 bg-gray-100 rounded-s">Query</div>
+            <%= form.select :property, @property_criteria, { selected: params[:property] }, { class: "rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer" } %>
+            <%= form.text_field :query, value: params[:query], class: "grow rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 overflow-hidden" %>
+        </div>
+        <%= form.submit "Search", class: "btn-primary text-lg" %>
+    </div>
+<% end %>
 
-    <div id="admin_user_cards">
-        <% @users.each do |user| %>
-            <%= render partial: "user_card", locals: {user: user} %>
+<div class="mt-5 flex flex-col gap-2">
+    <% @users.each do |user| %>
+        <%= link_to admin_user_edit_path(user.username), class: "rounded border border-gray-300 p-2 text-black hover:text-black bg-gray-50 hover:bg-gray-100 cursor-pointer sm:flex justify-between" do %>
+            <div class="flex flex-col">
+                <strong><%= user.username %></strong>
+                <div><%= user.email %></div>
+                <div>Role: <%= tg("roles.#{user.role}", locale: :en) %></div>
+                <div class="flex gap-5">
+                    <div><%= pluralize user.quizzes.count, "Quiz", locale: :en %></div>
+                    <div><%= pluralize user.bugs_smashed, "Bug", locale: :en %> smashed</div>
+                </div>
+            </div>
+            <div class="flex flex-col items-end">
+                <div>Created <%= distance_of_time_in_words_to_now(user.created_at, locale: :en) %> ago</div>
+                <% if user.last_sign_in_at.present? %>
+                    <div>Last logged in <%= distance_of_time_in_words_to_now(user.last_sign_in_at, locale: :en) %> ago</div>
+                <% end %>
+                <% if user.confirmed? %>
+                    <div>Confirmed <%= distance_of_time_in_words_to_now(user.confirmed_at, locale: :en) %> ago</div>
+                <% end %>
+            </div>
         <% end %>
+    <% end %>
 </div>
