@@ -1,21 +1,18 @@
-<div class="d-flex justify-content-center mt-3">
-    <div class="text-center">
-        
-        <% request_new = tp("request_new", link_to(tp("here"), user_verification_send_path), html_safe: true) %>
-        <% if @user.verified? %>
-            <h1><%= tp("success") %></h1>
-            <h3><%= tp("can_leave") %></h3>
+<div class="flex flex-col items-center mt-3">       
+    <% request_new = link_to tp("request_new"), user_verification_send_path %>
+    <% if @user.verified? %>
+        <h1><%= tp("success") %></h1>
+        <h3><%= tp("can_leave") %></h3>
 
-        <% elsif params[:expired].present? %>
-            <h1><%= tp("expired") %></h1>
-            <h3><%= request_new %></h3>
+    <% elsif params[:expired].present? %>
+        <h1><%= tp("expired") %></h1>
+        <h3><%= request_new %></h3>
 
-        <% else %>
-            <h1><%= tp("wrong") %></h1>
-            <h3><%= request_new %></h3>
+    <% else %>
+        <h1><%= tp("wrong") %></h1>
+        <h3><%= request_new %></h3>
 
-        <% end %>
+    <% end %>
 
-        <%= image_tag "freequiz/freequiz_logo_big.png", height: "300vh", class: "mt-3" %>
-    </div>
+    <%= image_tag "freequiz/freequiz_logo_big.png", class: "mt-3 h-96" %>
 </div>
