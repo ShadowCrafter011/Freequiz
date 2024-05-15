@@ -16,11 +16,14 @@ fr:
       submit_search: Rechercher
       search_error: Ce champ doit être rempli
       bug_report: Signaler un bug
-
       title_form: Titre
       title_placeholder: Résumer le bug en quelques mots
       url: URL
       url_placeholder: L'URL où le bug est apparu
-      bug_description: "Décrire le bug de manière plus détaillée\n\n\nÉtapes pour reproduire le bug\n\n"
+      bug_description: Décrire le bug de manière plus détaillée
       platform: Plate-forme
       platform_placeholder: Plateforme (par ex. IOS, Windows)
+      body: Description
+      body_placeholder: Veuillez décrire le bug plus précisément
+      steps: Reproduire
+      steps_placeholder: Veuillez décrire comment nous pouvons signaler le bug.

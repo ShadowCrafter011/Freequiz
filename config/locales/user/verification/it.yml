@@ -8,12 +8,12 @@ it:
         click_link: Cliccate sul link contenuto in questa e-mail per confermare il vostro account.
         expires: Il link scadrà il %s
         expired: Il link inviato al vostro indirizzo e-mail è scaduto.
-        get_new: È possibile richiederne uno nuovo
         link: qui
+        get_new: Richiedi un nuovo link
       success:
         success: L'indirizzo e-mail è stato confermato con successo
         can_leave: Ora è possibile lasciare questa pagina
         expired: Questo link non è più valido
         here: qui
-        request_new: È possibile richiederne uno nuovo
         wrong: Qualcosa è andato storto. Sembra che questo link non sia valido.
+        request_new: Richiedi un nuovo link

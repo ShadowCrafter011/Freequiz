@@ -16,11 +16,14 @@ en:
       submit_search: Search
       search_error: This field must be filled in
       bug_report: Report bug
-
       title_form: Title
       title_placeholder: Sum up the bug in a few words
       url: URL
       url_placeholder: The URL where the bug occurred
-      bug_description: "Describe bug in more detail\n\n\nSteps to reproduce bug\n\n"
+      bug_description: Describe bug in more detail
       platform: Platform
       platform_placeholder: Platform (e.g. IOS, Windows)
+      body: Description of the
+      body_placeholder: Please describe the bug in more detail
+      steps: Reproduce
+      steps_placeholder: Please describe how we can report the bug

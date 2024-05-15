@@ -8,12 +8,12 @@ en:
         click_link: Please click on the link in this e-mail to confirm your account.
         expires: The link will expire on %s
         expired: The link that was sent to your e-mail address has been lost.
-        get_new: You can %s request a new one
         link: here
+        get_new: Request a new link
       success:
         success: E-mail address has been successfully confirmed
         can_leave: You can now leave this page
         expired: This link is no longer valid
         here: here
-        request_new: You can %s request a new one
         wrong: Something has gone wrong. It seems that this link is not valid.
+        request_new: Request a new link

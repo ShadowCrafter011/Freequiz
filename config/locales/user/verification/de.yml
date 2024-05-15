@@ -8,7 +8,7 @@ de:
         click_link: Bitte klicken sie auf den Link in dieser E-mail um ihr Konto zu bestätigen
         expires: Der Link wird am %s ablaufen
         expired: Der Link, der zu ihrere E-mail Adresse geschickt wurde, ist abgeloffen
-        get_new: Sie können %s einen neuen anfordern
+        get_new: Einen neuen Link anfordern
         link: hier
 
       success:
@@ -16,5 +16,5 @@ de:
         can_leave: Sie können nun diese Seite verlassen
         expired: Dieser Link ist nicht mehr gültig
         here: hier
-        request_new: Sie können %s einen neuen anfordern
+        request_new: Einen neuen Link anfordern
         wrong: Etwas ist schief geloffen. Es scheint, dass dieser Link nicht gültig ist
