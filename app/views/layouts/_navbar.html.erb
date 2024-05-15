@@ -76,8 +76,9 @@
                                 <% if user_admin? %>
                                     <%= link_to "Users", admin_users_path, class: "nav-link" %>
                                     <%= link_to "Transactions", admin_transactions_path, class: "nav-link" %>
-                                    <%= link_to "API docs", api_docs_path, class: "nav-link" %>
-                                    <%= link_to "Bugs (#{BugReport.where(status: :new).count})", bugs_path(category: :new), class: "nav-link" %>
+                                    <%= link_to "API Docs", api_docs_path, class: "nav-link" %>
+                                    <%= link_to "Bug Triage (#{BugReport.where(status: :new).count})", bug_triage_path, class: "nav-link" %>
+                                    <%= link_to "Bug List", bugs_path, class: "nav-link" %>
                                     <hr>
                                 <% end %>
                                 <%= link_to t("layouts.application.logout"), user_logout_path, class: "nav-link" %>

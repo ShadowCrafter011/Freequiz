@@ -24,6 +24,24 @@ class BugReportController < ApplicationController
         redirect_to bug_report_params[:created_from]
     end
 
+    def triage
+        triage_bug = BugReport.where(status: :new).order(created_at: :asc).first
+        redirect_to bug_triage_show_path(triage_bug) if triage_bug.present?
+    end
+
+    def triage_show
+        @triage_bug = BugReport.find(params[:bug_report_id])
+        redirect_to bug_triage_path unless @triage_bug.present?
+    end
+
+    def triage_verdict
+        triage_bug = BugReport.find(params[:bug_report_id])
+        return redirect_to bug_triage_path unless triage_bug.present?
+
+        triage_bug.update status_params
+        redirect_to bug_triage_path
+    end
+
     def list
         @category = params[:category] || "all"
         @category = BugReport::STATUSES.include?(@category) ? @category : "all"
