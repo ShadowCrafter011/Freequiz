@@ -1,19 +1,19 @@
 <%= render layout: "api_navbar" do %>
-    <div id="create" class="section">
-        <h1>Create Bug report</h1>
+    <div>
+        <h1 class="text-start">Create Bug report</h1>
         <p>
             <a href="https://freequiz.ch/api/bug/create">https://freequiz.ch/api/bug/create</a>
         </p>
         <p>
-            <h3>Request method: PUT</h3>
+            <h3 class="text-start">Request method: PUT</h3>
         </p>
         <p>
-            <h3>Authorization</h3>
+            <h3 class="text-start">Authorization</h3>
             No valid Access-token header is required
         </p>
         <p>
-            <h3>Content</h3>
-<pre><code class="lang-json" data-controller="prism" data-controller="prism">{
+            <h3 class="text-start">Content</h3>
+<pre><code class="lang-json" data-controller="admin--prism">{
     "bug_report": {
         "title": "title",
         "body": "body",
@@ -24,19 +24,19 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 201
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "Bug report created"
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li>
                     <strong>Invalid fields (record.invalid)</strong>: Code 422, "Could not create bug report", title or body are either to short or missing
-                    <pre><code class="lang-json" data-controller="prism">{
+                    <pre><code class="lang-json" data-controller="admin--prism">{
     "success": false,
     "token": "record.invalid",
     "errors": {

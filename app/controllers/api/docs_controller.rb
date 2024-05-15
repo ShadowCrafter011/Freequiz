@@ -1,5 +1,5 @@
 class Api::DocsController < ApplicationController
-    before_action :require_admin!
+    before_action :require_admin!, -> { @no_container = true }
 
     def index; end
 

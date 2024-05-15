@@ -1,20 +1,20 @@
 <%= render layout: "api_navbar" do %>
-    <div id="languages">
-        <h1>Get language list</h1>
+    <div>
+        <h1 class="text-start">Get language list</h1>
         <p>
             <a href="https://freequiz.ch/api/languages">https://freequiz.ch/api/languages</a>
         </p>
         <p>
-            <h3>Request method: GET</h3>
+            <h3 class="text-start">Request method: GET</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "data": {
         "1": {
@@ -30,7 +30,7 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>

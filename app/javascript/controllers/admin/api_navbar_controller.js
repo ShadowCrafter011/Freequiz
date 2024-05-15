@@ -3,48 +3,52 @@ import "jquery-most-visible";
 
 // Connects to data-controller="admin--api-navbar"
 export default class extends Controller {
-    static targets = ["link", "actionName"];
+    static targets = ["link"];
 
     connect() {
-        this.activate_and_set_scroll(location.hash);
+        this.activate_links(location.hash);
         $(window).on("hashchange", (e) => {
-            let new_anchor = e.originalEvent.newURL.split("#")[1];
-            this.activate_and_set_scroll(`#${new_anchor}`);
+            let split = e.originalEvent.newURL.split("#");
+            let new_anchor = split[1];
+            this.activate_links(`#${new_anchor}`);
         });
-        var self = this;
-        setTimeout(function () {
-            $(document).on("scroll", () => self.handle_scroll(self));
-        }, 100);
+        this.document = $(document);
+        this.document.on("scroll", this.handle_scroll.bind(this));
     }
 
-    handle_scroll(self) {
-        let most_visible = $(".section").mostVisible();
-        self.activate_links(`#${most_visible.attr("id")}`);
-        history.pushState(null, "", `#${most_visible.attr("id")}`);
+    disconnect() {
+        this.document.off("scroll");
     }
 
-    activate_and_set_scroll(anchor) {
-        this.activate_links(anchor);
-        if (anchor && this.sub_section?.offset()?.top) {
-            window.scrollTo(0, this.sub_section.offset().top);
+    handle_scroll() {
+        let most_visible = $('[data-section="true"]').mostVisible();
+        let most_visible_id = `#${most_visible.attr("id")}`;
+
+        if (most_visible_id == "#undefined") return;
+
+        if (most_visible_id != location.hash) {
+            this.activate_links(most_visible_id);
+            history.pushState(null, "", most_visible_id);
         }
     }
 
     activate_links(anchor) {
-        $(this.linkTargets).removeClass("active");
+        $(this.linkTargets).removeClass(
+            "underline text-blue-800 hover:text-blue-800",
+        );
 
-        this.section_name = $(this.actionNameTarget).text();
+        this.section_name = $(this.element).data("action-name");
         this.main_link = $(`[data-id='${this.section_name}']`);
-        this.main_link.addClass("active");
+        this.main_link.addClass("underline text-blue-800 hover:text-blue-800");
 
         if (anchor) {
-            this.sub_section = $(anchor);
-            this.sub_link = $(
-                `div[data-section='${
-                    this.section_name
-                }'] a[data-id='${anchor.replace("#", "")}']`,
+            let anchor_no_hash = anchor.replace("#", "");
+            this.sub_section = $(
+                `[data-subsection="${this.section_name}.${anchor_no_hash}"]`,
             );
-            this.sub_link.addClass("active");
+            this.sub_section.addClass(
+                "underline text-blue-800 hover:text-blue-800",
+            );
         }
     }
 }

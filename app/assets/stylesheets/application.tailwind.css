@@ -4,6 +4,8 @@
 @import "form";
 @import "switch";
 
+@import "prism";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

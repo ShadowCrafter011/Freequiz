@@ -1,15 +1,15 @@
 <%= render layout: "api_navbar" do %>
-    <div id="create" class="section">
-        <h1>Create</h1>
+    <div id="create" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Create</h1>
         <p>
             <a href="https://freequiz.ch/api/user/create">https://freequiz.ch/api/user/create</a>
         </p>
         <p>
-            <h3>Request method: PUT</h3>
+            <h3 class="text-start">Request method: PUT</h3>
         </p>
         <p>
-            <h3>Content</h3>
-<pre><code class="lang-json" data-controller="prism">{  
+            <h3 class="text-start">Content</h3>
+<pre><code class="lang-json" data-controller="admin--prism">{  
     "user": {
         "username": "username",
         "email": "email",
@@ -20,20 +20,20 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 201
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "User created",
     "access_token": "access_token"
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li>
                     <strong>Missing fields (fields.missing)</strong>: Code 400, "Missing username, email, password, password_confirmation or agb"
-                    <pre><code class="lang-json" data-controller="prism">{
+                    <pre><code class="lang-json" data-controller="admin--prism">{
     "success": false,
     "token": "fields.missing",
     "message": "Missing username, email, password, password_confirmation or agb"
@@ -41,7 +41,7 @@
                 </li>
                 <li>
                     <strong>Password requirements (password.invalid)</strong>: Code 400, "Password doesn't meet requirements"
-                    <pre><code class="lang-json" data-controller="prism">{
+                    <pre><code class="lang-json" data-controller="admin--prism">{
     "success": false,
     "token": "password.invalid",
     "message": "Password doesn't meet requirements"
@@ -49,7 +49,7 @@
                 </li>
                 <li>
                     <strong>User couldn't be saved (record.invalid)</strong>: Code 400, "Something went wrong whilst creating the user", more info in "errors"
-                    <pre><code class="lang-json" data-controller="prism">{
+                    <pre><code class="lang-json" data-controller="admin--prism">{
     "success": false,
     "token": "record.invalid",
     "errors": {
@@ -70,8 +70,8 @@
     </div>
     <hr>
 
-        <div id="exists" class="section">
-        <h1>Exists</h1>
+        <div id="exists" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Exists</h1>
         <p>
             <a href="https://freequiz.ch/api/user/exists/col/query">https://freequiz.ch/api/user/exists/col/query</a>
             <br>
@@ -80,82 +80,82 @@
             Replace <code>query</code> with the value you would like to check
         </p>
         <p>
-            <h3>Request method: GET</h3>
+            <h3 class="text-start">Request method: GET</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-            <pre><code class="lang-json" data-controller="prism">{
+            <pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "exists": true
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
     <hr>
 
-    <div id="delete_token" class="section">
-        <h1>Delete Token</h1>
+    <div id="delete_token" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Delete Token</h1>
         <p>
             <a href="https://freequiz.ch/api/user/delete_token">https://freequiz.ch/api/user/delete_token</a>
         </p>
         <p>
-            <h3>Request method: GET</h3>
+            <h3 class="text-start">Request method: GET</h3>
         </p>
         <p>
-            <h3>Authorization</h3>
+            <h3 class="text-start">Authorization</h3>
             Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "token": "delete_token",
     "expire": 1671044638
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
     <hr>
 
-    <div id="delete" class="section">
-        <h1>Delete</h1>
+    <div id="delete" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Delete</h1>
         <p>
             <a href="https://freequiz.ch/api/user/delete/delete_token">https://freequiz.ch/api/user/delete/delete_token</a><br>
             Replace delete_token with token gotten by <a href="#delete_token">this request</a>
         </p>
         <p>
-            <h3>Request method: DELETE</h3>
+            <h3 class="text-start">Request method: DELETE</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "User deleted"
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Wrong token (token.invalid)</strong>: Code 401, "Couldn't delete user. Wrong token", token is either invalid or expired</li>
             </ul>
@@ -163,31 +163,31 @@
     </div>
     <hr>
 
-    <div id="login" class="section">
-        <h1>Login</h1>
+    <div id="login" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Login</h1>
         <p>
             <a href="https://freequiz.ch/api/user/login">https://freequiz.ch/api/user/login</a><br>
         </p>
         <p>
-            <h3>Request method: POST</h3>
+            <h3 class="text-start">Request method: POST</h3>
         </p>
         <p>
-            <h3>Content</h3>
-<pre><code class="lang-json" data-controller="prism">{
+            <h3 class="text-start">Content</h3>
+<pre><code class="lang-json" data-controller="admin--prism">{
     "username": "username", 
     "password": "password"
 }</code></pre>
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "access_token": "access_token"
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Missing fields (fields.missing)</strong>: Code 400, "Missing username or password"</li>
                 <li><strong>User not found (user.notfound)</strong>: Code 404, "User doesn't exist"</li>
@@ -195,63 +195,63 @@
             </ul>
         </p>
         <p>
-            <h3>Expiration</h3>
+            <h3 class="text-start">Expiration</h3>
             Access token expire after one year. They can and should be <a href="#refresh">refreshed</a> every time the user starts the app.
         </p>
     </div>
     <hr>
 
-    <div id="refresh" class="section">
-        <h1>Refresh</h1>
+    <div id="refresh" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Refresh</h1>
         <p>
             <a href="https://freequiz.ch/api/user/refresh">https://freequiz.ch/api/user/refresh</a><br>
         </p>
         <p>
-            <h3>Request method: POST</h3>
+            <h3 class="text-start">Request method: POST</h3>
         </p>
         <p>
-            <h3>Authorization</h3>
+            <h3 class="text-start">Authorization</h3>
             Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "access_token": "access_token"
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
     <hr>
 
-    <div id="data" class="section">
-        <h1>Data</h1>
+    <div id="data" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Data</h1>
         <p>
             <a href="https://freequiz.ch/api/user/data">https://freequiz.ch/api/user/data</a><br>
         </p>
         <p>
-            <h3>Request method: GET</h3>
+            <h3 class="text-start">Request method: GET</h3>
         </p>
         <p>
-            <h3>Authorization</h3>
+            <h3 class="text-start">Authorization</h3>
             Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "data": {
         "username": "username",
@@ -281,30 +281,30 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
     <hr>
 
-    <div id="search" class="section">
-        <h1>Search</h1>
+    <div id="search" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Search</h1>
         <p>
             <a href="https://freequiz.ch/api/user/search/page?query=username">https://freequiz.ch/api/user/search/page?query=username</a><br>
             Replace page with desired page. If omitted page 1 will be used. Returns 50 users per page<br>
             Replace username with username you are looking for
         </p>
         <p>
-            <h3>Request method: GET</h3>
+            <h3 class="text-start">Request method: GET</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "data": [{
             "username": "username",
@@ -325,29 +325,29 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
     <hr>
 
-    <div id="user_quizzes" class="section">
-        <h1>Quizzes</h1>
+    <div id="user_quizzes" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Quizzes</h1>
         <p>
             <a href="https://freequiz.ch/api/user/quizzes/page">https://freequiz.ch/api/user/quizzes/page</a><br>
             Replace page with desired page. If omitted page 1 will be used. Returns 50 quizzes per page
         </p>
         <p>
-            <h3>Request method: GET</h3>
+            <h3 class="text-start">Request method: GET</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "data": [{
             "title": "title",
@@ -365,30 +365,30 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
     <hr>
 
-    <div id="public" class="section">
-        <h1>Public</h1>
+    <div id="public" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Public</h1>
         <p>
             <a href="https://freequiz.ch/api/user/username/public/page">https://freequiz.ch/api/user/username/public/page</a><br>
             Replace username with the targetted users one<br>
             Replace page with desired page. If omitted page 1 will be used. Returns 50 quizzes per page
         </p>
         <p>
-            <h3>Request method: GET</h3>
+            <h3 class="text-start">Request method: GET</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "data": [{
             "title": "title",
@@ -406,7 +406,7 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Not found (user.notfound)</strong>: Code 404, "User doesn't exist"</li>
             </ul>
@@ -414,21 +414,21 @@
     </div>
     <hr>
 
-    <div id="update" class="section">
-        <h1>Update</h1>
+    <div id="update" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Update</h1>
         <p>
             <a href="https://freequiz.ch/api/user/update">https://freequiz.ch/api/user/update</a><br>
         </p>
         <p>
-            <h3>Request method: PATCH</h3>
+            <h3 class="text-start">Request method: PATCH</h3>
         </p>
         <p>
-            <h3>Authorization</h3>
+            <h3 class="text-start">Authorization</h3>
             Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
         </p>
         <p>
-            <h3>Content</h3>
-<pre><code class="lang-json" data-controller="prism">{
+            <h3 class="text-start">Content</h3>
+<pre><code class="lang-json" data-controller="admin--prism">{
     "user": {
         "username": "username",
         "email": "email",
@@ -440,21 +440,21 @@
             Not all parameters have to be sent if the user didn't update them. Only password, password_confirmation and old_password must be sent together.
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 202
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "User updated",
     "email_changed": false
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Password requirements (password.invalid)</strong>: Code 400, "Password doesn't meet requirements"</li>
                 <li>
                     <strong>User couldn't be saved (record.invalid)</strong>: Code 400, "Something went wrong whilst updating the user", more info in "errors"
-                    <pre><code class="lang-json" data-controller="prism">{
+                    <pre><code class="lang-json" data-controller="admin--prism">{
     "success": false,
     "token": "record.invalid",
     "errors": {
@@ -475,21 +475,21 @@
     </div>
     <hr>
 
-    <div id="settings" class="section mb-5">
-        <h1>Settings</h1>
+    <div id="settings" class="pt-16 -mt-16 mb-5" data-section="true">
+        <h1 class="text-start">Settings</h1>
         <p>
             <a href="https://freequiz.ch/api/user/settings">https://freequiz.ch/api/user/settings</a><br>
         </p>
         <p>
-            <h3>Request method: PATCH</h3>
+            <h3 class="text-start">Request method: PATCH</h3>
         </p>
         <p>
-            <h3>Authorization</h3>
+            <h3 class="text-start">Authorization</h3>
             Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
         </p>
         <p>
-            <h3>Content</h3>
-<pre><code class="lang-json" data-controller="prism">{
+            <h3 class="text-start">Content</h3>
+<pre><code class="lang-json" data-controller="admin--prism">{
     "setting": {
         "locale": "de",
         "dark_mode": true,
@@ -499,19 +499,19 @@
             Not all the parameters need to be present
         </p>
         <p>
-            <h3>Locale</h3>
+            <h3 class="text-start">Locale</h3>
             Locale can be "de", "fr", "it" or "en"
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 202
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "Settings updated"
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Settings couldn't be saved (record.invalid)</strong>: Code 400, "Something went wrong whilst saving the settings", more info in "errors"</li>
             </ul>

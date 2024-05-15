@@ -1,15 +1,15 @@
 <%= render layout: "api_navbar" do %>
-    <div id="create" class="section">
-        <h1>Create</h1>
+    <div id="create" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Create</h1>
         <p>
             <a href="https://freequiz.ch/api/quiz/create">https://freequiz.ch/api/quiz/create</a>
         </p>
         <p>
-            <h3>Request method: PUT</h3>
+            <h3 class="text-start">Request method: PUT</h3>
         </p>
         <p>
-            <h3>Content</h3>
-<pre><code class="lang-json" data-controller="prism">{
+            <h3 class="text-start">Content</h3>
+<pre><code class="lang-json" data-controller="admin--prism">{
     "quiz": {
   	    "title": "title",
         "description": "description",
@@ -24,9 +24,9 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 201
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "Quiz created",
     "quiz_data": {
@@ -71,7 +71,7 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Missing fields (fields.missing)</strong>: Code 400, "Missing title, description, from, to or visibility"</li>
                 <li><strong>Requirements not met (record.invalid)</strong>: Code 400, "Some parameters don't meet requirements"</li>
@@ -82,30 +82,30 @@
     </div>
     <hr>
 
-    <div id="delete_token" class="section">
-        <h1>Delete Token</h1>
+    <div id="delete_token" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Delete Token</h1>
         <p>
             <a href="https://freequiz.ch/api/quiz/quiz_id/delete_token">https://freequiz.ch/api/quiz/quiz_id/delete_token</a><br>
             Replace quiz_id with the ID of the Quiz to be deleted
         </p>
         <p>
-            <h3>Request method: GET</h3>
+            <h3 class="text-start">Request method: GET</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "token": "delete_token",
     "expire": 1673811699
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Quiz not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
                 <li><strong>Not allowed (user.notallowed)</strong>: Code 401, "User is not allowed to manage this Quiz"</li>
@@ -114,30 +114,30 @@
     </div>
     <hr>
 
-    <div id="delete" class="section">
-        <h1>Delete</h1>
+    <div id="delete" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Delete</h1>
         <p>
             <a href="https://freequiz.ch/api/quiz/quiz_id/delete/delete_token">https://freequiz.ch/api/quiz/quiz_id/delete/delete_token</a><br>
             Replace quiz_id with the ID of the Quiz to be deleted<br>
             Replace delete_token with token gotten by <a href="#delete_token">this request</a>
         </p>
         <p>
-            <h3>Request method: DELETE</h3>
+            <h3 class="text-start">Request method: DELETE</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "Quiz deleted"
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Quiz not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
                 <li><strong>Not allowed (user.notallowed)</strong>: Code 401, "User is not allowed to manage this Quiz"</li>
@@ -147,23 +147,23 @@
         </p>
     </div>
 
-    <div id="data" class="section">
-        <h1>Data</h1>
+    <div id="data" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Data</h1>
         <p>
             <a href="https://freequiz.ch/api/quiz/quiz_id/data">https://freequiz.ch/api/quiz/quiz_id/data</a><br>
             Replace quiz_id with the ID of the target Quiz
         </p>
         <p>
-            <h3>Request method: GET</h3>
+            <h3 class="text-start">Request method: GET</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "quiz_data": {
         "id": "id",
@@ -209,7 +209,7 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
                 <li><strong>Not allowed (user.notallowed)</strong>: Code 401, "User is not allowed to view Quiz"</li>
@@ -218,24 +218,24 @@
     </div>
     <hr>
 
-<div id="search" class="section">
-        <h1>Search</h1>
+<div id="search" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Search</h1>
         <p>
             <a href="https://freequiz.ch/api/quiz/search/page?query=title">https://freequiz.ch/api/quiz/search/page?query=title</a><br>
             Replace page with desired page. If omitted page 1 will be used. Returns 50 users per page<br>
             Replace title with quiz title you are looking for
         </p>
         <p>
-            <h3>Request method: GET</h3>
+            <h3 class="text-start">Request method: GET</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 200
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "data": [{
             "id": "id",
@@ -275,24 +275,24 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
         </p>
     </div>
     <hr>
 
-    <div id="update" class="section">
-        <h1>Update</h1>
+    <div id="update" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Update</h1>
         <p>
             <a href="https://freequiz.ch/api/quiz/quiz_id/update">https://freequiz.ch/api/quiz/quiz_id/update</a><br>
             Replace quiz_id with the ID of the target Quiz
         </p>
         <p>
-            <h3>Request method: PATCH</h3>
+            <h3 class="text-start">Request method: PATCH</h3>
         </p>
         <p>
-            <h3>Content</h3>
-<pre><code class="lang-json" data-controller="prism">{
+            <h3 class="text-start">Content</h3>
+<pre><code class="lang-json" data-controller="admin--prism">{
     "quiz": {
         "title": "title",
         "description": "description",
@@ -307,9 +307,9 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 202
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "Quiz updated",
     "quiz_data": {
@@ -354,7 +354,7 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist or is not owned by user"</li>
                 <li><strong>Couldn't save Quiz (record.invalid)</strong>: Code 400, "Something went wrong whilst saving the Quiz", more info in "errors"</li>
@@ -363,18 +363,18 @@
     </div>
     <hr>
 
-    <div id="favorites" class="section">
-        <h1>Favorites</h1>
+    <div id="favorites" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Favorites</h1>
         <p>
             <a href="https://freequiz.ch/api/quiz/quiz_id/favorites">https://freequiz.ch/api/quiz/quiz_id/favorites</a><br>
             Replace quiz_id with the ID of the target Quiz
         </p>
         <p>
-            <h3>Request method: PATCH</h3>
+            <h3 class="text-start">Request method: PATCH</h3>
         </p>
         <p>
-            <h3>Content</h3>
-<pre><code class="lang-json" data-controller="prism">{
+            <h3 class="text-start">Content</h3>
+<pre><code class="lang-json" data-controller="admin--prism">{
   	"favorites": {
   		"add": ["translation hash"],
   		"remove": ["translation hash"]
@@ -382,15 +382,15 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 202
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "Favorites updated"
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
             </ul>
@@ -398,19 +398,19 @@
     </div>
     <hr>
 
-    <div id="score" class="section">
-        <h1>Score</h1>
+    <div id="score" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Score</h1>
         <p>
             <a href="https://freequiz.ch/api/quiz/quiz_id/score">https://freequiz.ch/api/quiz/quiz_id/score</a><br>
             Replace quiz_id with the ID of the target Quiz
         </p>
         <p>
-            <h3>Request method: PATCH</h3>
+            <h3 class="text-start">Request method: PATCH</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             Integers provided override the previous score. If no Integer is set for a specific mode it wont get updated. Available modes are smart, write, multi and cards
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
   	"score": {
   		"d42064": {"cards": 2, "multi": -1},
   		"6beab0": {"smart": 1},
@@ -419,15 +419,15 @@
 }</code></pre>
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 202
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "Score updated"
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
                 <li><strong>Missing fields (fields.missing)</strong>: Code 400, "Missing score"</li>
@@ -436,30 +436,30 @@
     </div>
     <hr>
 
-    <div id="reset_score" class="section mb-5">
-        <h1>Reset score</h1>
+    <div id="reset_score" class="pt-16 -mt-16 mb-5" data-section="true">
+        <h1 class="text-start">Reset score</h1>
         <p>
             <a href="https://freequiz.ch/api/quiz/quiz_id/score/reset/mode">https://freequiz.ch/api/quiz/quiz_id/score/reset/mode</a><br>
             Replace mode with smart, write, multi or cards<br>
             Replace quiz_id with the ID of the target Quiz
         </p>
         <p>
-            <h3>Request method: PATCH</h3>
+            <h3 class="text-start">Request method: PATCH</h3>
         </p>
         <p>
-            <h3>Content</h3>
+            <h3 class="text-start">Content</h3>
             No content
         </p>
         <p>
-            <h3>Response</h3>
+            <h3 class="text-start">Response</h3>
             Status code: 202
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
     "message": "Score was reset for mode smart/write/multi/cards"
 }</code></pre>
         </p>
         <p>
-            <h3>Errors</h3>
+            <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
             </ul>

@@ -1,6 +1,6 @@
 <%= render layout: "api_navbar" do %>
-    <div id="bearer" class="section">
-        <h1>Bearer token</h1>
-        Authentication header must be set to <code><%= Rails.application.credentials[:api_bearer_token] %></code> for every request
+    <div>
+        <h1 class="text-start">Bearer token</h1>
+        Authentication header must be set to <code data-controller="admin--prism"><%= Rails.application.credentials[:api_bearer_token] %></code> for every request
     </div>
 <% end %>

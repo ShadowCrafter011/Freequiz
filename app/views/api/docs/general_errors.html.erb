@@ -1,9 +1,9 @@
 <%= render layout: "api_navbar" do %>
-    <div id="bearer" class="section">
-        <h1>Invalid Bearer token</h1>
-        <h3>Response</h3>
+    <div>
+        <h1 class="text-start">Invalid Bearer token</h1>
+        <h3 class="text-start">Response</h3>
         Status code: 401
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": false,
     "token": "bearer_token.invalid",
     "message": "Invalid bearer token"
@@ -11,11 +11,11 @@
     </div>
     <hr>
 
-    <div id="access_token" class="section">
-        <h1>Invalid Access token</h1>
-        <h3>Response</h3>
+    <div>
+        <h1 class="text-start">Invalid Access token</h1>
+        <h3 class="text-start">Response</h3>
         Status code: 401
-<pre><code class="lang-json" data-controller="prism">{
+<pre><code class="lang-json" data-controller="admin--prism">{
     "success": false,
     "token": "access_token.invalid",
     "message": "Access token is invalid"

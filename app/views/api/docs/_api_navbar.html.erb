@@ -1,28 +1,21 @@
-<style>
-  .sticky-sidebar {
-    position: sticky;
-    top: 75px;
-    height: 100%;
-  }
-
-  .section {
-    padding-top: 70px;
-    margin-top: -50px;
-  }
-</style>
-
-
-<div id="api-navbar" class="container-fluid mt-2" data-controller="admin--api-navbar">
-  <div class="row">
-    <div class="col-3 ms-2 sticky-sidebar">
-      <div class="d-none" data-admin--api-navbar-target="actionName"><%= action_name %></div>
-      <div class="d-none" data-admin--api-navbar-target="anchor"><%= params[:subsection] %></div>
-      <h3>Table of contents</h3>
-      <%= render_navbar %>
+<div class="mx-4 grid gap-4 grid-cols-3 md:grid-cols-4 xl:grid-cols-6 grid-flow-row">
+    <div
+        data-controller="admin--api-navbar"
+        data-action-name="<%= action_name %>"
+        class="sticky self-start top-16 overflow-auto flex flex-col gap-px"
+        style="max-height: calc(100vh - 4rem)"
+    >
+        <h3 class="mt-1 text-start">Table of contents</h3>
+        <% nav_data.each_with_index do |data, i| %>
+            <%= link_to "#{i + 1} #{name(data)}", data.first, data: { section: id(data), admin__api_navbar_target: "link", id: id(data) } %>
+            <% if subsections? data %>
+                <% subsections(data).each_with_index do |sub_data, y|  %>
+                    <%= link_to "#{i + 1}.#{y + 1} #{sub_data.last}", send(:"#{data.first}_path", anchor: sub_data.first), class: "ps-4", data: { subsection: "#{id(data)}.#{sub_data.first}", admin__api_navbar_target: "link" } %>
+                <% end %>
+            <% end %>
+        <% end %>
     </div>
-    <div class="col-8">
-      <!-- content -->
-      <%= yield %>
+    <div class="col-span-2 md:col-span-3 xl:col-span-5">
+        <%= yield %>
     </div>
-  </div>
 </div>
