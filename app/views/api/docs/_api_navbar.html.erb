@@ -1,11 +1,12 @@
 <div class="mx-4 grid gap-4 grid-cols-3 md:grid-cols-4 xl:grid-cols-6 grid-flow-row">
+    <!-- Top is 65px as the navbar takes up 4rem + 1px border -->
     <div
         data-controller="admin--api-navbar"
         data-action-name="<%= action_name %>"
-        class="sticky self-start top-16 overflow-auto flex flex-col gap-px"
-        style="max-height: calc(100vh - 4rem)"
+        class="sticky self-start top-[65px] overflow-auto flex flex-col gap-px"
+        style="max-height: calc(100vh - 65px)"
     >
-        <h3 class="mt-1 text-start">Table of contents</h3>
+        <h4 class="mt-1 text-start">Table of contents</h4>
         <% nav_data.each_with_index do |data, i| %>
             <%= link_to "#{i + 1} #{name(data)}", data.first, data: { section: id(data), admin__api_navbar_target: "link", id: id(data) } %>
             <% if subsections? data %>
