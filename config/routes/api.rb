@@ -30,9 +30,12 @@ namespace :api do
                 get "data", to: "quiz#data"
 
                 patch "update", to: "quiz#update"
-                patch "score", to: "quiz#score"
-                patch "score/reset/:mode", to: "quiz#reset_score"
-                patch "favorites", to: "quiz#favorite"
+
+                scope :score do
+                    patch "reset/:mode", to: "quiz#reset_score"
+                    patch ":score_id/favorite", to: "quiz#favorite"
+                    patch ":score_id/:mode", to: "quiz#score"
+                end
 
                 get "delete_token", to: "quiz#request_destroy"
                 delete "delete/:destroy_token", to: "quiz#destroy"

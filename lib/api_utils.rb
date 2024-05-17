@@ -1,18 +1,4 @@
 module ApiUtils
-    def api_require_valid_bearer_token!
-        token = request.headers["Authorization"]
-        return if token == Rails.application.credentials[:api_bearer_token]
-
-        json(
-            {
-                success: false,
-                token: "bearer_token.invalid",
-                message: "Invalid bearer token"
-            },
-            :unauthorized
-        )
-    end
-
     def api_require_valid_access_token!
         unless valid_access_token?
             json(
@@ -28,7 +14,7 @@ module ApiUtils
     end
 
     def api_current_user
-        token = request.headers["Access-token"]
+        token = request.headers["Authorization"]
         @api_user = User.find_signed token, purpose: :api_token
     end
 
@@ -41,7 +27,7 @@ module ApiUtils
     end
 
     def refresh_access_token
-        token = request.headers["Access-token"]
+        token = request.headers["Authorization"]
         user = User.find_signed token, purpose: :api_token
 
         return nil unless user.present?

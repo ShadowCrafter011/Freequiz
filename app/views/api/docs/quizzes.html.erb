@@ -9,6 +9,7 @@
         </p>
         <p>
             <h3 class="text-start">Content</h3>
+            Translations attributes is a hash. They keys are non-important, they just need to be unique. For quiz creation the destroy attribute does not need to be set, altough it can be. To prevent a translation from being created you can either submit an empty word and translation value or set the destroy attribute to a value which evaluates to true i.e. 1, "1", true or "true".
 <pre><code class="lang-json" data-controller="admin--prism">{
     "quiz": {
   	    "title": "title",
@@ -16,10 +17,18 @@
         "visibility": "public/private/hidden",
         "from": "language ID",
         "to": "language ID",
-        "data": [
-            {"w": "Baum", "t": "Tree"},
-            {"w": "Strasse", "t": "Road"}
-        ]
+        "translations_attributes": {
+            "0": {
+                "word": "Baum",
+                "translation": "Tree",
+                "_destroy": "0"
+            },
+            "1": {
+                "word": "Katze",
+                "translation": "Cat",
+                "_destroy": "0"
+            }
+        }
     }
 }</code></pre>
         </p>
@@ -45,9 +54,9 @@
             "locale": "en"
         },
         "data": [{
-            "w": "Baum",
-            "t": "Tree",
-            "hash": "d42064",
+            "score_id": 1,
+            "word": "Baum",
+            "translation": "Tree",
             "favorite": false,
             "score": {
                 "smart": 0,
@@ -56,9 +65,9 @@
                 "cards": 0
             }
         }, {
-            "w": "Strasse",
-            "t": "Road",
-            "hash": "6beab0",
+            "score_id": 2,
+            "word": "Strasse",
+            "translation": "Road",
             "favorite": false,
             "score": {
                 "smart": 0,
@@ -183,9 +192,9 @@
             "locale": "de"
         },
         "data": [{
-            "w": "Tree",
-            "t": "Baum",
-            "hash": "7a250d",
+            "score_id": 1,
+            "word": "Tree",
+            "translation": "Baum",
             "favorite": false,
             "score": {
                 "smart": 0,
@@ -194,9 +203,9 @@
                 "cards": 0
             }
         }, {
-            "w": "Fish",
-            "t": "Fisch",
-            "hash": "27c8e0",
+            "score_id": 2,
+            "word": "Fish",
+            "translation": "Fisch",
             "favorite": false,
             "score": {
                 "smart": 0,
@@ -206,6 +215,16 @@
             }
         }]
     }
+}</code></pre>
+If no user is logged in the data attribute will look like this
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "data": [{
+        "word": "Tree",
+        "translation": "Baum"
+    }, {
+        "word": "Fish",
+        "translation": "Fisch"
+    }]
 }</code></pre>
         </p>
         <p>
@@ -292,6 +311,7 @@
         </p>
         <p>
             <h3 class="text-start">Content</h3>
+            To add more translations a unique key, usually the current time in milliseconds is used, needs to be created in translations attributes. If both word and translation are empty the translation will not be persisted to the database. To remove an existing translation the destroy attribute must be set to a truthy value i.e. 1, "1", true or "true"
 <pre><code class="lang-json" data-controller="admin--prism">{
     "quiz": {
         "title": "title",
@@ -299,10 +319,18 @@
         "visibility": "public/private/hidden",
         "from": "language ID",
         "to": "language ID",
-        "data": [
-            {"w": "Baum", "t": "Tree"},
-            {"w": "Strasse", "t": "Road"}
-        ]
+        "translations_attributes": {
+            "0": {
+                "word": "Baum",
+                "translation": "Tree",
+                "_destroy": "0"
+            },
+            "1": {
+                "word": "Katze",
+                "translation": "Cat",
+                "_destroy": "0"
+            }
+        }
     }
 }</code></pre>
         </p>
@@ -366,8 +394,10 @@
     <div id="favorites" class="pt-16 -mt-16" data-section="true">
         <h1 class="text-start">Favorites</h1>
         <p>
-            <a href="https://freequiz.ch/api/quiz/quiz_id/favorites">https://freequiz.ch/api/quiz/quiz_id/favorites</a><br>
+            <a href="https://freequiz.ch/api/quiz/quiz_id/score/score_id/favorite">https://freequiz.ch/api/quiz/quiz_id/score/score_id/favorite</a><br>
             Replace quiz_id with the ID of the target Quiz
+            <br>
+            Replace score_id with the ID of the score of the translation you would like to favorite / unfavorite
         </p>
         <p>
             <h3 class="text-start">Request method: PATCH</h3>
@@ -375,10 +405,7 @@
         <p>
             <h3 class="text-start">Content</h3>
 <pre><code class="lang-json" data-controller="admin--prism">{
-  	"favorites": {
-  		"add": ["translation hash"],
-  		"remove": ["translation hash"]
-  	}
+  	"favorite": true / false
 }</code></pre>
         </p>
         <p>
@@ -386,13 +413,47 @@
             Status code: 202
 <pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
-    "message": "Favorites updated"
+    "message": "Favorites updated",
+    "updated_data": [{
+        "score_id": 1,
+        "word": "Baum",
+        "translation": "Tree",
+        "favorite": false,
+        "score": {
+            "smart": 0,
+            "write": 0,
+            "multi": 0,
+            "cards": 0
+        }
+    }, {
+        "score_id": 2,
+        "word": "Strasse",
+        "translation": "Road",
+        "favorite": false,
+        "score": {
+            "smart": 0,
+            "write": 0,
+            "multi": 0,
+            "cards": 0
+        }
+    }]
+}</code></pre>
+If no user is logged in the data attribute will look like this
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "data": [{
+        "word": "Tree",
+        "translation": "Baum"
+    }, {
+        "word": "Fish",
+        "translation": "Fisch"
+    }]
 }</code></pre>
         </p>
         <p>
             <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
+                <li><strong>Relationship mismatch (relation.mismatch)</strong>: Code 401, "Score does not belong to specified quiz"</li>
             </ul>
         </p>
     </div>
@@ -401,21 +462,19 @@
     <div id="score" class="pt-16 -mt-16" data-section="true">
         <h1 class="text-start">Score</h1>
         <p>
-            <a href="https://freequiz.ch/api/quiz/quiz_id/score">https://freequiz.ch/api/quiz/quiz_id/score</a><br>
-            Replace quiz_id with the ID of the target Quiz
+            <a href="https://freequiz.ch/api/quiz/quiz_id/score/score_id/mode">https://freequiz.ch/api/quiz/quiz_id/score/score_id/mode</a><br>
+            Replace quiz_id with the ID of the target Quiz<br>
+            Replace score_id with the ID of the target score<br>
+            Replace mode with the target mode i.e. cards, write, smart or multi
         </p>
         <p>
             <h3 class="text-start">Request method: PATCH</h3>
         </p>
         <p>
             <h3 class="text-start">Content</h3>
-            Integers provided override the previous score. If no Integer is set for a specific mode it wont get updated. Available modes are smart, write, multi and cards
+            The integer provided overrides the specified mode for the specified score
 <pre><code class="lang-json" data-controller="admin--prism">{
-  	"score": {
-  		"d42064": {"cards": 2, "multi": -1},
-  		"6beab0": {"smart": 1},
-      	"ab49c1": {"write": -2}
-  	}
+  	"score": 1
 }</code></pre>
         </p>
         <p>
@@ -423,13 +482,48 @@
             Status code: 202
 <pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
-    "message": "Score updated"
+    "message": "Score updated",
+    "updated_data": [{
+        "score_id": 1,
+        "word": "Baum",
+        "translation": "Tree",
+        "favorite": false,
+        "score": {
+            "smart": 0,
+            "write": 0,
+            "multi": 0,
+            "cards": 0
+        }
+    }, {
+        "score_id": 2,
+        "word": "Strasse",
+        "translation": "Road",
+        "favorite": false,
+        "score": {
+            "smart": 0,
+            "write": 0,
+            "multi": 0,
+            "cards": 0
+        }
+    }]
+}</code></pre>
+If no user is logged in the data attribute will look like this
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "data": [{
+        "word": "Tree",
+        "translation": "Baum"
+    }, {
+        "word": "Fish",
+        "translation": "Fisch"
+    }]
 }</code></pre>
         </p>
         <p>
             <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
+                <li><strong>Relationship mismatch (relation.mismatch)</strong>: Code 401, "Score does not belong to specified quiz"</li>
+                <li><strong>Fields invalid (fields.invalid)</strong>: Code 401: "Invalid mode"</li>
                 <li><strong>Missing fields (fields.missing)</strong>: Code 400, "Missing score"</li>
             </ul>
         </p>
@@ -455,13 +549,47 @@
             Status code: 202
 <pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
-    "message": "Score was reset for mode smart/write/multi/cards"
+    "message": "Score was reset for mode smart/write/multi/cards",
+    "updated_data": [{
+        "score_id": 1,
+        "word": "Baum",
+        "translation": "Tree",
+        "favorite": false,
+        "score": {
+            "smart": 0,
+            "write": 0,
+            "multi": 0,
+            "cards": 0
+        }
+    }, {
+        "score_id": 2,
+        "word": "Strasse",
+        "translation": "Road",
+        "favorite": false,
+        "score": {
+            "smart": 0,
+            "write": 0,
+            "multi": 0,
+            "cards": 0
+        }
+    }]
+}</code></pre>
+If no user is logged in the data attribute will look like this
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "data": [{
+        "word": "Tree",
+        "translation": "Baum"
+    }, {
+        "word": "Fish",
+        "translation": "Fisch"
+    }]
 }</code></pre>
         </p>
         <p>
             <h3 class="text-start">Errors</h3>
             <ul>
                 <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
+                <li><strong>Fields invalid (fields.invalid)</strong>: Code 401: "Invalid mode"</li>
             </ul>
         </p>
     </div>

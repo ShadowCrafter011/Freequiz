@@ -2,8 +2,6 @@ class Api::QuizController < ApplicationController
     include ApiUtils
 
     protect_from_forgery with: :null_session
-    before_action :api_require_valid_bearer_token!,
-                  except: %i[data score reset_score favorite]
     around_action :locale_en
     skip_before_action :setup_login
     skip_around_action :switch_locale
@@ -53,19 +51,6 @@ class Api::QuizController < ApplicationController
                         token: "record.invalid",
                         errors: @quiz.errors.details,
                         message: "Some parameters don't meet requirements"
-                    },
-                    :bad_request
-                )
-            )
-        end
-
-        unless @quiz.data.length.positive?
-            return(
-                json(
-                    {
-                        success: false,
-                        token: "translations.notenough",
-                        message: "Not enough translations"
                     },
                     :bad_request
                 )
@@ -140,16 +125,12 @@ class Api::QuizController < ApplicationController
             )
         end
 
-        token = SecureRandom.hex(32)
-        expire = 1.day.from_now
-        quiz.update(destroy_token: token, destroy_expire: expire)
-        quiz.encrypt_value :destroy_token
-
-        json({ success: true, token:, expire: expire.to_i })
+        token = quiz.signed_id purpose: :destroy_quiz, expires_in: 1.day
+        json({ success: true, token:, expire: 1.day.from_now.to_i })
     end
 
     def destroy
-        unless (quiz = Quiz.find_by(uuid: params[:quiz_id])).present?
+        unless (quiz = Quiz.find_signed(params[:destroy_token], purpose: :destroy_quiz)).present?
             return(
                 json(
                     {
@@ -173,26 +154,6 @@ class Api::QuizController < ApplicationController
                 )
             )
         end
-        unless quiz.destroy_expire > Time.now
-            return(
-                json(
-                    { success: false, token: "token.expired", message: "Token expired" },
-                    :unauthorized
-                )
-            )
-        end
-        unless quiz.compare_encrypted :destroy_token, params[:destroy_token]
-            return(
-                json(
-                    {
-                        success: false,
-                        token: "token.invalid",
-                        message: "Token is invalid"
-                    },
-                    :unauthorized
-                )
-            )
-        end
 
         quiz.destroy
         json({ success: true, message: "Quiz deleted" })
@@ -204,7 +165,7 @@ class Api::QuizController < ApplicationController
                 json(
                     {
                         success: false,
-                        tokne: "quiz.notfound",
+                        token: "quiz.notfound",
                         message: "Quiz doesn't exist or is not owned by user"
                     },
                     :not_found
@@ -242,6 +203,12 @@ class Api::QuizController < ApplicationController
                 )
             )
         end
+
+        score = @api_user.scores.find(params[:score_id])
+        return json({ success: false, token: "relation.mismatch", message: "Score does not belong to specified quiz" }, :bad_request) unless score.translation.quiz_id == quiz.id
+
+        return json({ success: false, token: "fields.invalid", message: "Invalid mode" }, :bad_request) unless Score::MODES.include?(params[:mode].to_sym)
+
         unless params[:score].present?
             return(
                 json(
@@ -250,11 +217,10 @@ class Api::QuizController < ApplicationController
                 )
             )
         end
-        score_data = params[:score]
 
-        score = @api_user.scores.find_by(quiz_id: quiz.uuid)
-        update_score score, score_data.to_unsafe_h
-        json({ success: true, message: "Score updated" }, :accepted)
+        score.update params[:mode].to_sym => params[:score]
+
+        json({ success: true, message: "Score updated", updated_data: quiz.learn_data(@api_user) }, :accepted)
     end
 
     def reset_score
@@ -271,18 +237,17 @@ class Api::QuizController < ApplicationController
             )
         end
 
-        score = @api_user.scores.find_by(quiz_id: quiz.uuid)
-        index = Score::MODES.values.index(params[:mode])
+        return json({ success: false, token: "fields.invalid", message: "Mode is invalid" }, :bad_request) unless Score::MODES.include? params[:mode].to_sym
 
-        score.data.each_value do |val|
-            score.total += val[index]
-            val[index] = 0
+        @api_user.scores.joins(:translation).where("translation.quiz_id": quiz.id).each do |score|
+            score.update params[:mode] => 0
         end
-        score.save
+
         json(
             {
                 success: true,
-                message: "Score was reset for mode #{params[:mode].downcase}"
+                message: "Score was reset for mode #{params[:mode].downcase}",
+                updated_data: quiz.learn_data(@api_user)
             },
             :accepted
         )
@@ -302,19 +267,13 @@ class Api::QuizController < ApplicationController
             )
         end
 
-        score = @api_user.scores.find_by(quiz_id: quiz.uuid)
-        if favorite_params.key? :add
-            filtered =
-                favorite_params[:add].select { |hash| score.data.key?(hash.to_sym) }
-            score.favorites.concat(filtered)
-        end
-        if favorite_params.key? :remove
-            favorite_params[:remove].each do |hash|
-                score.favorites.delete(hash)
-            end
-        end
-        score.save
-        json({ success: true, message: "Favorites updated" }, :accepted)
+        score = @api_user.scores.find(params[:score_id])
+
+        return json({ success: false, token: "relation.mismatch", message: "Score does not belong to specified quiz" }, :bad_request) unless score.translation.quiz_id == quiz.id
+
+        score.update favorite: params[:favorite]
+
+        json({ success: true, message: "Favorites updated", updated_data: quiz.learn_data(@api_user) }, :accepted)
     end
 
     private
@@ -326,24 +285,7 @@ class Api::QuizController < ApplicationController
             :from,
             :to,
             :visibility,
-            data: %i[w t]
+            translations_attributes: %i[id word translation _destroy]
         )
-    end
-
-    def favorite_params
-        params.require(:favorites).permit(add: [], remove: [])
-    end
-
-    def update_score(score, data)
-        data.entries.each do |hash, score_data|
-            score_data.entries.each do |key, value|
-                score_index = Score::MODES.values.index(key.to_s)
-
-                next unless score_index.present? && score.data.include?(hash.to_sym)
-
-                score.data[hash.to_sym][score_index] = value.to_i
-            end
-        end
-        score.save
     end
 end

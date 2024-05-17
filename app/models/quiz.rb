@@ -1,7 +1,6 @@
 class Quiz < ApplicationRecord
     belongs_to :user, optional: true
     has_many :translations, dependent: :destroy
-    has_many :scores, dependent: :destroy
 
     accepts_nested_attributes_for :translations, reject_if: :all_blank, allow_destroy: true
 
@@ -49,16 +48,29 @@ class Quiz < ApplicationRecord
 
     def learn_data(user)
         if user.present?
-            score =
-                user.scores.find_by(quiz_id: id) ||
-                user.scores.create(quiz_id: id)
-        end
+            translations.each do |translation|
+                next if user.scores.exists? translation_id: translation.id
 
-        c_data = data.clone
-        c_data.each do |d|
-            score_data = user.present? ? score.get_data(d[:hash]) : Score.empty
-            d[:favorite] = score_data[:favorite]
-            d[:score] = score_data[:score]
+                user.scores.create translation_id: translation.id
+            end
+
+            user.scores.joins(:translation).where("translation.quiz_id": id).map do |score|
+                translation = score.translation
+                {
+                    score_id: score.id,
+                    word: translation.word,
+                    translation: translation.translation,
+                    favorite: score.favorite,
+                    score: {
+                        smart: score.smart,
+                        write: score.write,
+                        multi: score.multi,
+                        cards: score.cards
+                    }
+                }
+            end
+        else
+            translations.map { |t| { word: t.word, translation: t.translation } }
         end
     end
 
@@ -67,20 +79,6 @@ class Quiz < ApplicationRecord
 
         visibility == "public" || visibility == "hidden" ||
             self.user == user || user.admin?
-    end
-
-    def encrypt_value(key)
-        9.times do
-            self[key] = Digest::SHA256.hexdigest self[key]
-        end
-        save
-    end
-
-    def compare_encrypted(key, value)
-        9.times do
-            value = Digest::SHA256.hexdigest value
-        end
-        self[key] == value
     end
 
     def get_errors
