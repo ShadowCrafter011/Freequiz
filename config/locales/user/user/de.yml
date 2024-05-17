@@ -61,6 +61,7 @@ de:
 
       quizzes:
         my_quizzes: Meine Quizze
+        no_quizzes: Du hast noch keine Quizze erstellt
         type_title: Titel eintippen
         search: Suchen
         sort: Sortieren

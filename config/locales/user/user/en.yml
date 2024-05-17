@@ -66,6 +66,7 @@ en:
         translations: Card indexes
         translation: Card index
         ago: Created %{time_ago} ago
+        no_quizzes: You have not created any quizzes yet
       public:
         not_found: This user does not exist
         user: User %s

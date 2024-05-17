@@ -66,6 +66,7 @@ it:
         translations: Indici a schede
         translation: Indice delle schede
         ago: Creato prima di %{time_ago}
+        no_quizzes: Non hai ancora creato nessun quiz
       public:
         not_found: Questo utente non esiste
         user: Utente %s
