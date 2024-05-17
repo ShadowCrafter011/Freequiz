@@ -14,3 +14,15 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym "RESTful"
 # end
+
+ActiveSupport::Inflector.inflections(:de) do |inflect|
+    inflect.plural "Übersetzung", "Übersetzungen"
+end
+
+ActiveSupport::Inflector.inflections(:fr) do |inflect|
+    inflect.plural "Traduction", "Traductions"
+end
+
+ActiveSupport::Inflector.inflections(:it) do |inflect|
+    inflect.plural "Traduzione", "Traduzioni"
+end

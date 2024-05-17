@@ -2,13 +2,3 @@ fr:
   home:
     root:
       welcome: Bienvenue sur Freequiz!
-      login: Login
-      infos: Infos sur le compte
-      create_account: Créer un compte
-      logout: Logout
-
-    search:
-      results_for: Résultats de recherche pour %s
-      quizzes: Quizs
-      page: Page %s
-      users: Utilisateur

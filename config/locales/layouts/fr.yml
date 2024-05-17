@@ -27,3 +27,4 @@ fr:
       body_placeholder: Veuillez décrire le bug plus précisément
       steps: Reproduire
       steps_placeholder: Veuillez décrire comment nous pouvons signaler le bug.
+      search: Rechercher

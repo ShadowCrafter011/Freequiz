@@ -1,3 +1,5 @@
+get "user/:username", to: "user/user#public", as: "user_public"
+
 scope :account do
     get "/", to: "user/user#show", as: "user"
     get "edit", to: "user/user#edit", as: "user_edit"

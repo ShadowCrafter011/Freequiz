@@ -15,31 +15,14 @@
             </span>
         <% end %>
         <div
-            class="flex justify-end items-center gap-1 md:gap-0 md:order-2 rtl:space-x-reverse"
+            class="flex justify-end items-center gap-2 md:order-2 rtl:space-x-reverse"
         >
-            <% if logged_in? %>
-                <div class="relative flex flex-col" data-controller="dropdown">
-                    <div
-                        class="flex items-center space-x-2 md:me-3 py-1 px-1 rounded hover:bg-gray-300 cursor-pointer"
-                        data-action="click->dropdown#toggle"
-                    >
-                        <%= image_tag "flags/#{I18n.locale}", class: "rounded h-6" %>
-                        <span class="hidden xsm:block"><%= tg("languages.#{I18n.locale}") %></span>
-                    </div>
-                    <div class="hidden absolute z-10 xsm:w-36 bg-white rounded outline outline-gray-200" data-dropdown-target="menu">
-                        <div
-                            class="flex items-center space-x-2 py-1 px-1 rounded cursor-pointer"
-                            data-action="click->dropdown#toggle"
-                        >
-                            <%= image_tag "flags/#{I18n.locale}", class: "rounded h-6" %>
-                            <span class="hidden xsm:block"><%= tg("languages.#{I18n.locale}") %></span>
-                        </div>
-                        <hr>
-                        <% Setting::LOCALES.excluding(I18n.locale.to_s).each do |locale| %>
-                            <%= render partial: "layouts/language_button", locals: { locale: } %>
-                        <% end %>
-                    </div>
-                </div>
+            <%= link_to search_path, class: "flex items-center gap-1 p-2 rounded hover:bg-gray-100 text-black hover:text-black" do %>
+                <div class="hidden sm:block"><%= t "layouts.application.search" %></div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 15 15">
+                    <path d="M 5 5 A 1 1 0 0 0 15 5 A 1 1 0 0 0 5 5 Z M 6 5 A 1 1 0 0 0 14 5 A 1 1 0 0 0 6 5 Z" fill="black" fill-rule="evenodd" />
+                    <path d="M 7 9 L 2 14 C 1 15 0 14 1 13 L 6 8 Z" fill="black" />
+                </svg>
             <% end %>
             <% unless logged_in? %>
                 <div class="max-[500px]:hidden flex space-x-1">

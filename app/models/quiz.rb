@@ -21,13 +21,12 @@ class Quiz < ApplicationRecord
         end
     end
 
-    def self.search_user_quizzes(user, params)
+    def self.search_quizzes(quiz_collection, params)
         title = ActiveRecord::Base.connection.quote_string params[:title] if params[:title].present?
         quizzes = if params[:title]
-                      user.quizzes
-                          .order(Arel.sql("SIMILARITY(title, '#{title}') DESC"))
+                      quiz_collection.order(Arel.sql("SIMILARITY(title, '#{title}') DESC"))
                   else
-                      user.quizzes.all
+                      quiz_collection
                   end
 
         quizzes = case params[:sort]
@@ -41,9 +40,17 @@ class Quiz < ApplicationRecord
                       quizzes.order(created_at: :desc)
                   end
 
-        pages = user.quizzes.count.fdiv(50).ceil
+        pages = quiz_collection.count.fdiv(50).ceil
         quizzes = quizzes.limit(50).offset(((params[:page] || 1).to_i - 1) * 50)
         [quizzes, pages]
+    end
+
+    def self.search_all_quizzes(params)
+        Quiz.search_quizzes(Quiz.all, params)
+    end
+
+    def self.search_user_quizzes(user, params)
+        Quiz.search_quizzes(user.quizzes, params)
     end
 
     def learn_data(user)

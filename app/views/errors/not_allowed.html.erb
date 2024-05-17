@@ -1,5 +1,5 @@
-<div class="container text-center mt-3" style="height: 70vh;">
-    <h1 class="w-100"><%= t("errors.not_allowed.title") %></h1>
+<div class="flex items-center flex-col gap-2 mt-3">
+    <h1><%= t("errors.not_allowed.title") %></h1>
     <h3><%= t("errors.not_allowed.return") %> <%= link_to t("errors.now_allowed.homepage"), root_path %></h3><br>
-    <%= image_tag "errors/not_allowed.jpg", height: "100%" %>
+    <%= image_tag "errors/not_allowed", class: "h-44 w-44" %>
 </div>

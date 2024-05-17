@@ -62,19 +62,6 @@ de:
       quizzes:
         my_quizzes: Meine Quizze
         no_quizzes: Du hast noch keine Quizze erstellt
-        type_title: Titel eintippen
-        search: Suchen
-        sort: Sortieren
-        must_be_filled: Dieses Feld muss ausgefüllt werden
-        translations: Karteien
-        translation: Kartei
-        ago: Vor %{time_ago} erstellt
-
-        sort_options:
-          first_created: Älteste
-          last_created: Neuste
-          most_translations: Meiste Übersetzungen
-          least_translations: Wenigste Übersetzungen
 
       public:
         not_found: Diesen Benutzer gibt es nicht

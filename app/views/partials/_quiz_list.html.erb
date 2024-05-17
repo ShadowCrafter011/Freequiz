@@ -1,0 +1,16 @@
+<div class="mt-2 flex flex-col gap-2">
+    <% quizzes.each do |quiz| %>
+        <%= link_to quiz_show_path(quiz.uuid), class: "rounded border border-gray-300 p-2 flex gap-2 justify-between items-start bg-gray-50 hover:bg-gray-100 hover:text-black text-black" do %>
+            <div class="flex flex-col items-start">
+                <span><%= quiz.title %></span>
+                <% if quiz.user.present? %>
+                    <span class="text-gray-600"><%= t "partials.quiz_list.by", user: quiz.user.username %></span>
+                <% else %>
+                    <span class="text-gray-600"><%= t "partials.quiz_list.no_user" %></span>
+                <% end %>
+                <span class="text-gray-600"><%= pluralize quiz.translations_count, t("partials.quiz_list.translation") %></span>
+            </div>
+            <span><%= t "partials.quiz_list.ago", time_ago: time_ago_in_words(quiz.created_at) %></span>
+        <% end %>
+    <% end %>
+</div>

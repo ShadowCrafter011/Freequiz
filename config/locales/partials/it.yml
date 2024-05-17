@@ -1,7 +1,14 @@
 it:
   partials:
-    quiz_card:
-      description: Descrizione
-      translation_amount: Numero di traduzioni
-      visibility: Visibilità
-      creator: Creato da
+    quiz_search:
+      type_title: Digitare il titolo
+      search: Ricerca
+      sort: Ordinamento
+      sort_options:
+        first_created: Anziani
+        last_created: Ultime novità
+        most_translations: La maggior parte delle traduzioni
+        least_translations: Poche traduzioni
+    quiz_list:
+      ago: Creato prima di %{time_ago}
+      translation: Traduzione

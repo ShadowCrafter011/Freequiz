@@ -12,6 +12,7 @@ de:
       login: Anmelden
       create: Konto erstellen
       reset_pw: Passwort zurücksetzen
+      search: Suchen
       search_placeholder: Quiz oder Benutzer suchen
       submit_search: Suchen
       search_error: Dieses Feld muss ausgefüllt werden

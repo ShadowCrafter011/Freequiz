@@ -1,51 +1,5 @@
-<style>
-    a:hover {
-        color: black;
-    }
-</style>
+<h1><%= tp "search" %></h1>
 
-<div class="container">
-    <h1 class="my-4"><%= tp("results_for", params[:query]) %> <%= tp("page", @page.to_i + 1) %></h1>
-    <div class="list-group list-group-horizontal text-center controls mb-2">
-        <%= link_to search_path(category: "quizzes", query: params[:query], page: @page), class: "list-group-item w-50 #{"active" if @quizzes}" do %>
-            <h4 class="mb-0"><%= tp("quizzes") %></h4>
-        <% end %>
-        <%= link_to search_path(category: "users", query: params[:query], page: @page), class: "list-group-item w-50 #{"active" unless @quizzes}" do %>
-            <h4 class="mb-0"><%= tp("users") %></h4>
-        <% end %>
-    </div>
-
-    <% for res in @results do %>
-        <% if @quizzes %>
-            <%= render partial: "partials/quiz_card", locals: {quiz: res} %>
-        <% else %>
-            <%= render partial: "user_card", locals: {user: res} %>
-        <% end %>
-    <% end %>
-
-    <% if @window.length > 2 %>
-        <nav class="d-flex justify-content-center my-4">
-            <ul class="pagination pagination-md">
-                <% if @page > 1 %>
-                    <li class="page-item">
-                        <%= link_to search_path(category: params[:category], query: params[:query], page: @page - 1), class: "page-link" do %>
-                            <span aria-hidden="true">&laquo;</span>
-                        <% end %>
-                    </li>
-                <% end %>
-
-                <% for page_num in @window do %>
-                    <li class="page-item"><%= link_to page_num, search_path(category: params[:category], query: params[:query], page: page_num), class: "page-link #{"active" if @page == page_num}" %></li>
-                <% end %>
-
-                <% if @page < @max_page %>
-                    <li class="page-item">
-                        <%= link_to search_path(category: params[:category], query: params[:query], page: @page + 1), class: "page-link" do %>
-                            <span aria-hidden="true">&raquo;</span>
-                        <% end %>
-                    </li>
-                <% end %>
-            </ul>
-        </nav>
-    <% end %>
-</div>
+<%= render partial: "partials/quiz_search", locals: { url: search_path } %>
+<%= render partial: "partials/quiz_list", locals: { quizzes: @quizzes } %>
+<%= render partial: "partials/page_navigator", locals: { pages: @pages, params: @params } %>

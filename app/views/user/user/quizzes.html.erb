@@ -1,39 +1,9 @@
 <h1><%= tp "my_quizzes" %></h1>
 
 <% if @quizzes.count.positive? %>
-    <%= form_with url: user_quizzes_path, method: :get, class: "flex gap-2" do |form| %>
-        <%= form.text_field :title, value: params[:title], placeholder: tp("type_title"), class: "grow border-gray-300 rounded focus:border-teal-600 focus:ring-teal-600" %>
-        <div class="flex rounded border border-gray-300 divide-gray-300 divide-x">
-            <span class="text-xl flex items-center h-full px-2 bg-gray-200"><%= tp "sort" %></span>
-            <%= form.select :sort, [
-                [tp("sort_options.last_created"), "newest"],
-                [tp("sort_options.first_created"), "oldest"],
-                [tp("sort_options.most_translations"), "most_translations"],
-                [tp("sort_options.least_translations"), "least_translations"]
-            ], { selected: params[:sort] }, { class: "border-none rounded-e focus:ring-2 focus:border-teal-600 focus:ring-teal-700" } %>
-        </div>
-        <%= form.submit tp("search"), class: "btn-primary text-xl" %>
-    <% end %>
+    <%= render partial: "partials/quiz_search", locals: { url: user_quizzes_path } %>
 <% else %>
     <h4><%= tp "no_quizzes" %></h4>
 <% end %>
-
-<div class="mt-2 flex flex-col gap-2">
-    <% @quizzes.each do |quiz| %>
-        <%= link_to quiz_show_path(quiz.uuid), class: "rounded p-2 flex gap-2 justify-between items-center hover:bg-blue-600 hover:text-white text-black" do %>
-            <div class="flex items-center gap-2">
-                <span><%= quiz.title %></span>
-                <span>
-                    <% unless quiz.translations_count == 1 %>
-                        <%= quiz.translations_count %> <%= tp "translations" %>
-                    <% else %>
-                        <%= quiz.translations_count %> <%= tp "translation" %>
-                    <% end %>
-                </span>
-            </div>
-            <span><%= tp "ago", time_ago: time_ago_in_words(quiz.created_at) %></span>
-        <% end %>
-    <% end %>
-</div>
-
+<%= render partial: "partials/quiz_list", locals: { quizzes: @quizzes } %>
 <%= render partial: "partials/page_navigator", locals: { pages: @pages, params: @params } %>

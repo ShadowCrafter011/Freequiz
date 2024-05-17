@@ -17,11 +17,6 @@ class User::UserController < ApplicationController
         }
     end
 
-    def public
-        @target = User.find_by(username: params[:username])
-        @quizzes = @target.quizzes.where("visibility = 'public'")
-    end
-
     def quizzes
         result = Quiz.search_user_quizzes @user, params
         @quizzes = result.first
