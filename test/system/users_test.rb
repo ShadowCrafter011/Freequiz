@@ -5,8 +5,7 @@ class UsersTest < ApplicationSystemTestCase
         visit root_url
         assert_text I18n.t "home.root.welcome"
 
-        click_on I18n.t "layouts.application.account"
-        click_on I18n.t "layouts.application.create"
+        click_on I18n.t "general.create_account"
         assert_current_path user_create_path
 
         create_user_with visit: false
@@ -94,9 +93,9 @@ class UsersTest < ApplicationSystemTestCase
 
         click_on t "user.user.show.buttons.delete"
         assert_text t "user.user.request_destroy.delete_account"
-        click_on t "user.user.request_destroy.delete"
-        assert_text t "user.user.request_destroy.sure_to_delete"
-        click_on id: "delete-btn"
+        accept_confirm do
+            click_on t "user.user.request_destroy.delete"
+        end
         assert_text t "user.user.destroy.deleted"
     end
 end

@@ -8,7 +8,7 @@
     </div>
     <div class="text-field-container">
         <%= form.password_field :password, autocomplete: false, placeholder: tg("password"), class: "text-field" %>
-        <%= form.submit value: tp("login"), class: "form-submit" %>
+        <%= form.submit value: tp("login"), id: "login", class: "form-submit" %>
     </div>
     <div class="flex items-center justify-center gap-1 m-2">
         <%= form.check_box :remember, checked: "checked", class: "border-teal-700 text-teal-700 focus:outline-none focus:ring-transparent rounded" %>

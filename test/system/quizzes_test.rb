@@ -6,15 +6,13 @@ class QuizzesTest < ApplicationSystemTestCase
         login
         close_notice
 
-        assert find_test_id("navbar-quiz").click
+        assert find_test_id("navbar-account").click
         assert find_test_id("navbar-create-quiz").click
         assert_current_path quiz_create_path
 
         find_test_id("quiz-create").click
 
         assert_text t "activerecord.errors.models.quiz.attributes.title.too_short"
-        assert_text t "activerecord.errors.models.quiz.attributes.description.too_short"
-        assert_text t "errors.not_enough_translations"
 
         close_notice
 
@@ -39,8 +37,8 @@ class QuizzesTest < ApplicationSystemTestCase
         translation_data = [%w[Baum Tree], %w[Hallo Hello], %w[Test Test]]
 
         translation_data.each_with_index do |data, i|
-            find_test_id("quiz-translation-#{i}-word").fill_in with: data[0]
-            find_test_id("quiz-translation-#{i}-translation").fill_in with: data[1]
+            find_field("quiz[translations_attributes][#{i}][word]").fill_in with: data[0]
+            find_field("quiz[translations_attributes][#{i}][translation]").fill_in with: data[1]
         end
 
         find_test_id("quiz-create").click

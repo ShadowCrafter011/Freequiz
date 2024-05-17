@@ -45,10 +45,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
         fill_in I18n.t("general.email_or_username"), with: "Test"
         fill_in I18n.t("general.password"), with: password
-        click_on I18n.t("user.sessions.new.login")
+        find("#login").click
     end
 
     def close_notice
-        click_on id: "close-notice"
+        find("#close-notice").click
     end
 end

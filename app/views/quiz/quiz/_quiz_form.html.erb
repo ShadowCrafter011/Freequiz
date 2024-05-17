@@ -6,7 +6,7 @@
             <div class="flex md:flex-row flex-col gap-2">
                 <div class="md:grow flex sm:flex-row flex-col rounded border border-gray-300">
                     <span class="py-2 px-5 text-center sm:text-start text-xl bg-gray-200"><%= tp "title" %></span>
-                    <%= form.text_field :title, placeholder: tp("title_placeholder"), class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600" %>
+                    <%= form.text_field :title, placeholder: tp("title_placeholder"), data: { test_id: "quiz-title" }, class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600" %>
                 </div>
                 <%= form.select :visibility, Quiz::VISIBILITIES.map { |v| [tg("visibilities.#{v}"), v] }, {}, { class: "rounded border-gray-300 focus:ring-1 focus:ring-teal-600 focus:border-teal-600" } %>
             </div>
@@ -14,7 +14,7 @@
                 <div class="flex items-center justify-center py-2 px-5 bg-gray-200">
                     <span class="text-xl"><%= tp "description" %></span>
                 </div>
-                <%= form.text_area :description, placeholder: tp("description_placeholder"), class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600 min-h-10" %>
+                <%= form.text_area :description, placeholder: tp("description_placeholder"), data: { test_id: "quiz-description" }, class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600 min-h-10" %>
             </div>
             <div class="flex md:flex-row flex-col gap-2">
                 <%= render partial: "translation_lang", locals: { form: form, field: :from, name: tp("lang_1") } %>
@@ -29,7 +29,7 @@
                 <button data-action="create-quiz#add_translation" class="btn-primary-sleek w-full"><%= tp "add_translation" %></button>
             </div>
             <div class="flex justify-around gap-2">
-                <%= form.submit commit, class: "btn-success text-xl" %>
+                <%= form.submit commit, class: "btn-success text-xl", data: { test_id: "quiz-create" } %>
                 <%= link_to tp("cancel"), user_path, class: "btn-primary text-xl" %>
             </div>
         </div>

@@ -1,15 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  cards: 1
-  learn: 1
-  write: 1
-  quiz: one
+  cards: 0
+  smart: 0
+  write: 0
+  multi: 0
+  translation: one
   user: one
 
 two:
-  cards: 1
-  learn: 1
-  write: 1
-  quiz: two
+  cards: 0
+  smart: 0
+  write: 0
+  multi: 0
+  translation: two
   user: two
