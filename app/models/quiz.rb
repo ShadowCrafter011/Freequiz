@@ -46,7 +46,7 @@ class Quiz < ApplicationRecord
     end
 
     def self.search_all_quizzes(params)
-        Quiz.search_quizzes(Quiz.all, params)
+        Quiz.search_quizzes(Quiz.where(visibility: "public"), params)
     end
 
     def self.search_user_quizzes(user, params)
