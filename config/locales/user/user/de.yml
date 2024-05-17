@@ -19,7 +19,6 @@ de:
           edit: Bearbeiten
           confirm: E-mail Adresse bestätigen
           delete: Konto löschen
-
       new:
         create_account: Freequiz Konto erstellen
         already_have_account: Hast du schon ein Konto?
@@ -32,7 +31,6 @@ de:
         email: E-Mail Adresse
         already_has_account: Du hast schon ein Konto
         created: Konto erfolgreich erstellt! Wilkommen bei Freequiz %s!
-
       edit:
         title: Kontodaten bearbeiten
         password_repeat: Passwort wiederholen
@@ -40,29 +38,24 @@ de:
         can_empty: Leer lassen um nichts zu ändern
         saved_data: Daten gespeichert!
         new_email: Ihre neue E-mail Adresse wird verwendet sobald Sie den Link der in Ihr Postfach geschickt wurde geklickt haben
-
       settings:
         settings: Einstellungen
         save: Speichern
-
+        language: Sprache
       update_settings:
         saved: Einstellungen gespeichert
-
       request_destroy:
         sure_to_delete: Wollen Sie wirklich Ihr Konto löschen?
         cancel: Abbrechen
         delete_account: Konto Löschen
         not_reversible: Wenn Sie ihr Konto löschen kann dies nicht rückgangig gemacht werden!
         delete: Löschen
-
       destroy:
         deleted: Konto gelöscht. Schade, dass Sie gehen
         failed: Etwas ist schief geloffen. Kontaktieren Sie unseren Support wenn dies nochmal passiert
-
       quizzes:
         my_quizzes: Meine Quizze
         no_quizzes: Du hast noch keine Quizze erstellt
-
       public:
         profile: Profil von %{user}
         created_ago: "Alter des accounts: %{time_ago}"
@@ -70,3 +63,5 @@ de:
         quiz: Quiz
         bugs_smashed: "%{bugs} gemeldet"
         bug: Bug
+        not_found: Dieser Benutzer existiert nicht
+        user: Benutzer %s

@@ -41,6 +41,7 @@ fr:
       settings:
         settings: Réglages
         save: Enregistrer
+        language: Langue
       update_settings:
         saved: Paramètres enregistrés
       request_destroy:
@@ -58,3 +59,9 @@ fr:
       public:
         not_found: Cet utilisateur n'existe pas
         user: Utilisateur %s
+        profile: Profil de %{user}
+        created_ago: "Âge du compte : %{time_ago}"
+        quizzes: "%{quizzes} créé"
+        quiz: Quiz
+        bugs_smashed: "%{bugs} signalés"
+        bug: Bug

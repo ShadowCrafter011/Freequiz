@@ -2,3 +2,9 @@ fr:
   home:
     root:
       welcome: Bienvenue sur Freequiz!
+      login: S'inscrire
+      infos: Infos sur le compte
+      create_account: Créer un compte
+      logout: Se désinscrire
+    search:
+      search: Chercher dans les quiz

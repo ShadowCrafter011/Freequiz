@@ -41,6 +41,7 @@ it:
       settings:
         settings: Impostazioni
         save: Risparmiare
+        language: Lingua
       update_settings:
         saved: Impostazioni salvate
       request_destroy:
@@ -58,3 +59,9 @@ it:
       public:
         not_found: Questo utente non esiste
         user: Utente %s
+        profile: Profilo di %{utente}
+        created_ago: "Età dell'account: %{time_ago}"
+        quizzes: "%{quiz} creati"
+        quiz: Quiz
+        bugs_smashed: "%{bugs} segnalati"
+        bug: Insetto

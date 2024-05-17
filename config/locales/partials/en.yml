@@ -12,3 +12,5 @@ en:
     quiz_list:
       translation: Translation
       ago: Created %{time_ago} ago
+      by: Created by %{user}
+      no_user: Created by deleted user

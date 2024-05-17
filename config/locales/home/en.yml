@@ -2,3 +2,9 @@ en:
   home:
     root:
       welcome: Welcome to Freequiz!
+      login: Log in
+      infos: Account info
+      create_account: Create account
+      logout: Log out
+    search:
+      search: Search quizzes

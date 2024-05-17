@@ -12,3 +12,5 @@ fr:
     quiz_list:
       ago: Créé il y a %{time_ago}
       translation: Traduction
+      by: Créé par %{user}
+      no_user: Créé par un utilisateur supprimé
