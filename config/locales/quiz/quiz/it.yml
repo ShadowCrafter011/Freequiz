@@ -25,7 +25,7 @@ it:
         not_found: Questo quiz non esiste o è stato cancellato
         edit: Modifica
         delete: Cancellare
-        created_by: (creato da %s)
+        created_by: Creato da %{user}
         cards: Schede di carta
         done: Congratulazioni, avete imparato tutto!
         learn_again: Imparare di nuovo

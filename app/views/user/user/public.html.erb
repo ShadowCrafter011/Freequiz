@@ -1,0 +1,20 @@
+<div class="flex justify-center items-center gap-2">
+    <div class="flex flex-col items-start">
+        <h1 class="p-0"><%= tp("profile", user: @target.username) %></h1>
+        <% if @target.setting.show_email %>
+            <h4 class="p-0 text-gray-600"><%= @target.email %></h4>
+        <% end %>
+    </div>
+    <%= image_tag @target.avatar_url, class: "h-16 w-16 rounded-full border-4 border-blue-600" %>
+</div>
+
+<div class="my-2 flex flex-col md:flex-row items-center md:justify-around gap-2 text-gray-600">
+    <div><%= tp("created_ago", time_ago: distance_of_time_in_words_to_now(@target.created_at)) %></div>
+    <div><%= tp("quizzes", quizzes: pluralize(@target.quizzes.count, tp("quiz"))) %></div>
+    <div><%= tp("bugs_smashed", bugs: pluralize(@target.bugs_smashed, tp("bug"))) %></div>
+</div>
+
+<%= render partial: "partials/quiz_search", locals: { url: user_public_path } %>
+<%= render partial: "partials/quiz_list", locals: { quizzes: @quizzes } %>
+<br>
+<%= render partial: "partials/page_navigator", locals: { params: @params, pages: @pages } %>

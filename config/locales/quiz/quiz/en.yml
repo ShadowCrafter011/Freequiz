@@ -25,7 +25,7 @@ en:
         not_found: This quiz does not exist or has been deleted
         edit: Edit
         delete: Delete
-        created_by: (created by %s)
+        created_by: Created by %{user}
         cards: Cards
         done: Congratulations, you have learned everything!
         learn_again: Learn again

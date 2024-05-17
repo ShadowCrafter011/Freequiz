@@ -17,6 +17,17 @@ class User::UserController < ApplicationController
         }
     end
 
+    def public
+        @target = User.find_by(username: params[:username])
+        return redirect_to root_path unless @target.present?
+
+        @quizzes = @target.quizzes.where(visibility: "public")
+        results = Quiz.search_quizzes @quizzes, params
+        @quizzes = results.first
+        @pages = results.last
+        @params = params.permit(:title, :sort, :page, :commit)
+    end
+
     def quizzes
         result = Quiz.search_user_quizzes @user, params
         @quizzes = result.first
