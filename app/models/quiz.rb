@@ -53,6 +53,28 @@ class Quiz < ApplicationRecord
         Quiz.search_quizzes(user.quizzes, params)
     end
 
+    def data
+        f = Language.find(from)
+        t = Language.find(to)
+        {
+            id: uuid,
+            title:,
+            description:,
+            visibility:,
+            translations: translations.count,
+            from: {
+                id: from,
+                name: f.name,
+                locale: f.locale
+            },
+            to: {
+                id: t,
+                name: t.name,
+                locale: t.locale
+            }
+        }
+    end
+
     def learn_data(user)
         if user.present?
             translations.each do |translation|

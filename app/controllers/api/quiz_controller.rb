@@ -12,12 +12,12 @@ class Api::QuizController < ApplicationController
         query = ActiveRecord::Base.connection.quote(params[:query])
         page = params[:page] || 1
         offset = (page.to_i * 50) - 50
-        @quizzes =
+        quizzes =
             Quiz.find_by_sql(
                 "SELECT * FROM quizzes WHERE visibility = 'public' ORDER BY SIMILARITY(title, #{query}) DESC LIMIT 50 OFFSET #{offset}"
             )
 
-        render "api/user/quizzes"
+        render json: { success: true, data: quizzes.map(&:data) }
     end
 
     def create

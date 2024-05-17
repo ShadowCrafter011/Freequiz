@@ -21,8 +21,10 @@ class Api::UserController < ApplicationController
     def quizzes
         page = params[:page] || 1
         offset = (page.to_i * 50) - 50
-        @quizzes =
+        quizzes =
             @api_user.quizzes.order(created_at: :desc).limit(50).offset(offset)
+
+        render json: { success: true, data: quizzes.map(&:data) }
     end
 
     def public
@@ -41,14 +43,15 @@ class Api::UserController < ApplicationController
 
         page = params[:page] || 1
         offset = (page.to_i * 50) - 50
-        @quizzes =
+        quizzes =
             user
             .quizzes
             .where(visibility: "public")
             .order(created_at: :desc)
             .limit(50)
             .offset(offset)
-        render :quizzes
+
+        render json: { success: true, data: quizzes.map(&:data) }
     end
 
     def exists
