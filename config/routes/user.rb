@@ -6,6 +6,7 @@ scope :account do
     patch "edit", to: "user/user#update"
 
     get "quizzes", to: "user/user#quizzes", as: "user_quizzes"
+    get "favorites", to: "user/user#favorites", as: "user_favorites"
     get "library", to: "user/user#library", as: "user_library"
 
     get "settings", to: "user/user#settings", as: "user_settings"

@@ -24,7 +24,7 @@ class Api::UserController < ApplicationController
         quizzes =
             @api_user.quizzes.order(created_at: :desc).limit(50).offset(offset)
 
-        render json: { success: true, data: quizzes.map(&:data) }
+        render json: { success: true, data: quizzes.map { |q| q.data(@api_user) } }
     end
 
     def public
@@ -51,7 +51,7 @@ class Api::UserController < ApplicationController
             .limit(50)
             .offset(offset)
 
-        render json: { success: true, data: quizzes.map(&:data) }
+        render json: { success: true, data: quizzes.map { |q| q.data(@api_user) } }
     end
 
     def exists

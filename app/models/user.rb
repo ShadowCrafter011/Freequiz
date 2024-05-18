@@ -4,6 +4,8 @@ class User < ApplicationRecord
     has_many :scores, dependent: :destroy
     has_many :bug_reports, dependent: :nullify
     has_many :transactions, dependent: :nullify
+    has_many :favorite_quizzes, dependent: :destroy
+    has_many :get_favorite_quizzes, through: :favorite_quizzes, source: :quiz
 
     ROLES = %w[user beta admin].freeze
 
@@ -36,6 +38,10 @@ class User < ApplicationRecord
     after_create do
         create_setting
         send_verification_email
+    end
+
+    def favorite_quiz?(quiz)
+        get_favorite_quizzes.exists?(quiz.id)
     end
 
     def admin?

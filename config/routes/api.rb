@@ -30,6 +30,7 @@ namespace :api do
                 get "data", to: "quiz#data"
 
                 patch "update", to: "quiz#update"
+                patch "favorite", to: "quiz#favorite_quiz"
 
                 scope :score do
                     patch "reset/:mode", to: "quiz#reset_score"

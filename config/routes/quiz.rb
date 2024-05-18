@@ -9,6 +9,8 @@ namespace :quiz do
         get "delete", to: "quiz#request_destroy", as: "request_destroy"
         delete "delete/:destroy_token", to: "quiz#destroy", as: "delete"
 
+        patch "favorite", to: "quiz#favorite", as: "favorite"
+
         get "cards", to: "quiz#cards", as: "cards"
         get "write", to: "quiz#write", as: "write"
     end

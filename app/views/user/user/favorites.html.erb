@@ -1,0 +1,9 @@
+<h1><%= tp "favorite_quizzes" %></h1>
+
+<% if @quizzes.count.positive? %>
+    <%= render partial: "partials/quiz_search", locals: { url: user_quizzes_path } %>
+<% else %>
+    <h4><%= tp "no_favorites" %></h4>
+<% end %>
+<%= render partial: "partials/quiz_list", locals: { quizzes: @quizzes } %>
+<%= render partial: "partials/page_navigator", locals: { pages: @pages, params: @params } %>

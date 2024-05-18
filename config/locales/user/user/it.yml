@@ -38,6 +38,7 @@ it:
         can_empty: Lasciare vuoto per non modificare nulla
         saved_data: Dati salvati!
         new_email: Il vostro nuovo indirizzo e-mail sarà utilizzato non appena avrete cliccato sul link inviato alla vostra casella di posta elettronica.
+        cancel: Annullamento
       settings:
         settings: Impostazioni
         save: Risparmiare
@@ -65,3 +66,6 @@ it:
         quiz: Quiz
         bugs_smashed: "%{bugs} segnalati"
         bug: Insetto
+      favorites:
+        favorite_quizzes: I preferiti
+        no_favorites: Non hai ancora nessun preferito

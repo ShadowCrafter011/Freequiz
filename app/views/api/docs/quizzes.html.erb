@@ -43,6 +43,7 @@
         "title": "title",
         "description": "description",
         "visibility": "public",
+        "favorite": false,
         "from": {
             "id": "1",
             "name": "german",
@@ -181,6 +182,7 @@
         "visibility": "public",
         "created_by": "username",
         "owner": true,
+        "favorite": false,
         "from": {
             "id": "3",
             "name": "english",
@@ -262,6 +264,7 @@ If no user is logged in the data attribute will look like this
             "description": "description",
             "visibility": "public",
             "translations": 1,
+            "favorite": false,
             "from": {
                 "id": "1",
                 "name": "german",
@@ -279,6 +282,7 @@ If no user is logged in the data attribute will look like this
             "description": "description",
             "visibility": "public",
             "translations": 10,
+            "favorite": false,
             "from": {
                 "id": "1",
                 "name": "german",
@@ -345,6 +349,7 @@ If no user is logged in the data attribute will look like this
         "title": "title",
         "description": "description",
         "visibility": "public",
+        "favorite": false,
         "from": {
             "id": "1",
             "name": "german",
@@ -356,9 +361,9 @@ If no user is logged in the data attribute will look like this
             "locale": "en"
         },
         "data": [{
-            "w": "Baum",
-            "t": "Tree",
-            "hash": "d42064",
+            "score_id": 1,
+            "word": "Baum",
+            "translation": "Tree",
             "favorite": false,
             "score": {
                 "smart": 0,
@@ -367,9 +372,9 @@ If no user is logged in the data attribute will look like this
                 "cards": 0
             }
         }, {
-            "w": "Strasse",
-            "t": "Road",
-            "hash": "6beab0",
+            "score_id": 2,
+            "word": "Strasse",
+            "translation": "Road",
             "favorite": false,
             "score": {
                 "smart": 0,
@@ -386,6 +391,39 @@ If no user is logged in the data attribute will look like this
             <ul>
                 <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist or is not owned by user"</li>
                 <li><strong>Couldn't save Quiz (record.invalid)</strong>: Code 400, "Something went wrong whilst saving the Quiz", more info in "errors"</li>
+            </ul>
+        </p>
+    </div>
+    <hr>
+
+    <div id="favorite_quiz" class="pt-16 -mt-16 mb-5" data-section="true">
+        <h1 class="text-start">Favorite quiz</h1>
+        <p>
+            <a href="https://freequiz.ch/api/quiz/quiz_id/favorite">https://freequiz.ch/api/quiz/quiz_id/favorite</a><br>
+            Replace quiz_id with the ID of the target Quiz
+        </p>
+        <p>
+            <h3 class="text-start">Request method: PATCH</h3>
+        </p>
+        <p>
+            <h3 class="text-start">Content</h3>
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "favorite": true
+}</code></pre>
+        </p>
+        <p>
+            <h3 class="text-start">Response</h3>
+            Status code: 202
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "success": true,
+    "message": "Quiz was added to favorites",
+    "favorite": true
+}</code></pre>
+        </p>
+        <p>
+            <h3 class="text-start">Errors</h3>
+            <ul>
+                <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
             </ul>
         </p>
     </div>

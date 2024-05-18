@@ -17,7 +17,7 @@ class Api::QuizController < ApplicationController
                 "SELECT * FROM quizzes WHERE visibility = 'public' ORDER BY SIMILARITY(title, #{query}) DESC LIMIT 50 OFFSET #{offset}"
             )
 
-        render json: { success: true, data: quizzes.map(&:data) }
+        render json: { success: true, data: quizzes.map { |q| q.data(@api_user) } }
     end
 
     def create
@@ -274,6 +274,30 @@ class Api::QuizController < ApplicationController
         score.update favorite: params[:favorite]
 
         json({ success: true, message: "Favorites updated", updated_data: quiz.learn_data(@api_user) }, :accepted)
+    end
+
+    def favorite_quiz
+        unless (quiz = Quiz.find_by(uuid: params[:quiz_id])).present?
+            return(
+                json(
+                    {
+                        success: false,
+                        token: "quiz.notfound",
+                        message: "Quiz doesn't exist"
+                    },
+                    :not_found
+                )
+            )
+        end
+
+        if params[:favorite]
+            @api_user.favorite_quizzes.create quiz_id: quiz.id unless @api_user.favorite_quiz?(quiz)
+        else
+            favorite_quiz = @api_user.favorite_quizzes.find_by(quiz_id: quiz.id)
+            favorite_quiz.destroy if favorite_quiz.present?
+        end
+
+        json({ success: true, message: @api_user.favorite_quiz?(quiz) ? "Quiz was added to favorites" : "Quiz is no longer a favorite", favorite: @api_user.favorite_quiz?(quiz) }, :accepted)
     end
 
     private

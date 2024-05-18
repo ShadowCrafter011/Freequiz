@@ -49,7 +49,8 @@ module Api::DocsHelper
                     data: "Data",
                     search: "Search",
                     update: "Update",
-                    favorites: "Favorites",
+                    favorite_quiz: "Favorite quiz",
+                    favorites: "Favorite translations",
                     score: "Score",
                     reset_score: "Reset score"
                 }

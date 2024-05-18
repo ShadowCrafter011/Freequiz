@@ -7,7 +7,7 @@
             [t("partials.quiz_search.sort_options.first_created"), "oldest"],
             [t("partials.quiz_search.sort_options.most_translations"), "most_translations"],
             [t("partials.quiz_search.sort_options.least_translations"), "least_translations"]
-        ], { selected: params[:sort] }, { class: "w-full bg-white border-0 border-s rounded-e focus:ring-2 focus:border-teal-600 focus:ring-teal-700 dark:bg-gray-900 cursor-pointer" } %>
+        ], { selected: params[:sort] || "newest" }, { class: "w-full bg-white border-0 border-s rounded-e focus:ring-2 focus:border-teal-600 focus:ring-teal-700 dark:bg-gray-900 cursor-pointer" } %>
     </div>
     <%= form.submit t("partials.quiz_search.search"), class: "btn-primary text-xl" %>
 <% end %>

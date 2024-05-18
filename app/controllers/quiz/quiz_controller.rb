@@ -20,6 +20,19 @@ class Quiz::QuizController < ApplicationController
 
     def write; end
 
+    def favorite
+        @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
+        return unless @quiz.present?
+
+        if (favorite = @user.favorite_quizzes.find_by(quiz_id: @quiz.id)).present?
+            favorite.destroy
+        else
+            @user.favorite_quizzes.create quiz_id: @quiz.id
+        end
+
+        redirect_to quiz_show_path
+    end
+
     def new
         @quiz = @user.quizzes.new
         4.times { @quiz.translations.build }

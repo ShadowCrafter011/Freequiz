@@ -349,17 +349,24 @@
             Status code: 200
 <pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
-    "data": [{
-            "title": "title",
-            "description": "description",
-            "visibility": "public",
-            "translations": 10
-        },
+    "data": [
         {
+            "id": "5BZQV",
             "title": "title",
             "description": "description",
             "visibility": "public",
-            "translations": 10
+            "translations": 1,
+            "favorite": false,
+            "from": {
+                "id": 1,
+                "name": "german",
+                "locale": "de"
+            },
+            "to": {
+                "id": 2,
+                "name": "french",
+                "locale": "fr"
+            }
         }
     ]
 }</code></pre>
@@ -390,17 +397,24 @@
             Status code: 200
 <pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
-    "data": [{
-            "title": "title",
-            "description": "description",
-            "visibility": "public",
-            "translations": 10
-        },
+    "data": [
         {
+            "id": "5BZQV",
             "title": "title",
             "description": "description",
             "visibility": "public",
-            "translations": 10
+            "translations": 1,
+            "favorite": false,
+            "from": {
+                "id": 1,
+                "name": "german",
+                "locale": "de"
+            },
+            "to": {
+                "id": 2,
+                "name": "french",
+                "locale": "fr"
+            }
         }
     ]
 }</code></pre>
@@ -424,7 +438,7 @@
         </p>
         <p>
             <h3 class="text-start">Authorization</h3>
-            Access-token header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
+            Authorization header must be set for the user to be authenticated. Access tokens are obtained on <a href="#create">creation</a>, <a href="#login">login</a> and <a href="#refresh">refresh.</a>
         </p>
         <p>
             <h3 class="text-start">Content</h3>

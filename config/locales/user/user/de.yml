@@ -66,3 +66,6 @@ de:
         bug: Bug
         not_found: Dieser Benutzer existiert nicht
         user: Benutzer %s
+      favorites:
+        favorite_quizzes: Favoriten
+        no_favorites: Sie haben noch keine Favoriten

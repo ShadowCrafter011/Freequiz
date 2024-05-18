@@ -2,7 +2,12 @@
     <% quizzes.each do |quiz| %>
         <%= link_to quiz_show_path(quiz.uuid), class: "rounded border border-gray-300 p-2 flex gap-2 justify-between items-start bg-gray-50 hover:bg-gray-100 hover:text-black text-black dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white dark:hover:text-white" do %>
             <div class="flex flex-col items-start">
-                <span><%= quiz.title %></span>
+                <div class="flex items-center gap-1">
+                    <% if logged_in? && @user.favorite_quiz?(quiz) %>
+                        <%= render partial: "svgs/star", locals: { height: "20px", filled: true } %>
+                    <% end %>
+                    <%= quiz.title %>
+                </div>
                 <% if quiz.user.present? %>
                     <span class="text-gray-600 dark:text-gray-500"><%= t "partials.quiz_list.by", user: quiz.user.username %></span>
                 <% else %>

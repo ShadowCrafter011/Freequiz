@@ -28,6 +28,13 @@ class User::UserController < ApplicationController
         @params = params.permit(:title, :sort, :page, :commit)
     end
 
+    def favorites
+        favorites = @user.get_favorite_quizzes
+        result = Quiz.search_quizzes favorites, params
+        @quizzes = result.first
+        @pages = result.last
+    end
+
     def quizzes
         result = Quiz.search_user_quizzes @user, params
         @quizzes = result.first

@@ -1,6 +1,7 @@
 class Quiz < ApplicationRecord
     belongs_to :user, optional: true
     has_many :translations, dependent: :destroy
+    has_many :favorite_quizzes, dependent: :destroy
 
     accepts_nested_attributes_for :translations, reject_if: :all_blank, allow_destroy: true
 
@@ -53,25 +54,16 @@ class Quiz < ApplicationRecord
         Quiz.search_quizzes(user.quizzes, params)
     end
 
-    def data
-        f = Language.find(from)
-        t = Language.find(to)
+    def data(user)
         {
             id: uuid,
             title:,
             description:,
             visibility:,
             translations: translations.count,
-            from: {
-                id: from,
-                name: f.name,
-                locale: f.locale
-            },
-            to: {
-                id: t,
-                name: t.name,
-                locale: t.locale
-            }
+            favorite: user.present? ? user.favorite_quiz?(self) : false,
+            from: Language.find(from).as_json(except: %i[created_at updated_at]),
+            to: Language.find(to).as_json(except: %i[created_at updated_at])
         }
     end
 

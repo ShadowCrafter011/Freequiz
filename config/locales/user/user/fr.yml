@@ -38,6 +38,7 @@ fr:
         can_empty: Laisser vide pour ne rien changer
         saved_data: Données enregistrées!
         new_email: Votre nouvelle adresse e-mail sera utilisée dès que vous aurez cliqué sur le lien qui vous a été envoyé dans votre boîte aux lettres.
+        cancel: Annuler
       settings:
         settings: Réglages
         save: Enregistrer
@@ -65,3 +66,6 @@ fr:
         quiz: Quiz
         bugs_smashed: "%{bugs} signalés"
         bug: Bug
+      favorites:
+        favorite_quizzes: Favoris
+        no_favorites: Vous n'avez pas encore de favoris

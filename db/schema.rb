@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_17_082136) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_18_122854) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_17_082136) do
     t.string "media_type"
     t.string "post_parameters"
     t.index ["user_id"], name: "index_bug_reports_on_user_id"
+  end
+
+  create_table "favorite_quizzes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "quiz_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_favorite_quizzes_on_quiz_id"
+    t.index ["user_id"], name: "index_favorite_quizzes_on_user_id"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -120,6 +129,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_17_082136) do
   end
 
   add_foreign_key "bug_reports", "users"
+  add_foreign_key "favorite_quizzes", "quizzes"
+  add_foreign_key "favorite_quizzes", "users"
   add_foreign_key "quizzes", "users"
   add_foreign_key "scores", "translations"
   add_foreign_key "scores", "users"

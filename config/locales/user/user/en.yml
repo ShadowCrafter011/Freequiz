@@ -38,6 +38,7 @@ en:
         can_empty: Leave blank to change nothing
         saved_data: Data saved!
         new_email: Your new e-mail address will be used as soon as you click on the link sent to your mailbox.
+        cancel: Cancel
       settings:
         settings: Settings
         save: Save
@@ -65,3 +66,6 @@ en:
         quiz: Quiz
         bugs_smashed: "%{bugs} reported"
         bug: Bug
+      favorites:
+        favorite_quizzes: Favourites
+        no_favorites: You don't have any favourites yet

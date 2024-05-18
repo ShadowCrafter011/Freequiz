@@ -1,4 +1,11 @@
-<h1><%= @quiz.title %></h1>
+<div class="flex justify-center items-center gap-2">
+    <h1><%= @quiz.title %></h1>
+    <% if logged_in? %>
+        <%= link_to quiz_favorite_path, data: { turbo_method: :patch } do %>
+            <%= render partial: "svgs/star", locals: { height: "35px", filled: @user.favorite_quizzes.find_by(quiz_id: @quiz.id).present? } %>
+        <% end %>
+    <% end %>
+</div>
 <% unless @user == @quiz.user || @quiz.user.nil? %>
     <h3 class="text-gray-600 dark:text-gray-500"><%= tp("created_by", user: link_to(@quiz.user.username, user_public_path(@quiz.user.username))).html_safe %></h3>
 <% end %>
