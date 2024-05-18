@@ -17,11 +17,13 @@
         <div
             class="flex justify-end items-center gap-2 md:order-2 rtl:space-x-reverse"
         >
-            <%= link_to search_path, class: "flex items-center gap-1 p-2 rounded hover:bg-gray-100 text-black hover:text-black" do %>
-                <div class="hidden sm:block"><%= t "layouts.application.search" %></div>
-                <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 15 15">
-                    <path d="M 5 5 A 1 1 0 0 0 15 5 A 1 1 0 0 0 5 5 Z M 6 5 A 1 1 0 0 0 14 5 A 1 1 0 0 0 6 5 Z" fill="black" fill-rule="evenodd" />
-                    <path d="M 7 9 L 2 14 C 1 15 0 14 1 13 L 6 8 Z" fill="black" />
+            <%= link_to search_path, class: "flex items-center gap-1 p-2 rounded hover:bg-gray-100 text-black hover:text-black dark:text-white dark:hover:bg-gray-800 dark:hover:text-white" do %>
+                <% if logged_in? %>
+                    <div class="hidden sm:block"><%= t "layouts.application.search" %></div>
+                <% end %>
+                <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 15 15" class="dark:fill-white">
+                    <path d="M 5 5 A 1 1 0 0 0 15 5 A 1 1 0 0 0 5 5 Z M 6 5 A 1 1 0 0 0 14 5 A 1 1 0 0 0 6 5 Z" fill-rule="evenodd" />
+                    <path d="M 7 9 L 2 14 C 1 15 0 14 1 13 L 6 8 Z" />
                 </svg>
             <% end %>
             <% unless logged_in? %>
@@ -33,14 +35,14 @@
                 <div class="relative" data-controller="dropdown">
                     <%= image_tag @user.avatar_url, class: "rounded-full h-8 outline outline-blue-700 cursor-pointer", data: { action: "click->dropdown#toggle", test_id: "navbar-account" } %>
                     <div
-                        class="hidden bg-white shadow-lg absolute z-10 top-0 end-0 translate-x-2 -translate-y-2 rounded outline outline-gray-200 p-2"
+                        class="hidden bg-white dark:bg-gray-900 shadow-lg absolute z-10 top-0 end-0 translate-x-2 -translate-y-2 rounded outline outline-gray-200 dark:outline-gray-800 p-2"
                         data-dropdown-target="menu"
                     >
                         <div class="w-44 relative">
                             <%= image_tag @user.avatar_url, class: "absolute top-0 right-0 rounded-full h-8 outline outline-blue-600 cursor-pointer", data: { action: "click->dropdown#toggle" } %>
                             <div class="flex flex-col space-y-2 py-1">
                                 <span class="mb-1"><%= @user.username %></span>
-                                <hr>
+                                <hr class="dark:border-gray-800">
                                 <button
                                     data-controller="popup"
                                     data-action="popup#show"
@@ -49,20 +51,20 @@
                                 >
                                     <%= t "layouts.application.bug_report" %>
                                 </button>
-                                <hr>
+                                <hr class="dark:border-gray-800">
                                 <%= link_to t("layouts.application.overview"), user_path, class: "nav-link" %>
                                 <%= link_to t("layouts.application.settings"), user_settings_path, class: "nav-link" %>
-                                <hr>
+                                <hr class="dark:border-gray-800">
                                 <%= link_to t("layouts.application.create_quiz"), quiz_create_path, class: "nav-link", data: { test_id: "navbar-create-quiz" } %>
                                 <%= link_to t("layouts.application.my_quizzes"), user_quizzes_path, class: "nav-link" %>
-                                <hr>
+                                <hr class="dark:border-gray-800">
                                 <% if user_admin? %>
                                     <%= link_to "Users", admin_users_path, class: "nav-link" %>
                                     <%= link_to "Transactions", admin_transactions_path, class: "nav-link" %>
                                     <%= link_to "API Docs", api_docs_path, class: "nav-link" %>
                                     <%= link_to "Bug Triage (#{BugReport.where(status: :new).count})", bug_triage_path, class: "nav-link" %>
                                     <%= link_to "Bug List", bugs_path, class: "nav-link" %>
-                                    <hr>
+                                    <hr class="dark:border-gray-800">
                                 <% end %>
                                 <%= link_to t("layouts.application.logout"), user_logout_path, class: "nav-link" %>
                             </div>

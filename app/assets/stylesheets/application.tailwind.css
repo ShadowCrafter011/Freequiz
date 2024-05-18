@@ -4,8 +4,6 @@
 @import "form";
 @import "switch";
 
-@import "prism";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,6 +14,10 @@
     }
 
     a {
-        @apply text-blue-600 transition-colors hover:text-blue-700;
+        @apply text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-400;
+    }
+
+    hr {
+        @apply dark:border-gray-800;
     }
 }

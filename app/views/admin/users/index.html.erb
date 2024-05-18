@@ -1,15 +1,15 @@
 <%= form_with method: :get do  |form| %>
     <%= form.text_field :type, value: "query", hidden: true %>
     <div class="flex flex-col min-[1024px]:flex-row gap-2">
-        <div class="shrink flex rounded border border-gray-300 divide-x divide-gray-300">
-            <div class="p-2 bg-gray-100 rounded-s">Sort by</div>
-            <%= form.select :sort, @sort_criteria, { selected: params[:sort] }, { class: "grow border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer" } %>
-            <%= form.select :order, @order_criteria, { selected: params[:order] }, { class: "grow rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer" } %>
+        <div class="shrink flex rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700">
+            <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded-s">Sort by</div>
+            <%= form.select :sort, @sort_criteria, { selected: params[:sort] }, { class: "grow border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer dark:bg-transparent" } %>
+            <%= form.select :order, @order_criteria, { selected: params[:order] }, { class: "grow rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer dark:bg-transparent" } %>
         </div>
-        <div class="grow flex rounded border border-gray-300 divide-x divide-gray-300">
-            <div class="p-2 bg-gray-100 rounded-s">Query</div>
-            <%= form.select :property, @property_criteria, { selected: params[:property] }, { class: "rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer" } %>
-            <%= form.text_field :query, value: params[:query], class: "grow rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 overflow-hidden" %>
+        <div class="grow flex rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700">
+            <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded-s">Query</div>
+            <%= form.select :property, @property_criteria, { selected: params[:property] }, { class: "rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer dark:bg-transparent" } %>
+            <%= form.text_field :query, value: params[:query], class: "grow rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 overflow-hidden dark:bg-transparent" %>
         </div>
         <%= form.submit "Search", class: "btn-primary text-lg" %>
     </div>
@@ -17,7 +17,7 @@
 
 <div class="mt-5 flex flex-col gap-2">
     <% @users.each do |user| %>
-        <%= link_to admin_user_edit_path(user.username), class: "rounded border border-gray-300 p-2 text-black hover:text-black bg-gray-50 hover:bg-gray-100 cursor-pointer sm:flex justify-between" do %>
+        <%= link_to admin_user_edit_path(user.username), class: "rounded border border-gray-300 p-2 text-black hover:text-black bg-gray-50 hover:bg-gray-100 cursor-pointer sm:flex justify-between dark:border-gray-700 dark:text-white dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" do %>
             <div class="flex flex-col">
                 <strong><%= user.username %></strong>
                 <div><%= user.email %></div>

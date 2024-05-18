@@ -7,8 +7,8 @@ class Setting < ApplicationRecord
     validates :locale, inclusion: { in: LOCALES }
 
     after_create do
-        self.dark_mode = false
-        self.show_email = true
+        self.dark_mode = true
+        self.show_email = false
     end
 
     def get_errors

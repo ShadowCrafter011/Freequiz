@@ -11,7 +11,7 @@
         <%= form.submit value: tp("login"), id: "login", class: "form-submit" %>
     </div>
     <div class="flex items-center justify-center gap-1 m-2">
-        <%= form.check_box :remember, checked: "checked", class: "border-teal-700 text-teal-700 focus:outline-none focus:ring-transparent rounded" %>
+        <%= form.check_box :remember, checked: "checked", class: "border-teal-700 text-teal-700 focus:outline-none focus:ring-transparent rounded focus:ring-offset-0 dark:bg-gray-900" %>
         <%= form.label :remember, tp("remember") %>
     </div>
 <% end %>

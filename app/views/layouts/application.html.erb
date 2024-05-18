@@ -10,7 +10,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="<%= "dark" if @user.present? && @user.setting.dark_mode %> overflow-x-hidden">
+  <body class="<%= "dark" if @user.nil? || @user.setting.dark_mode %> overflow-x-hidden dark:bg-gray-900 dark:text-white">
     <%= render partial: "layouts/notification" %>
     <%= render partial: "layouts/bug_report" %>
     <%= render partial: "layouts/navbar" %>

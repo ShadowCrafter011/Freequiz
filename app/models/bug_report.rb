@@ -24,13 +24,13 @@ class BugReport < ApplicationRecord
     def self.status_color(status)
         case status
         when "new"
-            "bg-gray-50"
+            "bg-gray-50 dark:bg-gray-700"
         when "open"
             "bg-blue-600 text-white"
         when "solved"
-            "bg-green-500"
+            "bg-green-500 dark:bg-teal-700"
         else
-            "bg-gray-100"
+            "bg-gray-100 dark:bg-gray-700"
         end
     end
 

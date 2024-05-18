@@ -33,22 +33,20 @@ export default class extends Controller {
     }
 
     activate_links(anchor) {
-        $(this.linkTargets).removeClass(
-            "underline text-blue-800 hover:text-blue-800",
-        );
+        let cls =
+            "underline text-blue-800 hover:text-blue-800 dark:text-teal-600 dark:hover:text-teal-500";
+        $(this.linkTargets).removeClass(cls);
 
         this.section_name = $(this.element).data("action-name");
         this.main_link = $(`[data-id='${this.section_name}']`);
-        this.main_link.addClass("underline text-blue-800 hover:text-blue-800");
+        this.main_link.addClass(cls);
 
         if (anchor) {
             let anchor_no_hash = anchor.replace("#", "");
             this.sub_section = $(
                 `[data-subsection="${this.section_name}.${anchor_no_hash}"]`,
             );
-            this.sub_section.addClass(
-                "underline text-blue-800 hover:text-blue-800",
-            );
+            this.sub_section.addClass(cls);
         }
     }
 }

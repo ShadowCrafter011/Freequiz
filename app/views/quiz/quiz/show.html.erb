@@ -1,6 +1,6 @@
 <h1><%= @quiz.title %></h1>
 <% unless @user == @quiz.user || @quiz.user.nil? %>
-    <h3 class="text-gray-600"><%= tp("created_by", user: link_to(@quiz.user.username, user_public_path(@quiz.user.username))).html_safe %></h3>
+    <h3 class="text-gray-600 dark:text-gray-500"><%= tp("created_by", user: link_to(@quiz.user.username, user_public_path(@quiz.user.username))).html_safe %></h3>
 <% end %>
 
 <% if @quiz.description.present? %>
@@ -28,10 +28,10 @@
     <% end %>
 </div>
 
-<div class="rounded mt-2 border divide-gray-300 divide-y border-gray-300">
+<div class="rounded mt-2 border divide-gray-300 divide-y border-gray-300 dark:border-gray-700 dark:divide-gray-700">
     <% if @quiz.translations.count.positive? %>
         <% @quiz.translations.order(created_at: :asc).each do |translation| %>
-            <div class="flex divide-x divide-gray-300">
+            <div class="flex divide-x divide-gray-300 dark:divide-gray-700">
                 <div class="grow basis-0 p-2"><%= translation.word %></div>
                 <div class="grow basis-0 p-2"><%= translation.translation %></div>
             </div>

@@ -16,7 +16,7 @@
         <%= form.submit value: tp("submit_create_account"), class: "form-submit" %>
     </div>
     <div class="flex items-center justify-center gap-1 m-2">
-        <%= form.check_box :agb, class: "border-teal-700 text-teal-700 focus:outline-none focus:ring-transparent rounded" %>
+        <%= form.check_box :agb, class: "border-teal-700 text-teal-700 focus:outline-none focus:ring-transparent rounded focus:ring-offset-0 dark:bg-gray-900" %>
         <%= form.label :agb, tp("accept_agb") %>
     </div>
 <% end %>

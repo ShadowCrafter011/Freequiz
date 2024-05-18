@@ -24,11 +24,11 @@
     }
 
     .btn-primary-empty {
-        @apply btn-primary cursor-pointer bg-white text-black ring-1 ring-blue-600 hover:text-white;
+        @apply btn-primary cursor-pointer bg-white text-black ring-1 ring-blue-600 hover:text-white dark:bg-transparent dark:text-white;
     }
 
     .btn-secondary {
-        @apply btn-primary bg-gray-50 text-black outline outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-100 hover:text-black;
+        @apply btn-primary bg-gray-50 text-black outline outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-100 hover:text-black dark:bg-gray-900 dark:text-white dark:outline-gray-700 dark:hover:bg-gray-800 dark:hover:text-white;
     }
 
     .btn-secondary-sleek {

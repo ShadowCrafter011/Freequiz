@@ -1,6 +1,6 @@
 <% if pages > 1 %>
     <div class="flex justify-center">
-        <div class="mb-12 flex rounded border border-gray-300 divide-gray-300 divide-x">
+        <div class="mb-12 flex rounded border border-gray-300 divide-gray-300 divide-x dark:border-gray-700 dark:divide-gray-700">
             <% if ["1", "2", "3"].include?(params[:page]) || pages < 6 || params[:page].nil? %>
                 <% [5, pages].min.times do |page| %>
                     <%= render partial: "partials/page_button", locals: { params:, page: page + 1 } %>

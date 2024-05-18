@@ -1,45 +1,28 @@
-<div class="d-flex justify-content-center w-100 my-4">
-    <div class="text-center">
-        <h1><%= tp "title" %></h1>
+<h1><%= tp "title" %></h1>
+
+<%= form_with url: user_edit_path, model: @user, method: :patch, class: "flex flex-col items-center" do |form| %>
+    <div class="text-field-container items-center">
+        <%= form.label :username, tg("username") %>
+        <%= form.text_field :username, autocomplete: "username", class: "text-field" %>
     </div>
-</div>
-
-<div class="form-group">
-    <%= form_with url: user_edit_path, model: @user, method: :patch do |form| %>
-        <div class="container-fluid">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-4">
-                    <div>
-                        <%= form.label :username, tg("username"), class: "fs-4" %>
-                        <%= form.text_field :username, autocomplete: "username", class: "form-control" %>
-                    </div>
-                    <div>
-                        <%= form.label :email, tg("emails"), class: "fs-4" %>
-                        <%= form.text_field :email, autocomplete: "email", class: "form-control" %>
-                    </div>
-                    <div>
-                        <%= form.label :password, tg("password"), class: "fs-4" %>
-                        <%= form.password_field :password, class: "form-control", placeholder: tp("can_empty") %>
-                    </div>
-                    <div>
-                        <%= form.label :password_confirmation, tp("password_repeat"), class: "fs-4" %>
-                        <%= form.password_field :password_confirmation, class: "form-control", placeholder: tp("can_empty") %>
-                    </div>
-                    <div>
-                        <%= form.label :old_password, tp("old_password"), class: "fs-4" %>
-                        <%= form.password_field :old_password, class: "form-control", placeholder: tp("can_empty") %>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-6">
-                            <%= form.submit value: tg("save"), class: "btn btn-lg btn-primary w-100" %>
-                        </div>
-                        <div class="col-6">
-                            <%= link_to "Abbrechen", user_path, class: "btn btn-lg btn-secondary w-100" %>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <% end %>
-</div>
-
+    <div class="text-field-container items-center">
+        <%= form.label :email, tg("emails"), class: "text-nowrap" %>
+        <%= form.text_field :email, autocomplete: "email", class: "text-field" %>
+    </div>
+    <div class="text-field-container items-center">
+        <%= form.label :password, tg("password"), class: "text-nowrap" %>
+        <%= form.password_field :password, class: "text-field" %>
+    </div>
+    <div class="text-field-container items-center">
+        <%= form.label :password_confirmation, tp("password_repeat"), class: "text-nowrap" %>
+        <%= form.password_field :password_confirmation, class: "text-field" %>
+    </div>
+    <div class="text-field-container items-center">
+        <%= form.label :old_password, tp("old_password"), class: "text-nowrap" %>
+        <%= form.text_field :old_password, class: "text-field" %>
+    </div>
+    <div class="mt-2 max-w-96 w-full flex gap-2">
+        <%= form.submit tg("save"), class: "btn-success-sleek grow" %>
+        <%= link_to tp("cancel"), user_path, class: "btn-secondary-sleek grow" %>
+    </div>
+<% end %>

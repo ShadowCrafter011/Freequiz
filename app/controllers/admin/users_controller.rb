@@ -99,7 +99,7 @@ class Admin::UsersController < ApplicationController
     end
 
     def prepare_email
-        @user = User.find_by(username: params[:username])
+        @user_target = User.find_by(username: params[:username])
     end
 
     def send_email

@@ -1,6 +1,6 @@
 @layer components {
     .nav {
-        @apply sticky start-0 top-0 z-20 w-full border-b border-gray-200 bg-white shadow-sm dark:border-gray-600 dark:bg-gray-900;
+        @apply sticky start-0 top-0 z-20 w-full border-b border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900;
     }
 
     .nav-dropdown-current {
@@ -12,6 +12,6 @@
     }
 
     .nav-link {
-        @apply cursor-pointer rounded px-2 py-1 text-black hover:bg-blue-700 hover:text-white;
+        @apply cursor-pointer rounded px-2 py-1 text-black hover:bg-blue-700 hover:text-white dark:text-white dark:hover:bg-gray-800 dark:hover:text-white;
     }
 }

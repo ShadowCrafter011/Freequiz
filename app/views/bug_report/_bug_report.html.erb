@@ -1,15 +1,18 @@
+<span class="hidden dark:bg-gray-700"></span>
+<span class="hidden dark:bg-teal-700"></span>
+
 <div class="pb-2 border-b-2 border-teal-700 flex items-center justify-center gap-5">
     <h1 class="truncate"><%= bug.get_title %></h1>
     <h2 class="rounded-full px-4 <%= bug.status_color %>"><%= bug.status.capitalize %></h2>
 </div>
 
-<div class="mt-5 flex justify-center items-center rounded border border-gray-300 divide-x divide-gray-300">
+<div class="mt-5 flex justify-center items-center rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700">
     <% bug.status_buttons.each do |button| %>
         <%= render partial: "status_btn", locals: { bug: bug, url:, submit: button.first, status: button.last } %>
     <% end %>
 </div>
 
-<div class="mt-5 divide-y divide-gray-300">
+<div class="mt-5 divide-y divide-gray-300 dark:divide-gray-700">
     <% bug.fields.each do |field| %>
         <div class="py-1"><strong><%= field.first %></strong> <%= field.last %></div>
     <% end %>

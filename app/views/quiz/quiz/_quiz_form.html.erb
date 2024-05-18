@@ -4,14 +4,14 @@
     <div class="flex justify-center">
         <div class="grow max-w-5xl space-y-2">
             <div class="flex md:flex-row flex-col gap-2">
-                <div class="md:grow flex sm:flex-row flex-col rounded border border-gray-300">
-                    <span class="py-2 px-5 text-center sm:text-start text-xl bg-gray-200"><%= tp "title" %></span>
+                <div class="md:grow flex sm:flex-row flex-col rounded border border-gray-300 dark:border-gray-700">
+                    <span class="py-2 px-5 text-center sm:text-start text-xl bg-gray-100 dark:bg-gray-800"><%= tp "title" %></span>
                     <%= form.text_field :title, placeholder: tp("title_placeholder"), data: { test_id: "quiz-title" }, class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600" %>
                 </div>
-                <%= form.select :visibility, Quiz::VISIBILITIES.map { |v| [tg("visibilities.#{v}"), v] }, {}, { class: "rounded border-gray-300 focus:ring-1 focus:ring-teal-600 focus:border-teal-600" } %>
+                <%= form.select :visibility, Quiz::VISIBILITIES.map { |v| [tg("visibilities.#{v}"), v] }, {}, { class: "rounded border-gray-300 focus:ring-1 focus:ring-teal-600 focus:border-teal-600 dark:border-gray-700 dark:bg-gray-900 cursor-pointer" } %>
             </div>
-            <div class="flex sm:flex-row flex-col rounded border border-gray-300">
-                <div class="flex items-center justify-center py-2 px-5 bg-gray-200">
+            <div class="flex sm:flex-row flex-col rounded border border-gray-300 dark:border-gray-700">
+                <div class="flex items-center justify-center py-2 px-5 bg-gray-100 dark:bg-gray-800">
                     <span class="text-xl"><%= tp "description" %></span>
                 </div>
                 <%= form.text_area :description, placeholder: tp("description_placeholder"), data: { test_id: "quiz-description" }, class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600 min-h-10" %>

@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag "prism/prism#{"-atom-dark" if @user.setting.dark_mode}" %>
+
 <div class="mx-4 grid gap-4 grid-cols-3 md:grid-cols-4 xl:grid-cols-6 grid-flow-row">
     <!-- Top is 65px as the navbar takes up 4rem + 1px border -->
     <div

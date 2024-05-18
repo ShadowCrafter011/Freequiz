@@ -1,7 +1,7 @@
 <h1><%= tp "title" %></h1>
 
 <div class="grid grid-flow-row lg:grid-cols-3 lg:grid-flow-col gap-2">
-    <div class="min-w-0 md:max-lg:px-36 p-2 bg-gray-100 rounded">
+    <div class="min-w-0 md:max-lg:px-36 p-2 bg-gray-100 dark:bg-gray-800 rounded">
         <h4><%= tp "column_names.data" %></h4>
         <strong><%= tp "data.title_1" %></strong>
         <div class="mb-1">
@@ -10,7 +10,9 @@
             <% end %>
         </div>
         <div class="flex">
-            <%= link_to tp("buttons.confirm"), user_verification_send_path, class: "btn-primary-sleek grow mb-4" %>
+            <% unless @user.confirmed? %>
+                <%= link_to tp("buttons.confirm"), user_verification_send_path, class: "btn-primary-sleek grow mb-4" %>
+            <% end %>
         </div>
         <strong><%= tp "data.title_2" %></strong>
         <div class="mb-4">
@@ -23,17 +25,17 @@
             <%= link_to tp("buttons.delete"), user_delete_path, class: "btn-danger-sleek grow basis-0" %>
         </div>
     </div>
-    <div class="min-w-0 p-2 bg-gray-100 rounded">
+    <div class="min-w-0 p-2 bg-gray-100 dark:bg-gray-800 rounded">
         <h4><%= tp "column_names.quizzes" %></h4>
         <% @user.quizzes.each do |quiz| %>
             <%= link_to quiz_show_path(quiz.uuid) do %>
-                <div class="rounded truncate p-2 text-black hover:text-white hover:bg-blue-600 transition-colors">
+                <div class="rounded truncate p-2 text-black hover:text-white hover:bg-blue-600 dark:text-white dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors">
                     <span><%= quiz.title %></span>
                 </div>
             <% end %>
         <% end %>
     </div>
-    <div class="min-w-0 p-2 bg-gray-100 rounded">
+    <div class="min-w-0 p-2 bg-gray-100 dark:bg-gray-800 rounded">
         <h4><%= tp "column_names.groups" %></h4>
     </div>
 </div>

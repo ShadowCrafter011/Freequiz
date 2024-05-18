@@ -2,12 +2,12 @@
 
 <%= form_with url: user_settings_path, model: @user.setting do |form| %>
     <div class="flex justify-center">
-        <div class="grow max-w-3xl divide-y">
+        <div class="grow max-w-3xl divide-y dark:divide-gray-800">
             <div class="flex justify-between items-center py-2">
                 <%= form.label :select, tp("language") %>
                 <div class="flex items-center gap-2">
                     <%= image_tag "flags/#{@user.setting.locale}", class: "h-6 rounded" %>
-                    <%= form.select :locale, Setting::LOCALES.map { |l| [tg("languages.#{l}"), l] }, {}, { class: "rounded border-none focus:ring-0 cursor-pointer hover:bg-gray-100" } %>
+                    <%= form.select :locale, Setting::LOCALES.map { |l| [tg("languages.#{l}"), l] }, {}, { class: "rounded border-none focus:ring-0 cursor-pointer hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800" } %>
                 </div>
             </div>
 

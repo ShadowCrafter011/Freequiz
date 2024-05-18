@@ -1,13 +1,13 @@
 <%= form_with url: url, method: :get, class: "flex flex-col md:flex-row gap-2" do |form| %>
-    <%= form.text_field :title, value: params[:title], placeholder: t("partials.quiz_search.type_title"), class: "grow border-gray-300 rounded focus:border-teal-600 focus:ring-teal-600" %>
-    <div class="flex items-center bg-gray-200 md:bg-transparent rounded border border-gray-300 divide-gray-300 divide-x">
-        <span class="rounded-s text-xl flex items-center h-full px-2 bg-gray-200"><%= t "partials.quiz_search.sort" %></span>
+    <%= form.text_field :title, value: params[:title], placeholder: t("partials.quiz_search.type_title"), class: "grow border-gray-300 rounded focus:border-teal-600 focus:ring-teal-600 dark:border-gray-700 dark:bg-transparent" %>
+    <div class="flex items-center bg-gray-200 md:bg-transparent rounded border border-gray-300 divide-gray-300 divide-x dark:bg-gray-800 dark:border-gray-700 dark:divide-gray-700">
+        <span class="rounded-s text-xl flex items-center h-full px-2 bg-gray-200 dark:bg-gray-800"><%= t "partials.quiz_search.sort" %></span>
         <%= form.select :sort, [
             [t("partials.quiz_search.sort_options.last_created"), "newest"],
             [t("partials.quiz_search.sort_options.first_created"), "oldest"],
             [t("partials.quiz_search.sort_options.most_translations"), "most_translations"],
             [t("partials.quiz_search.sort_options.least_translations"), "least_translations"]
-        ], { selected: params[:sort] }, { class: "w-full bg-white border-none rounded-e focus:ring-2 focus:border-teal-600 focus:ring-teal-700" } %>
+        ], { selected: params[:sort] }, { class: "w-full bg-white border-0 border-s rounded-e focus:ring-2 focus:border-teal-600 focus:ring-teal-700 dark:bg-gray-900 cursor-pointer" } %>
     </div>
     <%= form.submit t("partials.quiz_search.search"), class: "btn-primary text-xl" %>
 <% end %>

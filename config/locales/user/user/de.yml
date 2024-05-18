@@ -38,6 +38,7 @@ de:
         can_empty: Leer lassen um nichts zu ändern
         saved_data: Daten gespeichert!
         new_email: Ihre neue E-mail Adresse wird verwendet sobald Sie den Link der in Ihr Postfach geschickt wurde geklickt haben
+        cancel: Abbrechen
       settings:
         settings: Einstellungen
         save: Speichern
