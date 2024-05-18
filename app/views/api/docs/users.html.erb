@@ -378,6 +378,53 @@
     </div>
     <hr>
 
+    <div id="favorites" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Favorites</h1>
+        <p>
+            <a href="https://freequiz.ch/api/user/favorites/page">https://freequiz.ch/api/user/favorites/page</a><br>
+            Replace page with desired page. If omitted page 1 will be used. Returns 50 quizzes per page
+        </p>
+        <p>
+            <h3 class="text-start">Request method: GET</h3>
+        </p>
+        <p>
+            <h3 class="text-start">Content</h3>
+            No content
+        </p>
+        <p>
+            <h3 class="text-start">Response</h3>
+            Status code: 200
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "success": true,
+    "data": [
+        {
+            "id": "xjuC3",
+            "title": "title",
+            "description": "description",
+            "visibility": "public",
+            "translations": 1,
+            "favorite": true,
+            "from": {
+                "id": 1,
+                "name": "german",
+                "locale": "de"
+            },
+            "to": {
+                "id": 2,
+                "name": "french",
+                "locale": "fr"
+            }
+        }
+    ]
+}</code></pre>
+        </p>
+        <p>
+            <h3 class="text-start">Errors</h3>
+            No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
+        </p>
+    </div>
+    <hr>
+
     <div id="public" class="pt-16 -mt-16" data-section="true">
         <h1 class="text-start">Public</h1>
         <p>

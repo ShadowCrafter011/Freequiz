@@ -10,6 +10,7 @@ namespace :api do
             get "search(/:page)", to: "user#search"
 
             get "quizzes(/:page)", to: "user#quizzes"
+            get "favorites(/:page)", to: "user#favorites"
             get ":username/public(/:page)", to: "user#public"
 
             get "delete_token", to: "user#request_delete_token"

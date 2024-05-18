@@ -34,6 +34,7 @@ module Api::DocsHelper
                     data: "Data",
                     search: "Search",
                     user_quizzes: "Quizzes",
+                    favorites: "Favorites",
                     public: "Public",
                     update: "Update",
                     settings: "Settings"

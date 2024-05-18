@@ -6,7 +6,7 @@ class Api::UserController < ApplicationController
     skip_before_action :setup_login
     skip_around_action :switch_locale
 
-    before_action :api_require_valid_access_token!, only: :quizzes
+    before_action :api_require_valid_access_token!, only: %i[quizzes favorites]
 
     def search
         query = ActiveRecord::Base.connection.quote(params[:query])
@@ -23,6 +23,15 @@ class Api::UserController < ApplicationController
         offset = (page.to_i * 50) - 50
         quizzes =
             @api_user.quizzes.order(created_at: :desc).limit(50).offset(offset)
+
+        render json: { success: true, data: quizzes.map { |q| q.data(@api_user) } }
+    end
+
+    def favorites
+        page = params[:page] || 1
+        offset = (page.to_i * 50) - 50
+        quizzes =
+            @api_user.get_favorite_quizzes.limit(50).offset(offset)
 
         render json: { success: true, data: quizzes.map { |q| q.data(@api_user) } }
     end
