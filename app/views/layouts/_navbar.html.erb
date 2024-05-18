@@ -57,7 +57,7 @@
                                 <hr class="dark:border-gray-800">
                                 <%= link_to t("layouts.application.create_quiz"), quiz_create_path, class: "nav-link", data: { test_id: "navbar-create-quiz" } %>
                                 <%= link_to t("layouts.application.my_quizzes"), user_quizzes_path, class: "nav-link" %>
-                                <%= link_to t("layouts.applicaiton.favorites"), user_favorites_path, class: "nav-link" %>
+                                <%= link_to t("layouts.application.favorites"), user_favorites_path, class: "nav-link" %>
                                 <hr class="dark:border-gray-800">
                                 <% if user_admin? %>
                                     <%= link_to "Users", admin_users_path, class: "nav-link" %>

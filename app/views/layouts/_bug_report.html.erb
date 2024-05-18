@@ -1,7 +1,7 @@
 <div id="bug-report-form" class="opacity-0 pointer-events-none absolute z-30 transition-opacity">
     <div class="h-screen w-screen flex justify-center items-center">
         <div class="h-full mx-5 grow flex flex-col max-w-7xl">
-            <div class="relative rounded-md grow my-5 p-5 shadow-lg bg-white border-2 border-blue-600">
+            <div class="relative rounded-md grow my-5 p-5 shadow-lg bg-white border-2 border-gray-300 dark:bg-gray-900 dark:border-gray-700">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     data-close="popup"
@@ -24,23 +24,23 @@
 
                     <div class="flex gap-2 items-center border-b-2 border-teal-700 pb-1">
                         <%= form.label :title, t("layouts.application.title_form"), class: "text-xl font-bold" %>
-                        <%= form.text_field :title, placeholder: t("layouts.application.title_placeholder"), class: "text-field" %>
+                        <%= form.text_field :title, placeholder: t("layouts.application.title_placeholder"), class: "text-field dark:bg-gray-900" %>
                     </div>
                     <div class="flex gap-2 items-center border-b-2 border-teal-700 pb-1">
                         <%= form.label :platform, t("layouts.application.platform"), class: "text-xl font-bold" %>
-                        <%= form.text_field :platform, placeholder: t("layouts.application.platform_placeholder"), class: "text-field" %>
+                        <%= form.text_field :platform, placeholder: t("layouts.application.platform_placeholder"), class: "text-field dark:bg-gray-900" %>
                     </div>
                     <div class="flex gap-2 items-center border-b-2 border-teal-700 pb-1">
                         <%= form.label :url, t("layouts.application.url"), class: "text-xl font-bold" %>
-                        <%= form.text_field :url, value: request.original_url, placeholder: t("layouts.application.url_placeholder"), class: "text-field" %>
+                        <%= form.text_field :url, value: request.original_url, placeholder: t("layouts.application.url_placeholder"), class: "text-field dark:bg-gray-900" %>
                     </div>
                     <div class="flex gap-2 items-baseline border-b-2 border-teal-700 pb-1">
                         <%= form.label :body, t("layouts.application.body"), class: "text-xl font-bold" %>
-                        <%= form.text_area :body, placeholder: t("layouts.application.body_placeholder"), class: "text-field" %>
+                        <%= form.text_area :body, placeholder: t("layouts.application.body_placeholder"), class: "text-field dark:bg-gray-900" %>
                     </div>
                     <div class="flex gap-2 items-baseline border-b-2 border-teal-700 pb-1">
                         <%= form.label :steps, t("layouts.application.steps"), class: "text-xl font-bold" %>
-                        <%= form.text_area :steps, placeholder: t("layouts.application.steps_placeholder"), class: "text-field" %>
+                        <%= form.text_area :steps, placeholder: t("layouts.application.steps_placeholder"), class: "text-field dark:bg-gray-900" %>
                     </div>
                     <div class="flex justify-center">
                         <%= form.submit t("layouts.application.bug_report"), class: "btn-success text-xl" %>
