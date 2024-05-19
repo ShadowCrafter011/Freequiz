@@ -14,8 +14,10 @@
     <%= render partial: "layouts/notification" %>
     <%= render partial: "layouts/bug_report" %>
     <%= render partial: "layouts/navbar" %>
-    <div class="<%= "container" unless @no_container %>">
+    <div class="mx-2 mt-2 sm:container">
       <%= yield %>
+    </div>
+    <div class="<%= "container" unless @no_container %>">
     <div>
   </body>
 </html>

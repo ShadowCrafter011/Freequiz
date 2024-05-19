@@ -1,5 +1,5 @@
-<div class="flex justify-center items-center gap-2">
-    <h1><%= @quiz.title %></h1>
+<div class="mb-2 md:mb-0 flex flex-col md:flex-row justify-center items-center md:gap-2">
+    <h1 class="text-3xl md:text-4xl"><%= @quiz.title %></h1>
     <% if logged_in? %>
         <%= link_to quiz_favorite_path, data: { turbo_method: :patch } do %>
             <%= render partial: "svgs/star", locals: { height: "35px", filled: @user.favorite_quizzes.find_by(quiz_id: @quiz.id).present? } %>
@@ -39,8 +39,8 @@
     <% if @quiz.translations.count.positive? %>
         <% @quiz.translations.order(created_at: :asc).each do |translation| %>
             <div class="flex divide-x divide-gray-300 dark:divide-gray-700">
-                <div class="grow basis-0 p-2"><%= translation.word %></div>
-                <div class="grow basis-0 p-2"><%= translation.translation %></div>
+                <div class="grow basis-0 p-2 overflow-clip"><%= translation.word %></div>
+                <div class="grow basis-0 p-2 overflow-clip"><%= translation.translation %></div>
             </div>
         <% end %>
     <% else %>
