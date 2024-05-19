@@ -1,1 +1,7 @@
-<%= render partial: "quiz_form", locals: { title: tp("title_edit"), method: :patch, commit: tp("save"), url: quiz_edit_path(@quiz.uuid) } %>
+<%= render partial: "quiz_form", locals: {
+    title: tp("title_edit"),
+    method: :patch,
+    commit: tp("save"),
+    url: quiz_edit_path(@quiz.uuid),
+    cancel_path: quiz_show_path(@quiz.uuid)
+} %>
