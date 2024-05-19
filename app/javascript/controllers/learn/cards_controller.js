@@ -13,12 +13,15 @@ export default class extends Controller {
         "learning",
         "unlearned",
         "done",
+        "progress",
     ];
 
     connect() {
-        this.access_token = $(this.accessTokenTarget).text();
-        this.quiz_id = $(this.quizIDTarget).text();
-        this.done_text = $(this.doneTextTarget).text();
+        let element = $(this.element);
+
+        this.access_token = element.data("access-token");
+        this.quiz_id = element.data("quiz-uuid");
+        this.done_text = element.data("done-text");
 
         this.flip_card = $(this.flipCardTarget);
         this.word = $(this.wordTarget);
@@ -33,13 +36,8 @@ export default class extends Controller {
 
         this.quiz;
         this.quiz_data;
-        this.scores_changed = [];
 
         this.setup();
-    }
-
-    disconnect() {
-        clearInterval(this.save_interval);
     }
 
     flip() {
@@ -47,21 +45,20 @@ export default class extends Controller {
     }
 
     async setup(load = true) {
-        var self = this;
-
         if (load) {
             await $.get({
                 url: `/api/quiz/${this.quiz_id}/data`,
                 headers: {
-                    "Access-token": this.access_token,
+                    Authorization: this.access_token,
                 },
-                success: function (data) {
-                    self.quiz = data.quiz_data;
-                    self.quiz_data = self.quiz.data;
+                success: (data) => {
+                    this.quiz = data.quiz_data;
+                    this.quiz_data = this.quiz.data;
                 },
                 error: () => Turbo.visit("/"),
             });
         }
+        console.log(this.quiz);
 
         this.available = [];
         this.current_card = null;
@@ -74,33 +71,6 @@ export default class extends Controller {
 
         this.current_card = await this.select_card();
         this.set_card(this.current_card);
-
-        var self = this;
-        this.save_interval = setInterval(() => this.save_score(self), 1000);
-    }
-
-    save_score(self) {
-        if (self.scores_changed.length == 0) return;
-
-        let data = { score: {} };
-        for (let translation_index of self.scores_changed) {
-            let translation = self.quiz_data[translation_index];
-            data.score[translation.hash] = translation.score;
-        }
-
-        $.ajax({
-            type: "PATCH",
-            url: `/api/quiz/${self.quiz.id}/score`,
-            data: JSON.stringify(data),
-            headers: {
-                "Access-token": self.access_token,
-            },
-            processData: false,
-            contentType: "Application/json",
-            error: (err) => console.error(err),
-        });
-
-        self.scores_changed = [];
     }
 
     async reset_flip() {
@@ -111,11 +81,22 @@ export default class extends Controller {
     }
 
     async understood() {
-        this.quiz_data[this.current_card].score.cards += 1;
-        this.scores_changed.push(this.current_card);
+        this.quiz_data[this.current_card].score.cards = 1;
+        let score_id = this.quiz_data[this.current_card].score_id;
 
         this.available.splice(this.available.indexOf(this.current_card), 1);
-        this.quiz_data[this.current_card].score.cards = 1;
+
+        $.ajax({
+            method: "PATCH",
+            url: `/api/quiz/${this.quiz_id}/score/${score_id}/cards`,
+            headers: {
+                Authorization: this.access_token,
+            },
+            data: {
+                score: 1,
+            },
+            error: (e) => console.error(e),
+        });
 
         this.current_card = await this.select_card();
 
@@ -142,9 +123,9 @@ export default class extends Controller {
 
     async set_card(index) {
         if (index == null) return;
-        this.word.text(this.quiz_data[index].w);
+        this.word.text(this.quiz_data[index].word);
         await this.reset_flip();
-        this.translation.text(this.quiz_data[index].t);
+        this.translation.text(this.quiz_data[index].translation);
     }
 
     async select_card() {
@@ -155,8 +136,8 @@ export default class extends Controller {
             this.available = [];
             this.update_data();
 
-            this.learning.toggleClass("d-none");
-            this.done.toggleClass("d-none");
+            this.learning.toggleClass("hidden");
+            this.done.toggleClass("hidden");
             return;
         }
 
@@ -166,12 +147,18 @@ export default class extends Controller {
 
     update_data() {
         this.unlearned.text(this.available.length);
-        this.learned.text(this.quiz_data.length - this.available.length);
+        let left = this.quiz_data.length - this.available.length;
+        let percent = left / this.quiz_data.length;
+        this.learned.text(left);
+        $(this.progressTarget).css(
+            "transform",
+            `translateX(-${50 * (1 - percent)}%) scaleX(${percent})`,
+        );
     }
 
     async reset() {
-        this.learning.toggleClass("d-none");
-        this.done.toggleClass("d-none");
+        this.learning.toggleClass("hidden");
+        this.done.toggleClass("hidden");
 
         for (let x in this.quiz_data) {
             this.quiz_data[x].score.cards = 0;
@@ -181,7 +168,7 @@ export default class extends Controller {
             type: "PATCH",
             url: `/api/quiz/${this.quiz_id}/score/reset/cards`,
             headers: {
-                "Access-token": this.access_token,
+                Authorization: this.access_token,
             },
         });
 
