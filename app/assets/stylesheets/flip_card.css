@@ -21,7 +21,7 @@
     }
 
     .flip-card-side {
-        @apply select-none rounded-xl bg-blue-600 dark:bg-blue-800;
+        @apply select-none rounded-xl bg-blue-600 text-xl sm:text-5xl dark:bg-blue-800;
         width: 100%;
         height: 100%;
         color: white;
@@ -30,11 +30,16 @@
         align-items: center;
         justify-content: center;
         backface-visibility: hidden;
-        font-size: 50px;
     }
 
     .flip-card-back {
         @apply bg-green-700 dark:bg-teal-700;
         transform: rotateY(180deg);
+    }
+
+    .cards-progress-bar {
+        transition: width 0.2s ease-in-out;
+        -moz-transition: width 0.2s ease-in-out;
+        -webkit-transition: width 0.2s ease-in-out;
     }
 }

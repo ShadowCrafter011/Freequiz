@@ -150,10 +150,7 @@ export default class extends Controller {
         let left = this.quiz_data.length - this.available.length;
         let percent = left / this.quiz_data.length;
         this.learned.text(left);
-        $(this.progressTarget).css(
-            "transform",
-            `translateX(-${50 * (1 - percent)}%) scaleX(${percent})`,
-        );
+        $(this.progressTarget).css("width", percent * 100 + "%");
     }
 
     async reset() {
