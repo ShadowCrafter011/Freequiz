@@ -41,18 +41,18 @@ export default class extends Controller {
             $(this.radialProgressBarTarget).data("neutral-color"),
         );
 
-        this.waiting_for_continue = false;
         this.document = $(document);
-        this.document.on("keydown", () => {
-            if (this.waiting_for_continue) {
-                this.continue();
-                this.waiting_for_continue = false;
-            }
-        });
 
         this.update_progress_bar();
 
         this.show_random_translation();
+    }
+
+    add_continue_listener() {
+        this.document.on("keydown", () => {
+            this.continue();
+            this.document.off("keydown");
+        });
     }
 
     disconnect() {
@@ -108,7 +108,7 @@ export default class extends Controller {
             .text(`${submitted} ${icon}`);
         $(this.continueButtonTarget).removeClass("hidden");
 
-        setTimeout(() => (this.waiting_for_continue = true));
+        setTimeout(this.add_continue_listener.bind(this));
     }
 
     continue() {
