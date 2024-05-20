@@ -5,14 +5,30 @@ export default class extends Controller {
     static targets = ["translations"];
 
     connect() {
-        $(document).on("keydown", (e) => {
+        this.document = $(document);
+        this.document.on("keydown", (e) => {
             if (e.key == "Enter") this.add_translation(e);
+            if (e.key == "Tab") {
+                let inputs = $(this.translationsTargets).find(
+                    'input[data-create-quiz-target="input"]',
+                );
+                let id = `#${$(e.target).attr("id")}`;
+                let index = inputs.index($(id));
+                if (index + 2 >= inputs.length) this.append_translation();
+            }
         });
+    }
+
+    disconnect() {
+        this.document.off("keydown");
     }
 
     add_translation(event) {
         event.preventDefault();
+        this.append_translation();
+    }
 
+    append_translation() {
         let template = $(this.translationsTarget)
             .children()
             .first()
