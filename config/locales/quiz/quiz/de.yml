@@ -48,7 +48,7 @@ de:
         correct: Richtig!
         wrong: Falsch
         continue: Drücke irgend eine Taste um weiterzumachen
-        was_correct: Meine Antwort stimmte
+        was_correct: Meine Antwort was correct
         was_wrong: Meine Antwort war nicht correct
 
       request_destroy:

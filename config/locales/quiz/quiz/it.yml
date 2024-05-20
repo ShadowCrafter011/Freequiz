@@ -41,8 +41,8 @@ it:
         correct: Proprio così!
         wrong: Sbagliato
         continue: Premere un pulsante qualsiasi per continuare
-        was_correct: La mia risposta era giusta
         was_wrong: La mia risposta non era corretta
+        was_correct: La mia risposta era corretta
       destroy:
         not_found: Questo quiz non esiste
         not_allowed: Non si deve fare questo
