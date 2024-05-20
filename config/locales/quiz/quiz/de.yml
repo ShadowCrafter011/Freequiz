@@ -47,6 +47,9 @@ de:
         check: Überprüfen
         correct: Richtig!
         wrong: Falsch
+        continue: Drücke irgend eine Taste um weiterzumachen
+        was_correct: Meine Antwort stimmte
+        was_wrong: Meine Antwort war nicht correct
 
       request_destroy:
         delete: Löschen

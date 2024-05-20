@@ -35,6 +35,14 @@ en:
         learned: "Learned: "
         write: Writing
         no_translations: This quiz has no files yet
+        failed_to_save: You appear to be offline. Progress cannot be saved at the moment
+        translate: Translate to %{language}
+        check: Check
+        correct: That's right!
+        wrong: Wrong
+        continue: Press any button to continue
+        was_correct: My answer was right
+        was_wrong: My answer was not correct
       destroy:
         not_found: This quiz does not exist
         not_allowed: You must not do this

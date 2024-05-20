@@ -35,6 +35,14 @@ fr:
         learned: "Appris : "
         write: Écrire
         no_translations: Ce quiz n'a pas encore de fiches
+        failed_to_save: Vous semblez être hors ligne. La progression ne peut pas être enregistrée pour le moment
+        translate: Traduire en %{language}
+        check: Vérifier
+        correct: C'est vrai !
+        wrong: Faux
+        continue: Appuie sur n'importe quelle touche pour continuer
+        was_correct: Ma réponse était correcte
+        was_wrong: Ma réponse n'était pas correcte
       destroy:
         not_found: Ce quiz n'existe pas
         not_allowed: Vous ne pouvez pas faire cela

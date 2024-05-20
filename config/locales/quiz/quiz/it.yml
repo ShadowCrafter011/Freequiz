@@ -35,6 +35,14 @@ it:
         learned: "Imparato: "
         write: Scrittura
         no_translations: Questo quiz non ha ancora file
+        failed_to_save: Sembra che tu sia offline. I progressi non possono essere salvati al momento
+        translate: Tradurre in %{lingua}
+        check: Controllo
+        correct: Proprio così!
+        wrong: Sbagliato
+        continue: Premere un pulsante qualsiasi per continuare
+        was_correct: La mia risposta era giusta
+        was_wrong: La mia risposta non era corretta
       destroy:
         not_found: Questo quiz non esiste
         not_allowed: Non si deve fare questo

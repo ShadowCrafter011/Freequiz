@@ -15,6 +15,12 @@ export default class extends Controller {
         "submit",
         "done",
         "failedToSave",
+        "answeredWord",
+        "continueButton",
+        "wasRightButton",
+        "wasWrongButton",
+        "enableOnNewWord",
+        "disableOnNewWord",
     ];
 
     async connect() {
@@ -35,6 +41,15 @@ export default class extends Controller {
             $(this.radialProgressBarTarget).data("neutral-color"),
         );
 
+        this.waiting_for_continue = false;
+        this.document = $(document);
+        this.document.on("keydown", () => {
+            if (this.waiting_for_continue) {
+                this.continue();
+                this.waiting_for_continue = false;
+            }
+        });
+
         this.update_progress_bar();
 
         this.show_random_translation();
@@ -42,6 +57,7 @@ export default class extends Controller {
 
     disconnect() {
         this.quiz.upload_if_failed_to_save();
+        this.document.off("keydown");
     }
 
     reset() {
@@ -62,32 +78,58 @@ export default class extends Controller {
             this.translation.score.write >= 1
                 ? this.translation.word
                 : this.translation.translation;
-        let timeout = 1000;
+
+        let color, icon;
 
         if (this.quiz.check(submitted, correct)) {
-            $(this.wordTarget)
-                .addClass("text-green-600")
-                .text(`${other} = ${correct} ✓`);
+            color = "text-green-600";
+            icon = "✔";
+            $(this.wordTarget).addClass(color).text(`${other} = ${correct}`);
             $(this.checkButtonTarget).text($(this.element).data("correct"));
+            $(this.wasWrongButtonTarget).removeClass("hidden");
 
             this.quiz.increment_score();
 
             this.update_progress_bar();
         } else {
-            $(this.wordTarget)
-                .addClass("text-red-600")
-                .text(`${other} = ${correct} ❌`);
-            $(this.checkButtonTarget)
-                .removeClass("bg-teal-700")
-                .addClass("bg-red-600")
-                .text($(this.element).data("wrong"));
+            color = "text-red-600";
+            icon = "❌";
+            $(this.wordTarget).addClass(color).text(`${other} = ${correct}`);
             $(this.borderTarget)
                 .removeClass("border-teal-700")
                 .addClass("border-red-600");
-            timeout = 3000;
+            $(this.wasRightButtonTarget).removeClass("hidden");
         }
 
-        setTimeout(this.show_random_translation.bind(this), timeout);
+        $(this.enableOnNewWordTargets).addClass("hidden");
+        $(this.answeredWordTarget)
+            .removeClass("hidden")
+            .addClass(color)
+            .text(`${submitted} ${icon}`);
+        $(this.continueButtonTarget).removeClass("hidden");
+
+        setTimeout(() => (this.waiting_for_continue = true));
+    }
+
+    continue() {
+        $(this.enableOnNewWordTargets).removeClass("hidden");
+        $(this.disableOnNewWordTargets)
+            .addClass("hidden")
+            .removeClass("text-red-600 text-green-600");
+        console.log(this.disableOnNewWordTargets);
+        this.update_progress_bar();
+        this.show_random_translation();
+        $(this.inputTarget).focus();
+    }
+
+    was_right() {
+        this.quiz.increment_score();
+        this.continue();
+    }
+
+    was_wrong() {
+        this.quiz.decrement_score();
+        this.continue();
     }
 
     show_random_translation() {
