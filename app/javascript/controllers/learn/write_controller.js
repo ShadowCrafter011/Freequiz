@@ -116,7 +116,6 @@ export default class extends Controller {
         $(this.disableOnNewWordTargets)
             .addClass("hidden")
             .removeClass("text-red-600 text-green-600");
-        console.log(this.disableOnNewWordTargets);
         this.update_progress_bar();
         this.show_random_translation();
         $(this.inputTarget).focus();

@@ -24,6 +24,8 @@ export class Quiz {
     check(answer, correct) {
         answer = answer.toLowerCase().replaceAll(" ", "");
         correct = correct.toLowerCase().replaceAll(" ", "");
+        answer = answer.replace(/\([^)]*\)?/gm, "");
+        correct = correct.replace(/\([^)]*\)?/gm, "");
 
         if (answer == correct) return true;
 
