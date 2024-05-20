@@ -58,7 +58,6 @@ export default class extends Controller {
                 error: () => Turbo.visit("/"),
             });
         }
-        console.log(this.quiz);
 
         this.available = [];
         this.current_card = null;

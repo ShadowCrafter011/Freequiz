@@ -5,13 +5,14 @@ class Quiz::QuizController < ApplicationController
         setup_locale "quiz.quiz"
     end
 
-    before_action only: %i[cards learn] do
+    before_action only: %i[cards learn write] do
         override_action :show
 
         @access_token = generate_access_token(current_user, 31.days)
 
         @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
         redirect_to root_path, notice: tp("not_found") unless @quiz.present? && @quiz.user_allowed_to_view?(current_user)
+        redirect_to quiz_show_path(@quiz.uuid), notice: tp("no_translations") unless @quiz.translations_count.positive?
     end
 
     def cards; end

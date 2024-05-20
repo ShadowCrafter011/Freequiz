@@ -3,6 +3,9 @@ class Quiz < ApplicationRecord
     has_many :translations, dependent: :destroy
     has_many :favorite_quizzes, dependent: :destroy
 
+    belongs_to :from_lang, class_name: :Language, foreign_key: :from
+    belongs_to :to_lang, class_name: :Language, foreign_key: :to
+
     accepts_nested_attributes_for :translations, reject_if: :all_blank, allow_destroy: true
 
     VISIBILITIES = %w[public private hidden].freeze

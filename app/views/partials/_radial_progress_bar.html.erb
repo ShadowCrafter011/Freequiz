@@ -1,0 +1,8 @@
+<div class="relative">
+    <div class="absolute h-full w-full flex justify-center items center">
+        <h2 data-radial-progress-bar-target="text" class="flex items-center"><%= inner_text %></h2>
+    </div>
+    <%= content_tag :svg, xmlns: "http://www.w3.org/2000/svg", viewbox: "0 0 10 10", height:, width:, data: do %>
+        <circle cx="5" cy="5" r="4" class="<%= background_color %>" />
+    <% end %>
+</div>

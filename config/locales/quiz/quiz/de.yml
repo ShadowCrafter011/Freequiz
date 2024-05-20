@@ -32,6 +32,8 @@ de:
         cards: Kartei Karten
         write: Schreiben
 
+        failed_to_save: Sie scheinen offline zu sein. Fortschritt kann momentan nicht gespeichert werden
+
         # Learning cards
         done: Glückwunsch, du hast alles gelernt!
         learn_again: Nochmal lernen
@@ -39,6 +41,12 @@ de:
         start_over: Nochmals lernen
         not_learned: "Noch nicht gelernt: "
         learned: "Gelernt: "
+
+        # Writing cards
+        translate: Übersetze ins %{language}e
+        check: Überprüfen
+        correct: Richtig!
+        wrong: Falsch
 
       request_destroy:
         delete: Löschen

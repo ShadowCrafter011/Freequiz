@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_18_122854) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_19_165416) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -131,6 +131,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_18_122854) do
   add_foreign_key "bug_reports", "users"
   add_foreign_key "favorite_quizzes", "quizzes"
   add_foreign_key "favorite_quizzes", "users"
+  add_foreign_key "quizzes", "languages", column: "from"
+  add_foreign_key "quizzes", "languages", column: "to"
   add_foreign_key "quizzes", "users"
   add_foreign_key "scores", "translations"
   add_foreign_key "scores", "users"

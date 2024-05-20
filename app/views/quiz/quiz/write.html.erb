@@ -1,0 +1,50 @@
+<%= content_tag :div, data: {
+    controller: "learn--write",
+    quiz_uuid: @quiz.uuid,
+    access_token: @access_token,
+    translate_from: tp("translate", language: tg("languages.#{@quiz.from_lang.locale}")),
+    translate_to: tp("translate", language: tg("languages.#{@quiz.to_lang.locale}")),
+    check: tp("check"),
+    correct: tp("correct"),
+    wrong: tp("wrong")
+} do %>
+    <h1 data-learn--write-target="title"></h1>
+    <h5 data-learn--write-target="failedToSave" class="hidden text-gray-600 dark:text-gray-500"><%= tp("failed_to_save") %></h5>
+    <div class="mt-2 flex flex-col md:flex-row justify-center items-center gap-10">
+        <%= render partial: "partials/radial_progress_bar", locals: {
+            height: "150px",
+            width: "150px",
+            background_color: "fill-white dark:fill-gray-900",
+            inner_text: "0%",
+            data: {
+                learn__write_target: "radialProgressBar",
+                neutral_color: "fill-gray-300 dark:fill-gray-800"
+            }
+        } %>
+        <div data-learn--write-target="submit" class="max-w-3xl w-full">
+            <div class="ps-3 text-xl">
+                <span data-learn--write-target="translateText"></span>: 
+                <span data-learn--write-target="word"></span>
+            </div>
+            <div data-learn--write-target="border" class="flex border-b-2 border-teal-700">
+                <input
+                    type="text"
+                    data-learn--write-target="input"
+                    data-action="keydown.enter->learn--write#check"
+                    class="grow text-field"
+                    autofocus="true"
+                    spellcheck="false"
+                >
+                <button
+                    class="rounded bg-teal-700 my-1 px-2"
+                    data-learn--write-target="checkButton"
+                    data-action="learn--write#check"
+                ><%= tp("check") %></button>
+            </div>
+        </div>
+        <div data-learn--write-target="done" class="hidden max-w-3xl w-full">
+            <h1 class="text-green-600"><%= tp("done") %></h1>
+            <button data-action="learn--write#reset" class="bg-teal-700 w-full text-xl p-2 rounded"><%= tp("learn_again") %></button>
+        </div>
+    </div>
+<% end %>
