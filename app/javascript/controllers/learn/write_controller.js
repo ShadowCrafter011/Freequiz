@@ -1,38 +1,25 @@
 import { Controller } from "@hotwired/stimulus";
 import { Quiz } from "quiz";
 import { RadialProgressBar } from "progress_bars/radial";
+import { LearnWrite } from "learn/write";
 
 // Connects to data-controller="learn--write"
 export default class extends Controller {
-    static targets = [
-        "title",
-        "radialProgressBar",
-        "translateText",
-        "word",
-        "input",
-        "checkButton",
-        "border",
-        "submit",
-        "done",
-        "failedToSave",
-        "answeredWord",
-        "continueButton",
-        "wasRightButton",
-        "wasWrongButton",
-        "enableOnNewWord",
-        "disableOnNewWord",
-    ];
+    static targets = ["title", "radialProgressBar"];
 
     async connect() {
-        let element = $(this.element);
+        let $element = $(this.element);
+        this.$document = $(document);
         this.quiz = new Quiz(
             "write",
-            element.data("quiz-uuid"),
-            element.data("access-token"),
+            $element.data("quiz-uuid"),
+            $element.data("access-token"),
             this.failedToSaveTarget,
         );
 
         await this.quiz.load();
+
+        this.controller = new LearnWrite(this.element, this.quiz);
 
         $(this.titleTarget).text(this.quiz.title);
 
@@ -41,84 +28,39 @@ export default class extends Controller {
             $(this.radialProgressBarTarget).data("neutral-color"),
         );
 
-        this.document = $(document);
-
         this.update_progress_bar();
 
         this.show_random_translation();
     }
 
     add_continue_listener() {
-        this.document.on("keydown", () => {
+        this.$document.on("keydown", () => {
             this.continue();
-            this.document.off("keydown");
+            this.$document.off("keydown");
         });
     }
 
     disconnect() {
+        this.$document.off("keydown");
         this.quiz.upload_if_failed_to_save();
-        this.document.off("keydown");
     }
 
     reset() {
-        this.quiz.reset_score();
+        this.controller.reset();
         this.update_progress_bar();
         this.show_random_translation();
-        $(this.submitTarget).removeClass("hidden");
-        $(this.doneTarget).addClass("hidden");
     }
 
     check() {
-        let submitted = $(this.inputTarget).val();
-        let correct =
-            this.translation.score.write >= 1
-                ? this.translation.translation
-                : this.translation.word;
-        let other =
-            this.translation.score.write >= 1
-                ? this.translation.word
-                : this.translation.translation;
-
-        let color, icon;
-
-        if (this.quiz.check(submitted, correct)) {
-            color = "text-green-600";
-            icon = "✔";
-            $(this.wordTarget).addClass(color).text(`${other} = ${correct}`);
-            $(this.checkButtonTarget).text($(this.element).data("correct"));
-            $(this.wasWrongButtonTarget).removeClass("hidden");
-
-            this.quiz.increment_score();
-
-            this.update_progress_bar();
-        } else {
-            color = "text-red-600";
-            icon = "❌";
-            $(this.wordTarget).addClass(color).text(`${other} = ${correct}`);
-            $(this.borderTarget)
-                .removeClass("border-teal-700")
-                .addClass("border-red-600");
-            $(this.wasRightButtonTarget).removeClass("hidden");
-        }
-
-        $(this.enableOnNewWordTargets).addClass("hidden");
-        $(this.answeredWordTarget)
-            .removeClass("hidden")
-            .addClass(color)
-            .text(`${submitted} ${icon}`);
-        $(this.continueButtonTarget).removeClass("hidden");
-
+        this.controller.check();
+        this.update_progress_bar();
         setTimeout(this.add_continue_listener.bind(this));
     }
 
     continue() {
-        $(this.enableOnNewWordTargets).removeClass("hidden");
-        $(this.disableOnNewWordTargets)
-            .addClass("hidden")
-            .removeClass("text-red-600 text-green-600");
+        this.controller.continue();
         this.update_progress_bar();
         this.show_random_translation();
-        $(this.inputTarget).focus();
     }
 
     was_right() {
@@ -137,37 +79,11 @@ export default class extends Controller {
         );
 
         if (!this.translation) {
-            $(this.submitTarget).addClass("hidden");
-            $(this.doneTarget).removeClass("hidden");
+            this.controller.done();
             return;
         }
 
-        if (this.translation.score.write >= 1) {
-            this.set_data(
-                this.translation.word,
-                $(this.element).data("translate-to"),
-            );
-        } else {
-            this.set_data(
-                this.translation.translation,
-                $(this.element).data("translate-from"),
-            );
-        }
-    }
-
-    set_data(word, translate_text) {
-        $(this.inputTarget).val("");
-        $(this.checkButtonTarget)
-            .removeClass("bg-red-600")
-            .addClass("bg-teal-700")
-            .text($(this.element).data("check"));
-        $(this.translateTextTarget).text(translate_text);
-        $(this.wordTarget)
-            .removeClass("text-green-600 text-red-600")
-            .text(word);
-        $(this.borderTarget)
-            .removeClass("border-red-600")
-            .addClass("border-teal-700");
+        this.controller.show_translation(this.translation);
     }
 
     update_progress_bar() {

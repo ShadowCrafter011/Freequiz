@@ -48,8 +48,8 @@ de:
         correct: Richtig!
         wrong: Falsch
         continue: Drücke irgend eine Taste um weiterzumachen
-        was_correct: Meine Antwort was correct
-        was_wrong: Meine Antwort war nicht correct
+        was_correct: Meine Antwort war richtig
+        was_wrong: Meine Antwort war nicht richtig
 
       request_destroy:
         delete: Löschen
