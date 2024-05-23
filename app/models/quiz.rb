@@ -78,20 +78,16 @@ class Quiz < ApplicationRecord
                 user.scores.create translation_id: translation.id
             end
 
-            user.scores.joins(:translation).where("translation.quiz_id": id).map do |score|
+            user.scores.joins(:translation).where("translation.quiz_id": id).each_with_index.map do |score, i|
                 translation = score.translation
                 {
+                    index: i,
                     id: translation.id,
                     score_id: score.id,
                     word: translation.word,
                     translation: translation.translation,
                     favorite: score.favorite,
-                    score: {
-                        smart: score.smart,
-                        write: score.write,
-                        multi: score.multi,
-                        cards: score.cards
-                    }
+                    score: score.as_json(only: %i[smart write multi cards])
                 }
             end
         else

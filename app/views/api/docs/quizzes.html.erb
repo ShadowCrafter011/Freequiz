@@ -55,6 +55,7 @@
             "locale": "en"
         },
         "data": [{
+            "index": 0,
             "id": 1,
             "score_id": 1,
             "word": "Baum",
@@ -67,6 +68,7 @@
                 "cards": 0
             }
         }, {
+            "index": 1,
             "id": 2,
             "score_id": 2,
             "word": "Strasse",
@@ -196,6 +198,7 @@
             "locale": "de"
         },
         "data": [{
+            "index": 0,
             "id": 1,
             "score_id": 1,
             "word": "Tree",
@@ -208,6 +211,7 @@
                 "cards": 0
             }
         }, {
+            "index": 1,
             "id": 2,
             "score_id": 2,
             "word": "Fish",
@@ -319,7 +323,7 @@ If no user is logged in the data attribute will look like this
         </p>
         <p>
             <h3 class="text-start">Content</h3>
-            To add more translations a unique key, usually the current time in milliseconds is used, needs to be created in translations attributes. To update an existing translation use its ID provided by other requests. If both word and translation are empty the translation will not be persisted to the database. To remove an existing translation the destroy attribute must be set to a truthy value i.e. 1, "1", true or "true"
+            To add more translations a unique key, usually the current time in milliseconds is used, needs to be created in translations attributes. To update an existing translation use its index provided by other requests as key and add an additional field with its translation ID. If both word and translation are empty the translation will not be persisted to the database. To remove an existing translation the destroy attribute must be set to a truthy value i.e. 1, "1", true or "true"
 <pre><code class="lang-json" data-controller="admin--prism">{
     "quiz": {
         "title": "title",
@@ -329,6 +333,7 @@ If no user is logged in the data attribute will look like this
         "to": "language ID",
         "translations_attributes": {
             "0": {
+                "id": "id",
                 "word": "Baum",
                 "translation": "Tree",
                 "_destroy": "0"
@@ -365,6 +370,7 @@ If no user is logged in the data attribute will look like this
             "locale": "en"
         },
         "data": [{
+            "index": 0,
             "id": 1,
             "score_id": 1,
             "word": "Baum",
@@ -377,6 +383,7 @@ If no user is logged in the data attribute will look like this
                 "cards": 0
             }
         }, {
+            "index": 1,
             "id": 2,
             "score_id": 2,
             "word": "Strasse",
@@ -459,6 +466,7 @@ If no user is logged in the data attribute will look like this
     "success": true,
     "message": "Favorites updated",
     "updated_data": [{
+        "index": 0,
         "id": 1,
         "score_id": 1,
         "word": "Baum",
@@ -471,6 +479,7 @@ If no user is logged in the data attribute will look like this
             "cards": 0
         }
     }, {
+        "index": 1,
         "id": 2
         "score_id": 2,
         "word": "Strasse",
@@ -530,6 +539,7 @@ If no user is logged in the data attribute will look like this
     "success": true,
     "message": "Score updated",
     "updated_data": [{
+        "index": 0,
         "id": 1,
         "score_id": 1,
         "word": "Baum",
@@ -542,6 +552,7 @@ If no user is logged in the data attribute will look like this
             "cards": 0
         }
     }, {
+        "index": 1,
         "id": 2,
         "score_id": 2,
         "word": "Strasse",
@@ -599,6 +610,7 @@ If no user is logged in the data attribute will look like this
     "success": true,
     "message": "Score was reset for mode smart/write/multi/cards",
     "updated_data": [{
+        "index": 0,
         "id": 1,
         "score_id": 1,
         "word": "Baum",
@@ -611,6 +623,7 @@ If no user is logged in the data attribute will look like this
             "cards": 0
         }
     }, {
+        "index": 1,
         "id": 2,
         "score_id": 2,
         "word": "Strasse",
