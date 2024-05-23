@@ -81,6 +81,7 @@ class Quiz < ApplicationRecord
             user.scores.joins(:translation).where("translation.quiz_id": id).map do |score|
                 translation = score.translation
                 {
+                    id: translation.id,
                     score_id: score.id,
                     word: translation.word,
                     translation: translation.translation,

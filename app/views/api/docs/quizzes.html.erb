@@ -55,6 +55,7 @@
             "locale": "en"
         },
         "data": [{
+            "id": 1,
             "score_id": 1,
             "word": "Baum",
             "translation": "Tree",
@@ -66,6 +67,7 @@
                 "cards": 0
             }
         }, {
+            "id": 2,
             "score_id": 2,
             "word": "Strasse",
             "translation": "Road",
@@ -194,6 +196,7 @@
             "locale": "de"
         },
         "data": [{
+            "id": 1,
             "score_id": 1,
             "word": "Tree",
             "translation": "Baum",
@@ -205,6 +208,7 @@
                 "cards": 0
             }
         }, {
+            "id": 2,
             "score_id": 2,
             "word": "Fish",
             "translation": "Fisch",
@@ -315,7 +319,7 @@ If no user is logged in the data attribute will look like this
         </p>
         <p>
             <h3 class="text-start">Content</h3>
-            To add more translations a unique key, usually the current time in milliseconds is used, needs to be created in translations attributes. If both word and translation are empty the translation will not be persisted to the database. To remove an existing translation the destroy attribute must be set to a truthy value i.e. 1, "1", true or "true"
+            To add more translations a unique key, usually the current time in milliseconds is used, needs to be created in translations attributes. To update an existing translation use its ID provided by other requests. If both word and translation are empty the translation will not be persisted to the database. To remove an existing translation the destroy attribute must be set to a truthy value i.e. 1, "1", true or "true"
 <pre><code class="lang-json" data-controller="admin--prism">{
     "quiz": {
         "title": "title",
@@ -361,6 +365,7 @@ If no user is logged in the data attribute will look like this
             "locale": "en"
         },
         "data": [{
+            "id": 1,
             "score_id": 1,
             "word": "Baum",
             "translation": "Tree",
@@ -372,6 +377,7 @@ If no user is logged in the data attribute will look like this
                 "cards": 0
             }
         }, {
+            "id": 2,
             "score_id": 2,
             "word": "Strasse",
             "translation": "Road",
@@ -453,6 +459,7 @@ If no user is logged in the data attribute will look like this
     "success": true,
     "message": "Favorites updated",
     "updated_data": [{
+        "id": 1,
         "score_id": 1,
         "word": "Baum",
         "translation": "Tree",
@@ -464,6 +471,7 @@ If no user is logged in the data attribute will look like this
             "cards": 0
         }
     }, {
+        "id": 2
         "score_id": 2,
         "word": "Strasse",
         "translation": "Road",
@@ -522,6 +530,7 @@ If no user is logged in the data attribute will look like this
     "success": true,
     "message": "Score updated",
     "updated_data": [{
+        "id": 1,
         "score_id": 1,
         "word": "Baum",
         "translation": "Tree",
@@ -533,6 +542,7 @@ If no user is logged in the data attribute will look like this
             "cards": 0
         }
     }, {
+        "id": 2,
         "score_id": 2,
         "word": "Strasse",
         "translation": "Road",
@@ -589,6 +599,7 @@ If no user is logged in the data attribute will look like this
     "success": true,
     "message": "Score was reset for mode smart/write/multi/cards",
     "updated_data": [{
+        "id": 1,
         "score_id": 1,
         "word": "Baum",
         "translation": "Tree",
@@ -600,6 +611,7 @@ If no user is logged in the data attribute will look like this
             "cards": 0
         }
     }, {
+        "id": 2,
         "score_id": 2,
         "word": "Strasse",
         "translation": "Road",
