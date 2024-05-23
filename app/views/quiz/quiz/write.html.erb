@@ -29,7 +29,7 @@
             <div data-learn--write-target="border" class="flex flex-col md:flex-row md:gap-2 items-center border-b-2 border-teal-700">
                 <input
                     type="text"
-                    data-learn--write-target="input enableOnNewWord"
+                    data-learn--write-target="input"
                     data-action="keydown.enter->learn--write#check"
                     class="grow text-field"
                     autofocus="true"
@@ -40,7 +40,6 @@
                     data-learn--write-target="checkButton enableOnNewWord"
                     data-action="learn--write#check"
                 ><%= tp("check") %></button>
-                <span data-learn--write-target="answeredWord disableOnNewWord" class="hidden text-xl text-nowrap h-10 p-2"></span>
             </div>
             <div class="flex flex-col md:flex-row md:gap-2 w-full">
                 <button

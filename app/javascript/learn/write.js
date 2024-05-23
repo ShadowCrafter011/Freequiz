@@ -7,8 +7,6 @@ export class LearnWrite {
         "border",
         "submit",
         "done",
-        "failedToSave",
-        "answeredWord",
         "continueButton",
         "wasRightButton",
         "wasWrongButton",
@@ -64,6 +62,9 @@ export class LearnWrite {
         $(this.disableOnNewWordTarget)
             .addClass("hidden")
             .removeClass("text-red-600 text-green-600");
+        $(this.inputTarget).removeClass(
+            "caret-transparent text-red-600 text-green-600",
+        );
         $(this.inputTarget).focus();
     }
 
@@ -105,10 +106,10 @@ export class LearnWrite {
         }
 
         $(this.enableOnNewWordTarget).addClass("hidden");
-        $(this.answeredWordTarget)
-            .removeClass("hidden")
+        $(this.inputTarget)
             .addClass(color)
-            .text(`${submitted} ${icon}`);
+            .addClass("caret-transparent")
+            .val(`${submitted} ${icon}`);
         $(this.continueButtonTarget).removeClass("hidden");
     }
 }

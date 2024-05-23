@@ -5,7 +5,7 @@ import { LearnWrite } from "learn/write";
 
 // Connects to data-controller="learn--write"
 export default class extends Controller {
-    static targets = ["title", "radialProgressBar"];
+    static targets = ["title", "radialProgressBar", "failedToSave"];
 
     async connect() {
         let $element = $(this.element);
@@ -16,6 +16,7 @@ export default class extends Controller {
             $element.data("access-token"),
             this.failedToSaveTarget,
         );
+        this.waiting_for_continue = false;
 
         await this.quiz.load();
 
@@ -34,8 +35,10 @@ export default class extends Controller {
     }
 
     add_continue_listener() {
+        this.waiting_for_continue = true;
         this.$document.on("keydown", () => {
             this.continue();
+            this.waiting_for_continue = false;
             this.$document.off("keydown");
         });
     }
@@ -52,6 +55,7 @@ export default class extends Controller {
     }
 
     check() {
+        if (this.waiting_for_continue) return;
         this.controller.check();
         this.update_progress_bar();
         setTimeout(this.add_continue_listener.bind(this));
@@ -61,6 +65,8 @@ export default class extends Controller {
         this.controller.continue();
         this.update_progress_bar();
         this.show_random_translation();
+        this.$document.off("keydown");
+        this.waiting_for_continue = false;
     }
 
     was_right() {
