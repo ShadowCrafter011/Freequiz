@@ -72,16 +72,20 @@ class Quiz < ApplicationRecord
 
     def learn_data(user)
         if user.present?
-            translations.each do |translation|
-                next if user.scores.exists? translation_id: translation.id
-
-                user.scores.create translation_id: translation.id
+            scores_to_create = translations.map do |translation|
+                {
+                    user_id: user.id,
+                    translation_id: translation.id,
+                    word: translation.word,
+                    translation: translation.translation
+                }
             end
 
-            user.scores.joins(:translation).where("translation.quiz_id": id).each_with_index.map do |score, i|
+            score_data = user.scores.where("translation.quiz_id": id).includes(:translation).map do |score|
                 translation = score.translation
+                scores_to_create -= [scores_to_create.find { |s| s[:translation_id] == translation.id }]
+
                 {
-                    index: i,
                     id: translation.id,
                     score_id: score.id,
                     word: translation.word,
@@ -89,6 +93,24 @@ class Quiz < ApplicationRecord
                     favorite: score.favorite,
                     score: score.as_json(only: %i[smart write multi cards])
                 }
+            end
+
+            new_score_data = scores_to_create.map { |s| s.slice(:user_id, :translation_id) }
+            new_score_ids = Score.insert_all(new_score_data) unless scores_to_create.empty?
+
+            score_data + scores_to_create.each_with_index.map do |new_score, i|
+                data = {
+                    id: new_score[:translation_id],
+                    score_id: new_score_ids[i]&.dig("id"),
+                    favorite: false,
+                    score: {
+                        smart: 0,
+                        write: 0,
+                        multi: 0,
+                        cards: 0
+                    }
+                }
+                new_score.slice(:word, :translation).merge(data)
             end
         else
             translations.map { |t| { word: t.word, translation: t.translation } }
