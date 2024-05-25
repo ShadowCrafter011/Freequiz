@@ -65,8 +65,8 @@ class Quiz < ApplicationRecord
             visibility:,
             translations: translations.count,
             favorite: user.present? ? user.favorite_quiz?(self) : false,
-            from: Language.find(from).as_json(except: %i[created_at updated_at]),
-            to: Language.find(to).as_json(except: %i[created_at updated_at])
+            from: from_lang.as_json(except: %i[created_at updated_at]),
+            to: to_lang.as_json(except: %i[created_at updated_at])
         }
     end
 

@@ -1,0 +1,34 @@
+<h1><%= @quiz.title %></h1>
+
+<%= content_tag :div, data: {
+    controller: "learn--multiple-choice",
+    access_token: @access_token,
+    quiz_uuid: @quiz.uuid
+} do %>
+    <h4 data-learn--multiple-choice-target="failedToSave" class="hidden text-gray-600 dark:text-gray-500"><%= tp("failed_to_save") %></h4>
+
+    <div class="mt-2 flex justify-center">
+        <div class="max-w-3xl w-full">
+            <div data-learn--multiple-choice-target="input">
+                <h4><%= tp("instruction") %></h4>
+                <div class="h-4 rounded-full bg-gray-800">
+                    <div data-learn--multiple-choice-target="progressBar" class="cards-progress-bar rounded-full bg-teal-700 h-full w-0"></div>
+                </div>
+
+                <div class="mt-2 py-10 px-2 bg-blue-600 rounded-xl flex justify-center items-center">
+                    <h4 data-learn--multiple-choice-target="text"></h4>
+                </div>
+
+                <div class="mt-2 grid grid-flow-row grid-cols-2 gap-2">
+                    <% 4.times do %>
+                        <div data-learn--multiple-choice-target="button" class="p-2 bg-gray-50 hover:bg-gray-100 border rounded border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer transition-colors"></div>
+                    <% end %>
+                </div>
+            </div>
+            <div data-learn--multiple-choice-target="done" class="hidden">
+                <h1 class="text-green-600"><%= tp("done") %></h1>
+                <button data-action="learn--multiple-choice#reset" class="bg-teal-700 w-full text-xl p-2 rounded"><%= tp("learn_again") %></button>
+            </div>
+        </div>
+    </div>
+<% end %>

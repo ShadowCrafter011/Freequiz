@@ -100,13 +100,14 @@ export default class extends Controller {
         let done = 0;
 
         if (2 in grouped) {
-            done = grouped[2].length / total;
+            done += grouped[2].length;
             data.push({
-                coverage: done,
+                coverage: grouped[2].length / total,
                 fill_color: "fill-green-800 dark:fill-teal-800",
             });
         }
         if (1 in grouped) {
+            done += grouped[1].length;
             data.push({
                 coverage: grouped[1].length / total,
                 fill_color: "fill-green-500 dark:fill-green-600",
@@ -114,6 +115,8 @@ export default class extends Controller {
         }
 
         this.radial_progress_bar.set_data(data);
-        this.radial_progress_bar.set_text(Math.floor(done * 100) + "%");
+        this.radial_progress_bar.set_text(
+            Math.floor((done / total) * 100) + "%",
+        );
     }
 }

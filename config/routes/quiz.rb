@@ -13,5 +13,7 @@ namespace :quiz do
 
         get "cards", to: "quiz#cards", as: "cards"
         get "write", to: "quiz#write", as: "write"
+        get "multi", to: "quiz#multi", as: "multi"
+        get "smart", to: "quiz#smart", as: "smart"
     end
 end

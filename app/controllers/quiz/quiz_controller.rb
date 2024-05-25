@@ -5,7 +5,7 @@ class Quiz::QuizController < ApplicationController
         setup_locale "quiz.quiz"
     end
 
-    before_action only: %i[cards learn write] do
+    before_action only: %i[cards smart write multi] do
         override_action :show
 
         @access_token = generate_access_token(current_user, 31.days)
@@ -17,9 +17,11 @@ class Quiz::QuizController < ApplicationController
 
     def cards; end
 
-    def learn; end
+    def smart; end
 
     def write; end
+
+    def multi; end
 
     def favorite
         @quiz = Quiz.find_by(uuid: params[:quiz_uuid])

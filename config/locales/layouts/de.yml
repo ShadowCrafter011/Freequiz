@@ -2,6 +2,7 @@ de:
   layouts:
     application:
       title: Freequiz - Karteien lernen, gratis für immer
+      description: Freequiz ist fürs lernen von Wortschatz gemacht. Es ist gratis, enthält keine Werbung und wichtige Funktionen sind nicht kostenpflichtig
       account: Konto
       quiz: Quiz
       my_quizzes: Meine Quizze
