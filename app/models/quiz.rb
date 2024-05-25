@@ -6,7 +6,7 @@ class Quiz < ApplicationRecord
     belongs_to :from_lang, class_name: :Language, foreign_key: :from
     belongs_to :to_lang, class_name: :Language, foreign_key: :to
 
-    accepts_nested_attributes_for :translations, reject_if: :all_blank, allow_destroy: true
+    accepts_nested_attributes_for :translations, allow_destroy: true, reject_if: proc { |t| t[:word].blank? || t[:translation].blank? }
 
     VISIBILITIES = %w[public private hidden].freeze
 
@@ -14,7 +14,7 @@ class Quiz < ApplicationRecord
     validates :description, length: { maximum: 30_000 }
     validates :visibility, inclusion: { in: VISIBILITIES }
 
-    validate :validate_langs
+    validate :validate_translations_count
 
     before_create do
         id_char_num = 5
@@ -130,10 +130,7 @@ class Quiz < ApplicationRecord
 
     private
 
-    def validate_langs
-        errors.add(:from, I18n.t("errors.invalid_lang")) unless Language.exists?(from)
-        return if Language.exists?(to)
-
-        errors.add(:to, I18n.t("errors.invalid_lang"))
+    def validate_translations_count
+        errors.add(:translations, I18n.t("errors.not_enough_translations")) if translations.size.zero?
     end
 end
