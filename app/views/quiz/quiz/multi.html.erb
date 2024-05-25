@@ -11,12 +11,12 @@
         <div class="max-w-3xl w-full">
             <div data-learn--multiple-choice-target="input">
                 <h4><%= tp("instruction") %></h4>
-                <div class="h-4 rounded-full bg-gray-800">
+                <div class="h-4 rounded-full bg-gray-300 dark:bg-gray-800">
                     <div data-learn--multiple-choice-target="progressBar" class="cards-progress-bar rounded-full bg-teal-700 h-full w-0"></div>
                 </div>
 
                 <div class="mt-2 py-10 px-2 bg-blue-600 rounded-xl flex justify-center items-center">
-                    <h4 data-learn--multiple-choice-target="text"></h4>
+                    <h4 data-learn--multiple-choice-target="text" class="text-white"></h4>
                 </div>
 
                 <div class="mt-2 grid grid-flow-row grid-cols-2 gap-2">
@@ -27,7 +27,7 @@
             </div>
             <div data-learn--multiple-choice-target="done" class="hidden">
                 <h1 class="text-green-600"><%= tp("done") %></h1>
-                <button data-action="learn--multiple-choice#reset" class="bg-teal-700 w-full text-xl p-2 rounded"><%= tp("learn_again") %></button>
+                <button data-action="learn--multiple-choice#reset" class="bg-teal-700 w-full text-xl p-2 rounded text-white"><%= tp("learn_again") %></button>
             </div>
         </div>
     </div>

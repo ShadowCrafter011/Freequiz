@@ -36,7 +36,7 @@
                     spellcheck="false"
                 >
                 <button
-                    class="rounded bg-teal-700 my-1 px-2 w-full md:w-fit"
+                    class="rounded bg-teal-700 text-white my-1 px-2 w-full md:w-fit"
                     data-learn--write-target="checkButton enableOnNewWord"
                     data-action="learn--write#check"
                 ><%= tp("check") %></button>
@@ -45,23 +45,23 @@
                 <button
                     data-learn--write-target="continueButton disableOnNewWord"
                     data-action="learn--write#continue"
-                    class="hidden rounded bg-teal-700 my-1 py-1 px-2 w-full"
+                    class="hidden rounded bg-teal-700 text-white my-1 py-1 px-2 w-full"
                 ><%= tp("continue") %></button>
                 <button
                     data-learn--write-target="wasRightButton disableOnNewWord"
                     data-action="learn--write#was_right"
-                    class="hidden rounded bg-blue-600 my-1 py-1 px-2 w-full"
+                    class="hidden rounded bg-blue-600 text-white my-1 py-1 px-2 w-full"
                 ><%= tp("was_correct") %></button>
                 <button
                     data-learn--write-target="wasWrongButton disableOnNewWord"
                     data-action="learn--write#was_wrong"
-                    class="hidden rounded bg-blue-600 my-1 py-1 px-2 w-full"
+                    class="hidden rounded bg-blue-600 text-white my-1 py-1 px-2 w-full"
                 ><%= tp("was_wrong") %></button>
             </div>
         </div>
         <div data-learn--write-target="done" class="hidden max-w-3xl w-full">
             <h1 class="text-green-600"><%= tp("done") %></h1>
-            <button data-action="learn--write#reset" class="bg-teal-700 w-full text-xl p-2 rounded"><%= tp("learn_again") %></button>
+            <button data-action="learn--write#reset" class="bg-teal-700 w-full text-xl p-2 rounded text-white"><%= tp("learn_again") %></button>
         </div>
     </div>
 <% end %>
