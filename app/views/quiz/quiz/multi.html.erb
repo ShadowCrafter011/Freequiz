@@ -3,7 +3,8 @@
 <%= content_tag :div, data: {
     controller: "learn--multiple-choice",
     access_token: @access_token,
-    quiz_uuid: @quiz.uuid
+    quiz_uuid: @quiz.uuid,
+    amount: @user.setting.multi_amount
 } do %>
     <h4 data-learn--multiple-choice-target="failedToSave" class="hidden text-gray-600 dark:text-gray-500"><%= tp("failed_to_save") %></h4>
 

@@ -8,6 +8,7 @@ export default class extends Controller {
 
     async connect() {
         this.$element = $(this.element);
+        this.amount = this.$element.data("amount");
         this.quiz = new Quiz(
             "multi",
             this.$element.data("quiz-uuid"),
@@ -38,7 +39,9 @@ export default class extends Controller {
     }
 
     show_random_translation() {
-        this.translation = this.quiz.random_translation();
+        this.translation = this.quiz.random_translation(
+            (t) => t.score.multi < this.amount,
+        );
 
         if (!this.translation) {
             $(this.inputTarget).addClass("hidden");
@@ -51,11 +54,18 @@ export default class extends Controller {
             (t) => t.id != this.translation.id,
         );
 
-        this.controller.show_translation(
-            this.translation.word,
-            this.translation.translation,
-            other.map((t) => t.translation),
-        );
+        let word, trans, other_array;
+        if (this.translation.score.multi == 0 && this.amount > 1) {
+            word = this.translation.translation;
+            trans = this.translation.word;
+            other_array = other.map((t) => t.word);
+        } else {
+            word = this.translation.word;
+            trans = this.translation.translation;
+            other_array = other.map((t) => t.translation);
+        }
+
+        this.controller.show_translation(word, trans, other_array);
     }
 
     answered(correct) {
@@ -67,12 +77,14 @@ export default class extends Controller {
     }
 
     update_progress_bar() {
+        let total = 0;
+        this.quiz.translations.forEach(
+            (t) => (total += Math.min(t.score.multi, this.amount)),
+        );
+
         $(this.progressBarTarget).css(
             "width",
-            (this.quiz.translations.filter((t) => t.score.multi == 1).length /
-                this.quiz.translations.length) *
-                100 +
-                "%",
+            (total / this.quiz.translations.length / this.amount) * 100 + "%",
         );
     }
 }

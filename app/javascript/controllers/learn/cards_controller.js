@@ -79,12 +79,13 @@ export default class extends Controller {
         $(this.learnedTarget).text(done);
         $(this.unlearnedTarget).text(to_do);
 
-        let seen = this.quiz.translations.filter(
-            (t) => t.score.cards > 0,
-        ).length;
+        let total = 0;
+        this.quiz.translations.forEach(
+            (t) => (total += Math.min(t.score.cards, this.amount)),
+        );
         $(this.progressBarTarget).css(
             "width",
-            (seen / this.quiz.translations.length) * 100 + "%",
+            (total / this.quiz.translations.length / this.amount) * 100 + "%",
         );
     }
 
