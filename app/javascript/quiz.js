@@ -21,6 +21,14 @@ export class Quiz {
         return this.quiz.title;
     }
 
+    get translation_language() {
+        return this.quiz.to.name;
+    }
+
+    get word_language() {
+        return this.quiz.from.name;
+    }
+
     check(answer, correct) {
         answer = answer.toLowerCase().replaceAll(" ", "");
         correct = correct.toLowerCase().replaceAll(" ", "");

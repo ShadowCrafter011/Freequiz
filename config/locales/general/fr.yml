@@ -1,8 +1,10 @@
 fr:
   general:
     settings:
-      show_email: Montrer votre adresse E-mail dans votre profil publique
       dark_mode: Mode sombre
+      cards_amount: Fichier Interroger les cartes autant de fois que nécessaire
+      multi_amount: Demander autant de fois les mots du questionnaire à choix multiple.
+      write_amount: Demander des mots autant de fois qu'on en écrit
     roles:
       user: Utilisateur
       beta: Testeur Beta

@@ -59,7 +59,7 @@ de:
         no_quizzes: Du hast noch keine Quizze erstellt
       public:
         profile: Profil von %{user}
-        created_ago: "Alter des accounts: %{time_ago}"
+        created_ago: Account vor %{time_ago} erstellt
         quizzes: "%{quizzes} erstellt"
         quiz: Quiz
         bugs_smashed: "%{bugs} gemeldet"

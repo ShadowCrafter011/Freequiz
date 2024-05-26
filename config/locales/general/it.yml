@@ -1,8 +1,10 @@
 it:
   general:
     settings:
-      show_email: Mostra l'indirizzo e-mail nel profilo pubblico
       dark_mode: Modalità scura
+      cards_amount: Interrogare le schede dei file con la massima frequenza
+      multi_amount: Chiedere le parole così spesso nella scelta multipla
+      write_amount: Parole d'ordine così spesso quando si scrive
     roles:
       user: Utente
       beta: Beta Tester

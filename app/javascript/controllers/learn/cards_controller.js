@@ -1,173 +1,112 @@
 import { Controller } from "@hotwired/stimulus";
+import { Quiz } from "quiz";
 
 // Connects to data-controller="learn--cards"
 export default class extends Controller {
     static targets = [
-        "accessToken",
-        "quizID",
-        "doneText",
         "flipCard",
+        "failedToSave",
         "word",
+        "wordLanguage",
         "translation",
+        "translationLanguage",
         "learned",
-        "learning",
         "unlearned",
+        "progressBar",
         "done",
-        "progress",
+        "learning",
     ];
 
-    connect() {
-        let element = $(this.element);
+    async connect() {
+        this.$element = $(this.element);
+        this.amount = this.$element.data("amount");
 
-        this.access_token = element.data("access-token");
-        this.quiz_id = element.data("quiz-uuid");
-        this.done_text = element.data("done-text");
+        this.quiz = new Quiz(
+            "cards",
+            this.$element.data("quiz-uuid"),
+            this.$element.data("access-token"),
+            this.failedToSaveTarget,
+        );
 
-        this.flip_card = $(this.flipCardTarget);
-        this.word = $(this.wordTarget);
-        this.translation = $(this.translationTarget);
-        this.learned = $(this.learnedTarget);
-        this.unlearned = $(this.unlearnedTarget);
-        this.learning = $(this.learningTarget);
-        this.done = $(this.doneTarget);
+        await this.quiz.load();
 
-        this.available = [];
-        this.current_card = null;
-
-        this.quiz;
-        this.quiz_data;
-
-        this.setup();
+        this.show_translation();
+        this.update_progress();
     }
 
-    flip() {
-        this.flip_card.toggleClass("flipped");
-    }
+    async show_translation() {
+        let translation = this.quiz.random_translation(
+            (t) => t.score.cards < this.amount,
+        );
 
-    async setup(load = true) {
-        if (load) {
-            await $.get({
-                url: `/api/quiz/${this.quiz_id}/data`,
-                headers: {
-                    Authorization: this.access_token,
-                },
-                success: (data) => {
-                    this.quiz = data.quiz_data;
-                    this.quiz_data = this.quiz.data;
-                },
-                error: () => Turbo.visit("/"),
-            });
-        }
+        if (!translation) {
+            $(this.learningTarget).addClass("hidden");
+            $(this.doneTarget).removeClass("hidden");
 
-        this.available = [];
-        this.current_card = null;
-
-        for (var x = 0; x < this.quiz_data.length; x++) {
-            if (this.quiz_data[x].score.cards == 0) this.available.push(x);
-        }
-
-        this.update_data();
-
-        this.current_card = await this.select_card();
-        this.set_card(this.current_card);
-    }
-
-    async reset_flip() {
-        if (this.flip_card.hasClass("flipped")) {
-            this.flip_card.toggleClass("flipped");
-            await new Promise((resolve) => setTimeout(resolve, 500));
-        }
-    }
-
-    async understood() {
-        this.quiz_data[this.current_card].score.cards = 1;
-        let score_id = this.quiz_data[this.current_card].score_id;
-
-        this.available.splice(this.available.indexOf(this.current_card), 1);
-
-        $.ajax({
-            method: "PATCH",
-            url: `/api/quiz/${this.quiz_id}/score/${score_id}/cards`,
-            headers: {
-                Authorization: this.access_token,
-            },
-            data: {
-                score: 1,
-            },
-            error: (e) => console.error(e),
-        });
-
-        this.current_card = await this.select_card();
-
-        if (this.current_card == null) return;
-
-        this.set_card(this.current_card);
-
-        this.update_data();
-    }
-
-    async learn_again() {
-        if (this.available.length == 1) {
-            return this.reset_flip();
-        }
-
-        var card = this.current_card;
-        this.available.splice(this.available.indexOf(this.current_card), 1);
-
-        this.current_card = await this.select_card();
-        this.set_card(this.current_card);
-
-        this.available.push(card);
-    }
-
-    async set_card(index) {
-        if (index == null) return;
-        this.word.text(this.quiz_data[index].word);
-        await this.reset_flip();
-        this.translation.text(this.quiz_data[index].translation);
-    }
-
-    async select_card() {
-        if (this.available.length == 0) {
-            this.word.text(this.done_text);
-            await this.reset_flip();
-            this.translation.text(this.done_text);
-            this.available = [];
-            this.update_data();
-
-            this.learning.toggleClass("hidden");
-            this.done.toggleClass("hidden");
             return;
         }
 
-        let num = Math.floor(Math.random() * this.available.length);
-        return this.available[num];
-    }
+        let translation_text, translation_language;
+        if (translation.score.cards == 0 && this.amount > 1) {
+            $(this.wordTarget).text(translation.translation);
+            $(this.wordLanguageTarget).text(this.quiz.translation_language);
 
-    update_data() {
-        this.unlearned.text(this.available.length);
-        let left = this.quiz_data.length - this.available.length;
-        let percent = left / this.quiz_data.length;
-        this.learned.text(left);
-        $(this.progressTarget).css("width", percent * 100 + "%");
-    }
+            translation_text = translation.word;
+            translation_language = this.quiz.word_language;
+        } else {
+            $(this.wordTarget).text(translation.word);
+            $(this.wordLanguageTarget).text(this.quiz.word_language);
 
-    async reset() {
-        this.learning.toggleClass("hidden");
-        this.done.toggleClass("hidden");
-
-        for (let x in this.quiz_data) {
-            this.quiz_data[x].score.cards = 0;
+            translation_text = translation.translation;
+            translation_language = this.quiz.translation_language;
         }
 
-        $.ajax({
-            type: "PATCH",
-            url: `/api/quiz/${this.quiz_id}/score/reset/cards`,
-            headers: {
-                Authorization: this.access_token,
-            },
-        });
+        if ($(this.flipCardTarget).hasClass("flipped")) {
+            $(this.flipCardTarget).removeClass("flipped");
+            await new Promise((resolve) => setTimeout(resolve, 200));
+        }
 
-        this.setup(false);
+        $(this.translationTarget).text(translation_text);
+        $(this.translationLanguageTarget).text(translation_language);
+    }
+
+    update_progress() {
+        let done = this.quiz.translations.filter(
+            (t) => t.score.cards >= this.amount,
+        ).length;
+        let to_do = this.quiz.translations.length - done;
+
+        $(this.learnedTarget).text(done);
+        $(this.unlearnedTarget).text(to_do);
+
+        let seen = this.quiz.translations.filter(
+            (t) => t.score.cards > 0,
+        ).length;
+        $(this.progressBarTarget).css(
+            "width",
+            (seen / this.quiz.translations.length) * 100 + "%",
+        );
+    }
+
+    flip() {
+        $(this.flipCardTarget).toggleClass("flipped");
+    }
+
+    learn_again() {
+        this.show_translation();
+    }
+
+    understood() {
+        this.quiz.increment_score();
+        this.show_translation();
+        this.update_progress();
+    }
+
+    reset() {
+        this.quiz.reset_score();
+        this.show_translation();
+        this.update_progress();
+        $(this.doneTarget).addClass("hidden");
+        $(this.learningTarget).removeClass("hidden");
     }
 }

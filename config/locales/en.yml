@@ -14,7 +14,7 @@ en:
         description: Description
         from: Language Words
         to: Language translation
-        data: ""
+        translations: ""
     errors:
       models:
         user:

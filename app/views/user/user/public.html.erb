@@ -1,10 +1,5 @@
 <div class="flex justify-center items-center gap-2">
-    <div class="flex flex-col items-start">
-        <h1 class="p-0"><%= tp("profile", user: @target.username) %></h1>
-        <% if @target.setting.show_email %>
-            <h4 class="p-0 text-gray-600 dark:text-gray-500"><%= @target.email %></h4>
-        <% end %>
-    </div>
+    <h1 class="p-0"><%= tp("profile", user: @target.username) %></h1>
     <%= image_tag @target.avatar_url, class: "h-16 w-16 rounded-full border-4 border-blue-600" %>
 </div>
 

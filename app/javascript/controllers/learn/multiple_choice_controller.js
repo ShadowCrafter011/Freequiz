@@ -38,7 +38,7 @@ export default class extends Controller {
     }
 
     show_random_translation() {
-        this.translation = this.quiz.random_translation_with(0);
+        this.translation = this.quiz.random_translation();
 
         if (!this.translation) {
             $(this.inputTarget).addClass("hidden");

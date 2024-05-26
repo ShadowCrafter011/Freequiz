@@ -5,10 +5,10 @@ en:
       search: Search
       sort: Sort
       sort_options:
-        first_created: Elders
-        last_created: Latest
+        first_created: First created
+        last_created: Last created
         most_translations: Most translations
-        least_translations: Few translations
+        least_translations: Fewest translations
     quiz_list:
       translation: Translation
       ago: Created %{time_ago} ago

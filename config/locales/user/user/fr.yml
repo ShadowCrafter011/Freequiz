@@ -61,11 +61,11 @@ fr:
         not_found: Cet utilisateur n'existe pas
         user: Utilisateur %s
         profile: Profil de %{user}
-        created_ago: "Âge du compte : %{time_ago}"
         quizzes: "%{quizzes} créé"
         quiz: Quiz
         bugs_smashed: "%{bugs} signalés"
         bug: Bug
+        created_ago: Compte créé avant %{time_ago}
       favorites:
         favorite_quizzes: Favoris
         no_favorites: Vous n'avez pas encore de favoris

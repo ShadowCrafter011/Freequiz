@@ -43,6 +43,9 @@ en:
         continue: Press any button to continue
         was_wrong: My answer was not correct
         was_correct: My answer was correct
+        multiple_choice: Multiple Choice
+        smart: Smart
+        instruction: Choose the right translation
       destroy:
         not_found: This quiz does not exist
         not_allowed: You must not do this

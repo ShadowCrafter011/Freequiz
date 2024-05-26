@@ -1,8 +1,10 @@
 de:
   general:
     settings:
-      show_email: E-mail Adresse im öffentlichen Profil anzeigen
       dark_mode: Dunkler Modus
+      cards_amount: Kartei Karten so oft abfragen
+      multi_amount: Beim multiple choice Wörter so oft abfragen
+      write_amount: Beim schreiben Wörter so oft abfragen
     roles:
       user: Benutzer
       beta: Beta Tester

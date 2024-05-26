@@ -43,6 +43,9 @@ it:
         continue: Premere un pulsante qualsiasi per continuare
         was_wrong: La mia risposta non era corretta
         was_correct: La mia risposta era corretta
+        multiple_choice: Scelta multipla
+        smart: Intelligente
+        instruction: Scegliere la traduzione giusta
       destroy:
         not_found: Questo quiz non esiste
         not_allowed: Non si deve fare questo

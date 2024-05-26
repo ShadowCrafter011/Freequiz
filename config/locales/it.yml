@@ -14,7 +14,7 @@ it:
         description: Descrizione
         from: Parole in lingua
         to: Traduzione linguistica
-        data: ""
+        translations: ""
     errors:
       models:
         user:

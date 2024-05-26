@@ -1,15 +1,13 @@
 class Setting < ApplicationRecord
     belongs_to :user
 
-    SETTING_KEYS = %i[dark_mode show_email].freeze
+    SETTING_KEYS = %i[dark_mode write_amount cards_amount multi_amount].freeze
     LOCALES = %w[de fr it en].freeze
 
     validates :locale, inclusion: { in: LOCALES }
-
-    after_create do
-        self.dark_mode = true
-        self.show_email = false
-    end
+    validates :write_amount, numericality: { only_integer: true, in: 1..3 }
+    validates :cards_amount, numericality: { only_integer: true, in: 1..3 }
+    validates :multi_amount, numericality: { only_integer: true, in: 1..3 }
 
     def get_errors
         errors = []

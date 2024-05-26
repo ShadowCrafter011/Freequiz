@@ -8,15 +8,13 @@
     "favorite": <%= @api_user.present? ? @api_user.favorite_quiz?(quiz) : false %>,
     "from": {
         "id": "<%= quiz.from %>",
-        <% from = Language.find(quiz.from) %>
-        "name": "<%= from.name %>",
-        "locale": "<%= from.locale %>"
+        "name": "<%= @api_user.present? ? I18n.t("general.languages.#{quiz.from_lang.locale}", locale: @api_user.setting.locale) : quiz.from_lang.name.capitalize %>",
+        "locale": "<%= quiz.from_lang.locale %>"
     },
     "to": {
         "id": "<%= quiz.to %>",
-        <% to = Language.find(quiz.to) %>
-        "name": "<%= to.name %>",
-        "locale": "<%= to.locale %>"
+        "name": "<%= @api_user.present? ? I18n.t("general.languages.#{quiz.to_lang.locale}", locale: @api_user.setting.locale) : quiz.to_lang.name.capitalize %>",
+        "locale": "<%= quiz.to_lang.locale %>"
     },
     "data": <%= quiz.learn_data(@api_user).to_json.html_safe %>
 }
