@@ -2,19 +2,19 @@
     <div class="md:grid space-y-2 md:space-y-0 gap-2 grid-flow-row grid-cols-2">
         <div class="rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700 flex">
             <%= form.label :username, "Username", class: "p-2 rounded-s bg-gray-200 dark:bg-gray-800" %>
-            <%= form.text_field :username, class: "grow rounded-e border-0 border-s focus:ring-0 overflow-hidden dark:bg-transparent" %>
+            <%= form.text_field :username, class: "grow rounded-e border-0 border-s focus:ring-0 overflow-hidden dark:bg-gray-900" %>
         </div>
         <div class="rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700 flex">
             <%= form.label :email, "E-mail", class: "text-nowrap p-2 rounded-s bg-gray-200 dark:bg-gray-800" %>
-            <%= form.text_field :email, class: "grow rounded-e border-0 border-s focus:ring-0 overflow-hidden dark:bg-transparent" %>
+            <%= form.text_field :email, class: "grow rounded-e border-0 border-s focus:ring-0 overflow-hidden dark:bg-gray-900" %>
         </div>
         <div class="rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700 flex">
             <%= form.label :role, "Role", class: "p-2 rounded-s bg-gray-200 dark:bg-gray-800" %>
-            <%= form.select :role, User::ROLES.map { |r| [tg("roles.#{r}"), r] }, {}, { class: "grow rounded-e border-0 border-s focus:ring-0 cursor-pointer dark:bg-transparent" } %>
+            <%= form.select :role, User::ROLES.map { |r| [tg("roles.#{r}"), r] }, {}, { class: "grow rounded-e border-0 border-s focus:ring-0 cursor-pointer dark:bg-gray-900" } %>
         </div>
         <div class="rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700 flex">
             <%= form.label :confirmed, "E-mail confirmed", class: "text-nowrap p-2 rounded-s bg-gray-200 dark:bg-gray-800" %>
-            <%= form.select :confirmed, [["Yes", true], ["No", false]], {}, { class: "grow rounded-e border-0 border-s focus:ring-0 cursor-pointer dark:bg-transparent" } %>
+            <%= form.select :confirmed, [["Yes", true], ["No", false]], {}, { class: "grow rounded-e border-0 border-s focus:ring-0 cursor-pointer dark:bg-gray-900" } %>
         </div>
         <div class="flex"><%= form.submit "Save", class: "btn-success-sleek grow" %></div>
         <div class="flex"><%= link_to "Cancel", admin_users_path, class: "btn-secondary-sleek grow" %></div>
