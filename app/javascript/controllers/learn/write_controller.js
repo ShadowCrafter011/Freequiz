@@ -10,6 +10,7 @@ export default class extends Controller {
     async connect() {
         let $element = $(this.element);
         this.$document = $(document);
+        this.amount = $element.data("amount");
         this.quiz = new Quiz(
             "write",
             $element.data("quiz-uuid"),
@@ -81,7 +82,7 @@ export default class extends Controller {
 
     show_random_translation() {
         this.translation = this.quiz.random_translation(
-            (t) => t.score.write < 2,
+            (t) => t.score.write < this.amount,
         );
 
         if (!this.translation) {
@@ -94,25 +95,30 @@ export default class extends Controller {
 
     update_progress_bar() {
         let grouped = this.quiz.group_by_score();
-        let total = this.quiz.translations_count;
+        let total = this.quiz.translations_count * this.amount;
+
+        let colors = [
+            "fill-blue-500 dark:fill-blue-500",
+            "fill-green-500 dark:fill-green-600",
+            "fill-green-800 dark:fill-teal-800",
+        ];
+
+        colors = colors.slice(3 - this.amount);
+        console.log(colors);
 
         let data = [];
         let done = 0;
+        for (let x = 3; x > 0; x--) {
+            if (x in grouped) {
+                done += grouped[x].length * Math.min(x, this.amount);
+                data.push({
+                    coverage: grouped[x].length / this.quiz.translations_count,
+                    fill_color: colors[Math.min(x, this.amount) - 1],
+                });
+            }
+        }
 
-        if (2 in grouped) {
-            done += grouped[2].length;
-            data.push({
-                coverage: grouped[2].length / total,
-                fill_color: "fill-green-800 dark:fill-teal-800",
-            });
-        }
-        if (1 in grouped) {
-            done += grouped[1].length;
-            data.push({
-                coverage: grouped[1].length / total,
-                fill_color: "fill-green-500 dark:fill-green-600",
-            });
-        }
+        // for (let i = 0; i < data.length; i++) data[i].fill_color = colors[i];
 
         this.radial_progress_bar.set_data(data);
         this.radial_progress_bar.set_text(

@@ -4,9 +4,7 @@
     access_token: @access_token,
     translate_from: tp("translate", language: tg("languages.#{@quiz.from_lang.locale}")),
     translate_to: tp("translate", language: tg("languages.#{@quiz.to_lang.locale}")),
-    check: tp("check"),
-    correct: tp("correct"),
-    wrong: tp("wrong")
+    amount: @user.setting.write_amount
 } do %>
     <h1 data-learn--write-target="title"></h1>
     <h5 data-learn--write-target="failedToSave" class="hidden text-gray-600 dark:text-gray-500"><%= tp("failed_to_save") %></h5>

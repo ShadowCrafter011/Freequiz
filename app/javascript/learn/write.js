@@ -41,8 +41,7 @@ export class LearnWrite {
         this.inputTarget.val("");
         $(this.checkButtonTarget)
             .removeClass("bg-red-600")
-            .addClass("bg-teal-700")
-            .text($(this.element).data("check"));
+            .addClass("bg-teal-700");
         $(this.translateTextTarget).text(translate_text);
         $(this.wordTarget)
             .removeClass("text-green-600 text-red-600")
@@ -91,7 +90,6 @@ export class LearnWrite {
             color = "text-green-600";
             icon = "✔";
             $(this.wordTarget).addClass(color).text(`${other} = ${correct}`);
-            $(this.checkButtonTarget).text($(this.element).data("correct"));
             $(this.wasWrongButtonTarget).removeClass("hidden");
 
             this.quiz.increment_score();
