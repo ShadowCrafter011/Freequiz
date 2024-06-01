@@ -8,12 +8,14 @@
     "favorite": <%= @api_user.present? ? @api_user.favorite_quiz?(quiz) : false %>,
     "from": {
         "id": "<%= quiz.from %>",
-        "name": "<%= @api_user.present? ? I18n.t("general.languages.#{quiz.from_lang.locale}", locale: @api_user.setting.locale) : quiz.from_lang.name.capitalize %>",
+        "name": "<%= quiz.from_lang.name %>",
+        "name_translated": "<%= @api_user.present? ? I18n.t("general.languages.#{quiz.from_lang.locale}", locale: @api_user.setting.locale) : quiz.from_lang.name.capitalize %>",
         "locale": "<%= quiz.from_lang.locale %>"
     },
     "to": {
         "id": "<%= quiz.to %>",
-        "name": "<%= @api_user.present? ? I18n.t("general.languages.#{quiz.to_lang.locale}", locale: @api_user.setting.locale) : quiz.to_lang.name.capitalize %>",
+        "name": "<%= quiz.to_lang.name %>",
+        "name_translated": "<%= @api_user.present? ? I18n.t("general.languages.#{quiz.to_lang.locale}", locale: @api_user.setting.locale) : quiz.to_lang.name.capitalize %>",
         "locale": "<%= quiz.to_lang.locale %>"
     },
     "data": <%= quiz.learn_data(@api_user).to_json.html_safe %>

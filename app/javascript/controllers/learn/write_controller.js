@@ -104,7 +104,6 @@ export default class extends Controller {
         ];
 
         colors = colors.slice(3 - this.amount);
-        console.log(colors);
 
         let data = [];
         let done = 0;

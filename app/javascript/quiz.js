@@ -22,11 +22,11 @@ export class Quiz {
     }
 
     get translation_language() {
-        return this.quiz.to.name;
+        return this.quiz.to.name_translated;
     }
 
     get word_language() {
-        return this.quiz.from.name;
+        return this.quiz.from.name_translated;
     }
 
     check(answer, correct) {
