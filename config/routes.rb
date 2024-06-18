@@ -4,12 +4,204 @@ Rails.application.routes.draw do
 
     get "search", to: "home#search", as: "search"
 
-    draw :user
-    draw :quiz
-    draw :bug_reports
-    draw :api
+    # User routes
+    get "user/:username", to: "user/user#public", as: "user_public"
 
-    draw :admin
+    scope :account do
+        get "/", to: "user/user#show", as: "user"
+        get "edit", to: "user/user#edit", as: "user_edit"
+        patch "edit", to: "user/user#update"
 
-    draw :errors
+        get "quizzes", to: "user/user#quizzes", as: "user_quizzes"
+        get "favorites", to: "user/user#favorites", as: "user_favorites"
+        get "library", to: "user/user#library", as: "user_library"
+
+        get "settings", to: "user/user#settings", as: "user_settings"
+        patch "settings", to: "user/user#update_settings"
+
+        get "delete(/:destroy_token)",
+            to: "user/user#request_destroy",
+            as: "user_delete"
+        delete "delete/:destroy_token", to: "user/user#destroy"
+    end
+
+    scope :password do
+        get "reset", to: "user/password#reset", as: "user_password_reset"
+        post "reset", to: "user/password#send_email"
+
+        get "edit/:password_reset_token",
+            to: "user/password#edit",
+            as: "user_password_edit"
+        post "edit/:password_reset_token", to: "user/password#update"
+    end
+
+    scope :verify do
+        get "/", to: "user/verification#success", as: "user_verification_success"
+        get "send", to: "user/verification#send_email", as: "user_verification_send"
+        get "pending",
+            to: "user/verification#pending",
+            as: "user_verification_pending"
+        get ":verification_token", to: "user/verification#verify", as: "user_verify"
+    end
+
+    patch "language", to: "user/user#change_lang", as: "change_language"
+
+    get "signup", to: "user/user#new", as: "user_create"
+    post "signup", to: "user/user#create"
+
+    get "login", to: "user/sessions#new", as: "user_login"
+    post "login", to: "user/sessions#create"
+
+    get "logout", to: "user/sessions#destroy", as: "user_logout"
+
+    # Quiz routes
+    namespace :quiz do
+        get "create", to: "quiz#new", as: "create"
+        post "create", to: "quiz#create"
+
+        scope ":quiz_uuid" do
+            get "/", to: "quiz#show", as: "show"
+            get "edit", to: "quiz#edit", as: "edit"
+            patch "edit", to: "quiz#update"
+            get "delete", to: "quiz#request_destroy", as: "request_destroy"
+            delete "delete/:destroy_token", to: "quiz#destroy", as: "delete"
+
+            patch "favorite", to: "quiz#favorite", as: "favorite"
+
+            get "cards", to: "quiz#cards", as: "cards"
+            get "write", to: "quiz#write", as: "write"
+            get "multi", to: "quiz#multi", as: "multi"
+            get "smart", to: "quiz#smart", as: "smart"
+        end
+    end
+
+    # Bug report routes
+    post "report", to: "bug_report#create", as: "bug_report"
+
+    scope :bugs do
+        scope :triage do
+            get "/", to: "bug_report#triage", as: "bug_triage"
+            get ":bug_report_id", to: "bug_report#triage_show", as: "bug_triage_show"
+            patch ":bug_report_id", to: "bug_report#triage_verdict"
+        end
+
+        get "list", to: "bug_report#list", as: "bugs"
+
+        scope ":bug_id" do
+            get "/", to: "bug_report#show", as: "bug"
+            patch "status", to: "bug_report#status", as: "bug_status"
+        end
+    end
+
+    # API routes
+    namespace :api do
+        defaults format: :json do
+            scope :user do
+                put "create", to: "user#create"
+                post "login", to: "user#login"
+                post "refresh", to: "user#refresh_token"
+
+                get "exists/:attr/:query", to: "user#exists"
+
+                get "search(/:page)", to: "user#search"
+
+                get "quizzes(/:page)", to: "user#quizzes"
+                get "favorites(/:page)", to: "user#favorites"
+                get ":username/public(/:page)", to: "user#public"
+
+                get "delete_token", to: "user#request_delete_token"
+                delete "delete/:destroy_token", to: "user#destroy"
+
+                patch "update", to: "user#update"
+                patch "settings", to: "user#update_settings"
+
+                get "data", to: "user#data"
+            end
+
+            scope :quiz do
+                put "create", to: "quiz#create"
+
+                get "search(/:page)", to: "quiz#search"
+
+                scope ":quiz_id" do
+                    get "data", to: "quiz#data"
+
+                    patch "update", to: "quiz#update"
+                    patch "favorite", to: "quiz#favorite_quiz"
+
+                    scope :score do
+                        patch "reset/:mode", to: "quiz#reset_score"
+                        patch ":score_id/favorite", to: "quiz#favorite"
+                        patch ":score_id/:mode", to: "quiz#score"
+                    end
+
+                    get "delete_token", to: "quiz#request_destroy"
+                    delete "delete/:destroy_token", to: "quiz#destroy"
+                end
+            end
+
+            get "languages", to: "api#languages"
+
+            put "bug/create", to: "bug_report#create"
+        end
+
+        scope :docs do
+            get "/", to: "docs#index", as: "docs"
+            get "users", to: "docs#users", as: "docs_users"
+            get "quizzes", to: "docs#quizzes", as: "docs_quizzes"
+            get "authentication", to: "docs#authentication", as: "docs_authentication"
+            get "errors", to: "docs#general_errors", as: "docs_general_errors"
+            get "bugs", to: "docs#bugs", as: "docs_bugs"
+            get "languages", to: "docs#languages", as: "docs_languages"
+        end
+    end
+
+    # Admin routes
+    namespace :admin do
+        get "users", to: "users#index", as: "users"
+
+        scope :transactions do
+            get "/", to: "transaction#list", as: "transactions"
+            get "removed", to: "transaction#removed", as: "removed_transactions"
+
+            get "create", to: "transaction#new", as: "new_transaction"
+            post "create", to: "transaction#create"
+
+            scope ":transaction_id" do
+                get "/", to: "transaction#show", as: "show_transaction"
+
+                delete "delete", to: "transaction#delete", as: "delete_transaction"
+                patch "restore", to: "transaction#restore", as: "restore_transaction"
+            end
+        end
+
+        scope :user do
+            scope ":username" do
+                get "delete(/:destroy_token)",
+                    to: "users#destroy_token",
+                    as: "user_delete"
+                delete "delete/:destroy_token", to: "users#destroy"
+            end
+
+            scope "edit/:username" do
+                get "/", to: "users#edit", as: "user_edit"
+                patch "/", to: "users#update"
+            end
+
+            scope ":username/send" do
+                get "verification",
+                    to: "users#send_verification",
+                    as: "user_send_verification"
+                get "reset",
+                    to: "users#send_password_reset",
+                    as: "user_send_password_reset"
+                get "email", to: "users#prepare_email", as: "user_send_email"
+                post "email", to: "users#send_email"
+            end
+        end
+    end
+
+    # Error routes
+    get "not_allowed", to: "errors#not_allowed", as: "not_allowed"
+    get "beta_wall", to: "errors#beta_wall", as: "beta_wall"
 end
