@@ -2,10 +2,8 @@
 
 one:
   dark_mode: false
-  show_email: false
   user: one
 
 two:
   dark_mode: false
-  show_email: false
   user: two
