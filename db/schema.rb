@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_26_111312) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_18_055922) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_26_111312) do
     t.integer "write_amount", default: 2
     t.integer "cards_amount", default: 2
     t.integer "multi_amount", default: 2
+    t.integer "round_amount", default: 10
     t.index ["user_id"], name: "index_settings_on_user_id"
   end
 

@@ -5,10 +5,11 @@
     access_token: @access_token,
     quiz_uuid: @quiz.uuid,
     done_text: tp("done"),
-    amount: @user.setting.cards_amount
+    amount: @user.setting.cards_amount,
+    round_amount: @user.setting.round_amount
 } do %>
     <h4 data-learn--cards-target="failedToSave" class="hidden text-gray-600 dark:text-gray-500"><%= tp "failed_to_save" %></h4>
-    <div class="flex justify-center">
+    <div data-learn--cards-target="interval" class="flex justify-center">
         <div class="flip-card-container" data-action="click->learn--cards#flip">
             <div data-learn--cards-target="flipCard" class="flip-card">
                 <div  class="flip-card-side">
@@ -27,7 +28,7 @@
         </div>
     </div>
 
-    <div class="flex justify-center">
+    <div data-learn--cards-target="interval" class="flex justify-center">
         <div class="w-[800px]">
             <div class="rounded-full my-2 h-4 bg-blue-600 dark:bg-blue-800">
                 <div data-learn--cards-target="progressBar" class="cards-progress-bar rounded-full h-4 bg-green-700 dark:bg-teal-700"></div>
@@ -46,5 +47,13 @@
                 <h4 class="grow basis-0"><%= tp("learned") %> <span data-learn--cards-target="learned"></span></h4>
             </div>
         </div>
+    </div>
+
+    <div class="flex justify-center mt-10">
+        <div data-learn--cards-target="interval" class="hidden max-w-96">
+            <h4 class="p-0"><%= tp "done_with" %></h4>
+            <h1 class="p-0"><span data-learn--cards-target="percentage">80</span>% <%= tp "mastered" %></h1>
+            <button class="btn-success mt-5 text-xl" data-action="learn--cards#continue"><%= tp "continue_click" %></button>
+        <div>
     </div>
 <% end %>

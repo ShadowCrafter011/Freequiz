@@ -16,6 +16,22 @@
                 <%= form.check_box :dark_mode, class: "switch" %>
             </div>
 
+            <div class="flex flex-col md:flex-row gap-2 items-center py-2">
+                <span><%= tp "round_amount" %></span>
+                <div class="flex gap-2 items-center grow w-full md:w-fit">
+                    <!-- Required for tailwind to include the classes... -->
+                    <span class="hidden peer/5 peer-checked/5:bg-blue-600 peer-checked/5:text-white"></span>
+                    <span class="hidden peer/10 peer-checked/10:bg-blue-600 peer-checked/10:text-white"></span>
+                    <span class="hidden peer/20 peer-checked/20:bg-blue-600 peer-checked/20:text-white"></span>
+                    <span class="hidden peer/30 peer-checked/30:bg-blue-600 peer-checked/30:text-white"></span>
+                    
+                    <% Setting::ROUND_AMOUNTS.each do |amount| %>
+                        <%= form.radio_button :round_amount, amount, class: "hidden peer/#{amount}" %>
+                        <%= form.label :round_amount, amount, value: amount, class: "grow basis-0 text-center p-2 border-gray-300 dark:border-gray-700 border rounded cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors peer-checked/#{amount}:bg-blue-600 peer-checked/#{amount}:text-white" %>
+                    <% end %>
+                </div>
+            </div>
+
             <% %i[cards_amount multi_amount write_amount].each do |key| %>
                 <div class="flex justify-between items-center py-2">
                     <div>

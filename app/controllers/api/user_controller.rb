@@ -292,7 +292,14 @@ class Api::UserController < ApplicationController
         return unless api_require_valid_access_token!
 
         if @api_user.setting.update(setting_params)
-            json({ success: true, message: "Settings updated" })
+            render json:
+                {
+                    success: true,
+                    message: "Settings updated",
+                    settings: @api_user.setting.as_json(except: %i[id created_at updated_at user_id])
+                },
+                   status: :accepted
+
         else
             json(
                 {

@@ -262,11 +262,12 @@
         "created_at": 1670099953,
         "updated_at": 1670958427,
         "settings": {
-            "locale": "de",
+            "locale": "en",
             "dark_mode": true,
-            "cards_amount": 1,
+            "write_amount": 2,
+            "cards_amount": 2,
             "multi_amount": 2,
-            "write_amount": 3
+            "round_amount": 5
         },
         "confirmation": {
             "confirmed": true,
@@ -558,7 +559,8 @@
         "dark_mode": true,
         "cards_amount": 1,
         "multi_amount": 2,
-        "write_amount": 3
+        "write_amount": 3,
+        "round_amount": 5 / 10 / 20 / 30
     }
 }</code></pre>
             Not all the parameters need to be present
@@ -572,7 +574,15 @@
             Status code: 202
 <pre><code class="lang-json" data-controller="admin--prism">{
     "success": true,
-    "message": "Settings updated"
+    "message": "Settings updated",
+    "settings": {
+        "round_amount": 5,
+        "write_amount": 2,
+        "cards_amount": 2,
+        "multi_amount": 2,
+        "dark_mode": true,
+        "locale": "en"
+    }
 }</code></pre>
         </p>
         <p>

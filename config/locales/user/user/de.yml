@@ -43,6 +43,7 @@ de:
         settings: Einstellungen
         save: Speichern
         language: Sprache
+        round_amount: Anzahl Fragen pro Lerndurchgang
       update_settings:
         saved: Einstellungen gespeichert
       request_destroy:

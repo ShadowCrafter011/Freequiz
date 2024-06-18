@@ -15,11 +15,15 @@ export default class extends Controller {
         "progressBar",
         "done",
         "learning",
+        "percentage",
+        "interval",
     ];
 
     async connect() {
         this.$element = $(this.element);
         this.amount = this.$element.data("amount");
+        this.round_amount = this.$element.data("round-amount");
+        this.this_round = 0;
 
         this.quiz = new Quiz(
             "cards",
@@ -30,16 +34,29 @@ export default class extends Controller {
 
         await this.quiz.load();
 
+        this.queue_translations();
+
         this.show_translation();
         this.update_progress();
     }
 
-    async show_translation() {
-        let translation = this.quiz.random_translation(
+    queue_translations() {
+        let available_translations = this.quiz.translations.filter(
             (t) => t.score.cards < this.amount,
         );
+        available_translations.sort(() => Math.random() - 0.5);
+        if (!this.next) this.next = [];
+        this.next = available_translations.slice(
+            0,
+            this.round_amount - this.next.length,
+        );
+    }
 
-        if (!translation) {
+    async show_translation() {
+        this.translation = this.next.shift();
+        this.quiz.selected_translation(this.translation);
+
+        if (!this.translation) {
             $(this.learningTarget).addClass("hidden");
             $(this.doneTarget).removeClass("hidden");
 
@@ -47,17 +64,17 @@ export default class extends Controller {
         }
 
         let translation_text, translation_language;
-        if (translation.score.cards == 0 && this.amount > 1) {
-            $(this.wordTarget).text(translation.translation);
+        if (this.translation.score.cards == 0 && this.amount > 1) {
+            $(this.wordTarget).text(this.translation.translation);
             $(this.wordLanguageTarget).text(this.quiz.translation_language);
 
-            translation_text = translation.word;
+            translation_text = this.translation.word;
             translation_language = this.quiz.word_language;
         } else {
-            $(this.wordTarget).text(translation.word);
+            $(this.wordTarget).text(this.translation.word);
             $(this.wordLanguageTarget).text(this.quiz.word_language);
 
-            translation_text = translation.translation;
+            translation_text = this.translation.translation;
             translation_language = this.quiz.translation_language;
         }
 
@@ -83,28 +100,58 @@ export default class extends Controller {
         this.quiz.translations.forEach(
             (t) => (total += Math.min(t.score.cards, this.amount)),
         );
-        $(this.progressBarTarget).css(
-            "width",
-            (total / this.quiz.translations.length / this.amount) * 100 + "%",
-        );
+        let percent_done =
+            (total / this.quiz.translations.length / this.amount) * 100;
+        $(this.progressBarTarget).css("width", percent_done + "%");
+        $(this.percentageTarget).text(Math.floor(percent_done));
     }
 
     flip() {
         $(this.flipCardTarget).toggleClass("flipped");
     }
 
+    continue() {
+        this.this_round = 0;
+        this.toggle_interval();
+        this.queue_translations();
+        this.show_translation();
+    }
+
+    toggle_interval() {
+        $(this.intervalTargets).toggleClass("hidden");
+    }
+
     learn_again() {
+        this.next.push(this.translation);
+        if (this.increment_round()) return;
         this.show_translation();
     }
 
     understood() {
         this.quiz.increment_score();
-        this.show_translation();
         this.update_progress();
+        if (this.increment_round()) return;
+        this.show_translation();
+    }
+
+    increment_round() {
+        this.this_round++;
+
+        let translations_left = this.quiz.translations.filter(
+            (t) => t.score.cards < this.amount,
+        ).length;
+
+        if (this.this_round >= this.round_amount && translations_left > 0) {
+            this.toggle_interval();
+            return true;
+        }
+        return false;
     }
 
     reset() {
         this.quiz.reset_score();
+        this.this_round = 0;
+        this.queue_translations();
         this.show_translation();
         this.update_progress();
         $(this.doneTarget).addClass("hidden");
