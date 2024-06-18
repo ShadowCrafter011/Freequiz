@@ -3,13 +3,13 @@
     <div class="flex flex-col min-[1024px]:flex-row gap-2">
         <div class="shrink flex rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700">
             <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded-s">Sort by</div>
-            <%= form.select :sort, @sort_criteria, { selected: params[:sort] }, { class: "grow border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer dark:bg-transparent" } %>
-            <%= form.select :order, @order_criteria, { selected: params[:order] }, { class: "grow rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer dark:bg-transparent" } %>
+            <%= form.select :sort, @sort_criteria, { selected: params[:sort] }, { class: "grow border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer dark:bg-gray-900" } %>
+            <%= form.select :order, @order_criteria, { selected: params[:order] }, { class: "grow rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer dark:bg-gray-900" } %>
         </div>
         <div class="grow flex rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700">
             <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded-s">Query</div>
-            <%= form.select :property, @property_criteria, { selected: params[:property] }, { class: "rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer dark:bg-transparent" } %>
-            <%= form.text_field :query, value: params[:query], class: "grow rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 overflow-hidden dark:bg-transparent" %>
+            <%= form.select :property, @property_criteria, { selected: params[:property] }, { class: "rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 cursor-pointer dark:bg-gray-900" } %>
+            <%= form.text_field :query, value: params[:query], class: "grow rounded-e border-e-0 border-t-0 border-b-0 focus:ring-0 overflow-hidden dark:bg-gray-900" %>
         </div>
         <%= form.submit "Search", class: "btn-primary text-lg" %>
     </div>
