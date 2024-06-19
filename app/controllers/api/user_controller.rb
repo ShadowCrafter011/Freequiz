@@ -60,7 +60,7 @@ class Api::UserController < ApplicationController
             .limit(50)
             .offset(offset)
 
-        render json: { success: true, data: quizzes.map { |q| q.data(@api_user) } }
+        render json: { success: true, avatar_url: user.avatar_url, data: quizzes.map { |q| q.data(@api_user) } }
     end
 
     def exists
