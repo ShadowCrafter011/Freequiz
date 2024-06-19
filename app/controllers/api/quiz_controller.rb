@@ -223,6 +223,24 @@ class Api::QuizController < ApplicationController
         json({ success: true, message: "Score updated", updated_data: quiz.learn_data(@api_user) }, :accepted)
     end
 
+    def sync_score
+        unless (@quiz = Quiz.find_by(uuid: params[:quiz_id])).present?
+            return(
+                json(
+                    {
+                        success: false,
+                        token: "quiz.notfound",
+                        message: "Quiz doesn't exist"
+                    },
+                    :not_found
+                )
+            )
+        end
+
+        @quiz.sync_score sync_score_params, @api_user
+        render :data, status: :accepted
+    end
+
     def reset_score
         unless (quiz = Quiz.find_by(uuid: params[:quiz_id])).present?
             return(
@@ -310,6 +328,22 @@ class Api::QuizController < ApplicationController
             :to,
             :visibility,
             translations_attributes: %i[id word translation _destroy]
+        )
+    end
+
+    def sync_score_params
+        params.require(:quiz).permit(
+            :favorite,
+            {
+                data: [
+                    :score_id,
+                    :favorite,
+                    :updated,
+                    {
+                        score: %i[cards multi write smart]
+                    }
+                ]
+            }
         )
     end
 end

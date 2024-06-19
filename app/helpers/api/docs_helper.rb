@@ -53,6 +53,7 @@ module Api::DocsHelper
                     favorite_quiz: "Favorite quiz",
                     favorites: "Favorite translations",
                     score: "Score",
+                    sync_score: "Sync score",
                     reset_score: "Reset score"
                 }
             }

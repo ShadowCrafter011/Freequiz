@@ -117,6 +117,33 @@ class Quiz < ApplicationRecord
         end
     end
 
+    def sync_score(sync_params, user)
+        if user.favorite_quiz?(self) != sync_params[:favorite]
+            if sync_params[:favorite]
+                user.favorite_quizzes.create quiz_id: id
+            else
+                user.favorite_quizzes.find_by(quiz_id: id).destroy
+            end
+        end
+
+        sync_params = sync_params.to_h[:data].sort_by { |s| s[:score_id] }
+        scores = Score.joins(:translation).where("translation.quiz_id": id, user_id: user.id).order(id: :asc)
+
+        scores.each do |s|
+            sync_score = sync_params.find { |p| p[:score_id] == s.id }
+            update = sync_score[:updated].present? && s.updated_at.to_i < sync_score[:updated]
+            next unless update
+
+            s.update({
+                         favorite: sync_score[:favorite],
+                         smart: sync_score[:score][:smart],
+                         multi: sync_score[:score][:multi],
+                         cards: sync_score[:score][:cards],
+                         write: sync_score[:score][:write]
+                     })
+        end
+    end
+
     def user_allowed_to_view?(user)
         return(visibility == "public" || visibility == "hidden") unless user.present?
 

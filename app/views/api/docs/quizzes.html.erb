@@ -585,6 +585,96 @@ If no user is logged in the data attribute will look like this
     </div>
     <hr>
 
+    <div id="sync_score" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Synchronize score</h1>
+        <p>
+            <a href="https://freequiz.ch/api/quiz/quiz_id/score/sync">https://freequiz.ch/api/quiz/quiz_id/score/sync</a><br>
+            Replace quiz_id with the ID of the target Quiz
+        </p>
+        <p>
+            <h3 class="text-start">Request method: PATCH</h3>
+        </p>
+        <p>
+            <h3 class="text-start">Content</h3>
+            Anything returned in the <code>quiz_data</code> field returned by a <a href="#data">quiz data request</a> can be sent to this endpoint. The <code>quiz_data</code> object must be encapsulated in a <code>quiz</code> object like demonstrated below.
+            <br>
+            Everything in the root <code>quiz_data</code> object is ignored except for the <code>favorite</code> field. If there is a mismatch between the servers version and the version sent it will override the servers version with the field provided by the API caller.
+            <br>
+            The <code>score</code> and <code>favorite</code> attributes for each translation are not ignored either and will override the data saved on the server if all the following conditions are matched:
+            <br>
+            <ul class="translate-x-5 list-disc">
+                <li>An <code>updated</code> field is provided at the root of the translation object</li>
+                <li>The <code>updated</code> field contains the current Unix timestamp in seconds</li>
+                <li>The provided Unix timestamp is from a later time than when the score for this translation was last updated</li>
+            </ul>
+            <br>
+            <strong>It's important that the four score fields and the <code>favorite</code> field are provided for each translation. As it will lead to undefinded values if a translation is deemed outdated and updated with non defined values</strong>
+<pre><code class="lang-json" data-controller="admin--prism">{
+  	"quiz": quiz_data
+}</code></pre>
+        </p>
+        <p>
+            <h3 class="text-start">Response</h3>
+            Status code: 202
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "success": true,
+    "quiz_data": {
+        "id": "id",
+        "title": "title",
+        "description": "description",
+        "visibility": "public",
+        "created_by": "username",
+        "owner": true,
+        "favorite": false,
+        "from": {
+            "id": "3",
+            "name": "english",
+            "name_translated": "Englisch",
+            "locale": "en"
+        },
+        "to": {
+            "id": "1",
+            "name": "german",
+            "name_translated": "Deutsch",
+            "locale": "de"
+        },
+        "data": [{
+            "id": 1,
+            "score_id": 1,
+            "word": "Tree",
+            "translation": "Baum",
+            "favorite": true,
+            "score": {
+                "smart": 1,
+                "write": 0,
+                "multi": 0,
+                "cards": 0
+            }
+        }, {
+            "id": 2,
+            "score_id": 2,
+            "word": "Fish",
+            "translation": "Fisch",
+            "favorite": false,
+            "score": {
+                "smart": 0,
+                "write": 0,
+                "multi": 0,
+                "cards": 0
+            }
+        }]
+    }
+}</code></pre>
+        </p>
+        <p>
+            <h3 class="text-start">Errors</h3>
+            <ul>
+                <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
+            </ul>
+        </p>
+    </div>
+    <hr>
+
     <div id="reset_score" class="pt-16 -mt-16 mb-5" data-section="true">
         <h1 class="text-start">Reset score</h1>
         <p>

@@ -130,6 +130,7 @@ Rails.application.routes.draw do
                     patch "favorite", to: "quiz#favorite_quiz"
 
                     scope :score do
+                        patch "sync", to: "quiz#sync_score"
                         patch "reset/:mode", to: "quiz#reset_score"
                         patch ":score_id/favorite", to: "quiz#favorite"
                         patch ":score_id/:mode", to: "quiz#score"
