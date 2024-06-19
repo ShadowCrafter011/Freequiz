@@ -9,7 +9,7 @@ class Transaction < ApplicationRecord
         Transaction.where(removed: false).each do |transaction|
             total += transaction.amount
         end
-        total
+        total.round(2)
     end
 
     def color
