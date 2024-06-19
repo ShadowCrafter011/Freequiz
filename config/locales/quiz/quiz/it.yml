@@ -46,6 +46,10 @@ it:
         multiple_choice: Scelta multipla
         smart: Intelligente
         instruction: Scegliere la traduzione giusta
+        score_favorite_error: Non è stato possibile salvare i preferiti. Riprovare più tardi
+        done_with: Bravi, avete
+        mastered: creato
+        continue_click: Premere qui per continuare
       destroy:
         not_found: Questo quiz non esiste
         not_allowed: Non si deve fare questo

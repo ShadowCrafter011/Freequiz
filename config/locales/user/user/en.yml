@@ -43,6 +43,7 @@ en:
         settings: Settings
         save: Save
         language: Language
+        round_amount: Number of questions per learning session
       update_settings:
         saved: Settings saved
       request_destroy:

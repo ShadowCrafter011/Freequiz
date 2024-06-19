@@ -46,6 +46,10 @@ fr:
         multiple_choice: Choix multiple
         smart: Smart
         instruction: Choisis la bonne traduction
+        score_favorite_error: Le favori n'a pas pu être enregistré. Veuillez réessayer plus tard
+        done_with: Bravo tu as
+        mastered: réussi
+        continue_click: Appuie ici pour continuer
       destroy:
         not_found: Ce quiz n'existe pas
         not_allowed: Vous ne pouvez pas faire cela

@@ -43,6 +43,7 @@ it:
         settings: Impostazioni
         save: Risparmiare
         language: Lingua
+        round_amount: Numero di domande per sessione di apprendimento
       update_settings:
         saved: Impostazioni salvate
       request_destroy:

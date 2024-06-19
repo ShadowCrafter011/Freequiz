@@ -46,6 +46,10 @@ en:
         multiple_choice: Multiple Choice
         smart: Smart
         instruction: Choose the right translation
+        score_favorite_error: Favourite could not be saved. Please try again later
+        done_with: Bravo you have
+        mastered: created
+        continue_click: Press here to continue
       destroy:
         not_found: This quiz does not exist
         not_allowed: You must not do this
