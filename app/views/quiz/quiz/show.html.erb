@@ -38,14 +38,37 @@
 </div>
 
 <div class="rounded mt-2 border divide-gray-300 divide-y border-gray-300 dark:border-gray-700 dark:divide-gray-700">
-    <% if @quiz.translations.count.positive? %>
-        <% @quiz.translations.order(created_at: :asc).each do |translation| %>
-            <div class="flex divide-x divide-gray-300 dark:divide-gray-700">
-                <div class="grow basis-0 p-2 overflow-clip"><%= translation.word %></div>
-                <div class="grow basis-0 p-2 overflow-clip"><%= translation.translation %></div>
+    <% @learn_data.each do |translation| %>
+        <div class="flex divide-x divide-gray-300 dark:divide-gray-700">
+            <div class="grow basis-0 p-2 overflow-clip"><%= translation[:word] %></div>
+            <div class="grow basis-0 overflow-clip">
+                <div class="flex divide-gray-300 dark:divide-gray-700 divide-x">
+                    <div class="p-2 grow"><%= translation[:translation] %></div>
+                    <div 
+                        data-controller="translation-favorite"
+                        data-action="click->translation-favorite#toggle"
+                        data-favorite="<%= translation[:favorite] %>"
+                        data-score-id="<%= translation[:score_id] %>"
+                        data-quiz-id="<%= @quiz.uuid %>"
+                        data-access-token="<%= @access_token %>"
+                        data-error="<%= tp("score_favorite_error") %>"
+                        class="px-2 flex items-center cursor-pointer"
+                    >
+                        <div
+                            data-translation-favorite-target="star"
+                            class="<%= "hidden" unless translation[:favorite] %>"
+                        >
+                            <%= render partial: "svgs/star", locals: { height: "25px", filled: true } %>
+                        </div>
+                        <div
+                            data-translation-favorite-target="star"
+                            class="<%= "hidden" if translation[:favorite] %>"
+                        >
+                            <%= render partial: "svgs/star", locals: { height: "25px", filled: false } %>
+                        </div>
+                    </div>
+                </div>
             </div>
-        <% end %>
-    <% else %>
-        <h4><%= tp "no_translations" %></h4>
+        </div>
     <% end %>
 </div>

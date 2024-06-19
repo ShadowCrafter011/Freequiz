@@ -33,6 +33,7 @@ de:
         write: Schreiben
         multiple_choice: Multiple Choice
         smart: Smart
+        score_favorite_error: Favorit konnte nicht gespeichert werden. Bitte versuche es später wieder
 
         failed_to_save: Sie scheinen offline zu sein. Fortschritt kann momentan nicht gespeichert werden
 

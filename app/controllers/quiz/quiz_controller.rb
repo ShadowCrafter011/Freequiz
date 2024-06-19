@@ -5,7 +5,7 @@ class Quiz::QuizController < ApplicationController
         setup_locale "quiz.quiz"
     end
 
-    before_action only: %i[cards smart write multi] do
+    before_action only: %i[show cards smart write multi] do
         override_action :show
 
         @access_token = generate_access_token(current_user, 31.days)
@@ -60,6 +60,8 @@ class Quiz::QuizController < ApplicationController
         return redirect_to root_path, notice: tp("not_found") unless @quiz.present?
 
         redirect_to root_path, alert: t("errors.not_allowed_to_view_quiz") unless @quiz.user_allowed_to_view? @user
+
+        @learn_data = @quiz.learn_data(@user).sort_by { |t| t[:id] }
     end
 
     def request_destroy
