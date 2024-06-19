@@ -46,13 +46,17 @@ export default class extends Controller {
         );
         available_translations.sort(() => Math.random() - 0.5);
         if (!this.next) this.next = [];
-        this.next = available_translations.slice(
-            0,
-            this.round_amount - this.next.length,
+        this.next = this.next.concat(
+            available_translations.slice(
+                0,
+                this.round_amount - this.next.length,
+            ),
         );
+        this.next = [...new Set(this.next)];
     }
 
     async show_translation() {
+        this.next.sort(() => Math.random() - 0.5);
         this.translation = this.next.shift();
         this.quiz.selected_translation(this.translation);
 
@@ -115,6 +119,7 @@ export default class extends Controller {
         this.toggle_interval();
         this.queue_translations();
         this.show_translation();
+        this.update_progress();
     }
 
     toggle_interval() {
