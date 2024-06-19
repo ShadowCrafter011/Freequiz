@@ -607,11 +607,66 @@ If no user is logged in the data attribute will look like this
                 <li>The <code>updated</code> field contains the current Unix timestamp in seconds</li>
                 <li>The provided Unix timestamp is from a later time than when the score for this translation was last updated</li>
             </ul>
+            If the <code>updated</code> field is not present of <code>null</code> nothing will be updated no matter what.
+            <br>
             <br>
             <strong>It's important that the four score fields and the <code>favorite</code> field are provided for each translation. As it will lead to undefinded values if a translation is deemed outdated and updated with non defined values</strong>
 <pre><code class="lang-json" data-controller="admin--prism">{
   	"quiz": quiz_data
 }</code></pre>
+
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "quiz": {
+        "id": "id",
+        "title": "title",
+        "description": "description",
+        "visibility": "public",
+        "created_by": "username",
+        "owner": true,
+        "favorite": false,
+        "from": {
+            "id": "3",
+            "name": "english",
+            "name_translated": "Englisch",
+            "locale": "en"
+        },
+        "to": {
+            "id": "1",
+            "name": "german",
+            "name_translated": "Deutsch",
+            "locale": "de"
+        },
+        "data": [{
+            This translation score / favorite will be updated if the timestamp is never than the one on the server
+            "id": 1,
+            "score_id": 1,
+            "word": "Tree",
+            "translation": "Baum",
+            "favorite": true,
+            "updated": Unix timestamp,
+            "score": {
+                "smart": 1,
+                "write": 0,
+                "multi": 0,
+                "cards": 0
+            }
+        }, {
+            Nothing will be updated here
+            "id": 2,
+            "score_id": 2,
+            "word": "Fish",
+            "translation": "Fisch",
+            "favorite": false,
+            "score": {
+                "smart": 0,
+                "write": 0,
+                "multi": 0,
+                "cards": 0
+            }
+        }]
+    }
+}
+</code></pre>
         </p>
         <p>
             <h3 class="text-start">Response</h3>
