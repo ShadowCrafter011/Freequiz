@@ -257,9 +257,7 @@ class Api::QuizController < ApplicationController
 
         return json({ success: false, token: "fields.invalid", message: "Mode is invalid" }, :bad_request) unless Score::MODES.include? params[:mode].to_sym
 
-        @api_user.scores.joins(:translation).where("translation.quiz_id": quiz.id).each do |score|
-            score.update params[:mode] => 0
-        end
+        @api_user.scores.joins(:translation).where("translation.quiz_id": quiz.id).update_all params[:mode] => 0
 
         json(
             {
