@@ -143,6 +143,8 @@ export class Quiz {
             error: (e) => {
                 this.failed_to_save = true;
                 $(this.failed_to_save_target).removeClass("hidden");
+                this.translation_with(score_id).updated =
+                    new Date().getTime() / 1000;
                 console.error(e);
             },
         });
@@ -152,7 +154,7 @@ export class Quiz {
         this.require_loaded();
         this.translations.forEach((t) => (t.score[this.mode] = 0));
         $.ajax({
-            type: "PATCH",
+            method: "PATCH",
             url: `/api/quiz/${this.uuid}/score/reset/${this.mode}`,
             headers: {
                 Authorization: this.access_token,
@@ -172,9 +174,38 @@ export class Quiz {
 
     upload_if_failed_to_save() {
         if (!this.failed_to_save) return;
-        this.translations.forEach((t) =>
-            this.set_score(t.score_id, t.score[this.mode]),
-        );
+
+        let quiz_data = { favorite: this.quiz.favorite, data: [] };
+        for (let translation of this.translations) {
+            if (!translation.updated) continue;
+
+            quiz_data.data.push({
+                updated: translation.updated,
+                favorite: translation.favorite,
+                score_id: translation.score_id,
+                score: translation.score,
+            });
+        }
+
+        console.log(quiz_data);
+
+        $.ajax({
+            url: `/api/quiz/${this.uuid}/score/sync`,
+            method: "PATCH",
+            headers: {
+                Authorization: this.access_token,
+            },
+            data: JSON.stringify({ quiz: quiz_data }),
+            contentType: "application/json",
+            success: () => {
+                this.failed_to_save = false;
+                $(this.failed_to_save_target).addClass("hidden");
+            },
+            error: () => {
+                this.failed_to_save = true;
+                $(this.failed_to_save_target).removeClass("hidden");
+            },
+        });
     }
 
     require_loaded() {

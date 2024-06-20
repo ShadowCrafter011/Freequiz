@@ -132,6 +132,8 @@ class Quiz < ApplicationRecord
 
         scores.each do |s|
             sync_score = sync_params.find { |p| p[:score_id] == s.id }
+            next unless sync_score.present?
+
             update = sync_score[:updated].present? && s.updated_at.to_i < sync_score[:updated]
             next unless update
 
