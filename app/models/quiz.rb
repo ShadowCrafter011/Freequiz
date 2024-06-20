@@ -98,7 +98,7 @@ class Quiz < ApplicationRecord
             new_score_data = scores_to_create.map { |s| s.slice(:user_id, :translation_id) }
             new_score_ids = Score.insert_all(new_score_data) unless scores_to_create.empty?
 
-            score_data + scores_to_create.each_with_index.map do |new_score, i|
+            score_data += scores_to_create.each_with_index.map do |new_score, i|
                 data = {
                     id: new_score[:translation_id],
                     score_id: new_score_ids[i]&.dig("id"),
@@ -112,8 +112,9 @@ class Quiz < ApplicationRecord
                 }
                 new_score.slice(:word, :translation).merge(data)
             end
+            score_data.sort_by { |s| s[:id] }
         else
-            translations.map { |t| { word: t.word, translation: t.translation } }
+            translations.sort_by(&:id).map { |t| { word: t.word, translation: t.translation } }
         end
     end
 
