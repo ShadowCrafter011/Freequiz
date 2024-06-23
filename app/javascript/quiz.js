@@ -175,7 +175,7 @@ export class Quiz {
     upload_if_failed_to_save() {
         if (!this.failed_to_save) return;
 
-        let quiz_data = { favorite: this.quiz.favorite, data: [] };
+        let quiz_data = { data: [] };
         for (let translation of this.translations) {
             if (!translation.updated) continue;
 

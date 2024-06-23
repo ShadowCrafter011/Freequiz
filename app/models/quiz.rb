@@ -119,7 +119,7 @@ class Quiz < ApplicationRecord
     end
 
     def sync_score(sync_params, user)
-        if user.favorite_quiz?(self) != sync_params[:favorite]
+        if sync_params[:favorite].present? && user.favorite_quiz?(self) != sync_params[:favorite]
             if sync_params[:favorite]
                 user.favorite_quizzes.create quiz_id: id
             else
