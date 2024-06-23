@@ -47,3 +47,7 @@ en:
     library: My library
     discover: Discover
     sponsors: Sponsors
+    banned:
+      title: You have been excluded from Freequiz
+      body: "We are sorry but you have been excluded from Freequiz for the following reason: %{reason}"
+      appeal: Do you think we have wrongly excluded you? Don't hesitate to write us an e-mail stating your user name, your e-mail address, the reason for your exclusion and why the exclusion was not justified.

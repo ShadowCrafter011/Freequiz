@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::Base
+    include ApiUtils
+
     before_action :setup_login
     around_action :switch_locale
+
+    # Put after around_action :switch_locale for the users preferend language to be used
+    # switch_locale required setup_login to have been called
+    before_action :check_ban!
 
     def locale_en(&)
         I18n.with_locale(:en, &)
@@ -15,6 +21,23 @@ class ApplicationController < ActionController::Base
             I18n.with_locale(locale, &)
             session[:locale] = locale
         end
+    end
+
+    def check_ban!
+        return if logged_in? && @user.admin?
+
+        user = @user || api_current_user
+
+        @ban_reason = user&.banned ? user.ban_reason : nil
+
+        ip_ban = BannedIp.find_by(ip: request.remote_ip)
+        @ban_reason ||= ip_ban&.reason
+
+        return unless user&.banned || ip_ban.present?
+
+        api_call = self.class.ancestors.first.name.split("::").first == "Api"
+        render "errors/banned", status: :unauthorized, layout: false unless api_call
+        render json: { success: false, token: "user.banned", reason: @ban_reason }, status: :unauthorized if api_call
     end
 
     def tp(attribute, **args)
@@ -60,7 +83,7 @@ class ApplicationController < ActionController::Base
     def require_admin!
         return unless require_login!
 
-        render "errors/not_allowed" unless @user.admin?
+        raise ActionController::RoutingError, "Not Found" unless @user.admin?
     end
 
     def user_admin?

@@ -1,5 +1,9 @@
 de:
   general:
+    banned:
+      title: Du wurdest von Freequiz ausgeschlossen
+      body: "Es tut uns leid aber du wurdest von Freequiz wegen des folgenden Grundes ausgeschlossen: %{reason}"
+      appeal: Denkst du wir haben dich fälschlicherweise ausgeschlossen? Zögere nicht uns eine E-Mail zu schreiben und erwähne dabei deinen Benutzernamen, deine E-Mail Adresse, den Grund für deine Ausschliessung und wieso die Ausschliessung nicht berechtigt war.
     settings:
       dark_mode: Dunkler Modus
       cards_amount: Kartei Karten so oft abfragen

@@ -40,6 +40,13 @@ class User < ApplicationRecord
         send_verification_email
     end
 
+    def self.find_by_username_or_email(username_or_email)
+        user = User.where("lower(username) = ?", username_or_email.downcase).first
+        return user if user.present?
+
+        User.find_by(email: username_or_email.downcase)
+    end
+
     def favorite_quiz?(quiz)
         get_favorite_quizzes.exists?(quiz.id)
     end
@@ -175,10 +182,20 @@ class User < ApplicationRecord
 
     def sign_in(ip)
         self.sign_in_count += 1
+
         self.last_sign_in_at = current_sign_in_at
         self.current_sign_in_at = Time.now
+
         self.last_sign_in_ip = current_sign_in_ip
         self.current_sign_in_ip = ip
+
+        self.last_sign_in_location = current_sign_in_location
+        Thread.new do
+            response = HTTParty.get("https://ipwho.is/#{ip}")
+            body = JSON.parse response.body
+            update current_sign_in_location: "#{body["city"]}, #{body["region"]}, #{body["country"]}" if body["success"]
+        end
+
         save
     end
 

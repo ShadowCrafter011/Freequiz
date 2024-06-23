@@ -47,3 +47,7 @@ it:
     library: La mia biblioteca
     discover: Scoprire
     sponsors: Sponsor
+    banned:
+      title: Sei stato escluso da Freequiz
+      body: "Siamo spiacenti ma sei stato escluso dal Freequiz per il seguente motivo: %{ragione}"
+      appeal: Pensate che vi abbiamo escluso ingiustamente? Non esitate a scriverci un'e-mail indicando il vostro nome utente, il vostro indirizzo e-mail, il motivo della vostra esclusione e perché l'esclusione non era giustificata.

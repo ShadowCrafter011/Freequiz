@@ -1,0 +1,12 @@
+<h1>Ban user <%= @user_target.username %></h1>
+
+<%= form_with model: @user_target, url: admin_user_ban_path, method: :patch do |form| %>
+    <%= form.text_field :banned, value: 1, hidden: true %>
+    <div class="flex flex-col gap-2">
+        <%= form.text_area :ban_reason, placeholder: "Reason for the ban", class: "rounded grow normal-border normal-background focus:ring-0 focus:border-gray-300 dark:focus:border-gray-700" %>
+        <div class="flex flex-col sm:flex-row gap-2">
+            <%= form.submit "Ban!", data: { turbo_confirm: "Are you sure you want to ban #{@user_target.username}?" }, class: "btn-danger-sleek grow basis-0" %>
+            <%= link_to "Cancel", admin_user_edit_path, class: "btn-secondary-sleek grow basis-0" %>
+        </div>
+    </div>
+<% end %>

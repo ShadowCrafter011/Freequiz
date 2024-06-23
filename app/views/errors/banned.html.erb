@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang=<%= I18n.locale %>>
+  <head>
+    <title><%= t("general.banned.title") %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= favicon_link_tag "freequiz/freequiz_logo.png" %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="<%= "dark" if @user.nil? || @user.setting.dark_mode %> overflow-x-hidden dark:bg-gray-900 dark:text-white">
+    <div class="mx-2 mt-2 <%= "sm:container" unless @no_container %>">
+      <h1><%= t "general.banned.title" %></h1>
+      <h4><%= t "general.banned.body", reason: @ban_reason %></h4>
+      <h4><%= t "general.banned.appeal" %></h4>
+      <h4><%= link_to "admin@freequiz.ch", "mailto:admin@freequiz.ch" %></h4>
+    </div>
+  </body>
+</html>
+

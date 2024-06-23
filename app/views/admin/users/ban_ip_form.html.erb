@@ -1,0 +1,12 @@
+<h1>Ban IP</h1>
+
+<%= form_with model: BannedIp.new, url: admin_ban_ip_path(return: params[:return]), method: :put do |form| %>
+    <div class="flex flex-col gap-2">
+        <%= form.text_field :ip, value: params[:ip], placeholder: "IP address to ban", class: "normal-border normal-background rounded focus:ring-0 focus:border-gray-300 dark:focus:border-gray-700" %>
+        <%= form.text_area :reason, placeholder: "Ban reason", class: "normal-border normal-background rounded rocus:ring-0 focus:border-gray-300 dark:focus:border-gray-700" %>
+        <div class="flex gap-2">
+            <%= form.submit "Ban!", class: "btn-danger-sleek grow basis-0", data: { turbo_confirm: "Are you sure you want to ban #{params[:ip]}?" } %>
+            <%= link_to "Cancel", params[:return], class: "btn-secondary-sleek grow basis-0" %>
+        </div>
+    </div>
+<% end %>

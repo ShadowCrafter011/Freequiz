@@ -1,3 +1,74 @@
+<div class="flex gap-2 justify-center">
+    <h1><%= @user_target.username %></h1>
+    <%= image_tag @user_target.avatar_url, class: "h-16 w-16 rounded-full border-4 border-blue-600" %>
+</div>
+
+<div class="grid grid-flow-row md:grid-cols-2 xl:grid-cols-3 gap-2 mt-2">
+    <div><strong>E-Mail: </strong><%= @user_target.email %></div>
+    <div><strong>Unconfirmed E-Mail: </strong><%= display_field(@user_target.unconfirmed_email) %></div>
+    <div><strong>E-Mail confirmed: </strong><%= @user_target.confirmed %></div>
+    <% if @user_target.confirmed %>
+        <div title="<%= @user_target.confirmed_at %>"><strong>E-Mail confirmed </strong><%= distance_of_time_in_words_to_now(@user_target.confirmed_at, locale: :en) %> ago</div>
+    <% end %>
+    <div><strong>Role: </strong><%= t "general.roles.#{@user_target.role}", locale: :en %></div>
+    <div><strong>End user agreement: </strong><%= @user_target.agb %></div>
+    <div><strong>Sign in count: </strong><%= @user_target.sign_in_count %></div>
+    <div title="<%= @user_target.current_sign_in_at %>"><strong>Current sign in </strong><%= distance_of_time_in_words_to_now(@user_target.current_sign_in_at, locale: :en) %> ago</div>
+    <div><strong>Current sign in IP: </strong> <%= @user_target.current_sign_in_ip %></div>
+    <div><strong>Current sign in from: </strong><%= display_field(@user_target.current_sign_in_location) %></div>
+    <% if @user_target.last_sign_in_at.present? %>
+        <div title="<%= @user_target.last_sign_in_at %>"><strong>Last sign in </strong><%= distance_of_time_in_words_to_now(@user_target.last_sign_in_at, locale: :en) %> ago</div>
+        <div><strong>Last sign in IP: </strong><%= @user_target.last_sign_in_ip %></div>
+        <div><strong>Last sign in from: </strong><%= display_field(@user_target.last_sign_in_location) %></div>
+    <% end %>
+</div>
+
+<hr class="my-3">
+
+<div class="grid grid-flow-row md:grid-cols-2 xl:grid-cols-3 gap-2">
+    <div><strong>Number of Quizzes created: </strong><%= @user_target.quizzes.count %></div>
+    <div><strong>Number of Translations: </strong><%= @user_target.quizzes.map {|q| q.translations.count}.sum %></div>
+    <div><strong>Number of favorite Quizzes: </strong><%= @user_target.favorite_quizzes.count %></div>
+    <div><strong>Number of scores: </strong><%= @user_target.scores.count %></div>
+    <div><strong>Bugs reported: </strong><%= @user_target.bug_reports.count %></div>
+    <div><strong>Bugs smashed: </strong><%= @user_target.bugs_smashed %></div>
+</div>
+
+<hr class="my-3">
+
+<div class="mb-3 grid grid-flow-row md:grid-cols-2 gap-2">
+    <div><strong>User banned: </strong><%= @user_target.banned %></div>
+    <% if @user_target.banned %>
+        <div><strong>Ban reason: </strong><%= display_field(@user_target.ban_reason) %></div>
+    <% end %>
+    <div><strong>Referenced IPs banned: </strong>
+        <% if @referenced_ips_banned.count.positive? %>
+            <%= @referenced_ips_banned.join(", ") %>
+        <% else %>
+            None
+        <% end %>
+    </div>
+    <% if @ip_ban_reasons.count.positive? %>
+        <div><strong>IP ban reasons: </strong><%= @ip_ban_reasons.map { |reason| display_field(reason) }.join(", ") %></div>
+    <% end %>
+</div>
+
+<div class="grid grid-flow-row md:grid-cols-2 gap-2">
+    <% unless @user_target.banned %>
+        <%= link_to "Ban user",  admin_user_ban_path, class: "btn-secondary-sleek grow" %>
+    <% else %>
+        <%= link_to "Unban user", admin_user_unban_path, data: { turbo_method: :patch, turbo_confirm: "Are you sure you want to unban #{@user_target.username} for reason #{@user_target.ban_reason}" }, class: "btn-success-sleek grow"%>
+    <% end %>
+
+    <% unless BannedIp.find_by(ip: @user_target.current_sign_in_ip).present? %>
+        <%= link_to "Ban IP #{@user_target.current_sign_in_ip}", admin_ban_ip_path(ip: @user_target.current_sign_in_ip, return: request.path), class: "btn-secondary-sleek" %>
+    <% else %>
+        <%= link_to "Unban IP #{@user_target.current_sign_in_ip}", admin_ban_ip_path(ip: @user_target.current_sign_in_ip, return: request.path), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to unban IP #{@user_target.current_sign_in_ip} for reason #{@ip_ban_reasons.first}" }, class: "btn-success-sleek" %>
+    <% end %>
+</div>
+
+<hr class="my-3">
+
 <%= form_with model: @user_target, url: admin_user_edit_path(@user_target.username) do |form| %>
     <div class="md:grid space-y-2 md:space-y-0 gap-2 grid-flow-row grid-cols-2">
         <div class="rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700 flex">
@@ -10,7 +81,7 @@
         </div>
         <div class="rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700 flex">
             <%= form.label :role, "Role", class: "p-2 rounded-s bg-gray-200 dark:bg-gray-800" %>
-            <%= form.select :role, User::ROLES.map { |r| [tg("roles.#{r}"), r] }, {}, { class: "grow rounded-e border-0 border-s focus:ring-0 cursor-pointer dark:bg-gray-900" } %>
+            <%= form.select :role, User::ROLES.map { |r| [t("general.roles.#{r}", locale: :en), r] }, {}, { class: "grow rounded-e border-0 border-s focus:ring-0 cursor-pointer dark:bg-gray-900" } %>
         </div>
         <div class="rounded border border-gray-300 divide-x divide-gray-300 dark:border-gray-700 dark:divide-gray-700 flex">
             <%= form.label :confirmed, "E-mail confirmed", class: "text-nowrap p-2 rounded-s bg-gray-200 dark:bg-gray-800" %>

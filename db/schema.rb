@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_18_055922) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_23_132737) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
+
+  create_table "banned_ips", force: :cascade do |t|
+    t.string "ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "reason"
+    t.index ["ip"], name: "index_banned_ips_on_ip"
+  end
 
   create_table "bug_reports", force: :cascade do |t|
     t.string "title"
@@ -128,6 +136,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_055922) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "current_sign_in_location"
+    t.string "last_sign_in_location"
+    t.boolean "banned", default: false
+    t.string "ban_reason"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

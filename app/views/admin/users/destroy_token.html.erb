@@ -3,7 +3,7 @@
 <h4>Click all the three buttons to confirm</h4>
 
 <div class="flex flex-col gap-40">
-    <%= link_to "Cancel", admin_user_edit_path(@user.username), class: "grow btn-success text-lg" %>
+    <%= link_to "Cancel", admin_user_edit_path(@user_target.username), class: "grow btn-success text-lg" %>
     <div id="delete-button-container" data-controller="admin--destroy-user" class="flex justify-between">
         <% 3.times do %>
             <%= render partial: "delete_button", locals: {user: @user_target, token: @token} %>

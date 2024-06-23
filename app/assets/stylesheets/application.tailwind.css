@@ -4,6 +4,7 @@
 @import "form";
 @import "switch";
 @import "flip_card";
+@import "colors";
 
 @tailwind base;
 @tailwind components;

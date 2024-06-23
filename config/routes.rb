@@ -164,6 +164,10 @@ Rails.application.routes.draw do
     namespace :admin do
         get "users", to: "users#index", as: "users"
 
+        get "ban_ip", to: "users#ban_ip_form", as: "ban_ip"
+        put "ban_ip", to: "users#ban_ip"
+        delete "ban_ip", to: "users#unban_ip"
+
         scope :transactions do
             get "/", to: "transaction#list", as: "transactions"
             get "removed", to: "transaction#removed", as: "removed_transactions"
@@ -185,6 +189,10 @@ Rails.application.routes.draw do
                     to: "users#destroy_token",
                     as: "user_delete"
                 delete "delete/:destroy_token", to: "users#destroy"
+
+                get "ban", to: "users#ban_form", as: "user_ban"
+                patch "ban", to: "users#ban"
+                patch "unban", to: "users#unban", as: "user_unban"
             end
 
             scope "edit/:username" do

@@ -1,0 +1,9 @@
+@layer components {
+    .normal-border {
+        @apply border border-gray-300 dark:border-gray-700;
+    }
+
+    .normal-background {
+        @apply bg-white dark:bg-gray-900;
+    }
+}

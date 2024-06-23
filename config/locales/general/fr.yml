@@ -47,3 +47,7 @@ fr:
     library: Ma bibliothèque
     discover: Découvrir
     sponsors: Sponsors
+    banned:
+      title: Tu as été exclu de Freequiz
+      body: "Nous sommes désolés, mais vous avez été exclu de Freequiz pour la raison suivante : %{reason}"
+      appeal: Tu penses que nous t'avons exclu à tort ? N'hésite pas à nous envoyer un e-mail en mentionnant ton nom d'utilisateur, ton adresse e-mail, la raison de ton exclusion et pourquoi cette exclusion n'était pas justifiée.

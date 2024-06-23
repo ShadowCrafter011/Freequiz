@@ -41,6 +41,41 @@ class Admin::UsersController < ApplicationController
 
     def edit
         @user_target = User.find_by(username: params[:username])
+        @referenced_ips_banned = [@user_target.current_sign_in_ip, @user_target.last_sign_in_ip]
+        puts @referenced_ips_banned.uniq
+        @referenced_ips_banned = @referenced_ips_banned.uniq.map { |ip| BannedIp.find_by(ip:) }.filter(&:present?)
+        @ip_ban_reasons = @referenced_ips_banned.map(&:reason)
+        @referenced_ips_banned.map!(&:ip)
+    end
+
+    def ban_form
+        @user_target = User.find_by(username: params[:username])
+    end
+
+    def ban
+        User.find_by(username: params[:username]).update ban_params
+        flash.notice = "User banned"
+        redirect_to admin_user_edit_path
+    end
+
+    def unban
+        User.find_by(username: params[:username]).update banned: false
+        flash.notice = "User unbanned"
+        redirect_to admin_user_edit_path
+    end
+
+    def ban_ip
+        return redirect_to params[:return], notice: "IP is already banned" if BannedIp.find_by(ip: ban_ip_params[:ip]).present?
+
+        BannedIp.create ban_ip_params
+        redirect_to params[:return], notice: "IP #{ban_ip_params[:ip]} was banned"
+    end
+
+    def unban_ip
+        return redirect_to params[:return], notice: "IP was not banned" unless BannedIp.find_by(ip: params[:ip]).present?
+
+        BannedIp.find_by(ip: params[:ip]).destroy
+        redirect_to params[:return], notice: "IP #{params[:ip]} was unbanned"
     end
 
     def destroy_token
@@ -121,5 +156,13 @@ class Admin::UsersController < ApplicationController
             :role,
             :confirmed
         )
+    end
+
+    def ban_params
+        params.require(:user).permit(:banned, :ban_reason)
+    end
+
+    def ban_ip_params
+        params.require(:banned_ip).permit(:ip, :reason)
     end
 end

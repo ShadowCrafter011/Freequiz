@@ -6,11 +6,9 @@ class User::PasswordController < ApplicationController
     def send_email
         override_action "reset"
 
-        user = User.where("lower(username) = ?", params[:username].downcase)
+        user = User.find_by_username_or_email(params[:username])
 
-        user = [User.find_by(email: params[:username].downcase)] unless user.first
-
-        unless user.first && user.length == 1
+        unless user.present?
             flash.now.alert = tp("wrong_username")
             return render :reset, status: 401
         end
