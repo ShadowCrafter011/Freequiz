@@ -32,7 +32,7 @@ class User::PasswordController < ApplicationController
         return redirect_to root_path, alert: tp("invalid_link") unless user.present?
 
         unless params[:password].match?(
-            /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/
         )
             flash.now.alert = tg("password_regex")
             return render :edit, status: :unprocessable_entity

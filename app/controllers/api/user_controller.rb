@@ -103,7 +103,7 @@ class Api::UserController < ApplicationController
         end
 
         unless user_params[:password].match?(
-            /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/
         )
             return(
                 json(
@@ -244,7 +244,7 @@ class Api::UserController < ApplicationController
         return unless api_require_valid_access_token!
 
         if edit_params[:password].present? && !edit_params[:password].match?(
-            /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/
         )
             return(
                 json(

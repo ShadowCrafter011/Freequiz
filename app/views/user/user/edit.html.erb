@@ -19,7 +19,7 @@
     </div>
     <div class="text-field-container items-center">
         <%= form.label :old_password, tp("old_password"), class: "text-nowrap" %>
-        <%= form.text_field :old_password, class: "text-field" %>
+        <%= form.password_field :old_password, class: "text-field" %>
     </div>
     <div class="mt-2 max-w-96 w-full flex gap-2">
         <%= form.submit tg("save"), class: "btn-success-sleek grow" %>
