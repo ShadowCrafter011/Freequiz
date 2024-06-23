@@ -20,7 +20,7 @@ class User::SessionsController < ApplicationController
 
         if user.first.login params[:password]
             remember = params[:remember] == "1"
-            expires_in = remember ? 20.years : 1.days
+            expires_in = remember ? 20.years : 1.day
             token = user.first.signed_id(purpose: :login, expires_in:)
 
             cookies.encrypted.permanent[:_session_token] = token if remember

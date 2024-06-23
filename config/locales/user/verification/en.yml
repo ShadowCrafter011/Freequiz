@@ -15,5 +15,5 @@ en:
         can_leave: You can now leave this page
         expired: This link is no longer valid
         here: here
-        wrong: Something has gone wrong. It seems that this link is not valid.
+        wrong: Something went wrong. It seems that this link is not valid.
         request_new: Request a new link
