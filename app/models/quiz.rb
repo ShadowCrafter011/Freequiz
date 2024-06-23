@@ -123,7 +123,7 @@ class Quiz < ApplicationRecord
             if sync_params[:favorite]
                 user.favorite_quizzes.create quiz_id: id
             else
-                user.favorite_quizzes.find_by(quiz_id: id).destroy
+                user.favorite_quizzes.find_by(quiz_id: id)&.destroy
             end
         end
 
