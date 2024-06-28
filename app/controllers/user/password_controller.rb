@@ -31,20 +31,11 @@ class User::PasswordController < ApplicationController
         user = User.find_signed params[:password_reset_token], purpose: :reset_password
         return redirect_to root_path, alert: tp("invalid_link") unless user.present?
 
-        unless params[:password].match?(
-            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/
-        )
-            flash.now.alert = tg("password_regex")
-            return render :edit, status: :unprocessable_entity
-        end
-
         if user.update(
             password: params[:password],
             password_confirmation: params[:password_confirmation]
         )
-            user.encrypt_password
-
-            expires_in = 14.days
+            expires_in = 1.days
             token = user.signed_id(purpose: :login, expires_in:)
 
             cookies.encrypted[:_session_token] = {

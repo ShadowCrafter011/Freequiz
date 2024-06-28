@@ -55,13 +55,6 @@ class User::UserController < ApplicationController
 
         @new_user = User.new(user_params)
 
-        unless user_params[:password].match?(
-            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/
-        )
-            flash.now.alert = tg("password_regex")
-            return render :new, status: :unprocessable_entity
-        end
-
         @new_user.current_sign_in_ip = request.remote_ip
         @new_user.current_sign_in_at = Time.now
 
@@ -85,13 +78,6 @@ class User::UserController < ApplicationController
 
     def update
         override_action "edit"
-
-        if edit_params[:password].present? && !edit_params[:password].match?(
-            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/
-        )
-            flash.now.alert = tg("password_regex")
-            return render :edit, status: :unprocessable_entity
-        end
 
         email_changed, errors = @user.change(edit_params)
         if errors.length.positive?
@@ -159,7 +145,7 @@ class User::UserController < ApplicationController
             :email,
             :password,
             :password_confirmation,
-            :old_password
+            :password_challenge
         )
     end
 

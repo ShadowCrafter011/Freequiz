@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_23_132737) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_28_075241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -123,13 +123,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_23_132737) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "username"
-    t.string "password"
-    t.string "role"
+    t.string "role", default: "user"
     t.boolean "agb"
     t.string "unconfirmed_email"
-    t.boolean "confirmed"
+    t.boolean "confirmed", default: false
     t.datetime "confirmed_at"
-    t.integer "sign_in_count"
+    t.integer "sign_in_count", default: 1
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
@@ -140,6 +139,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_23_132737) do
     t.string "last_sign_in_location"
     t.boolean "banned", default: false
     t.string "ban_reason"
+    t.string "password_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

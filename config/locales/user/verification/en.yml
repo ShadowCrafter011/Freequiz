@@ -4,7 +4,7 @@ en:
       pending:
         already_verified: Your email address has already been confirmed.
         sent: Confirmation e-mail has been sent. It should arrive in your mailbox in a few minutes. Then follow the instructions in the e-mail
-        sent_text: A link was sent to her email address
+        sent_text: A link was sent to your email address
         click_link: Please click on the link in this e-mail to confirm your account.
         expires: The link will expire on %s
         expired: The link that was sent to your e-mail address has been lost.

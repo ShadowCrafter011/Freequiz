@@ -18,7 +18,7 @@ class User::SessionsController < ApplicationController
             return render :new, status: :unprocessable_entity
         end
 
-        if user.first.login params[:password]
+        if user.first.authenticate params[:password]
             remember = params[:remember] == "1"
             expires_in = remember ? 20.years : 1.day
             token = user.first.signed_id(purpose: :login, expires_in:)
