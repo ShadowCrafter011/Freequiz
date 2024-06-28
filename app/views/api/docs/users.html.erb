@@ -136,8 +136,9 @@
     <div id="delete" class="pt-16 -mt-16" data-section="true">
         <h1 class="text-start">Delete</h1>
         <p>
-            <a href="https://freequiz.ch/api/user/delete/delete_token">https://freequiz.ch/api/user/delete/delete_token</a><br>
-            Replace delete_token with token gotten by <a href="#delete_token">this request</a>
+            <a href="https://freequiz.ch/api/user/delete/delete_token?destroy_quizzes=val">https://freequiz.ch/api/user/delete/delete_token?destroy_quizzes=val</a><br>
+            Replace delete_token with token gotten by <a href="#delete_token">this request</a><br>
+            To also destroy all the quizzes the user created destroy_quizzes must be set to a truthy value i.e. "1" or "true"
         </p>
         <p>
             <h3 class="text-start">Request method: DELETE</h3>

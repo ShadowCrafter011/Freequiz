@@ -120,6 +120,7 @@ class User::UserController < ApplicationController
         user = User.find_signed params[:destroy_token], purpose: :destroy_user
 
         if user.present? && user == @user
+            @user.quizzes.destroy_all if params[:destroy_quizzes] == "1"
             @user.destroy
             redirect_to root_path, notice: tp("deleted")
         else

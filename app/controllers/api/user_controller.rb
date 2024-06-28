@@ -215,6 +215,7 @@ class Api::UserController < ApplicationController
         user = User.find_signed(params[:destroy_token], purpose: :destroy_user)
 
         if user.present? && user == @api_user
+            user.quizzes.destroy_all if params[:destroy_quizzes] == "1" || params[:destroy_quizzes] == "true"
             user.destroy
             json({ success: true, message: "User deleted" })
         else

@@ -2,9 +2,16 @@
     <h1><%= tp("delete_account") %></h1>
     <h3><%= tp("not_reversible") %></h3>
     <br>
-    <%= link_to tp("delete"), user_delete_path(@token), class: "btn btn-danger btn-sm", id: "delete-btn", data: {
-        turbo_confirm: tp("sure_to_delete"),
-        turbo_method: :delete
-    } %>
-    <%= link_to tp("cancel"), user_path, class: "btn btn-secondary btn-sm" %>
+    <%= form_with url: user_delete_path(@token), method: :delete do |form| %>
+        <div class="flex flex-col gap-2">
+            <div class="flex justify-center items-center gap-2">
+                <%= form.check_box :destroy_quizzes, class: "rounded focus:ring-0 focus:ring-offset-0" %>
+                <%= form.label :destroy_quizzes, t(".destroy_quizzes") %>
+            </div>
+            <div>
+                <%= form.submit tp("delete"), class: "btn-danger-sleek", data: { turbo_confirm: tp("sure_to_delete") } %>
+                <%= link_to tp("cancel"), user_path, class: "btn-secondary" %>
+            </div>
+        </div>
+    <% end %>
 </div>
