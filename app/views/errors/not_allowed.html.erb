@@ -1,7 +1,0 @@
-<div class="flex items-center flex-col gap-2 mt-3">
-    <h1><%= t("errors.not_allowed.title") %></h1>
-    <h3><%= t("errors.not_allowed.return") %> <%= link_to t("errors.now_allowed.homepage"), root_path %></h3><br>
-    <% if logged_in? && !@user.setting.dark_mode %>
-        <%= image_tag "errors/not_allowed", class: "h-44 w-44" %>
-    <% end %>
-</div>

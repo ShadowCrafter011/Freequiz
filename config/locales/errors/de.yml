@@ -5,9 +5,6 @@ de:
     not_allowed_to_view_quiz: Es tut uns leid, aber Sie dürfen dieses Quiz nicht anschauen
     email_in_use: Ein anderer Benutzer verwendet diese E-mail Adresse schon
     email_invalid: E-mail ist ungültig
-    beta_wall:
-      only_beta: Nur Beta Tester dürfen hier hin
-      send_email: "Wenn du Interesse hättest ein Beta Tester zu werden schreib mir eine <a href="mailto:lkoe@bluewin.ch">E-Mail</a>"
     not_allowed:
       title: Es tut uns leid, aber hier darfst du nicht hin
       return: Zurück zur

@@ -340,7 +340,7 @@ class Api::UserController < ApplicationController
             :username,
             :password,
             :password_confirmation,
-            :old_password
+            :password_challenge
         )
     end
 
