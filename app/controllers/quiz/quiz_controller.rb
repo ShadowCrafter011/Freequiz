@@ -1,7 +1,7 @@
 class Quiz::QuizController < ApplicationController
     include ApiUtils
 
-    before_action :require_login!, :require_beta! do
+    before_action :require_login! do
         setup_locale "quiz.quiz"
     end
 
@@ -125,14 +125,5 @@ class Quiz::QuizController < ApplicationController
             :visibility,
             translations_attributes: %i[id word translation _destroy]
         )
-    end
-
-    def require_beta!
-        return unless require_login!
-
-        return if @user.beta? || @user.admin?
-
-        @title = "Beta Blocker"
-        render "errors/beta_wall"
     end
 end
