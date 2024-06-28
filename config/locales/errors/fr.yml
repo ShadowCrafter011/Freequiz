@@ -1,17 +1,14 @@
 fr:
   errors:
-    old_password_no_match: L'ancien mot de passe est incorrect
-    missing_password_fields: Vous devez confirmer votre nouveau mot de passe et entrer votre ancien mot de passe.
-
     invalid_lang: La langue n'est pas valide
     not_enough_translations: Le quiz doit comporter au moins un mot avec une tranduction.
-
     not_allowed_to_view_quiz: Nous sommes désolés, mais vous ne pouvez pas regarder ce quiz.
-
     beta_wall:
       only_beta: Seuls les bêta-testeurs sont autorisés à venir ici.
-      send_email: Si tu veux devenir un bêta testeur, envoie-moi un <a href="mailto:lkoe@bluewin.ch">e-mail</a>.
+      send_email: "Si tu veux devenir un bêta testeur, envoie-moi un <a href="mailto:lkoe@bluewin.ch">e-mail</a>."
     not_allowed:
       title: Nous sommes désolés, mais tu ne peux pas venir ici.
       return: Retour à la
       homepage: Page d'accueil
+    email_in_use: Un autre utilisateur utilise déjà cette adresse e-mail.
+    email_invalid: L'e-mail n'est pas valide

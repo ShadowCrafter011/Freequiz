@@ -6,20 +6,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-system_user =
-    User.create(
-        username: "System",
-        email: "system@freequiz.ch",
-        password: "BigChungus01",
-        agb: true,
-        confirmed_at: Time.now
-    )
-system_user.update(
-    role: "admin",
-    confirmed: true,
-    password: "71ba800fb1961f975e0bbfb555aae2c2fa38f2e268c5f6f0333b2ee9aca74523"
-)
-
 Language.create(
     [
         { id: 1, name: "german", locale: "de" },
@@ -35,26 +21,3 @@ Language.create(
         { id: 11, name: "chinese", locale: "zh" }
     ]
 )
-
-# system_id = User.find_by(username: "System").id
-
-# deepl_auth_key = Rails.application.credentials.dig(:deepl_auth_key)
-
-# for x in 1..10 do
-#     quiz = Quiz.new(user_id: system_id, title: "Automatic Quiz ##{x}", description: "This Quiz was generated randomly", data: [], from: 3, to: 1, visibility: "public")
-
-#     10.times do
-#         word = HTTParty.get("https://random-word-api.herokuapp.com/word")[0]
-#         query = { text: word, source_lang: "EN", target_lang: "DE" }
-#         headers = { Authorization: "DeepL-Auth-Key #{deepl_auth_key}" }
-#         translation = HTTParty.post("https://api-free.deepl.com/v2/translate", query: query, headers: headers)["translations"][0]["text"]
-#         quiz.data.append({ w: word, t: translation })
-#     end
-#     quiz.save
-#     puts "Generated Quiz ##{x}"
-# end
-
-# for x in 11..50 do
-#     Quiz.create(user_id: system_id, title: "Automatic Quiz ##{x}", description: "This Quiz was generated automatically", data: [{w: "Tree", t: "Baum"}], from: 3, to: 1, visibility: "public")
-#     puts "Generated Quiz ##{x}"
-# end

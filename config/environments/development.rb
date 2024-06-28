@@ -5,12 +5,11 @@ Rails.application.configure do
 
     config.force_ssl = true
 
-    # TODO: Change back to dev when merging into tailwind branch
-    config.hosts << "auth.freequiz.ch"
+    config.hosts << "dev.freequiz.ch"
 
-    config.action_mailer.default_url_options = { host: "auth.freequiz.ch" }
+    config.action_mailer.default_url_options = { host: "dev.freequiz.ch" }
 
-    config.default_url_options = { host: "auth.freequiz.ch" }
+    config.default_url_options = { host: "dev.freequiz.ch" }
 
     config.action_mailer.delivery_method = :smtp
 

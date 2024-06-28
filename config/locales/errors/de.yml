@@ -1,18 +1,16 @@
 de:
   errors:
-    old_password_no_match: Altes Passwort ist falsch
-    missing_password_fields: Sie müssen Ihr neues Passwort bestätigen und Ihr altes Passwort eingeben
-
     invalid_lang: Sprache ist nicht valide
     not_enough_translations: Quiz muss wenigstens ein Wort mit Übersetzung haben
-
     not_allowed_to_view_quiz: Es tut uns leid, aber Sie dürfen dieses Quiz nicht anschauen
-
+    email_in_use: Ein anderer Benutzer verwendet diese E-mail Adresse schon
+    email_invalid: E-mail ist ungültig
     beta_wall:
       only_beta: Nur Beta Tester dürfen hier hin
-      send_email: Wenn du Interesse hättest ein Beta Tester zu werden schreib mir eine <a href="mailto:lkoe@bluewin.ch">E-Mail</a>
-
+      send_email: "Wenn du Interesse hättest ein Beta Tester zu werden schreib mir eine <a href="mailto:lkoe@bluewin.ch">E-Mail</a>"
     not_allowed:
       title: Es tut uns leid, aber hier darfst du nicht hin
       return: Zurück zur
       homepage: Homepage
+    old_password_no_match: Das alte Passwort ist falsch
+    missing_password_fields: Das neue Passwort muss bestätigt und das alte Passwort eingegeben werden.

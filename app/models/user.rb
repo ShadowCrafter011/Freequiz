@@ -25,7 +25,7 @@ class User < ApplicationRecord
               format: {
                   with: URI::MailTo::EMAIL_REGEXP
               }
-    validates :password, format: { with: /\A(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}\z/ }
+    validates :password, format: { with: /\A(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}\z/ }, allow_nil: true
     validates :agb, acceptance: true
 
     before_create do
@@ -84,15 +84,17 @@ class User < ApplicationRecord
                     self.unconfirmed_email = nil
                 end
             else
-                errors.append(
-                    "Ein anderer Benutzer verwendet diese E-mail Adresse schon"
-                )
+                errors.append(I18n.t("errors.email_in_use"))
             end
         elsif params[:email].present?
-            errors.append("E-mail ist ungültig")
+            errors.append(I18n.t("errors.email_invalid"))
         end
 
-        update params.permit(:password, :password_confirmation, :password_challenge) if params[:password].present?
+        if params[:password].present?
+            self.password = params[:password]
+            self.password_confirmation = params[:password_confirmation]
+            self.password_challenge = params[:password_challenge]
+        end
 
         save
         [email_changed, get_errors.concat(errors)]

@@ -7,6 +7,7 @@ en:
         username: Username
         password: ""
         password_confirmation: ""
+        password_challenge: ""
         agb: ""
       quiz:
         title: Title
@@ -14,7 +15,7 @@ en:
         description: Description
         from: Language Words
         to: Language translation
-        translations: ""
+        translations:
     errors:
       models:
         user:
@@ -38,6 +39,8 @@ en:
               confirmation: Passwords do not match
             agb:
               accepted: You have to accept our terms and conditions
+            password_challenge:
+              invalid: Old password is not correct
         quiz:
           attributes:
             title:

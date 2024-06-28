@@ -7,6 +7,7 @@ fr:
         username: Nom d'utilisateur
         password: ""
         password_confirmation: ""
+        password_challenge: ""
         agb: ""
       quiz:
         title: Titre
@@ -14,7 +15,7 @@ fr:
         description: Description
         from: Langue Mots
         to: Langue Traduction
-        translations: ""
+        translations:
     errors:
       models:
         user:
@@ -38,6 +39,8 @@ fr:
               confirmation: Les mots de passe ne correspondent pas.
             agb:
               accepted: Vous devez accepter nos conditions générales.
+            password_challenge:
+              invalid: L'ancien mot de passe ne correspond pas
         quiz:
           attributes:
             title:
