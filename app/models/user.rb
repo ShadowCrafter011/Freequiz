@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    has_secure_password
+
     has_one :setting, dependent: :destroy
     has_many :quizzes, dependent: :nullify
     has_many :scores, dependent: :destroy
@@ -23,16 +25,11 @@ class User < ApplicationRecord
               format: {
                   with: URI::MailTo::EMAIL_REGEXP
               }
-    validates :password, confirmation: true
+    validates :password, format: { with: /\A(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}\z/ }
     validates :agb, acceptance: true
 
     before_create do
-        self.role = "user" unless role.present?
-        self.confirmed = false
-        self.sign_in_count = 1
         self.email = email.downcase
-
-        encrypt_value :password, save: false
     end
 
     after_create do
@@ -95,18 +92,7 @@ class User < ApplicationRecord
             errors.append("E-mail ist ungültig")
         end
 
-        if params[:password].present?
-            if params[:password_confirmation].present? &&
-               params[:old_password].present?
-                if compare_encrypted :password, params[:old_password]
-                    encrypt_password if update(params.slice(:password, :password_confirmation))
-                else
-                    errors.append(I18n.t("errors.old_password_no_match"))
-                end
-            else
-                errors.append(I18n.t("errors.missing_password_fields"))
-            end
-        end
+        update params.permit(:password, :password_confirmation, :password_challenge) if params[:password].present?
 
         save
         [email_changed, get_errors.concat(errors)]
@@ -151,33 +137,6 @@ class User < ApplicationRecord
 
     def verified?
         confirmed
-    end
-
-    def login(password)
-        compare_encrypted :password, password
-    end
-
-    def compare_encrypted(key, value)
-        9.times do
-            value = Digest::SHA256.hexdigest value
-        end
-        self[key] == value
-    end
-
-    def encrypt_password
-        9.times do
-            self.password = Digest::SHA256.hexdigest password
-            self.password_confirmation =
-                Digest::SHA256.hexdigest password_confirmation
-        end
-        save
-    end
-
-    def encrypt_value(key, save: true)
-        9.times do
-            self[key] = Digest::SHA256.hexdigest self[key]
-        end
-        self.save if save
     end
 
     def sign_in(ip)

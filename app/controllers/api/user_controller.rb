@@ -174,7 +174,7 @@ class Api::UserController < ApplicationController
             )
         end
 
-        unless user.compare_encrypted :password, params[:password]
+        unless user.authenticate params[:password]
             return(
                 json(
                     {
