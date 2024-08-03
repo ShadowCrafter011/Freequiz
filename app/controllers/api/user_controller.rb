@@ -189,8 +189,7 @@ class Api::UserController < ApplicationController
 
         user.sign_in request.remote_ip
         
-        @api_user = user
-        check_ban!
+        return json({ success: false, token: "user.banned", reason: user.ban_reason }, :unauthorized) if user.banned
         
         json({ success: true, access_token: generate_access_token(user) })
     end
