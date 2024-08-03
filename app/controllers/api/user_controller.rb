@@ -189,6 +189,7 @@ class Api::UserController < ApplicationController
 
         user.sign_in request.remote_ip
         
+        @api_user = user
         check_ban!
         
         json({ success: true, access_token: generate_access_token(user) })
