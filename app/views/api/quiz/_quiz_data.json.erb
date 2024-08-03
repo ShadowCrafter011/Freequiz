@@ -5,7 +5,7 @@
     "visibility": "<%= quiz.visibility %>",
     "created_by": "<%= quiz.user.present? ? quiz.user.username : "Deleted User" %>",
     "owner": <%= quiz.user.present? ? quiz.user == @api_user : false %>,
-    "avatar_url": "<%= quiz.user&.avatar_url %>",
+    "avatar_url": "<%= quiz.user&.avatar_url&.html_safe %>",
     "favorite": <%= @api_user.present? ? @api_user.favorite_quiz?(quiz) : false %>,
     "from": {
         "id": "<%= quiz.from %>",
