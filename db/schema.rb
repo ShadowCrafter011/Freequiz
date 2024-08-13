@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_28_075241) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_13_064135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -56,6 +56,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_28_075241) do
     t.string "locale"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "quiz_reports", force: :cascade do |t|
+    t.string "status", default: "open"
+    t.text "description"
+    t.boolean "sexual"
+    t.boolean "violence"
+    t.boolean "hate"
+    t.boolean "spam"
+    t.boolean "child_abuse"
+    t.boolean "mobbing"
+    t.bigint "quiz_id", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_quiz_reports_on_quiz_id"
+    t.index ["user_id"], name: "index_quiz_reports_on_user_id"
   end
 
   create_table "quizzes", force: :cascade do |t|
@@ -147,6 +164,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_28_075241) do
   add_foreign_key "bug_reports", "users"
   add_foreign_key "favorite_quizzes", "quizzes"
   add_foreign_key "favorite_quizzes", "users"
+  add_foreign_key "quiz_reports", "quizzes"
+  add_foreign_key "quiz_reports", "users"
   add_foreign_key "quizzes", "languages", column: "from"
   add_foreign_key "quizzes", "languages", column: "to"
   add_foreign_key "quizzes", "users"

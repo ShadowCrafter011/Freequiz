@@ -5,7 +5,7 @@ class BugReportController < ApplicationController
 
     before_action only: %i[show status] do
         @bug = BugReport.find_by(id: params[:bug_id])
-        redirect_to bugs_path(category: "new"), alert: "This bug report doesn't exist" unless @bug.present?
+        redirect_to admin_bugs_path(category: "new"), alert: "This bug report doesn't exist" unless @bug.present?
     end
 
     def create
@@ -20,20 +20,20 @@ class BugReportController < ApplicationController
 
     def triage
         triage_bug = BugReport.where(status: :new).order(created_at: :asc).first
-        redirect_to bug_triage_show_path(triage_bug) if triage_bug.present?
+        redirect_to admin_bug_triage_show_path(triage_bug) if triage_bug.present?
     end
 
     def triage_show
         @triage_bug = BugReport.find(params[:bug_report_id])
-        redirect_to bug_triage_path unless @triage_bug.present?
+        redirect_to admin_bug_triage_path unless @triage_bug.present?
     end
 
     def triage_verdict
         triage_bug = BugReport.find(params[:bug_report_id])
-        return redirect_to bug_triage_path unless triage_bug.present?
+        return redirect_to admin_bug_triage_path unless triage_bug.present?
 
         triage_bug.update status_params
-        redirect_to bug_triage_path
+        redirect_to admin_bug_triage_path
     end
 
     def list
@@ -57,7 +57,7 @@ class BugReportController < ApplicationController
         else
             flash.alert =  "Status could not be updated"
         end
-        redirect_to bug_path(@bug.id)
+        redirect_to admin_bug_path(@bug.id)
     end
 
     private

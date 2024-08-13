@@ -1,1 +1,1 @@
-<%= render partial: "quiz/quiz/quiz_form", locals: { title: "Admin edit quiz #{@quiz.title}", commit: "Save", cancel_path: quiz_show_path(@quiz.uuid), method: :post, url: admin_quiz_update_path } %>
+<%= render partial: "quiz/quiz/quiz_form", locals: { title: "Admin edit quiz #{@quiz.title}", commit: "Save", cancel_path: @cancel_path, method: :post, url: @update_url } %>

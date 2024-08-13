@@ -8,6 +8,7 @@ class User < ApplicationRecord
     has_many :transactions, dependent: :nullify
     has_many :favorite_quizzes, dependent: :destroy
     has_many :get_favorite_quizzes, through: :favorite_quizzes, source: :quiz
+    has_many :quiz_reports, dependent: :nullify
 
     ROLES = %w[user beta admin].freeze
 

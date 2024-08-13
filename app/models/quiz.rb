@@ -2,6 +2,7 @@ class Quiz < ApplicationRecord
     belongs_to :user, optional: true
     has_many :translations, dependent: :destroy
     has_many :favorite_quizzes, dependent: :destroy
+    has_many :quiz_reports, dependent: :destroy
 
     belongs_to :from_lang, class_name: :Language, foreign_key: :from
     belongs_to :to_lang, class_name: :Language, foreign_key: :to

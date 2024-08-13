@@ -114,6 +114,25 @@ class Quiz::QuizController < ApplicationController
         redirect_to root_path
     end
 
+    def new_report
+        @quiz = Quiz.find_by uuid: params[:quiz_uuid]
+        @quiz_report = QuizReport.new
+    end
+
+    def report
+        @quiz = Quiz.find_by uuid: params[:quiz_uuid]
+        @quiz_report = @quiz.quiz_reports.new(quiz_report_params)
+
+        @quiz_report.user = @user if logged_in?
+
+        if @quiz_report.save
+            redirect_to quiz_show_path(@quiz_report.quiz.uuid), notice: t("quiz.quiz.report.saved")
+        else
+            flash.now.alert = t("quiz.quiz.report.failed")
+            render :new_report, status: :unprocessable_entity
+        end
+    end
+
     private
 
     def quiz_params
@@ -124,6 +143,18 @@ class Quiz::QuizController < ApplicationController
             :to,
             :visibility,
             translations_attributes: %i[id word translation _destroy]
+        )
+    end
+
+    def quiz_report_params
+        params.require(:quiz_report).permit(
+            :description,
+            :sexual,
+            :violence,
+            :hate,
+            :spam,
+            :child_abuse,
+            :mobbing
         )
     end
 end

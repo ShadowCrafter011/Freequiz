@@ -76,26 +76,14 @@ Rails.application.routes.draw do
             get "write", to: "quiz#write", as: "write"
             get "multi", to: "quiz#multi", as: "multi"
             get "smart", to: "quiz#smart", as: "smart"
+
+            get "report", to: "quiz#new_report", as: "report"
+            post "report", to: "quiz#report"
         end
     end
 
     # Bug report routes
     post "report", to: "bug_report#create", as: "bug_report"
-
-    scope :bugs do
-        scope :triage do
-            get "/", to: "bug_report#triage", as: "bug_triage"
-            get ":bug_report_id", to: "bug_report#triage_show", as: "bug_triage_show"
-            patch ":bug_report_id", to: "bug_report#triage_verdict"
-        end
-
-        get "list", to: "bug_report#list", as: "bugs"
-
-        scope ":bug_id" do
-            get "/", to: "bug_report#show", as: "bug"
-            patch "status", to: "bug_report#status", as: "bug_status"
-        end
-    end
 
     # API routes
     namespace :api do
@@ -169,6 +157,21 @@ Rails.application.routes.draw do
         put "ban_ip", to: "users#ban_ip"
         delete "ban_ip", to: "users#unban_ip"
 
+        scope :bugs do
+            scope :triage do
+                get "/", to: "bug_report#triage", as: "bug_triage"
+                get ":bug_report_id", to: "bug_report#triage_show", as: "bug_triage_show"
+                patch ":bug_report_id", to: "bug_report#triage_verdict"
+            end
+
+            get "list", to: "bug_report#list", as: "bugs"
+
+            scope ":bug_id" do
+                get "/", to: "bug_report#show", as: "bug"
+                patch "status", to: "bug_report#status", as: "bug_status"
+            end
+        end
+
         scope :transactions do
             get "/", to: "transaction#list", as: "transactions"
             get "removed", to: "transaction#removed", as: "removed_transactions"
@@ -213,9 +216,13 @@ Rails.application.routes.draw do
             end
         end
 
+        get "quiz/triage", to: "quiz#triage", as: "quiz_report_triage"
+        post "quiz/triage/:triage_id/ignore", to: "quiz#ignore_triage", as: "quiz_report_ignore_triage"
         scope "quiz/:quiz_id" do
             get "edit", to: "quiz#edit", as: "quiz_edit"
             post "edit", to: "quiz#update", as: "quiz_update"
+            get "delete", to: "quiz#request_destroy", as: "quiz_request_delete"
+            delete "delete/:delete_token", to: "quiz#destroy", as: "quiz_delete"
         end
     end
 

@@ -35,6 +35,8 @@ de:
         smart: Smart
         score_favorite_error: Favorit konnte nicht gespeichert werden. Bitte versuche es später wieder
         admin_edit: Als Admin bearbeiten
+        admin_delete: Als Admin löschen
+        report: Quiz melden
 
         failed_to_save: Sie scheinen offline zu sein. Fortschritt kann momentan nicht gespeichert werden
 
@@ -71,3 +73,19 @@ de:
         not_found: Dieses Quiz existiert nicht
         not_allowed: Sie dürfen dies nicht tun
         deleted: Quiz wurde gelöscht
+
+      report:
+        saved: Quiz wurde gemeldet. Wir werden deine Anfrage sobald wie möglich bearbeiten
+        failed: Quiz konnte nicht gemeldet werden. Bitte probiere es später erneut
+
+      new_report:
+        title: Quiz "%{title}" melden
+        description_placeholder: Beschreibe kurz wieso das Quiz nicht regelgemäss ist
+        quiz_is: Das Quiz
+        sexual: enthält sexuell anstössige Inhalte
+        violence: enthält nicht angemessene Gewalt
+        hate: enthält hasvolle Sprache
+        spam: wurde als Spam erstellt
+        child_abuse: enthält Kindesmissbrauch
+        mobbing: enthält Mobbing
+        report: Quiz melden

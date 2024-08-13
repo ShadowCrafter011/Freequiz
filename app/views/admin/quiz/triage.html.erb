@@ -1,0 +1,22 @@
+<% if @reported_quiz.nil? %>
+    <h3>There are no more reported Quizzes. Yay!</h3>
+<% else %>
+    <h1>Quiz report triage</h1>
+    <h1>Quiz title: <%= @reported_quiz.title %></h1>
+    <h3>Quiz description: <%= @reported_quiz.description %></h3>
+
+    <div class="rounded border border-gray-300 dark:border-gray-700 divide-y divide-gray-300 dark:divide-gray-700">
+        <% @reported_quiz.translations.order(created_at: :asc).each do |t| %>
+            <div class="flex flex-row divide-x divide-gray-300 dark:divide-gray-700">
+                <div class="basis-0 grow p-2"><%= t.word %></div>
+                <div class="basis-0 grow p-2"><%= t.translation %></div>
+            </div>
+        <% end %>
+    </div>
+
+    <div class="flex gap-2 align-center mt-2">
+        <%= link_to "Edit Quiz", admin_quiz_edit_path(@reported_quiz.uuid, triage: @report.id), class: "btn-primary basis-0 grow" %>
+        <%= link_to "Delete Quiz", admin_quiz_request_delete_path(@reported_quiz.uuid, triage: @report.id), class: "btn-danger basis-0 grow" %>
+        <%= link_to "Ignore", admin_quiz_report_ignore_triage_path(@report.id), class: "btn-secondary basis-0 grow", data: { turbo_method: :post } %>
+    </div>
+<% end %>

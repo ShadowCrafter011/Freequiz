@@ -3,6 +3,8 @@ class Admin::QuizController < ApplicationController
 
     def edit
         @quiz = Quiz.find_by(uuid: params[:quiz_id])
+        @update_url = params[:triage].present? ? admin_quiz_update_path(triage: params[:triage]) : admin_quiz_update_path
+        @cancel_path = params[:triage].present? ? admin_quiz_report_triage_path : quiz_show_path(@quiz.uuid)
     end
 
     def update
@@ -11,11 +13,50 @@ class Admin::QuizController < ApplicationController
         redirect_to root_path, notice: "Quiz was not found" unless @quiz.present?
 
         if @quiz.update(quiz_params)
-            redirect_to quiz_show_path(@quiz.uuid), notice: "Quiz updated as admin"
+            if params[:triage].present?
+                QuizReport.find(params[:triage]).update status: :solved
+                redirect_to admin_quiz_report_triage_path, notice: "Triage solved though edit"
+            else
+                redirect_to quiz_show_path(@quiz.uuid), notice: "Quiz updated as admin"
+            end
         else
             flash.now.alert = @quiz.get_errors
             render :edit, status: :unprocessable_entity
         end
+    end
+
+    def request_destroy
+        @quiz = Quiz.find_by(uuid: params[:quiz_id])
+        @destroy_token = @quiz.signed_id purpose: :admin_destroy, expires_in: 1.hour
+        @destroy_path = params[:triage].present? ? admin_quiz_delete_path(delete_token: @destroy_token, triage: params[:triage]) : admin_quiz_delete_path(delete_token: @destroy_token)
+        @cancel_path = params[:triage].present? ? admin_quiz_report_triage_path : quiz_show_path(@quiz.uuid)
+    end
+
+    def destroy
+        quiz = Quiz.find_signed(params[:delete_token], purpose: :admin_destroy)
+
+        if quiz.present?
+            quiz.destroy
+            if params[:triage].present?
+                redirect_to admin_quiz_report_triage_path, notice: "Triage solved by deleting Quiz"
+            else
+                redirect_to root_path, notice: "Quiz was destroyed"
+            end
+        elsif params[:triage].present?
+            redirect_to admin_quiz_report_triage_path, alert: "Could not destroy Quiz. Token might have expired"
+        else
+            redirect_to quiz_show_path(params[:quiz_id]), alert: "Could not destroy Quiz. Token might have expired"
+        end
+    end
+
+    def triage
+        @report = QuizReport.order(created_at: :asc).where(status: :open).first
+        @reported_quiz = @report&.quiz
+    end
+
+    def ignore_triage
+        QuizReport.find(params[:triage_id]).update status: :ignored
+        redirect_to admin_quiz_report_triage_path, notice: "Quiz report ignored"
     end
 
     private

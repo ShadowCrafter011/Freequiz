@@ -64,8 +64,9 @@
                                     <%= link_to "Users", admin_users_path, class: "nav-link" %>
                                     <%= link_to "Transactions", admin_transactions_path, class: "nav-link" %>
                                     <%= link_to "API Docs", api_docs_path, class: "nav-link" %>
-                                    <%= link_to "Bug Triage (#{BugReport.where(status: :new).count})", bug_triage_path, class: "nav-link" %>
-                                    <%= link_to "Bug List", bugs_path, class: "nav-link" %>
+                                    <%= link_to "Bug Triage (#{BugReport.where(status: :new).count})", admin_bug_triage_path, class: "nav-link" %>
+                                    <%= link_to "Bug List", admin_bugs_path, class: "nav-link" %>
+                                    <%= link_to "Report triage (#{QuizReport.where(status: :open).count})", admin_quiz_report_triage_path, class: "nav-link" %>
                                     <hr class="dark:border-gray-800">
                                 <% end %>
                                 <%= link_to t("layouts.application.logout"), user_logout_path, class: "nav-link" %>

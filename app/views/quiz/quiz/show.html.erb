@@ -7,8 +7,15 @@
     <% end %>
 </div>
 
+<% if @user.admin? %>
+    <h3 class="text-gray-600 dark:text-gray-500">
+        <%= link_to t(".admin_edit"), admin_quiz_edit_path(@quiz.uuid) %>,
+        <%= link_to t(".admin_delete"), admin_quiz_request_delete_path(@quiz.uuid) %>
+    </h3>
+<% end %>
+
 <h3 class="text-gray-600 dark:text-gray-500">
-    <%= link_to t(".admin_edit"), admin_quiz_edit_path(@quiz.uuid) %>
+    <%= link_to t(".report"), quiz_report_path(@quiz.uuid) %>
 </h3>
 
 <% unless @user == @quiz.user || @quiz.user.nil? %>
