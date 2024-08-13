@@ -2,8 +2,17 @@
     <h3>There are no more reported Quizzes. Yay!</h3>
 <% else %>
     <h1>Quiz report triage</h1>
+    <br>
+    <% if @report.user.present? %>
+        <h3>Reported by: <%= link_to(@report.user.username, admin_user_edit_path(@report.user.username)) %></h3>
+    <% else %>
+        <h3>Reported by: Deleted user</h3>
+    <% end %>
+    <h3>Reported for: <%= @report.description.present? ? @report.description : "Not specified" %></h3>
+    <br>
     <h1>Quiz title: <%= @reported_quiz.title %></h1>
     <h3>Quiz description: <%= @reported_quiz.description %></h3>
+    <br>
 
     <div class="rounded border border-gray-300 dark:border-gray-700 divide-y divide-gray-300 dark:divide-gray-700">
         <% @reported_quiz.translations.order(created_at: :asc).each do |t| %>
