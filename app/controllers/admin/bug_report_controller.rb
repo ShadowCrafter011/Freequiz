@@ -1,4 +1,4 @@
-class BugReportController < ApplicationController
+class Admin::BugReportController < ApplicationController
     before_action :require_admin!, except: :create
     before_action :require_login!
     before_action { setup_locale "bug_report" }

@@ -83,7 +83,7 @@ Rails.application.routes.draw do
     end
 
     # Bug report routes
-    post "report", to: "bug_report#create", as: "bug_report"
+    post "report", to: "admin/bug_report#create", as: "bug_report"
 
     # API routes
     namespace :api do
