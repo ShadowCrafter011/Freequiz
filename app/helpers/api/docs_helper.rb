@@ -54,7 +54,8 @@ module Api::DocsHelper
                     favorites: "Favorite translations",
                     score: "Score",
                     sync_score: "Sync score",
-                    reset_score: "Reset score"
+                    reset_score: "Reset score",
+                    report: "Report"
                 }
             }
         }

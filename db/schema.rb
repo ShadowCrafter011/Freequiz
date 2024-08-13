@@ -61,12 +61,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_064135) do
   create_table "quiz_reports", force: :cascade do |t|
     t.string "status", default: "open"
     t.text "description"
-    t.boolean "sexual"
-    t.boolean "violence"
-    t.boolean "hate"
-    t.boolean "spam"
-    t.boolean "child_abuse"
-    t.boolean "mobbing"
+    t.boolean "sexual", default: false
+    t.boolean "violence", default: false
+    t.boolean "hate", default: false
+    t.boolean "spam", default: false
+    t.boolean "child_abuse", default: false
+    t.boolean "mobbing", default: false
     t.bigint "quiz_id", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false

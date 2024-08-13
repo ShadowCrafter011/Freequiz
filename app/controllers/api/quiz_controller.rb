@@ -316,6 +316,20 @@ class Api::QuizController < ApplicationController
         json({ success: true, message: @api_user.favorite_quiz?(quiz) ? "Quiz was added to favorites" : "Quiz is no longer a favorite", favorite: @api_user.favorite_quiz?(quiz) }, :accepted)
     end
 
+    def report
+        quiz = Quiz.find_by(uuid: params[:quiz_id])
+
+        return json({ success: false, token: "quiz.notfound", message: "Quiz doesn't exist" }, :not_found) unless quiz.present?
+
+        report = quiz.quiz_reports.new quiz_report_params
+        report.user = @api_user
+        if report.save
+            json({ success: true, message: "Quiz reported" }, :created)
+        else
+            json({ success: false, token: "record.invalid", message: "Record invalid", errors: report.errors.full_messages }, :unprocessable_entity)
+        end
+    end
+
     private
 
     def quiz_params
@@ -342,6 +356,18 @@ class Api::QuizController < ApplicationController
                     }
                 ]
             }
+        )
+    end
+
+    def quiz_report_params
+        params.require(:quiz_report).permit(
+            :description,
+            :sexual,
+            :violence,
+            :hate,
+            :spam,
+            :child_abuse,
+            :mobbing
         )
     end
 end

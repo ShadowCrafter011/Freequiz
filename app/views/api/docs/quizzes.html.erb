@@ -796,4 +796,45 @@ If no user is logged in the data attribute will look like this
             </ul>
         </p>
     </div>
+    <hr>
+
+    <div id="report" class="pt-16 -mt-16 mb-5" data-section="true">
+        <h1 class="text-start">Report Quiz</h1>
+        <p>
+            <a href="https://freequiz.ch/api/quiz/quiz_id/report">https://freequiz.ch/api/quiz/quiz_id/report</a><br>
+            Replace quiz_id with the ID of the target Quiz
+        </p>
+        <p>
+            <h3 class="text-start">Request method: POST</h3>
+        </p>
+        <p>
+            <h3 class="text-start">Content</h3>
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "quiz_report": {
+        "description": "description",
+        "sexual": false,
+        "violence": false,
+        "hate": false,
+        "spam": false,
+        "child_abuse": false,
+        "mobbing": false
+    }
+}</code></pre>
+        </p>
+        <p>
+            <h3 class="text-start">Response</h3>
+            Status code: 201
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "success": true,
+    "message": "Quiz reported"
+}</code></pre>
+        </p>
+        <p>
+            <h3 class="text-start">Errors</h3>
+            <ul>
+                <li><strong>Not found (quiz.notfound)</strong>: Code 404, "Quiz doesn't exist"</li>
+                <li><strong>Fields invalid (fields.invalid)</strong>: Code 401: "Record invalid"</li>
+            </ul>
+        </p>
+    </div>
 <% end %>

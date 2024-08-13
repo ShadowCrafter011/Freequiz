@@ -118,6 +118,8 @@ Rails.application.routes.draw do
                 scope ":quiz_id" do
                     get "data", to: "quiz#data"
 
+                    post "report", to: "quiz#report"
+
                     patch "update", to: "quiz#update"
                     patch "favorite", to: "quiz#favorite_quiz"
 
