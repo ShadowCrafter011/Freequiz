@@ -50,6 +50,7 @@ it:
         done_with: Bravi, avete
         mastered: creato
         continue_click: Premere qui per continuare
+        admin_edit: Modifica come amministratore
       destroy:
         not_found: Questo quiz non esiste
         not_allowed: Non si deve fare questo

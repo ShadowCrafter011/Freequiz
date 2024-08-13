@@ -52,6 +52,7 @@ en:
         delete_account: Account Deletion
         not_reversible: Account deletion cannot be reversed!
         delete: Delete
+        destroy_quizzes: Also delete all my quizzes
       destroy:
         deleted: Account deleted. Sad to see you go
         failed: Something went wrong. Contact our support if this happens again

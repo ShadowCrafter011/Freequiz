@@ -41,6 +41,8 @@ class ApplicationController < ActionController::Base
     end
 
     def tp(attribute, **args)
+        return unless @locale.present?
+
         t(
             "#{@locale[:path]}#{@locale[:action_override] ? "" : ".#{action_name}"}.#{attribute}",
             **args

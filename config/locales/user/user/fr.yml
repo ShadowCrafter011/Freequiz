@@ -52,6 +52,7 @@ fr:
         delete_account: Suppression de compte
         not_reversible: Si vous supprimez votre compte, vous ne pourrez pas revenir en arrière!
         delete: Supprimer
+        destroy_quizzes: Supprimer aussi tous mes quiz
       destroy:
         deleted: Compte supprimé. Dommage que vous partiez
         failed: Quelque chose s'est mal passé. Contactez notre support si cela se reproduit

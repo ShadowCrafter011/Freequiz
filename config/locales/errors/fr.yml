@@ -9,3 +9,5 @@ fr:
       homepage: Page d'accueil
     email_in_use: Un autre utilisateur utilise déjà cette adresse e-mail.
     email_invalid: L'e-mail n'est pas valide
+    old_password_no_match: L'ancien mot de passe est incorrect
+    missing_password_fields: Le nouveau mot de passe doit être confirmé et l'ancien mot de passe doit être saisi.

@@ -50,6 +50,7 @@ fr:
         done_with: Bravo tu as
         mastered: réussi
         continue_click: Appuie ici pour continuer
+        admin_edit: Modifier en tant qu'admin
       destroy:
         not_found: Ce quiz n'existe pas
         not_allowed: Vous ne pouvez pas faire cela

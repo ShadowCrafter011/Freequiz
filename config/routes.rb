@@ -212,6 +212,11 @@ Rails.application.routes.draw do
                 post "email", to: "users#send_email"
             end
         end
+
+        scope "quiz/:quiz_id" do
+            get "edit", to: "quiz#edit", as: "quiz_edit"
+            post "edit", to: "quiz#update", as: "quiz_update"
+        end
     end
 
     # Error routes

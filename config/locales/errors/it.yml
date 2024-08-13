@@ -9,3 +9,5 @@ it:
       homepage: Homepage
     email_in_use: Un altro utente sta già utilizzando questo indirizzo e-mail
     email_invalid: L'e-mail non è valida
+    old_password_no_match: La vecchia password non è corretta
+    missing_password_fields: È necessario confermare la nuova password e inserire la vecchia password.

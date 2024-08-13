@@ -6,6 +6,11 @@
         <% end %>
     <% end %>
 </div>
+
+<h3 class="text-gray-600 dark:text-gray-500">
+    <%= link_to t(".admin_edit"), admin_quiz_edit_path(@quiz.uuid) %>
+</h3>
+
 <% unless @user == @quiz.user || @quiz.user.nil? %>
     <h3 class="text-gray-600 dark:text-gray-500"><%= tp("created_by", user: link_to(@quiz.user.username, user_public_path(@quiz.user.username))).html_safe %></h3>
 <% end %>

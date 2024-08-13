@@ -52,6 +52,7 @@ it:
         delete_account: Cancellazione del conto
         not_reversible: La cancellazione dell'account non può essere annullata!
         delete: Cancellare
+        destroy_quizzes: Cancella anche tutti i miei quiz
       destroy:
         deleted: Account cancellato. Peccato che ve ne andiate
         failed: Qualcosa è andato storto. Contattare l'assistenza se il problema si ripete

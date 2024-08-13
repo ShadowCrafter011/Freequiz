@@ -50,6 +50,7 @@ en:
         done_with: Bravo you have
         mastered: created
         continue_click: Press here to continue
+        admin_edit: Edit as admin
       destroy:
         not_found: This quiz does not exist
         not_allowed: You must not do this

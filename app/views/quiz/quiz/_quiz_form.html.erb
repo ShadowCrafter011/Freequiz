@@ -5,32 +5,32 @@
         <div class="grow max-w-5xl space-y-2">
             <div class="flex md:flex-row flex-col gap-2">
                 <div class="md:grow flex sm:flex-row flex-col rounded border border-gray-300 dark:border-gray-700">
-                    <span class="py-2 px-5 text-center sm:text-start text-xl bg-gray-100 dark:bg-gray-800"><%= tp "title" %></span>
+                    <span class="py-2 px-5 text-center sm:text-start text-xl bg-gray-100 dark:bg-gray-800"><%= t "quiz.quiz.new.title" %></span>
                     <%= form.text_field :title, placeholder: tp("title_placeholder"), data: { test_id: "quiz-title" }, class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600" %>
                 </div>
                 <%= form.select :visibility, Quiz::VISIBILITIES.map { |v| [tg("visibilities.#{v}"), v] }, {}, { class: "rounded border-gray-300 focus:ring-1 focus:ring-teal-600 focus:border-teal-600 dark:border-gray-700 dark:bg-gray-900 cursor-pointer" } %>
             </div>
             <div class="flex sm:flex-row flex-col rounded border border-gray-300 dark:border-gray-700">
                 <div class="flex items-center justify-center py-2 px-5 bg-gray-100 dark:bg-gray-800">
-                    <span class="text-xl"><%= tp "description" %></span>
+                    <span class="text-xl"><%= t "quiz.quiz.new.description" %></span>
                 </div>
-                <%= form.text_area :description, placeholder: tp("description_placeholder"), data: { test_id: "quiz-description" }, class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600 min-h-10" %>
+                <%= form.text_area :description, placeholder: t("quiz.quiz.new.description_placeholder"), data: { test_id: "quiz-description" }, class: "text-field sm:m-px rounded rounded-t-none sm:rounded-e sm:rounded-s-none focus:ring-2 focus:ring-teal-600 min-h-10" %>
             </div>
             <div class="flex md:flex-row flex-col gap-2">
-                <%= render partial: "translation_lang", locals: { form: form, field: :from, name: tp("lang_1") } %>
-                <%= render partial: "translation_lang", locals: { form: form, field: :to, name: tp("lang_2") } %>
+                <%= render partial: "quiz/quiz/translation_lang", locals: { form: form, field: :from, name: t("quiz.quiz.new.lang_1") } %>
+                <%= render partial: "quiz/quiz/translation_lang", locals: { form: form, field: :to, name: t("quiz.quiz.new.lang_2") } %>
             </div>
             <div data-controller="create-quiz" class="space-y-2">
                 <div data-create-quiz-target="translations" class="space-y-2">
                     <%= form.fields_for :translations, @quiz.translations.sort_by {|t| t.created_at} do |translation_form| %>
-                        <%= render partial: "translation_form", locals: { translation_form: } %>
+                        <%= render partial: "quiz/quiz/translation_form", locals: { translation_form: } %>
                     <% end %>
                 </div>
-                <button data-action="create-quiz#add_translation" class="btn-primary-sleek w-full"><%= tp "add_translation" %></button>
+                <button data-action="create-quiz#add_translation" class="btn-primary-sleek w-full"><%= t "quiz.quiz.new.add_translation" %></button>
             </div>
             <div class="flex justify-around gap-2">
                 <%= form.submit commit, class: "btn-success text-xl", data: { test_id: "quiz-create" } %>
-                <%= link_to tp("cancel"), cancel_path, class: "btn-primary text-xl" %>
+                <%= link_to t("quiz.quiz.new.cancel"), cancel_path, class: "btn-primary text-xl" %>
             </div>
         </div>
     </div>
