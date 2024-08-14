@@ -60,10 +60,19 @@ export default class extends Controller {
         this.translation = this.next.shift();
         this.quiz.selected_translation(this.translation);
 
-        if (!this.translation) {
+        if (
+            this.quiz.total_score() >=
+            this.quiz.translations.length * this.amount
+        ) {
             $(this.learningTarget).addClass("hidden");
             $(this.doneTarget).removeClass("hidden");
 
+            return;
+        }
+
+        if (!this.translation) {
+            this.queue_translations();
+            this.show_translation();
             return;
         }
 

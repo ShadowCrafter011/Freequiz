@@ -53,6 +53,12 @@ export class Quiz {
         );
     }
 
+    total_score() {
+        let total = 0;
+        this.translations.forEach((t) => (total += t.score[this.mode]));
+        return total;
+    }
+
     increment_score(score_id = this.current_score) {
         this.require_loaded();
         this.set_score(
