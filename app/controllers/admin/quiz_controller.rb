@@ -51,7 +51,12 @@ class Admin::QuizController < ApplicationController
 
     def triage
         @report = QuizReport.order(created_at: :asc).where(status: :open).first
-        @reported_quiz = @report&.quiz
+
+        return unless @report.present?
+
+        @reported_quiz = @report.quiz
+        reports = QuizReport::KEYS.filter { |k| @report[k] }
+        @reported_for = reports.map { |s| s.to_s.gsub("_", " ").capitalize }.join(", ")
     end
 
     def ignore_triage

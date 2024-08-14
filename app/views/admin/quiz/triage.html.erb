@@ -9,6 +9,7 @@
         <h3>Reported by: Deleted user</h3>
     <% end %>
     <h3>Reported for: <%= @report.description.present? ? @report.description : "Not specified" %></h3>
+    <h3>Reported tags: <%= @reported_for.present? ? @reported_for : "Not specified" %></h3>
     <br>
     <h1>Quiz title: <%= @reported_quiz.title %></h1>
     <h3>Quiz description: <%= @reported_quiz.description %></h3>
