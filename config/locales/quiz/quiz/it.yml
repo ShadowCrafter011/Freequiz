@@ -51,6 +51,8 @@ it:
         mastered: creato
         continue_click: Premere qui per continuare
         admin_edit: Modifica come amministratore
+        admin_delete: Elimina come amministratore
+        report: Segnala il quiz
       destroy:
         not_found: Questo quiz non esiste
         not_allowed: Non si deve fare questo
@@ -60,3 +62,17 @@ it:
         cancel: Annullamento
         sure_to_delete: Se si cancella questo quiz, non è possibile annullarlo.
         really_delete: Volevano davvero cancellare Quiz %{quiz}?
+      report:
+        saved: Il quiz è stato segnalato. Elaboreremo la vostra richiesta il prima possibile
+        failed: Non è stato possibile segnalare il quiz. Riprovare più tardi
+      new_report:
+        title: Segnala il quiz "%{title}"
+        description_placeholder: Descrivere brevemente il motivo per cui il quiz non è regolare
+        quiz_is: Il quiz
+        sexual: contiene contenuti sessualmente offensivi
+        violence: non contiene una forza ragionevole
+        hate: contiene un linguaggio odioso
+        spam: è stato creato come spam
+        child_abuse: contiene abusi su minori
+        mobbing: Contiene bullismo
+        report: Segnala il quiz

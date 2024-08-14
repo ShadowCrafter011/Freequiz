@@ -51,6 +51,8 @@ en:
         mastered: created
         continue_click: Press here to continue
         admin_edit: Edit as admin
+        admin_delete: Delete as admin
+        report: Report quiz
       destroy:
         not_found: This quiz does not exist
         not_allowed: You must not do this
@@ -60,3 +62,17 @@ en:
         cancel: Cancel
         sure_to_delete: If you delete this quiz it cannot be undone
         really_delete: Do you really want to delete the Quiz %{quiz}?
+      report:
+        saved: Quiz has been reported. We will process your request as soon as possible
+        failed: Quiz could not be reported. Please try again later
+      new_report:
+        title: Report quiz "%{title}"
+        description_placeholder: Briefly describe why the quiz is not regular
+        quiz_is: The quiz
+        sexual: contains sexually offensive content
+        violence: does not contain reasonable force
+        hate: contains hateful language
+        spam: was created as spam
+        child_abuse: contains child abuse
+        mobbing: Contains bullying
+        report: Report quiz

@@ -51,6 +51,8 @@ fr:
         mastered: réussi
         continue_click: Appuie ici pour continuer
         admin_edit: Modifier en tant qu'admin
+        admin_delete: Supprimer en tant qu'admin
+        report: Signaler un quiz
       destroy:
         not_found: Ce quiz n'existe pas
         not_allowed: Vous ne pouvez pas faire cela
@@ -60,3 +62,17 @@ fr:
         cancel: Annuler
         sure_to_delete: Si vous supprimez ce quiz, vous ne pourrez pas revenir en arrière.
         really_delete: Voulez vous vraiment supprimer le Quiz %{quiz}?
+      report:
+        saved: Le quiz a été signalé. Nous traiterons ta demande dès que possible
+        failed: Le quiz n'a pas pu être signalé. Veuillez réessayer plus tard
+      new_report:
+        title: Signaler le quiz "%{title}".
+        description_placeholder: Décrivez brièvement pourquoi le quiz n'est pas régulier
+        quiz_is: Le quiz
+        sexual: contient des contenus sexuellement explicites
+        violence: contient une violence non appropriée
+        hate: contient un langage haineux
+        spam: a été créé en tant que spam
+        child_abuse: contient des abus sur enfants
+        mobbing: contient du harcèlement
+        report: Signaler un quiz
