@@ -52,10 +52,10 @@
 <div class="rounded mt-2 border divide-gray-300 divide-y border-gray-300 dark:border-gray-700 dark:divide-gray-700">
     <% @learn_data.each do |translation| %>
         <div class="flex divide-x divide-gray-300 dark:divide-gray-700">
-            <div class="grow basis-0 p-2 overflow-clip"><%= translation[:word] %></div>
-            <div class="grow basis-0 overflow-clip">
+            <div class="w-1/2 p-2 overflow-clip" title="<%= translation[:word] %>"><%= translation[:word] %></div>
+            <div class="w-1/2 overflow-clip">
                 <div class="flex divide-gray-300 dark:divide-gray-700 divide-x">
-                    <div class="p-2 grow"><%= translation[:translation] %></div>
+                    <div class="p-2 grow" title="<%= translation[:translation] %>"><%= translation[:translation] %></div>
                     <div 
                         data-controller="translation-favorite"
                         data-action="click->translation-favorite#toggle"
