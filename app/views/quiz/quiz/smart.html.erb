@@ -1,0 +1,92 @@
+<h1><%= @quiz.title %></h1>
+
+<%= content_tag :div, data: {
+    controller: "learn--smart",
+    quiz_uuid: @quiz.uuid,
+    access_token: @access_token,
+    translate_from: tp("translate", language: tg("languages.#{@quiz.from_lang.locale}")),
+    translate_to: tp("translate", language: tg("languages.#{@quiz.to_lang.locale}")),
+    round_amount: @user.setting.round_amount
+} do %>
+    <h5 data-learn--smart-target="failedToSave" class="hidden text-gray-600 dark:text-gray-500"><%= tp("failed_to_save") %></h5>
+
+    <div class="mt-2 flex flex-col justify-center items-center gap-2">
+        <div class="max-w-3xl w-full">
+            <div class="relative rounded-full h-5 bg-gray">
+                <div data-learn--smart-target="progressText" class="absolute z-40 w-full h-full flex justify-center align-center text-sm"></div>
+                <div data-learn--smart-target="progress3" class="absolute z-30 rounded-full h-5 bg-green-800 dark:bg-teal-800 cards-progress-bar" style="width: 0%"></div>
+                <div data-learn--smart-target="progress2" class="absolute z-20 rounded-full h-5 bg-green-500 dark:bg-green-600 cards-progress-bar" style="width: 0%"></div>
+                <div data-learn--smart-target="progress1" class="absolute z-10 rounded-full h-5 bg-blue-500 dark:bg-blue-500 cards-progress-bar" style="width: 0%"></div>
+            </div>
+
+            <div data-learn--smart-target="multi" class="hidden">
+                <div data-learn--multiple-choice-target="input">
+                    <div class="mt-2 py-10 px-2 bg-blue-600 rounded-xl flex justify-center items-center">
+                        <h4 data-learn--multiple-choice-target="text" class="text-white"></h4>
+                    </div>
+
+                    <div class="mt-2 grid grid-flow-row grid-cols-2 gap-2">
+                        <% 4.times do %>
+                            <div data-learn--multiple-choice-target="button" data-learn--smart-target="multiButton" class="p-2 bg-gray-50 hover:bg-gray-100 border rounded border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer transition-colors"></div>
+                        <% end %>
+                    </div>
+                </div>
+                <div data-learn--multiple-choice-target="done" class="hidden">
+                    <h1 class="text-green-600"><%= tp("done") %></h1>
+                    <button data-action="learn--multiple-choice#reset" class="bg-teal-700 w-full text-xl p-2 rounded text-white"><%= tp("learn_again") %></button>
+                </div>
+            </div>
+
+            <div data-learn--smart-target="write" class="hidden mt-5">
+                <div class="ps-3 text-xl">
+                    <span data-learn--write-target="translateText"></span>: 
+                    <span data-learn--write-target="word"></span>
+                </div>
+                <div data-learn--write-target="border" class="flex flex-col md:flex-row md:gap-2 items-center border-b-2 border-teal-700">
+                    <input
+                        type="text"
+                        data-learn--write-target="input"
+                        data-learn--smart-target="writeInput"
+                        data-action="keydown.enter->learn--smart#write_check"
+                        class="grow text-field"
+                        autofocus="true"
+                        spellcheck="false"
+                    >
+                    <button
+                        class="rounded bg-teal-700 text-white my-1 px-2 w-full md:w-fit"
+                        data-learn--write-target="checkButton enableOnNewWord"
+                        data-action="learn--smart#write_check"
+                    ><%= tp("check") %></button>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-2 w-full">
+                    <button
+                        data-learn--write-target="continueButton disableOnNewWord"
+                        data-learn--smart-target="writeCheck"
+                        data-action="learn--smart#write_continue"
+                        class="hidden rounded bg-teal-700 text-white my-1 py-1 px-2 w-full"
+                    ><%= tp("continue") %></button>
+                    <button
+                        data-learn--write-target="wasRightButton disableOnNewWord"
+                        data-action="learn--smart#write_was_right"
+                        class="hidden rounded bg-blue-600 text-white my-1 py-1 px-2 w-full"
+                    ><%= tp("was_correct") %></button>
+                    <button
+                        data-learn--write-target="wasWrongButton disableOnNewWord"
+                        data-action="learn--smart#write_was_wrong"
+                        class="hidden rounded bg-blue-600 text-white my-1 py-1 px-2 w-full"
+                    ><%= tp("was_wrong") %></button>
+                </div>
+            </div>
+
+            <div data-learn--smart-target="interval" class="hidden mt-5">
+                <h3><%= tp("done_with") %> <span data-learn--smart-target="intervalPercentage"></span>% <%= tp("mastered") %></h3>
+                <button data-action="learn--smart#continue" class="bg-teal-700 w-full text-xl p-2 rounded text-white"><%= tp("continue_click") %></button>
+            </div>
+
+            <div data-learn--smart-target="done" class="hidden">
+                <h1 class="text-green-600"><%= tp("done") %></h1>
+                <button data-action="learn--smart#reset" class="bg-teal-700 w-full text-xl p-2 rounded text-white"><%= tp("learn_again") %></button>
+            </div>
+        </div>
+    </div>
+<% end %>

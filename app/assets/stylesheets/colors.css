@@ -6,4 +6,8 @@
     .normal-background {
         @apply bg-white dark:bg-gray-900;
     }
+
+    .bg-gray {
+        @apply bg-gray-300 dark:bg-gray-700;
+    }
 }

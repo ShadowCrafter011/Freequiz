@@ -47,8 +47,8 @@ de:
         start_over: Nochmals lernen
         not_learned: "Noch nicht gelernt: "
         learned: "Gelernt: "
-        done_with: Bravo du hast
-        mastered: geschafft
+        done_with: Bravo du hast schon
+        mastered: geschafft!
         continue_click: Drücke hier um weiterzumachen
 
         # Writing cards

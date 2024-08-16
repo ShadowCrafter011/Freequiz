@@ -25,9 +25,9 @@ export class LearnWrite {
         });
     }
 
-    show_translation(translation) {
+    show_translation(translation, limit = 1, mode = "write") {
         this.translation = translation;
-        if (translation.score.write >= 1) {
+        if (translation.score[mode] >= limit) {
             this.set_data(translation.word, this.$parent.data("translate-to"));
         } else {
             this.set_data(
@@ -73,20 +73,21 @@ export class LearnWrite {
         $(this.doneTarget).addClass("hidden");
     }
 
-    check() {
+    check(limit = 1, mode = "write") {
         let submitted = $(this.inputTarget).val();
         let correct =
-            this.translation.score.write >= 1
+            this.translation.score[mode] >= limit
                 ? this.translation.translation
                 : this.translation.word;
         let other =
-            this.translation.score.write >= 1
+            this.translation.score[mode] >= limit
                 ? this.translation.word
                 : this.translation.translation;
 
         let color, icon;
 
-        if (this.quiz.check(submitted, correct)) {
+        let answered_correctly = this.quiz.check(submitted, correct);
+        if (answered_correctly) {
             color = "text-green-600";
             icon = "✔";
             $(this.wordTarget).addClass(color).text(`${other} = ${correct}`);
@@ -109,5 +110,7 @@ export class LearnWrite {
             .addClass("caret-transparent")
             .val(`${submitted} ${icon}`);
         $(this.continueButtonTarget).removeClass("hidden");
+
+        return answered_correctly;
     }
 }
