@@ -18,8 +18,6 @@ class HomeController < ApplicationController
 
     def sponsors; end
 
-    def apple_association; end
-
     private
 
     def quiz_search_params

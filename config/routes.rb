@@ -4,9 +4,6 @@ Rails.application.routes.draw do
 
     get "search", to: "home#search", as: "search"
 
-    # Apple assosiated domains
-    get ".well-known/apple-app-site-association", to: "home#apple_association", defaults: { format: :json }
-
     # User routes
     get "user/:username", to: "user/user#public", as: "user_public"
 
