@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.2"
 
+gem "capybara"
 gem "ffi", "< 1.17.0"
 gem "foreman"
 gem "httparty"
@@ -78,7 +79,6 @@ end
 
 group :test do
     # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-    gem "capybara"
     gem "selenium-webdriver"
     gem "webdrivers"
 end
