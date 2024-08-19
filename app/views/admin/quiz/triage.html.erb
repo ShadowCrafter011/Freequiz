@@ -13,6 +13,7 @@
     <br>
     <h1>Quiz title: <%= @reported_quiz.title %></h1>
     <h3>Quiz description: <%= @reported_quiz.description %></h3>
+    <h3>Created by: <%= @reported_quiz.user.present? ? link_to(@reported_quiz.user.username, admin_user_edit_path(@reported_quiz.user.username)) : "Deleted user" %></h3>
     <br>
 
     <div class="rounded border border-gray-300 dark:border-gray-700 divide-y divide-gray-300 dark:divide-gray-700">
