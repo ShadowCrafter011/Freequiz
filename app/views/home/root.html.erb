@@ -1,21 +1,45 @@
 <h1 data-test-id="root-welcome">
-    <%= tl "welcome" %>
+    <% if logged_in? %>
+        <%= t ".welcome_name", username: @user.username %>
+    <% else %>
+        <%= tl "welcome" %>
+    <% end %>
 </h1>
 
 <% unless logged_in? %>
     <div class="flex justify-center">
-        <span class="flex">
-            <% Setting::LOCALES.each do |locale| %>
-                <%= render partial: "language_button", locals: { locale: } %>
-            <% end %>
-        </span>
+        <div class="flex flex-col gap-2 max-w-xl w-full">
+            <div class="flex flex-col sm:flex-row justify-center">
+                <% Setting::LOCALES.each do |locale| %>
+                    <%= render partial: "language_button", locals: { locale: } %>
+                <% end %>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2">
+                <%= link_to tg("login"), user_login_path, class: "btn-primary grow basis-0" %>
+                <%= link_to tg("create_account"), user_create_path, class: "btn-primary grow basis-0" %>
+            </div>
+        </div>
     </div>
+<% else %>
+    <% if @user.admin? %>
+        <h3 class="mt-5"><%= t ".admin" %></h3>
+        <div class="mb-5 flex flex-col sm:flex-row gap-2 align-center">
+            <%= link_to "Bug Triage (#{BugReport.where(status: :new).count})", admin_bug_triage_path, class: "btn-primary text-xl basis-0 grow" %>
+            <%= link_to "Quiz triage (#{QuizReport.where(status: :open).count})", admin_quiz_report_triage_path, class: "btn-primary text-xl basis-0 grow" %>
+        </div>
+    <% end %>
+
+    <h3><%= t ".what_do" %></h3>
+    <div class="flex flex-col md:flex-row gap-2 align-center">
+        <%= link_to t(".create_quiz"), quiz_create_path, class: "btn-success text-xl basis-0 grow" %>
+        <%= link_to t(".view_account"), user_path, class: "btn-primary text-xl basis-0 grow" %>
+        <%= link_to t(".view_favorites"), user_favorites_path, class: "btn-primary text-xl basis-0 grow" %>
+        <%= link_to t(".own_quizzes"), user_quizzes_path, class: "btn-primary text-xl basis-0 grow" %>
+    </div>
+
+    <h3 class="mt-5"><%= t ".your_quizzes" %></h3>
+    <%= render partial: "partials/quiz_list", locals: { quizzes: @quizzes, no_username: true } %>
 <% end %>
 
-<br>
-<h1>Heading 1</h1>
-<h2>Heading 2</h2>
-<h3>Heading 3</h3>
-<h4>Heading 4</h4>
-<h5>Heading 5</h5>
-<h6>Heading 6</h6>
+<h3 class="mt-5"><%= t ".new_quizzes" %></h3>
+<%= render partial: "partials/quiz_list", locals: { quizzes: @new_quizzes } %>

@@ -1,9 +1,10 @@
-<%= form_with url: change_language_path, method: :patch, class: "border-2 border-s-0 first:border-s-2 first:rounded-l last:rounded-r dark:border-gray-700 #{"bg-blue-700 border-blue-700 text-white" if I18n.locale == locale.to_sym}" do |form| %>
+<%= form_with url: change_language_path, method: :patch, class: "border-b border-s sm:border-t border-e sm:border-e-0 first:border-t sm:first:rounded-l sm:first:rounded-e-none sm:last:rounded-l-none sm:last:rounded-r first:rounded-t last:rounded-b last:border-e dark:border-gray-700 #{"bg-blue-700 border-blue-700 text-white" if I18n.locale == locale.to_sym}" do |form| %>
     <%= form.text_field :return_to, hidden: true, value: request.path %>
     <%= form.text_field :locale, hidden: true, value: locale %>
-    <%= form.button type: :submit, class: "flex items-center gap-2 px-4 py-1" do  %>
+    <%= form.button type: :submit, class: "flex items-center justify-between sm:justify-normal gap-2 px-1 sm:px-4 py-1 w-full" do  %>
         <%= image_tag "flags/#{locale}", class: "h-6 rounded" %>
         <%= tg "languages.#{locale}" %>
+        <%= image_tag "flags/#{locale}", class: "h-6 rounded block sm:hidden" %>
     <% end %>
 <% end %>
 

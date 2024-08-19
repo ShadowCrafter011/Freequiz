@@ -10,4 +10,8 @@
     .bg-gray {
         @apply bg-gray-300 dark:bg-gray-700;
     }
+
+    .text-gray {
+        @apply text-gray-600 dark:text-gray-500;
+    }
 }

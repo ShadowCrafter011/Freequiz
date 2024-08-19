@@ -8,14 +8,19 @@
                     <% end %>
                     <%= quiz.title %>
                 </div>
-                <% if quiz.user.present? %>
-                    <span class="text-gray-600 dark:text-gray-500"><%= t "partials.quiz_list.by", user: quiz.user.username %></span>
-                <% else %>
-                    <span class="text-gray-600 dark:text-gray-500"><%= t "partials.quiz_list.no_user" %></span>
+                <% unless defined? no_username %>
+                    <% if quiz.user.present? %>
+                        <span class="text-gray-600 dark:text-gray-500"><%= t "partials.quiz_list.by", user: quiz.user.username %></span>
+                    <% else %>
+                        <span class="text-gray-600 dark:text-gray-500"><%= t "partials.quiz_list.no_user" %></span>
+                    <% end %>
                 <% end %>
                 <span class="text-gray-600 dark:text-gray-500"><%= pluralize quiz.translations_count, t("partials.quiz_list.translation") %></span>
             </div>
-            <span><%= t "partials.quiz_list.ago", time_ago: time_ago_in_words(quiz.created_at) %></span>
+            <div class="flex flex-col justify-between">
+                <div><%= t "partials.quiz_list.ago", time_ago: time_ago_in_words(quiz.created_at) %></div>
+                <div class="text-gray"><%= tg "languages.#{quiz.from_lang.locale}" %> -> <%= tg "languages.#{quiz.to_lang.locale}" %></div>
+            </div>
         <% end %>
     <% end %>
 </div>

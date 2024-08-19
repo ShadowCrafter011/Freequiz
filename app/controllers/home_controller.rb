@@ -8,7 +8,13 @@ class HomeController < ApplicationController
         @params = quiz_search_params
     end
 
-    def root; end
+    def root
+        @new_quizzes = Quiz.order(created_at: :desc).limit(5)
+
+        return unless logged_in?
+
+        @quizzes = @user.quizzes.order(created_at: :desc).limit(5)
+    end
 
     def sponsors; end
 

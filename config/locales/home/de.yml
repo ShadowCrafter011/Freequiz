@@ -2,6 +2,15 @@ de:
   home:
     root:
       welcome: Wilkommen bei Freequiz!
+      welcome_name: Wilkommen zurück %{username}!
+      what_do: Was willst du heute tun?
+      your_quizzes: Deine letzten Quizze
+      new_quizzes: Neuste Quizze
+      admin: Administration
+      create_quiz: Quiz erstellen
+      view_account: Account anschauen
+      view_favorites: Favoriten anschauen
+      own_quizzes: Eigene Quizze anschauen
       login: Anmelden
       infos: Account infos
       create_account: Account erstellen
