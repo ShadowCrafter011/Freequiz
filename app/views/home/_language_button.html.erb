@@ -2,9 +2,9 @@
     <%= form.text_field :return_to, hidden: true, value: request.path %>
     <%= form.text_field :locale, hidden: true, value: locale %>
     <%= form.button type: :submit, class: "flex items-center justify-between sm:justify-normal gap-2 px-1 sm:px-4 py-1 w-full" do  %>
-        <%= image_tag "flags/#{locale}", class: "h-6 rounded" %>
+        <%= image_tag "flags/#{locale}.jpg", class: "h-6 rounded" %>
         <%= tg "languages.#{locale}" %>
-        <%= image_tag "flags/#{locale}", class: "h-6 rounded block sm:hidden" %>
+        <%= image_tag "flags/#{locale}.jpg", class: "h-6 rounded block sm:hidden" %>
     <% end %>
 <% end %>
 
