@@ -6,5 +6,14 @@ fr:
       infos: Infos sur le compte
       create_account: Créer un compte
       logout: Se désinscrire
+      welcome_name: Bienvenue à nouveau %{nom de famille} !
+      what_do: Qu'est-ce que tu veux faire aujourd'hui ?
+      your_quizzes: Tes derniers quiz
+      new_quizzes: Derniers quiz
+      admin: Administration
+      create_quiz: Créer un quiz
+      view_account: Voir le compte
+      view_favorites: Voir les favoris
+      own_quizzes: Consulter ses propres quiz
     search:
       search: Chercher dans les quiz

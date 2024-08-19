@@ -6,5 +6,14 @@ en:
       infos: Account info
       create_account: Create account
       logout: Log out
+      welcome_name: Welcome back %{username}!
+      what_do: What do you want to do today?
+      your_quizzes: Your last quizzes
+      new_quizzes: Latest quizzes
+      admin: Administration
+      create_quiz: Create quiz
+      view_account: View account
+      view_favorites: View favourites
+      own_quizzes: View your own quizzes
     search:
       search: Search quizzes
