@@ -12,6 +12,7 @@ class Api::UserController < ApplicationController
         query = ActiveRecord::Base.connection.quote(params[:query])
         page = params[:page] || 1
         offset = (page.to_i * 50) - 50
+        @next_page = User.count > offset + 50
         @users =
             User.find_by_sql(
                 "SELECT * FROM users ORDER BY SIMILARITY(username, #{query}) DESC LIMIT 50 OFFSET #{offset}"
@@ -21,19 +22,21 @@ class Api::UserController < ApplicationController
     def quizzes
         page = params[:page] || 1
         offset = (page.to_i * 50) - 50
+        next_page = @api_user.quizzes.count > offset + 50
         quizzes =
             @api_user.quizzes.order(created_at: :desc).limit(50).offset(offset)
 
-        render json: { success: true, data: quizzes.map { |q| q.data(@api_user) } }
+        render json: { success: true, next_page:, data: quizzes.map { |q| q.data(@api_user) } }
     end
 
     def favorites
         page = params[:page] || 1
         offset = (page.to_i * 50) - 50
+        next_page = @api_user.quizzes.count > offset + 50
         quizzes =
             @api_user.get_favorite_quizzes.limit(50).offset(offset)
 
-        render json: { success: true, data: quizzes.map { |q| q.data(@api_user) } }
+        render json: { success: true, next_page:, data: quizzes.map { |q| q.data(@api_user) } }
     end
 
     def public
@@ -52,6 +55,7 @@ class Api::UserController < ApplicationController
 
         page = params[:page] || 1
         offset = (page.to_i * 50) - 50
+        next_page = user.quizzes.count > offset + 50
         quizzes =
             user
             .quizzes
@@ -60,7 +64,7 @@ class Api::UserController < ApplicationController
             .limit(50)
             .offset(offset)
 
-        render json: { success: true, avatar_url: user.avatar_url, data: quizzes.map { |q| q.data(@api_user) } }
+        render json: { success: true, avatar_url: user.avatar_url, next_page:, data: quizzes.map { |q| q.data(@api_user) } }
     end
 
     def exists
@@ -188,9 +192,9 @@ class Api::UserController < ApplicationController
         end
 
         user.sign_in request.remote_ip
-        
+
         return json({ success: false, token: "user.banned", reason: user.ban_reason }, :unauthorized) if user.banned
-        
+
         json({ success: true, access_token: generate_access_token(user) })
     end
 
