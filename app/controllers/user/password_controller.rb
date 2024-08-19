@@ -13,7 +13,7 @@ class User::PasswordController < ApplicationController
             return render :reset, status: 401
         end
 
-        user.first.send_reset_password_email
+        user.send_reset_password_email
         redirect_to root_path, notice: tp("sent_email")
     end
 
