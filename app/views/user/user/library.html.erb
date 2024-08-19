@@ -1,0 +1,13 @@
+<h1><%= t ".library" %></h1>
+
+<div class="mt-2 flex">
+    <%= link_to t(".create_quiz"), quiz_create_path, class: "btn-primary w-full" %>
+</div>
+
+<%= render partial: "partials/quiz_list", locals: { quizzes: @quizzes, no_username: true } %>
+
+<div class="mt-2 flex">
+    <% if @user.quizzes.count > 10 %>
+        <%= link_to t(".all_quizzes"), user_quizzes_path, class: "btn-primary w-full" %>
+    <% end %>
+</div>

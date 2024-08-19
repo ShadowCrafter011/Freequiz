@@ -71,3 +71,7 @@ it:
       favorites:
         favorite_quizzes: I preferiti
         no_favorites: Non hai ancora nessun preferito
+      library:
+        library: La mia biblioteca
+        all_quizzes: Tutti i miei quiz
+        create_quiz: Creare un nuovo quiz

@@ -42,7 +42,9 @@ class User::UserController < ApplicationController
         @params = user_quizzes_params
     end
 
-    def library; end
+    def library
+        @quizzes = @user.quizzes.order(created_at: :desc).limit(10)
+    end
 
     def new
         return redirect_to user_path, notice: tp("already_has_account") if logged_in?
