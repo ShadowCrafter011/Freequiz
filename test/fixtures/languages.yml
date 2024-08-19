@@ -1,10 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+german:
   name: german
   locale: de
 
-two:
+french:
   name: french
   locale: fr
 

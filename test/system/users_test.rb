@@ -5,7 +5,7 @@ class UsersTest < ApplicationSystemTestCase
         visit root_url
         assert_text I18n.t "home.root.welcome"
 
-        click_on I18n.t "general.create_account"
+        click_on I18n.t("general.create_account"), match: :first
         assert_current_path user_create_path
 
         create_user_with visit: false
@@ -61,7 +61,7 @@ class UsersTest < ApplicationSystemTestCase
         fill_in I18n.t("user.user.edit.password_repeat"), with: "HelloWorld41"
         fill_in I18n.t("user.user.edit.old_password"), with: "hallo123"
         click_on I18n.t "general.save"
-        assert_text I18n.t("errors.old_password_no_match")
+        assert_text I18n.t("activerecord.errors.models.user.attributes.password_challenge.invalid")
 
         fill_in I18n.t("general.password"), with: "HelloWorld42"
         fill_in I18n.t("user.user.edit.password_repeat"), with: "HelloWorld41"

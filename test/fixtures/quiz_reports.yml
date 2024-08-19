@@ -8,6 +8,7 @@ one:
   spam: false
   child_abuse: false
   mobbing: false
+  quiz: one
 
 two:
   description: MyText
@@ -17,3 +18,4 @@ two:
   spam: false
   child_abuse: false
   mobbing: false
+  quiz: two

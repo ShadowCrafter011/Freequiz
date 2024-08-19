@@ -3,11 +3,9 @@
 one:
   email: one@one.one
   username: one
-  password: hallO123
   agb: true
 
 two:
   email: two@two.two
   username: two
-  password: hallO123
   agb: true

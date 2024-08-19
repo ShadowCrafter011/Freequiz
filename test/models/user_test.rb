@@ -16,13 +16,6 @@ class UserTest < ActiveSupport::TestCase
         assert_not user.save
     end
 
-    test "user password encrypt" do
-        user = User.create user_params
-        pw_digest = user_params[:password]
-        9.times { pw_digest = Digest::SHA256.hexdigest pw_digest }
-        assert_equal pw_digest, user.password
-    end
-
     test "create user" do
         user = User.new user_params
         assert user.save

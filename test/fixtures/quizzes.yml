@@ -4,8 +4,8 @@ one:
   uuid: one
   title: MyString
   description: MyText
-  from: MyString
-  to: MyString
+  from_lang: german
+  to_lang: french
   visibility: MyString
   user: one
 
@@ -13,7 +13,7 @@ two:
   uuid: two
   title: MyString
   description: MyText
-  from: MyString
-  to: MyString
+  from_lang: german
+  to_lang: french
   visibility: MyString
   user: two
