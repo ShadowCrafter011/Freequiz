@@ -16,7 +16,7 @@
     <%= render partial: "layouts/notification" %>
     <%= render partial: "layouts/bug_report" %>
     <%= render partial: "layouts/navbar" %>
-    <div class="mx-2 mt-2 <%= "sm:container" unless @no_container %>">
+    <div class="mx-2 mt-2 <%= "sm:container" unless @no_container %>" style="min-height: 90vh;">
       <%= yield %>
     </div>
     <%= render partial: "layouts/footer" %>

@@ -24,7 +24,8 @@ de:
         already_have_account: Hast du schon ein Konto?
         password: Passwort
         repeat_password: Passwort wiederholen
-        accept_agb: Ich akzeptiere die AGBs
+        accept_agb: Ich akzeptiere die %{link}
+        agb: AGBs
         submit_create_account: Konto erstellen
         login: Login
         username: Benutzername

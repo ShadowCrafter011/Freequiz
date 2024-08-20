@@ -24,7 +24,8 @@ en:
         already_have_account: Do you already have an account?
         password: Password
         repeat_password: Repeat password
-        accept_agb: I accept the terms and conditions
+        accept_agb: I accept the %{link}
+        agb: terms of service
         submit_create_account: Create account
         login: Login
         username: Username

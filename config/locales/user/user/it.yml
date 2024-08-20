@@ -24,7 +24,8 @@ it:
         already_have_account: Avete già un account?
         password: Passwort
         repeat_password: Ripetere la password
-        accept_agb: Accetto i termini e le condizioni
+        accept_agb: Accetto i %{link}
+        agb: termini e le condizioni
         submit_create_account: Creare un account
         login: Accesso
         username: Nome utente

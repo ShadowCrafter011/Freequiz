@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
     root "home#root"
+    get "terms-of-service", to: "home#terms_of_service", as: "terms_of_service"
+    get "privacy-policy", to: "home#privacy_policy", as: "privacy_policy"
+    get "security-policy", to: "home#security_policy", as: "security_policy"
     get "sponsors", to: "home#sponsors", as: "sponsors"
 
     get "search", to: "home#search", as: "search"

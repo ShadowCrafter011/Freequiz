@@ -18,6 +18,18 @@ class HomeController < ApplicationController
 
     def sponsors; end
 
+    def terms_of_service
+        @title = "Terms of Service | Freequiz"
+    end
+
+    def privacy_policy
+        @title = "Privacy Policy | Freequiz"
+    end
+
+    def security_policy
+        @title = "Security Policy | Freequiz"
+    end
+
     private
 
     def quiz_search_params

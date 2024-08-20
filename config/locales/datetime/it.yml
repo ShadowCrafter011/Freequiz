@@ -27,17 +27,17 @@ it:
         one: "%{count} secondo"
         other: "%{count} secondi"
       x_minutes:
-        one: "%{conteggio} minuto"
+        one: "%{count} minuto"
         other: "%{count} minuti"
       x_days:
         one: Tag %{count}
-        other: "%{conteggio} giorni"
+        other: "%{count} giorni"
       x_months:
         one: "%{count} mese"
         other: "%{count} mesi"
       x_years:
         one: "%{count} Anno"
-        other: "%{conteggio} anni"
+        other: "%{count} anni"
     prompts:
       second: Secondo
       minute: Minuto

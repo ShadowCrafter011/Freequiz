@@ -24,7 +24,8 @@ fr:
         already_have_account: Tu as déjà un compte?
         password: Mot de passe
         repeat_password: Répéter le mot de passe
-        accept_agb: J'accepte les conditions générales
+        accept_agb: J'accepte les %{link}
+        agb: conditions générales
         submit_create_account: Créer un compte
         login: Connexion
         username: Nom d'utilisateur
