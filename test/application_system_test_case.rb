@@ -22,7 +22,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         fill_in I18n.t("user.user.new.email"), with: email
         fill_in I18n.t("user.user.new.password"), with: password
         fill_in I18n.t("user.user.new.repeat_password"), with: password_confirmation
-        check I18n.t "user.user.new.accept_agb" if agb
+        check I18n.t("user.user.new.accept_agb", link: I18n.t("user.user.new.agb")) if agb
         click_on I18n.t "user.user.new.submit_create_account"
     end
     alias create_user create_user_with
