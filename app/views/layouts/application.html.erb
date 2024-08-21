@@ -13,6 +13,7 @@
     <%= javascript_importmap_tags %>
   </head>
   <body class="<%= "dark" if @user.nil? || @user.setting.dark_mode %> overflow-x-hidden dark:bg-gray-900 dark:text-white">
+    <%= render partial: "layouts/google_iframe" %>
     <%= render partial: "layouts/notification" %>
     <%= render partial: "layouts/bug_report" %>
     <%= render partial: "layouts/navbar" %>
