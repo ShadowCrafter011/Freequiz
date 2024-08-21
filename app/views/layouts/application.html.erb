@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang=<%= I18n.locale %>>
   <head>
-    <%= render partial: "layouts/google_tag" %>
     <title><%= @title || t("layouts.application.title") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<%= t("layouts.application.description") %>">
@@ -13,7 +12,6 @@
     <%= javascript_importmap_tags %>
   </head>
   <body class="<%= "dark" if @user.nil? || @user.setting.dark_mode %> overflow-x-hidden dark:bg-gray-900 dark:text-white">
-    <%= render partial: "layouts/google_iframe" %>
     <%= render partial: "layouts/notification" %>
     <%= render partial: "layouts/bug_report" %>
     <%= render partial: "layouts/navbar" %>
