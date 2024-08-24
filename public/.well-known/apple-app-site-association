@@ -1,18 +1,14 @@
 {
     "applinks": {
-        "apps": [
-
-        ],
+        "apps": [],
         "details": [
             {
                 "appID": "RATUG9FJKL.com.freequiz.freequiz",
                 "paths": [
-                    "NOT /admin/*",
-                    "NOT /api/*",
-                    "NOT /verify",
-                    "NOT /verify/*",
-                    "NOT /bugs/*",
-                    "*"
+                    "/",
+                    "/quiz/*",
+                    "/account/*",
+                    "/search"
                 ]
             }
         ]
