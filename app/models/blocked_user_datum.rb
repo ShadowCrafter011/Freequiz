@@ -9,6 +9,6 @@ class BlockedUserDatum < ApplicationRecord
             end
         end
 
-        @blocked_usernames.include? username.downcase
+        @blocked_usernames.include? username&.downcase
     end
 end
