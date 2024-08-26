@@ -15,7 +15,7 @@ fr:
         description: Description
         from: Langue Mots
         to: Langue Traduction
-        translations:
+        translations: ""
     errors:
       models:
         user:
@@ -24,6 +24,7 @@ fr:
               blank: doit être indiqué
               invalid: peut comporter de 3 à 16 caractères et ne peut contenir que des lettres, des chiffres et des traits de soulignement
               taken: est déjà utilisé par un autre compte
+              blocked: n'est pas autorisé par Freequiz
             email:
               blank: doit être indiqué
               invalid: n'est pas valable

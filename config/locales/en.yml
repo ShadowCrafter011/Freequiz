@@ -15,7 +15,7 @@ en:
         description: Description
         from: Language Words
         to: Language translation
-        translations:
+        translations: ""
     errors:
       models:
         user:
@@ -24,6 +24,7 @@ en:
               blank: must be specified
               invalid: can be 3-16 characters long and may only consist of letters, numbers and underscores
               taken: is already used by another account
+              blocked: is not allowed by Freequiz
             email:
               blank: must be specified
               invalid: is not valid

@@ -17,8 +17,9 @@ class User < ApplicationRecord
                   case_sensitive: false
               },
               format: {
-                  with: /\A\w{3,16}\z/
+                  with: /\A[\w-]{3,16}\z/
               }
+    validate :blocked_username_validation
     validates :email,
               uniqueness: {
                   case_sensitive: false
@@ -167,5 +168,13 @@ class User < ApplicationRecord
 
     def bugs_smashed
         bug_reports.where(status: "solved").count
+    end
+
+    private
+
+    def blocked_username_validation
+        return unless BlockedUserDatum.username_blocked? username
+
+        errors.add(:username, I18n.t("activerecord.errors.models.user.attributes.username.blocked"))
     end
 end

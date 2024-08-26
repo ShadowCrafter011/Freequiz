@@ -24,6 +24,7 @@ de:
               blank: muss angegeben werden
               invalid: kann 3-16 Zeichen lang sein und darf nur aus Buchstaben, Zahlen und Unterstriche bestehen
               taken: wird schon von einem anderen Konto verwendet
+              blocked: wird von Freequiz nicht erlaubt
             email:
               blank: muss angegeben werden
               invalid: ist nicht gültig

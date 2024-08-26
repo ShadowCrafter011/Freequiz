@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_19_094106) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_26_130508) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -21,6 +21,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_094106) do
     t.datetime "updated_at", null: false
     t.string "reason"
     t.index ["ip"], name: "index_banned_ips_on_ip"
+  end
+
+  create_table "blocked_user_data", force: :cascade do |t|
+    t.string "username"
+    t.string "hashed_email"
+    t.string "hashed_username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hashed_email"], name: "index_blocked_user_data_on_hashed_email", unique: true
+    t.index ["hashed_username"], name: "index_blocked_user_data_on_hashed_username", unique: true
+    t.index ["username"], name: "index_blocked_user_data_on_username", unique: true
   end
 
   create_table "bug_reports", force: :cascade do |t|

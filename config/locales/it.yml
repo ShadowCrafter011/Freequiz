@@ -15,7 +15,7 @@ it:
         description: Descrizione
         from: Parole in lingua
         to: Traduzione linguistica
-        translations:
+        translations: ""
     errors:
       models:
         user:
@@ -24,6 +24,7 @@ it:
               blank: deve essere specificato
               invalid: può essere lungo da 3 a 16 caratteri e può essere composto solo da lettere, numeri e trattini bassi.
               taken: È già utilizzato da un altro account
+              blocked: non è consentito da Freequiz
             email:
               blank: deve essere specificato
               invalid: non è valido

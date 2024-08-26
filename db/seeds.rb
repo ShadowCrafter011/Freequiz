@@ -21,3 +21,14 @@ Language.create(
         { id: 11, name: "chinese", locale: "zh" }
     ]
 )
+
+BlockedUserDatum.create username: "freequiz" unless BlockedUserDatum.exists? username: "freequiz"
+
+username_data = HTTParty.get("https://raw.githubusercontent.com/marteinn/The-Big-Username-Blocklist/main/list.json")
+username_data = JSON.parse username_data.body
+
+username_data.each do |username|
+    next if username.include? "."
+
+    BlockedUserDatum.create(username:) unless BlockedUserDatum.exists? username:
+end
