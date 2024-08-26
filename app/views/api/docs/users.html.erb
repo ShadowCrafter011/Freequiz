@@ -1,4 +1,43 @@
 <%= render layout: "api_navbar" do %>
+    <div id="username_validation" class="pt-16 -mt-16" data-section="true">
+        <h1 class="text-start">Username validation</h1>
+        <p>
+            <a href="https://freequiz.ch/api/user/username/validate/username">https://freequiz.ch/api/user/username/validate/username</a>
+            <br>
+            Replace the second occurence of username with the username to be checked
+        </p>
+        <p>
+            <h3 class="text-start">Request method: GET</h3>
+        </p>
+        <p>
+            <h3 class="text-start">Content</h3>
+            No content
+        </p>
+        <p>
+            <h3 class="text-start">Response</h3>
+            Username is valid:
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "success": true,
+    "valid": true
+}</code></pre>
+Username is taken by another user:
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "success": true,
+    "valid": false,
+    "token": "username.taken"
+}</code></pre>
+Username is blocked:
+<pre><code class="lang-json" data-controller="admin--prism">{
+    "success": true,
+    "valid": false,
+    "token": "username.blocked"
+}</code></pre>
+        </p>
+        <p>
+            <h3 class="text-start">Errors</h3>
+            No errors (<%= link_to "general errors", api_docs_general_errors_path %> apply)
+        </p>
+    </div>
     <div id="create" class="pt-16 -mt-16" data-section="true">
         <h1 class="text-start">Create</h1>
         <p>

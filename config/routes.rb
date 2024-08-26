@@ -89,6 +89,7 @@ Rails.application.routes.draw do
     namespace :api do
         defaults format: :json do
             scope :user do
+                get "username/validate/:username", to: "user#username_validator"
                 put "create", to: "user#create"
                 post "login", to: "user#login"
                 post "refresh", to: "user#refresh_token"

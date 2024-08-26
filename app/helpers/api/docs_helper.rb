@@ -25,6 +25,7 @@ module Api::DocsHelper
                 name: "Users",
                 id: "users",
                 subsections: {
+                    username_validation: "Username validation",
                     create: "Create",
                     exists: "Exists",
                     delete_token: "Delete token",

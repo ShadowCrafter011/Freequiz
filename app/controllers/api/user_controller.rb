@@ -73,6 +73,14 @@ class Api::UserController < ApplicationController
         json({ success: true, exists: user.first.present? })
     end
 
+    def username_validator
+        return json({ success: true, valid: false, token: "username.blocked" }, 406) if BlockedUserDatum.username_blocked? params[:username]
+
+        return json({ success: true, valid: false, token: "username.taken" }, 409) if User.exists? username: params[:username]
+
+        json({ success: true, valid: true })
+    end
+
     def create
         # json parameters like this:
         # {
