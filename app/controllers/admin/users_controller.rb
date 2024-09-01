@@ -41,11 +41,7 @@ class Admin::UsersController < ApplicationController
 
     def edit
         @user_target = User.find_by(username: params[:username])
-        @referenced_ips_banned = [@user_target.current_sign_in_ip, @user_target.last_sign_in_ip]
-        puts @referenced_ips_banned.uniq
-        @referenced_ips_banned = @referenced_ips_banned.uniq.map { |ip| BannedIp.find_by(ip:) }.filter(&:present?)
-        @ip_ban_reasons = @referenced_ips_banned.map(&:reason)
-        @referenced_ips_banned.map!(&:ip)
+        find_ban_data
     end
 
     def ban_form
@@ -96,28 +92,29 @@ class Admin::UsersController < ApplicationController
     end
 
     def update
-        user = User.find_by(username: params[:username])
+        @user_target = User.find_by(username: params[:username])
+        find_ban_data
 
-        was_verified = user.verified?
-        email_before = user.email
+        was_verified = @user_target.verified?
+        email_before = @user_target.email
 
-        unless user.update(edit_params)
+        unless @user_target.update(edit_params)
             flash.now.alert = ["Failed to save user for the following reasons"].concat(
-                user.get_errors
+                @user_target.get_errors
             )
             return render :edit, status: :unprocessable_entity
         end
 
-        user.update(confirmed_at: Time.now) if edit_params[:confirmed] && !was_verified
+        @user_target.update(confirmed_at: Time.now) if edit_params[:confirmed] && !was_verified
 
-        if edit_params[:email] != email_before || (!user.verified? && was_verified)
-            user.update(confirmed: false, confirmed_at: nil)
-            user.send_verification_email
+        if edit_params[:email] != email_before || (@user_target.verified? && was_verified)
+            @user_target.update(confirmed: false, confirmed_at: nil)
+            @user_target.send_verification_email
             flash.notice = "Saved user and verification E-mail was sent"
         else
             flash.notice = "Saved user"
         end
-        redirect_to admin_user_edit_path(user.username)
+        redirect_to admin_user_edit_path(@user_target.username)
     end
 
     def send_verification
@@ -164,5 +161,12 @@ class Admin::UsersController < ApplicationController
 
     def ban_ip_params
         params.require(:banned_ip).permit(:ip, :reason)
+    end
+
+    def find_ban_data
+        @referenced_ips_banned = [@user_target&.current_sign_in_ip, @user_target&.last_sign_in_ip]
+        @referenced_ips_banned = @referenced_ips_banned.uniq.map { |ip| BannedIp.find_by(ip:) }.filter(&:present?)
+        @ip_ban_reasons = @referenced_ips_banned.map(&:reason)
+        @referenced_ips_banned.map!(&:ip)
     end
 end
