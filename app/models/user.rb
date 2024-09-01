@@ -173,7 +173,7 @@ class User < ApplicationRecord
     private
 
     def blocked_username_validation
-        return unless BlockedUserDatum.username_blocked? username
+        return unless BlockedUserDatum.username_blocked?(username) && !admin?
 
         errors.add(:username, I18n.t("activerecord.errors.models.user.attributes.username.blocked"))
     end
