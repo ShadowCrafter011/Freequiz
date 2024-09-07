@@ -1,0 +1,12 @@
+[
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.freequiz.freequiz",
+            "sha256_cert_fingerprints": [
+                "28:ED:B1:71:DB:16:2A:D9:8D:F7:59:8C:5F:C8:00:D0:B8:AD:CE:7F:3C:FF:34:0B:C6:EB:21:6E:84:49:C5:DA"
+            ]
+        }
+    }
+]
