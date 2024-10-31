@@ -28,7 +28,7 @@ username_data = HTTParty.get("https://raw.githubusercontent.com/marteinn/The-Big
 username_data = JSON.parse username_data.body
 
 username_data.each do |username|
-    next if username.include? "."
+    next if username.include?(".") || username.length < 4
 
     BlockedUserDatum.create(username:) unless BlockedUserDatum.exists? username:
 end
