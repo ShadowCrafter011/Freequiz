@@ -21,6 +21,7 @@ it:
       ja: Giapponese
       ko: Coreano
       zh: Cinese
+      fa: Persiano
     visibilities:
       public: Pubblico
       private: Privato
