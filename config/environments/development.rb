@@ -3,8 +3,6 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
     # Settings specified here will take precedence over those in config/application.rb.
 
-    config.force_ssl = true
-
     config.hosts << "dev.freequiz.ch"
 
     config.action_mailer.default_url_options = { host: "dev.freequiz.ch" }
