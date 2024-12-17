@@ -51,8 +51,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     end
 
     def login(password: "hallO123")
-        Capybara.current_session.driver.browser.file_detector = nil
-
         visit user_login_url
         assert_text I18n.t "user.sessions.new.login_page"
 

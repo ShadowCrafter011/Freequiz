@@ -34,7 +34,7 @@ class QuizzesTest < ApplicationSystemTestCase
             text: t("general.languages.#{lang_to.locale}")
         ).select_option
 
-        translation_data = [%w[Baum Tree], %w[Hallo Hello], %w[Test Test]]
+        translation_data = [%w[Baum Tree], %w[Hallo Hello], %w[Testing Testing]]
 
         translation_data.each_with_index do |data, i|
             find_field("quiz[translations_attributes][#{i}][word]").fill_in with: data[0]
