@@ -1,0 +1,120 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "0a7aa777e9d988c0c2adc746522ab632e804f353b34cf14d42b26b908c8807c3",
+      "check_name": "LinkToHref",
+      "message": "Unsafe parameter value in `link_to` href",
+      "file": "app/views/admin/users/ban_ip_form.html.erb",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"Cancel\", params[:return], :class => \"btn-secondary-sleek grow basis-0\")",
+      "render_path": null,
+      "location": {
+        "type": "template",
+        "template": "admin/users/ban_ip_form"
+      },
+      "user_input": "params[:return]",
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "This is locked behind admin status so it is not a problem"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "1d5484e3d0ea6d29c62b11edbc32a302979701ea87cde8f13dd17697bc90094e",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/user_controller.rb",
+      "line": 18,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "User.find_by_sql(\"SELECT * FROM users ORDER BY SIMILARITY(username, #{ActiveRecord::Base.connection.quote(params[:query])}) DESC LIMIT 50 OFFSET #{(((params[:page] or 1).to_i * 50) - 50)}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::UserController",
+        "method": "search"
+      },
+      "user_input": "params[:page]",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": "All the user inputted params are escaped properly. The :page parameter is converted to an integer which automatically removes quotes or raises an error"
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "b756d6cdae644545617c31231697424378df952e42f4959efedf04d3c2ce9980",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/users_controller.rb",
+      "line": 159,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit(:banned, :ban_reason)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::UsersController",
+        "method": "ban_params"
+      },
+      "user_input": ":banned",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Not a problem since this is locked behind admin status"
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "cb1e6faceb08ba3815ef78b473c1cf95e04f9657d6f2ba3dc3204a5da0f965af",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/users_controller.rb",
+      "line": 153,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit(:username, :email, :unconfirmed_email, :role, :confirmed)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::UsersController",
+        "method": "edit_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Not a problem since this is locked behind admin status"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "f896e7c1acd900b416db2f99952126cbbe8831c7d513eb0b7d02dc6f9e2c3a3d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/quiz_controller.rb",
+      "line": 18,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Quiz.find_by_sql(\"SELECT * FROM quizzes WHERE visibility = 'public' ORDER BY SIMILARITY(title, #{ActiveRecord::Base.connection.quote(params[:query])}) DESC LIMIT 50 OFFSET #{(((params[:page] or 1).to_i * 50) - 50)}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::QuizController",
+        "method": "search"
+      },
+      "user_input": "params[:page]",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": "All the user inputted params are escaped properly. The :page parameter is converted to an integer which automatically removes quotes or raises an error"
+    }
+  ],
+  "updated": "2024-12-17 16:05:32 +0000",
+  "brakeman_version": "6.2.2"
+}
