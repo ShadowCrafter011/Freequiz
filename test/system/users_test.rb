@@ -10,8 +10,8 @@ class UsersTest < ApplicationSystemTestCase
 
         create_user_with visit: false
 
-        assert_text I18n.t("user.user.new.created").sub("%s", "Test")
-        assert User.find_by(username: "Test").present?
+        assert_text I18n.t("user.user.new.created").sub("%s", "Testing")
+        assert User.find_by(username: "Testing").present?
     end
 
     test "no account with same username or email" do
@@ -29,7 +29,7 @@ class UsersTest < ApplicationSystemTestCase
         add_user_to_db
         login
 
-        assert_text I18n.t("user.sessions.new.success").sub("%s", "Test")
+        assert_text I18n.t("user.sessions.new.success").sub("%s", "Testing")
 
         visit user_url
         assert_text I18n.t("user.user.show.title")
@@ -71,20 +71,20 @@ class UsersTest < ApplicationSystemTestCase
             "activerecord.errors.models.user.attributes.password.confirmation"
         )
 
-        fill_in I18n.t("general.username"), with: "Test"
+        fill_in I18n.t("general.username"), with: "Testing"
         fill_in I18n.t("general.password"), with: "HelloWorld42"
         fill_in I18n.t("user.user.edit.password_repeat"), with: "HelloWorld42"
         fill_in I18n.t("user.user.edit.old_password"), with: "hallO123"
         click_on I18n.t "general.save"
         assert_text I18n.t("user.user.edit.saved_data")
-        assert User.find_by(username: "Test").present?
+        assert User.find_by(username: "Testing").present?
 
         visit user_logout_url
         login
         assert_text I18n.t("user.sessions.new.wrong_password")
 
         login password: "HelloWorld42"
-        assert_text I18n.t("user.sessions.new.success").sub("%s", "Test")
+        assert_text I18n.t("user.sessions.new.success").sub("%s", "Testing")
     end
 
     test "deleting account" do

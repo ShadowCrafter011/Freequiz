@@ -11,10 +11,10 @@ class TransactionTest < ActiveSupport::TestCase
         Transaction.destroy_all
         total = 0
         10.times do
-            value = rand(-10.0..10.0)
+            value = rand(-10..10)
             total += value
             Transaction.create amount: value, description: "Test one two three"
         end
-        assert_equal total.round(1), Transaction.total.round(1)
+        assert_equal total, Transaction.total
     end
 end

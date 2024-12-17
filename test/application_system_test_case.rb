@@ -1,5 +1,4 @@
 require "test_helper"
-require "webdrivers"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     def setup
@@ -22,7 +21,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
     def create_user_with(
         visit: true,
-        username: "Test",
+        username: "Testing",
         email: "test@freequiz.ch",
         password: "hallO123",
         password_confirmation: "hallO123",
@@ -40,7 +39,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     alias create_user create_user_with
 
     def add_user_to_db
-        User.create username: "Test",
+        User.create username: "Testing",
                     password: "hallO123",
                     email: "test@freequiz.ch",
                     agb: true,
@@ -52,12 +51,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     end
 
     def login(password: "hallO123")
-        Capybara.current_session.driver.browser.file_detector = nil
-
         visit user_login_url
         assert_text I18n.t "user.sessions.new.login_page"
 
-        fill_in I18n.t("general.email_or_username"), with: "Test"
+        fill_in I18n.t("general.email_or_username"), with: "Testing"
         fill_in I18n.t("general.password"), with: password
         find("#login").click
     end
