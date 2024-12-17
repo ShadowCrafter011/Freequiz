@@ -16,9 +16,6 @@
         "editor.formatOnSave": true
     },
     "rubyLsp.formatter": "rubocop",
-    "rubyLsp.rubyVersionManager": {
-        "identifier": "rbenv"
-    },
     "rubyLsp.enabledFeatures": {
         "codeActions": true,
         "diagnostics": true,

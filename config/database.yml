@@ -21,12 +21,13 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-  user: postgres
-  password: <%= Rails.application.credentials[:pg_password] %>
-
 development:
   <<: *default
   database: Freequiz_development
+
+  host: postgres
+  username: postgres
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", nil) %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -61,6 +62,10 @@ development:
 test:
   <<: *default
   database: Freequiz_test
+
+  host: postgres
+  username: postgres
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", nil) %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
