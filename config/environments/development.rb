@@ -3,23 +3,6 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
     # Settings specified here will take precedence over those in config/application.rb.
 
-    config.hosts << "dev.freequiz.ch"
-
-    config.action_mailer.default_url_options = { host: "dev.freequiz.ch" }
-
-    config.default_url_options = { host: "dev.freequiz.ch" }
-
-    config.action_mailer.delivery_method = :smtp
-
-    config.action_mailer.smtp_settings = {
-        address: "mail.infomaniak.ch",
-        port: 587,
-        user_name: "noreply@freequiz.ch",
-        password: Rails.application.credentials[:noreply_password],
-        authentication: "login",
-        enable_starttls_auto: true
-    }
-
     # In the development environment your application's code is reloaded any time
     # it changes. This slows down response time but is perfect for development
     # since you don't have to restart the web server when you make code changes.
@@ -57,6 +40,17 @@ Rails.application.configure do
     config.action_mailer.raise_delivery_errors = false
 
     config.action_mailer.perform_caching = false
+
+    config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
+    config.action_mailer.delivery_method = :smtp
+
+    config.action_mailer.smtp_settings = {
+        address: "mailhog",
+        port: 1025
+    }
+
+    config.action_mailer.perform_deliveries = true
 
     # Print deprecation notices to the Rails logger.
     config.active_support.deprecation = :log
