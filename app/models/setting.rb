@@ -12,10 +12,6 @@ class Setting < ApplicationRecord
     validates :round_amount, inclusion: { in: ROUND_AMOUNTS }
 
     def get_errors
-        errors = []
-        self.errors.objects.each do |x|
-            errors.append x.full_message
-        end
-        errors
+        errors.objects.map(&:full_message)
     end
 end
