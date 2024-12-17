@@ -91,3 +91,5 @@ gem "syntax_tree-rbs", "~> 1.0"
 gem "rubocop", "~> 1.59"
 
 gem "htmlbeautifier", "~> 1.4"
+
+gem "brakeman", "~> 6.2"
