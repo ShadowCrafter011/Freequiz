@@ -5,7 +5,7 @@ class User::VerificationController < ApplicationController
 
     def verify
         @user_target = User.find_signed params[:verification_token], purpose: :verify_email
-        return redirect_to user_verification_success_path if @user_target&.verified?
+        return redirect_to user_verification_success_path if @user_target&.verified? && @user_target.unconfirmed_email.nil?
 
         if @user_target.present?
             if @user_target.verified? && @user_target.unconfirmed_email.present?
