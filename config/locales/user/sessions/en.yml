@@ -13,4 +13,4 @@ en:
         wrong_password: Password does not match the specified account
         success: Successfully logged in! Welcome back %s!
       destroy:
-        success: Successfully deleted account!
+        success: Successfully logged out!

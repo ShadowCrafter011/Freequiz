@@ -106,7 +106,11 @@ class ApplicationController < ActionController::Base
     private
 
     def login
-        @user = User.find_signed cookies.encrypted[:_session_token], purpose: :login
+        @user = if User.exists?(id: session[:user_id])
+                    User.find(session[:user_id])
+                else
+                    User.find_signed cookies.encrypted[:_session_token], purpose: :login
+                end
         @user.present?
     end
 end

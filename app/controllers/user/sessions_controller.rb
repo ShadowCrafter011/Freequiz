@@ -19,12 +19,12 @@ class User::SessionsController < ApplicationController
         end
 
         if user.first.authenticate params[:password]
-            remember = params[:remember] == "1"
-            expires_in = remember ? 20.years : 1.day
-            token = user.first.signed_id(purpose: :login, expires_in:)
+            if params[:remember] == "1"
+                token = user.first.signed_id(purpose: :login, expires_in: 20.years)
+                cookies.encrypted.permanent[:_session_token] = token
+            end
 
-            cookies.encrypted.permanent[:_session_token] = token if remember
-            cookies.encrypted[:_session_token] = token unless remember
+            session[:user_id] = user.first.id
 
             user.first.sign_in request.remote_ip
             # Reset the locale in session store to allow the saved one to take over
@@ -39,6 +39,7 @@ class User::SessionsController < ApplicationController
     def destroy
         cookies.delete :_session_token
         session[:locale] = nil
+        session[:user_id] = nil
         redirect_to user_login_path, notice: tp("success")
     end
 end
