@@ -40,7 +40,6 @@ Rails.application.routes.draw do
 
     scope :verify do
         get "/", to: "user/verification#success", as: "user_verification_success"
-        get "notloggedin", to: "user/verification#success_not_logged_in", as: "user_verification_success_not_logged_in"
         get "send", to: "user/verification#send_email", as: "user_verification_send"
         get "pending",
             to: "user/verification#pending",
