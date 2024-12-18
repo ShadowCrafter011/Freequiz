@@ -152,13 +152,6 @@ class User < ApplicationRecord
         self.last_sign_in_ip = current_sign_in_ip
         self.current_sign_in_ip = ip
 
-        self.last_sign_in_location = current_sign_in_location
-        Thread.new do
-            response = HTTParty.get("https://ipwho.is/#{ip}")
-            body = JSON.parse response.body
-            update current_sign_in_location: "#{body["city"]}, #{body["region"]}, #{body["country"]}" if body["success"]
-        end
-
         save
     end
 

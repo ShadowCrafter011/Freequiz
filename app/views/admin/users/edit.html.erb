@@ -15,11 +15,11 @@
     <div><strong>Sign in count: </strong><%= @user_target.sign_in_count %></div>
     <div title="<%= @user_target.current_sign_in_at %>"><strong>Current sign in </strong><%= distance_of_time_in_words_to_now(@user_target.current_sign_in_at, locale: :en) %> ago</div>
     <div><strong>Current sign in IP: </strong> <%= @user_target.current_sign_in_ip %></div>
-    <div><strong>Current sign in from: </strong><%= display_field(@user_target.current_sign_in_location) %></div>
+    <div><strong>Current sign in from: </strong><%= display_field(@current_sign_in_location) %></div>
     <% if @user_target.last_sign_in_at.present? %>
         <div title="<%= @user_target.last_sign_in_at %>"><strong>Last sign in </strong><%= distance_of_time_in_words_to_now(@user_target.last_sign_in_at, locale: :en) %> ago</div>
         <div><strong>Last sign in IP: </strong><%= @user_target.last_sign_in_ip %></div>
-        <div><strong>Last sign in from: </strong><%= display_field(@user_target.last_sign_in_location) %></div>
+        <div><strong>Last sign in from: </strong><%= display_field(@last_sign_in_location) %></div>
     <% end %>
 </div>
 

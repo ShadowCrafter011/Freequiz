@@ -41,6 +41,18 @@ class Admin::UsersController < ApplicationController
 
     def edit
         @user_target = User.find_by(username: params[:username])
+        @current_sign_in_location = nil
+        @last_sign_in_location = nil
+        if @user_target.current_sign_in_ip
+            res = HTTParty.get("https://ipwho.is/#{@user_target.current_sign_in_ip}")
+            body = JSON.parse res.body
+            @current_sign_in_location = "#{body["city"]}, #{body["region"]}, #{body["country"]}" if body["success"]
+        end
+        if @user_target.last_sign_in_ip
+            res = HTTParty.get("https://ipwho.is/#{@user_target.last_sign_in_ip}")
+            body = JSON.parse res.body
+            @last_sign_in_location = "#{body["city"]}, #{body["region"]}, #{body["country"]}" if body["success"]
+        end
         find_ban_data
     end
 
