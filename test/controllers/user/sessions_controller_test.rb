@@ -49,4 +49,9 @@ class User::SessionsControllerTest < ActionDispatch::IntegrationTest
         post user_login_path, params: { username: :one, password: :wrong, gg: root_path }
         assert_response :unauthorized
     end
+
+    test "login with wrong username" do
+        post user_login_path, params: { username: :wrong, password: :one }
+        assert_response :unprocessable_entity
+    end
 end
