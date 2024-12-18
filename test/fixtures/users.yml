@@ -4,8 +4,10 @@ one:
   email: one@one.one
   username: one
   agb: true
+  password_digest: <%= BCrypt::Password.create("one") %>
 
 two:
   email: two@two.two
   username: two
   agb: true
+  password_digest: <%= BCrypt::Password.create("two") %>

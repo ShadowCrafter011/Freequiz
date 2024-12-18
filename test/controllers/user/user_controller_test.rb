@@ -35,9 +35,9 @@ class User::UserControllerTest < ActionDispatch::IntegrationTest
         end
     end
 
-    # test "redirect from login page when logged in" do
-    #     sign_in users(:one)
-    #     get user_login_path
-    #     assert_redirected_to user_path
-    # end
+    test "redirect from sign up page when logged in" do
+        sign_in :two
+        get user_create_path
+        assert_redirected_to user_path
+    end
 end
