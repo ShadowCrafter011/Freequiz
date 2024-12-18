@@ -1,7 +1,9 @@
 class User::PasswordController < ApplicationController
     before_action { setup_locale "user.password" }
 
-    def reset; end
+    def reset
+        redirect_to user_path, notice: t("user.sessions.new.already_logged_in") if logged_in?
+    end
 
     def send_email
         override_action "reset"
@@ -35,13 +37,7 @@ class User::PasswordController < ApplicationController
             password: params[:password],
             password_confirmation: params[:password_confirmation]
         )
-            expires_in = 1.days
-            token = user.signed_id(purpose: :login, expires_in:)
-
-            cookies.encrypted[:_session_token] = {
-                value: token,
-                expires: Time.now + expires_in
-            }
+            session[:user_id] = user.id
 
             user.sign_in request.remote_ip
 
