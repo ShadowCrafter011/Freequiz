@@ -24,14 +24,16 @@ class User::UserControllerTest < ActionDispatch::IntegrationTest
 
     test "can create user" do
         assert_difference "User.count", 1 do
-            post user_create_path, params: { user: {
-                username: "Testing",
-                email: "testing@freequiz.ch",
-                password: "GoodPassword123",
-                password_confirmation: "GoodPassword123",
-                agb: true
-            } }
-            assert_redirected_to user_verification_pending_path
+            assert_emails 1 do
+                post user_create_path, params: { user: {
+                    username: "Testing",
+                    email: "testing@freequiz.ch",
+                    password: "GoodPassword123",
+                    password_confirmation: "GoodPassword123",
+                    agb: true
+                } }
+                assert_redirected_to user_verification_pending_path
+            end
         end
     end
 
