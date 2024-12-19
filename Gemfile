@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.2"
 
-gem "ffi", "< 1.17.0"
+gem "ffi", "< 1.18.0"
 gem "foreman"
 gem "httparty"
 gem "i18n"
