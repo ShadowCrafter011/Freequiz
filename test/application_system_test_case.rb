@@ -43,7 +43,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
                     password: "hallO123",
                     email: "test@freequiz.ch",
                     agb: true,
-                    role: "beta"
+                    role: "user"
     end
 
     def t(key)

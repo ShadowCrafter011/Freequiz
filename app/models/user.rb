@@ -10,7 +10,7 @@ class User < ApplicationRecord
     has_many :get_favorite_quizzes, through: :favorite_quizzes, source: :quiz
     has_many :quiz_reports, dependent: :nullify
 
-    ROLES = %w[user beta admin].freeze
+    ROLES = %w[user admin].freeze
 
     validates :username,
               uniqueness: {
@@ -19,7 +19,8 @@ class User < ApplicationRecord
               format: {
                   with: /\A[\w-]{3,16}\z/
               }
-    validate :blocked_username_validation
+    validate :blocked_username_validation, unless: :admin?
+    validates :role, inclusion: { in: ROLES }
     validates :email,
               uniqueness: {
                   case_sensitive: false
@@ -52,10 +53,6 @@ class User < ApplicationRecord
 
     def admin?
         role == "admin"
-    end
-
-    def beta?
-        role == "beta"
     end
 
     def avatar_url
