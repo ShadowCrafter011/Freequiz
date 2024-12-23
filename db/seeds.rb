@@ -22,13 +22,8 @@ Language.create(
     ]
 )
 
-BlockedUserDatum.create username: "freequiz" unless BlockedUserDatum.exists? username: "freequiz"
-
-username_data = HTTParty.get("https://raw.githubusercontent.com/marteinn/The-Big-Username-Blocklist/main/list.json")
-username_data = JSON.parse username_data.body
+username_data = %w[freequiz admin moderator administrator administration]
 
 username_data.each do |username|
-    next if username.include?(".") || username.length < 4
-
     BlockedUserDatum.create(username:) unless BlockedUserDatum.exists? username:
 end
