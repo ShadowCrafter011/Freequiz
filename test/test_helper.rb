@@ -16,6 +16,10 @@ class ActiveSupport::TestCase
         assert_response :redirect
     end
 
+    def language_id(name)
+        Language.where(name:).first.id
+    end
+
     def user_params
         {
             username: "Lukas",

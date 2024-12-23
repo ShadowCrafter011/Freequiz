@@ -5,6 +5,11 @@ one:
   translation: MyString
   quiz: one
 
+one1:
+  word: MyString
+  translation: MyString
+  quiz: one
+
 two:
   word: MyString
   translation: MyString

@@ -162,6 +162,6 @@ class Quiz < ApplicationRecord
     private
 
     def validate_translations_count
-        errors.add(:translations, I18n.t("errors.not_enough_translations")) if translations.size.zero?
+        # errors.add(:translations, I18n.t("errors.not_enough_translations")) if translations.size.zero?
     end
 end
