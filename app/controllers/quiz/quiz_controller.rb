@@ -78,11 +78,10 @@ class Quiz::QuizController < ApplicationController
         override_action "new"
 
         @quiz = @user.quizzes.find_by(uuid: params[:quiz_uuid])
+
+        return redirect_to root_path, notice: tp("not_found") unless @quiz.present?
+
         4.times { @quiz.translations.build } unless @quiz.translations.count.positive?
-
-        return if @quiz.present?
-
-        redirect_to root_path, notice: tp("not_found")
     end
 
     def update
