@@ -9,7 +9,7 @@ class HomeController < ApplicationController
     end
 
     def root
-        @new_quizzes = Quiz.order(created_at: :desc).limit(5)
+        @new_quizzes = Quiz.where(visibility: "public").order(created_at: :desc).limit(5)
 
         return unless logged_in?
 
