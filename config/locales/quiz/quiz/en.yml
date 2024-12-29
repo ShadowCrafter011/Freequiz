@@ -34,7 +34,7 @@ en:
         not_learned: "Not yet learned: "
         learned: "Learned: "
         write: Writing
-        no_translations: This quiz has no files yet
+        no_translations: This quiz has no translations yet
         failed_to_save: You appear to be offline. Progress cannot be saved at the moment
         translate: Translate to %{language}
         check: Check
