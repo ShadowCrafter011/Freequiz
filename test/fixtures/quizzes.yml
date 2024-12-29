@@ -6,7 +6,7 @@ one:
   description: MyText
   from_lang: german
   to_lang: french
-  visibility: MyString
+  visibility: public
   user: one
 
 two:
@@ -15,5 +15,5 @@ two:
   description: MyText
   from_lang: german
   to_lang: french
-  visibility: MyString
+  visibility: public
   user: two
