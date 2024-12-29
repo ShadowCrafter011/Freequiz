@@ -12,7 +12,7 @@ class Quiz::QuizController < ApplicationController
 
         @quiz = Quiz.find_by(uuid: params[:quiz_uuid])
         redirect_to root_path, notice: tp("not_found") unless @quiz.present? && @quiz.user_allowed_to_view?(current_user)
-        redirect_to quiz_show_path(@quiz.uuid), notice: tp("no_translations") unless @quiz.translations_count.positive?
+        redirect_to root_path, notice: tp("no_translations") unless @quiz.translations_count.positive?
     end
 
     def cards; end
