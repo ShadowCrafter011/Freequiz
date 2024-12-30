@@ -7,8 +7,6 @@ class BugReport < ApplicationRecord
     validates :body, length: { maximum: 30_000 }
     validates :status, inclusion: { in: BugReport::STATUSES }
 
-    before_validation { self.status ||= "new" }
-
     def get(field)
         self[field].present? ? self[field] : "Not defined"
     end
