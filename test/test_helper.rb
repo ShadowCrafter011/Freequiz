@@ -22,8 +22,8 @@ class ActiveSupport::TestCase
 
     def user_params
         {
-            username: "Lukas",
-            email: "lkoe@bluewin.ch",
+            username: "ABC",
+            email: "abc@freequiz.ch",
             password: "hallO123",
             password_confirmation: "hallO123",
             agb: "1"
