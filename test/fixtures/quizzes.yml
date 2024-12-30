@@ -2,7 +2,7 @@
 
 one:
   uuid: one
-  title: MyString
+  title: First quiz
   description: MyText
   from_lang: german
   to_lang: french
@@ -17,3 +17,21 @@ two:
   to_lang: french
   visibility: public
   user: two
+
+private:
+  uuid: private
+  title: Private Quiz
+  description: This is a top secret quiz
+  from_lang: german
+  to_lang: chinese
+  visibility: private
+  user: one
+
+hidden:
+  uuid: hidden
+  title: Hidden Quiz
+  description: This is a hidden quiz
+  from_lang: latin
+  to_lang: korean
+  visibility: hidden
+  user: one

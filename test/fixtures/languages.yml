@@ -8,38 +8,38 @@ french:
   name: french
   locale: fr
 
-three:
+italian:
   name: italian
   locale: it
 
-four:
+english:
   name: english
   locale: en
 
-five:
+spanish:
   name: spanish
   locale: es
 
-six:
+latin:
   name: latin
   locale: la
 
-seven:
+greek:
   name: greek
   locale: el
 
-eight:
+romansh:
   name: romansh
   locale: rm
 
-nine:
+japanese:
   name: japanese
   locale: ja
 
-ten:
+korean:
   name: korean
   locale: ko
 
-eleven:
+chinese:
   name: chinese
   locale: zh

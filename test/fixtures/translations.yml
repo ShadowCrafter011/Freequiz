@@ -14,3 +14,13 @@ two:
   word: MyString
   translation: MyString
   quiz: two
+
+private:
+  word: MyString
+  translation: MyString
+  quiz: private
+
+hidden:
+  word: MyString
+  translation: MyString
+  quiz: hidden
