@@ -2,6 +2,8 @@
 
 one:
   ip: MyString
+  reason: MyReason
 
 two:
   ip: MyString
+  reason: MyReason
