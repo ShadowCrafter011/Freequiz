@@ -53,11 +53,10 @@ class Admin::QuizController < ApplicationController
     def show_report
         @report = QuizReport.find(params[:quiz_report_id])
         @reported_quiz = @report.quiz
-
-        return render :triage if @report.status == "open"
-
         reports = QuizReport::KEYS.filter { |k| @report[k] }
         @reported_for = reports.map { |s| s.to_s.gsub("_", " ").capitalize }.join(", ")
+
+        render :triage if @report.status == "open"
     end
 
     def triage
