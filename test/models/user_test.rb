@@ -19,6 +19,7 @@ class UserTest < ActiveSupport::TestCase
     test "create user" do
         user = User.new user_params
         assert user.save
+        assert user.setting
     end
 
     test "do not create users with the same username" do
