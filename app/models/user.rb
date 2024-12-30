@@ -55,6 +55,10 @@ class User < ApplicationRecord
         role == "admin"
     end
 
+    def self.admins
+        User.where(role: "admin")
+    end
+
     def avatar_url
         seed = Digest::SHA1.hexdigest created_at.to_s
         "https://api.dicebear.com/8.x/shapes/svg?&seed=#{seed}"

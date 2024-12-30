@@ -1,0 +1,30 @@
+Hello Team,
+
+A quiz has been reported on the platform. Below are the details of the report:
+
+Quiz Details:
+- Title: <%= @quiz.title %>
+<% if @quiz.user.present? %>
+    - Author: <%= @quiz.user.username %> (<%= @quiz.user.email %>)
+<% else %>
+    - Author: Deleted User
+<% end %>
+- Created At: <%= @quiz.created_at.strftime('%B %d, %Y %I:%M %p') %>
+
+Report Details:
+<% if @quiz_report.user.present? %>
+    - Reported By: <%= @quiz_report.user.username %> (<%= @quiz_report.user.email %>)
+<% else %>
+    - Reported By: Deleted User
+<% end %>
+<% unless @quiz_report.description.blank? %>
+    - Reason: <%= @quiz_report.description %>
+<% end %>
+- Reported At: <%= @quiz_report.created_at.strftime('%B %d, %Y %I:%M %p') %>
+
+Please review this quiz and take the necessary actions.
+
+You can find the triage here: <%= admin_quiz_report_url(@quiz_report) %>
+
+Thank you,  
+The Moderation Team

@@ -11,3 +11,10 @@ two:
   username: two
   agb: true
   password_digest: <%= BCrypt::Password.create("two") %>
+
+admin:
+  role: admin
+  email: admin@freequiz.ch
+  username: admin
+  agb: true
+  password_digest: <%= BCrypt::Password.create("admin") %>

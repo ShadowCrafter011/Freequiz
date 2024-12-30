@@ -125,6 +125,7 @@ class Quiz::QuizController < ApplicationController
         @quiz_report.user = @user if logged_in?
 
         if @quiz_report.save
+            AdminMailer.with(quiz: @quiz, quiz_report: @quiz_report).new_quiz_report.deliver_later
             redirect_to quiz_show_path(@quiz_report.quiz.uuid), notice: t("quiz.quiz.report.saved")
         else
             flash.now.alert = t("quiz.quiz.report.failed")

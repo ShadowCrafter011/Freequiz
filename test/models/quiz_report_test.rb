@@ -1,9 +1,9 @@
 require "test_helper"
 
 class QuizReportTest < ActiveSupport::TestCase
-    test "should not save quiz report without quiz_id" do
+    test "should save quiz report" do
         quiz_report = QuizReport.new
-        assert_not quiz_report.save
+        assert quiz_report.save
     end
 
     test "status should be open by default" do

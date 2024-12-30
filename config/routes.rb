@@ -218,6 +218,7 @@ Rails.application.routes.draw do
             end
         end
 
+        get "quiz/report/:quiz_report_id", to: "quiz#show_report", as: "quiz_report"
         get "quiz/triage", to: "quiz#triage", as: "quiz_report_triage"
         post "quiz/triage/:triage_id/ignore", to: "quiz#ignore_triage", as: "quiz_report_ignore_triage"
         scope "quiz/:quiz_id" do

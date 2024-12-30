@@ -1,0 +1,18 @@
+<% case @report.status %>
+<% when "solved" %>
+    <h1>This report has been solved by editing the <%= link_to "quiz", quiz_show_path(@reported_quiz) %></h1>
+<% when "deleted" %>
+    <h1>This quiz has been deleted</h1>
+<% when "ignored" %>
+    <h1>This report has been ignored. <%= link_to "Quiz", quiz_show_path(@reported_quiz) %></h1>
+<% end %>
+
+<% unless @report.user.nil? %>
+    <h3>It was reported by <%= link_to @report.user.username, admin_user_edit_path(@report.user) %></h3>
+<% end %>
+<% unless @reported_for.blank? %>
+    <h3>It was reported for <%= @reported_for %></h3>
+<% end %>
+<% unless @report.description.blank? %>
+    <h3>Report reason: <%= @report.description %></h3>
+<% end %>

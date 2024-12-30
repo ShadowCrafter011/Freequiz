@@ -32,6 +32,9 @@ class Quiz::QuizControllerTest < ActionDispatch::IntegrationTest
             } }
             assert_response :redirect
         end
+
+        follow_redirect!
+        assert_response :success
     end
 
     test "can get destroy token" do
@@ -144,5 +147,50 @@ class Quiz::QuizControllerTest < ActionDispatch::IntegrationTest
             } }
             assert_redirected_to quiz_show_path(:one)
         end
+    end
+
+    test "can favorite a quiz" do
+        sign_in :one
+        quiz = quizzes(:two)
+        assert_difference "FavoriteQuiz.count", 1 do
+            patch quiz_favorite_path(quiz.uuid)
+            assert_response :redirect
+        end
+
+        assert users(:one).favorite_quiz?(quiz)
+    end
+
+    test "can unfavorite a quiz" do
+        sign_in :two
+        quiz = quizzes(:two)
+        assert_difference "FavoriteQuiz.count", -1 do
+            patch quiz_favorite_path(quiz.uuid)
+            assert_response :redirect
+        end
+
+        assert_not users(:two).favorite_quiz?(quiz)
+    end
+
+    test "can not favorite a quiz when not logged in" do
+        patch quiz_favorite_path(:one)
+        assert_redirected_to user_login_path(gg: quiz_favorite_path(:one))
+    end
+
+    test "can get quiz report form" do
+        sign_in :one
+        get quiz_report_path(:one)
+        assert_response :success
+    end
+
+    test "can report a quiz" do
+        sign_in :one
+        assert_difference "QuizReport.count", 1 do
+            assert_emails User.admins.count do
+                post quiz_report_path(:one), params: { quiz_report: { reason: "reason", spam: "1" } }
+                assert_response :redirect
+            end
+        end
+
+        assert QuizReport.last.spam
     end
 end

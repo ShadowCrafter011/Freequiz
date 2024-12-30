@@ -38,6 +38,7 @@ class Admin::QuizController < ApplicationController
         if quiz.present?
             quiz.destroy
             if params[:triage].present?
+                QuizReport.find(params[:triage]).update status: :deleted
                 redirect_to admin_quiz_report_triage_path, notice: "Triage solved by deleting Quiz"
             else
                 redirect_to root_path, notice: "Quiz was destroyed"
@@ -47,6 +48,16 @@ class Admin::QuizController < ApplicationController
         else
             redirect_to quiz_show_path(params[:quiz_id]), alert: "Could not destroy Quiz. Token might have expired"
         end
+    end
+
+    def show_report
+        @report = QuizReport.find(params[:quiz_report_id])
+        @reported_quiz = @report.quiz
+
+        return render :triage if @report.status == "open"
+
+        reports = QuizReport::KEYS.filter { |k| @report[k] }
+        @reported_for = reports.map { |s| s.to_s.gsub("_", " ").capitalize }.join(", ")
     end
 
     def triage

@@ -1,0 +1,40 @@
+<p>Hello Team,</p>
+
+<p>A quiz has been reported on the platform. Below are the details of the report:</p>
+
+<p>
+    Quiz Details:<br>
+    <ul>
+        <li>Title: <%= @quiz.title %></li>
+        <% if @quiz.user.present? %>
+            <li>Author: <%= @quiz.user.username %> (<%= @quiz.user.email %>)</li>
+        <% else %>
+            <li>Author: Deleted User</li>
+        <% end %>
+        <li>Created At: <%= @quiz.created_at.strftime('%B %d, %Y %I:%M %p') %></li>
+    </ul>
+</p>
+
+<p>
+    Report Details:<br>
+    <ul>
+        <% if @quiz_report.user.present? %>
+            <li>Reported By: <%= @quiz_report.user.username %> (<%= @quiz_report.user.email %>)</li>
+        <% else %>
+            <li>Reported By: Deleted User</li>
+        <% end %>
+        <% unless @quiz_report.description.blank? %>
+            <li>Reason: <%= @quiz_report.description %></li>
+        <% end %>
+        <li>Reported At: <%= @quiz_report.created_at.strftime('%B %d, %Y %I:%M %p') %></li>
+    </ul>
+</p>
+
+<p>Please review this quiz and take the necessary actions.</p>
+
+<p>You can find the triage here:  <a href="<%= admin_quiz_report_url(@quiz_report) %>">Triage</a></p>
+
+<p>
+Thank you,<br>
+The Moderation Team
+</p>
