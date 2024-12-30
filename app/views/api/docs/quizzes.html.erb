@@ -609,7 +609,7 @@ If no user is logged in the data attribute will look like this
                 <li>The <code>updated</code> field contains the current Unix timestamp in seconds</li>
                 <li>The provided Unix timestamp is from a later time than when the score for this translation was last updated</li>
             </ul>
-            If the <code>updated</code> field is not present of <code>null</code> nothing will be updated no matter what.
+            If the <code>updated</code> field is not present or <code>null</code> nothing will be updated no matter what.
             <br>
             <br>
             <strong>It's important that the four score fields and the <code>favorite</code> field are provided for each translation. As it will lead to undefinded values if a translation is deemed outdated and updated with non defined values</strong>
@@ -639,7 +639,7 @@ If no user is logged in the data attribute will look like this
             "locale": "de"
         },
         "data": [{
-            This translation score / favorite will be updated if the timestamp is never than the one on the server
+            This translation score / favorite will be updated if the timestamp is newer than the one on the server
             "id": 1,
             "score_id": 1,
             "word": "Tree",
