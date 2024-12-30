@@ -10,4 +10,9 @@ class UserMailer < ApplicationMailer
         @token = params[:token]
         mail(to: params[:email], subject: "Passwort zurücksetzen")
     end
+
+    def email_to_user
+        @body = params[:body]
+        mail(to: params[:email], subject: params[:subject])
+    end
 end

@@ -148,7 +148,7 @@ class Admin::UsersController < ApplicationController
 
     def send_email
         user = User.find_by(username: params[:username])
-        AdminMailer
+        UserMailer
             .with(email: user.email, subject: params[:subject], body: params[:body])
             .email_to_user
             .deliver_later
