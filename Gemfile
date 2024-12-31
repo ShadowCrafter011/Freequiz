@@ -90,6 +90,6 @@ gem "rubocop", "~> 1.59"
 
 gem "htmlbeautifier", "~> 1.4"
 
-gem "brakeman", "~> 6.2"
+gem "brakeman", "~> 7.0"
 
 gem "capybara"
