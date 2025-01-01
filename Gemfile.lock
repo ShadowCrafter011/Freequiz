@@ -240,7 +240,10 @@ GEM
       logger
     rdoc (6.7.0)
       psych (>= 4.0.0)
-    redis (4.8.1)
+    redis (5.3.0)
+      redis-client (>= 0.22.0)
+    redis-client (0.23.0)
+      connection_pool
     regexp_parser (2.9.3)
     reline (0.5.10)
       io-console (~> 0.5)
@@ -345,7 +348,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 7.1.2)
   rails-controller-testing
-  redis (~> 4.0)
+  redis (~> 5.3)
   rubocop (~> 1.59)
   selenium-webdriver
   sprockets-rails
