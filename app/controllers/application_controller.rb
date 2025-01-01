@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
         user = @user || api_current_user
 
-        @ban_reason = user&.banned ? user.ban_reason : nil
+        @ban_reason = user&.ban_reason
 
         ip_ban = BannedIp.find_by(ip: request.remote_ip)
         @ban_reason ||= ip_ban&.reason
