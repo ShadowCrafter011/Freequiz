@@ -72,7 +72,7 @@ class Admin::UsersController < ApplicationController
 
         @user_target.update(confirmed_at: Time.now) if edit_params[:confirmed] && !was_verified
 
-        if edit_params[:email] != email_before || (@user_target.verified? && was_verified)
+        if edit_params[:email] != email_before || (!@user_target.verified? && was_verified)
             @user_target.update(confirmed: false, confirmed_at: nil)
             @user_target.send_verification_email
             flash.notice = "Saved user and verification E-mail was sent"
