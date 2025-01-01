@@ -83,9 +83,7 @@ class ApplicationController < ActionController::Base
     end
 
     def require_admin!
-        return unless require_login!
-
-        raise ActionController::RoutingError, "Not Found" unless @user.admin?
+        raise ActionController::RoutingError, "Not Found" unless logged_in? && @user.admin?
     end
 
     def user_admin?
