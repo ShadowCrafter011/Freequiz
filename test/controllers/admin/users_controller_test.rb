@@ -194,8 +194,8 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     test "can ban ip" do
         sign_in :admin
 
-        assert_no_changes -> { BannedIp.count } do
-            patch admin_ban_ip_url, params: { banned_ip: { ip: "1.1.1.1", reason: "test" } }
+        assert_changes -> { users(:one).banned? }, from: false, to: true do
+            put admin_ban_ip_url, params: { banned_ip: { ip: "1.2.3.4", reason: "test" }, return: admin_users_url }
         end
     end
 
@@ -203,21 +203,23 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
         sign_in :one
 
         assert_no_changes "BannedIp.count" do
-            patch admin_ban_ip_url, params: { banned_ip: { ip: "1.1.1.1", reason: "test" } }
+            patch admin_ban_ip_url, params: { banned_ip: { ip: "1.2.3.4", reason: "test" }, return: admin_users_url }
         end
     end
 
     test "cannot ban ip if not signed in" do
         assert_no_changes "BannedIp.count" do
-            patch admin_ban_ip_url, params: { banned_ip: { ip: "1.1.1.1", reason: "test" } }
+            patch admin_ban_ip_url, params: { banned_ip: { ip: "1.2.3.4", reason: "test" }, return: admin_users_url }
         end
     end
 
     test "can unban ip" do
         sign_in :admin
 
-        assert_difference "BannedIp.count", -1 do
-            delete admin_ban_ip_url, params: { ip: banned_ips(:one).ip, return: admin_users_url }
+        BannedIp.create ip: "1.2.3.4", reason: "test"
+
+        assert_changes -> { users(:one).banned? }, from: true, to: false do
+            delete admin_ban_ip_url, params: { ip: "1.2.3.4", return: admin_users_url }
             assert_redirected_to admin_users_url
         end
     end

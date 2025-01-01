@@ -28,12 +28,9 @@ class ApplicationController < ActionController::Base
 
         user = @user || api_current_user
 
-        @ban_reason = user&.ban_reason
+        return unless user&.banned?
 
-        ip_ban = BannedIp.find_by(ip: request.remote_ip)
-        @ban_reason ||= ip_ban&.reason
-
-        return unless user&.banned || ip_ban.present?
+        @ban_reason = user.get_ban_reason
 
         api_call = self.class.ancestors.first.name.split("::").first == "Api"
         render "errors/banned", status: :unauthorized, layout: false unless api_call

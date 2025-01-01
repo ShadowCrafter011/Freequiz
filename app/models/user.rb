@@ -144,6 +144,16 @@ class User < ApplicationRecord
         confirmed
     end
 
+    def banned?
+        return false if admin?
+
+        banned || BannedIp.find_by(ip: current_sign_in_ip).present?
+    end
+
+    def get_ban_reason
+        ban_reason || BannedIp.find_by(ip: current_sign_in_ip)&.reason
+    end
+
     def sign_in(ip)
         self.sign_in_count += 1
 
