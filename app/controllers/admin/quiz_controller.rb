@@ -1,5 +1,6 @@
 class Admin::QuizController < ApplicationController
     around_action :locale_en
+    before_action :require_admin!
 
     def edit
         @quiz = Quiz.find_by(uuid: params[:quiz_id])
