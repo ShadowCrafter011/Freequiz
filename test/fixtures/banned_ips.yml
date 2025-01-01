@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  ip: MyString
+  ip: "1.1.1.1"
   reason: MyReason
 
 two:
-  ip: MyString
+  ip: "2.2.2.2"
   reason: MyReason
