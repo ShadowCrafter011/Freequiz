@@ -256,9 +256,12 @@ class User::UserControllerTest < ActionDispatch::IntegrationTest
 
     test "can delete account" do
         sign_in :one
-        token = users(:one).signed_id expires_in: 1.day, purpose: :destroy_user
+
+        get user_delete_path
+        assert_response :success
+
         assert_difference "User.count", -1 do
-            delete user_delete_path(token)
+            delete user_delete_path(assigns(:token))
         end
     end
 

@@ -40,10 +40,12 @@ class Admin::QuizControllerTest < ActionDispatch::IntegrationTest
         sign_in :admin
 
         quiz = quizzes(:one)
-        token = quiz.signed_id expires_in: 1.hour, purpose: :admin_destroy
+
+        get admin_quiz_request_delete_path(quiz_id: quiz.uuid)
+        assert_response :success
 
         assert_difference "Quiz.count", -1 do
-            delete admin_quiz_delete_path(delete_token: token, quiz_id: quiz.id)
+            delete admin_quiz_delete_path(delete_token: assigns(:destroy_token), quiz_id: quiz.id)
             assert_response :redirect
             assert_equal "Quiz was destroyed", flash[:notice]
         end
@@ -101,10 +103,12 @@ class Admin::QuizControllerTest < ActionDispatch::IntegrationTest
 
         report = quiz_reports(:one)
         quiz = report.quiz
-        token = quiz.signed_id expires_in: 1.hour, purpose: :admin_destroy
+
+        get admin_quiz_request_delete_path(quiz_id: quiz.uuid, triage: report.id)
+        assert_response :success
 
         assert_difference "Quiz.count", -1 do
-            delete admin_quiz_delete_path(delete_token: token, quiz_id: quiz.id, triage: report.id)
+            delete admin_quiz_delete_path(delete_token: assigns(:destroy_token), quiz_id: quiz.id, triage: report.id)
             assert_response :redirect
             assert_equal "Triage solved by deleting Quiz", flash[:notice]
         end

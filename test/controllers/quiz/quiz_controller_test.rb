@@ -57,9 +57,12 @@ class Quiz::QuizControllerTest < ActionDispatch::IntegrationTest
 
     test "can destroy quiz" do
         sign_in :one
-        token = quizzes(:one).signed_id expires_in: 1.day, purpose: :destroy_quiz
+
+        get quiz_request_destroy_path(quizzes(:one).uuid)
+        assert_response :success
+
         assert_difference "Quiz.count", -1 do
-            delete quiz_delete_path(quizzes(:one).uuid, token)
+            delete quiz_delete_path(quizzes(:one).uuid, assigns(:token))
             assert_response :redirect
         end
     end
