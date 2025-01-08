@@ -21,6 +21,12 @@ en:
         cancel: Cancel
         save: Save
         remove_translation: Remove file
+        import: Import translations from file
+        import_confirm: Proceeding will append the translations in the file to the existing ones
+        import_error: Something went wrong whilst trying to import the quiz. Make sure the format is consistent and try again.
+        import_text: Import translations from text
+        paste_text: Paste translation data here
+        load: Load translations from text
       show:
         not_found: This quiz does not exist or has been deleted
         edit: Edit

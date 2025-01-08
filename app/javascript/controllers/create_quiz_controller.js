@@ -2,7 +2,12 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="create-quiz"
 export default class extends Controller {
-    static targets = ["translations"];
+    static targets = [
+        "translations",
+        "importQuiz",
+        "importText",
+        "importTextField",
+    ];
 
     connect() {
         this.document = $(document);
@@ -17,6 +22,19 @@ export default class extends Controller {
                 if (index + 2 >= inputs.length) this.append_translation();
             }
         });
+
+        this.template = $(this.translationsTarget)
+            .children()
+            .first()
+            .clone(true);
+        this.template
+            .find('[data-create-quiz-target="strikeThrough"]')
+            .addClass("hidden");
+
+        let destroy = this.template.find('[data-create-quiz-target="destroy"]');
+        destroy.val("0");
+        let inputs = this.template.find('[data-create-quiz-target="input"]');
+        inputs.val("");
     }
 
     disconnect() {
@@ -29,33 +47,130 @@ export default class extends Controller {
     }
 
     append_translation() {
-        let template = $(this.translationsTarget)
-            .children()
-            .first()
-            .clone(true);
-        template
-            .find('[data-create-quiz-target="strikeThrough"]')
-            .addClass("hidden");
-
-        let destroy = template.find('[data-create-quiz-target="destroy"]');
-        destroy.val("0");
-        let inputs = template.find('[data-create-quiz-target="input"]');
-        inputs.val("");
-
-        let all = inputs.add(destroy);
-        this.replace_attr(all, "name");
-        this.replace_attr(all, "id");
-
-        $(this.translationsTarget).append(template);
+        $(this.translationsTarget).append(this.get_new_template());
         window.scrollTo(0, document.body.scrollHeight);
     }
 
-    replace_attr(collection, attr) {
-        for (let node of collection) {
-            $(node).attr(
-                attr,
-                $(node).attr(attr).replace(/(\d+)/gm, new Date().getTime()),
-            );
+    get_new_template() {
+        let template = this.template.clone(0);
+
+        let all_fields = template.find(
+            '[data-create-quiz-target="destroy"], [data-create-quiz-target="input"]',
+        );
+
+        this.replace_attrs(all_fields, ["name", "id"]);
+
+        return template;
+    }
+
+    replace_attrs(collection, attrs) {
+        let time = new Date().getTime();
+
+        for (let attr of attrs) {
+            for (let node of collection) {
+                $(node).attr(attr, $(node).attr(attr).replace(/(\d+)/gm, time));
+            }
         }
+    }
+
+    import_quiz_click(e) {
+        let message = $(this.importQuizTarget).data("confirm-message");
+
+        if (!confirm(message)) {
+            e.preventDefault();
+        }
+    }
+
+    import_quiz(e) {
+        let fr = new FileReader();
+
+        fr.onload = () => {
+            this.load_quiz_text(fr.result);
+        };
+
+        fr.readAsText(e.target.files[0]);
+    }
+
+    show_import_text() {
+        $(this.importTextTarget).removeClass("hidden");
+    }
+
+    import_text() {
+        let message = $(this.importQuizTarget).data("confirm-message");
+
+        if (!confirm(message)) {
+            return;
+        }
+
+        this.load_quiz_text($(this.importTextFieldTarget).val());
+
+        $(this.importTextTarget).addClass("hidden");
+    }
+
+    load_quiz_text(text) {
+        let error_msg = $(this.importQuizTarget).data("error-message");
+
+        text = text.trim();
+
+        if (!text) {
+            return alert(error_msg);
+        }
+
+        let lines = text.split("\n");
+
+        lines = lines.filter((l) => l.trim());
+
+        if (lines.length == 0) {
+            return alert(error_msg);
+        }
+
+        let separators = ["\t", ",", ";", ":", "|", "¦"];
+        let found_separator = false;
+        let separator = null;
+
+        for (let sep of separators) {
+            let separator_valid = true;
+            for (let line of lines) {
+                if (line.split(sep).length != 2) {
+                    separator_valid = false;
+                }
+            }
+
+            if (separator_valid) {
+                found_separator = true;
+                separator = sep;
+                break;
+            }
+        }
+
+        if (!found_separator) {
+            return alert(error_msg);
+        }
+
+        let translation_lines = lines.map((l) => l.trim().split(separator));
+
+        let translations = $(this.translationsTarget);
+
+        for (let translation_line of translation_lines) {
+            let translation = this.get_new_template();
+            let inputs = translation.find('[data-create-quiz-target="input"]');
+            $(inputs[0]).val(translation_line[0]);
+            $(inputs[1]).val(translation_line[1]);
+            translations.append(translation);
+        }
+
+        // Remove empty translations
+        translations.children().each(function () {
+            let inputs = $(this).find('[data-create-quiz-target="input"]');
+
+            let all_blank = true;
+            inputs.each(function () {
+                if ($(this).val()) all_blank = false;
+            });
+
+            if (all_blank) {
+                $(this).remove();
+            }
+        });
     }
 }

@@ -21,8 +21,18 @@
                 <%= render partial: "quiz/quiz/translation_lang", locals: { form: form, field: :to, name: t("quiz.quiz.new.lang_2") } %>
             </div>
             <div data-controller="create-quiz" class="space-y-2">
+                <div class="flex gap-2">
+                    <label for="quiz-import-file" class="btn-primary-sleek grow basis-0"><%= t("quiz.quiz.new.import") %>
+                    </label>
+                    <button type="button" class="btn-primary-sleek grow basis-0" data-action="create-quiz#show_import_text"><%= t "quiz.quiz.new.import_text" %></button>
+                    <input type="file" id="quiz-import-file" data-action="click->create-quiz#import_quiz_click change->create-quiz#import_quiz" data-confirm-message="<%= t "quiz.quiz.new.import_confirm" %>" data-error-message="<%= t "quiz.quiz.new.import_error" %>" data-create-quiz-target="importQuiz" class="hidden rounded border border-gray-300 dark:border-gray-700 p-2 justify-between align-center gap-2 md:h-12" class="hidden"/>
+                </div>
+                <div class="hidden" data-create-quiz-target="importText">
+                    <textarea class="w-full dark:bg-transparent focus:border-teal-700 rounded focus:ring-1 -ring-offset-2 focus:ring-teal-600 min-h-10 border border-gray-300 dark:border-gray-600" placeholder="<%= t "quiz.quiz.new.paste_text" %>" data-create-quiz-target="importTextField"></textarea>
+                    <button type="button" class="btn-success-sleek w-full" data-action="create-quiz#import_text"><%= t "quiz.quiz.new.load" %></button>
+                </div>
                 <div data-create-quiz-target="translations" class="space-y-2">
-                    <%= form.fields_for :translations, @quiz.translations.sort_by {|t| t.created_at} do |translation_form| %>
+                    <%= form.fields_for :translations, @quiz.translations.sort_by(&:created_at) do |translation_form| %>
                         <%= render partial: "quiz/quiz/translation_form", locals: { translation_form: } %>
                     <% end %>
                 </div>
