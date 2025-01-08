@@ -21,6 +21,12 @@ fr:
         cancel: Annuler
         save: Sauvegarder
         remove_translation: Supprimer la fiche
+        import: Importer des traductions à partir d'un fichier
+        import_confirm: La poursuite de l'opération ajoutera les traductions du fichier aux traductions existantes.
+        import_error: Un problème s'est produit lors de l'importation du quiz. Assurez-vous que le format est cohérent et réessayez.
+        import_text: Importer des traductions à partir d'un texte
+        paste_text: Coller les données de traduction ici
+        load: Charger des traductions à partir d'un texte
       show:
         not_found: Ce quiz n'existe pas ou a été supprimé
         edit: Modifier

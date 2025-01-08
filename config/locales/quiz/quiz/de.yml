@@ -17,12 +17,16 @@ de:
         create: Quiz erstellen
         quiz_created: Quiz wurde erstellt
         visibility: Sichtbarkeit
-
         save: Speichern
         title_edit: Quiz bearbeiten
         saved: Änderungen gespeichert
         cancel: Abbrechen
-
+        import: Übersetzungen aus Datei importieren
+        import_confirm: Beim Fortfahren werden die Übersetzungen in der Datei an die vorhandenen Übersetzungen angehängt
+        import_error: Beim Importieren des Quiz ist ein Fehler aufgetreten. Stellen Sie sicher, dass das Format konsistent ist und versuchen Sie es erneut.
+        import_text: Übersetzungen aus Text importieren
+        paste_text: Übersetzungsdaten hier einfügen
+        load: Übersetzungen aus Text laden
       show:
         not_found: Dieses Quiz existiert nicht oder wurde gelöscht
         no_translations: Dieses Quiz hat noch keine Karteien
@@ -37,10 +41,7 @@ de:
         admin_edit: Als Admin bearbeiten
         admin_delete: Als Admin löschen
         report: Quiz melden
-
         failed_to_save: Sie scheinen offline zu sein. Fortschritt kann momentan nicht gespeichert werden
-
-        # Learning cards
         done: Glückwunsch, du hast alles gelernt!
         learn_again: Nochmal lernen
         understood: Verstanden
@@ -50,8 +51,6 @@ de:
         done_with: Bravo du hast schon
         mastered: geschafft!
         continue_click: Drücke hier um weiterzumachen
-
-        # Writing cards
         translate: Übersetze ins %{language}e
         check: Überprüfen
         correct: Richtig!
@@ -59,25 +58,19 @@ de:
         continue: Drücke irgend eine Taste um weiterzumachen
         was_correct: Meine Antwort war richtig
         was_wrong: Meine Antwort war nicht richtig
-
-        # Multiple choice
         instruction: Wähle die richtige Übersetzung
-
       request_destroy:
         delete: Löschen
         cancel: Abbrechen
         sure_to_delete: Wenn Sie dieses Quiz löschen kann dies nicht mehr rückgängig gemacht werden
         really_delete: Wollten sie das Quiz %{quiz} wirklich löschen?
-
       destroy:
         not_found: Dieses Quiz existiert nicht
         not_allowed: Sie dürfen dies nicht tun
         deleted: Quiz wurde gelöscht
-
       report:
         saved: Quiz wurde gemeldet. Wir werden deine Anfrage sobald wie möglich bearbeiten
         failed: Quiz konnte nicht gemeldet werden. Bitte probiere es später erneut
-
       new_report:
         title: Quiz "%{title}" melden
         description_placeholder: Beschreibe kurz wieso das Quiz nicht regelgemäss ist
