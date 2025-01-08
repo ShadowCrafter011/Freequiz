@@ -13,7 +13,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
               else
                   { browser: :chrome }
               end
-    driven_by :selenium, using: :headless_chrome, options: options
+    driven_by :selenium, using: :chrome, options: options
 
     def find_test_id(test_id)
         find(:test_id, test_id)
