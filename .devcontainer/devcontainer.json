@@ -26,7 +26,7 @@
     // "forwardPorts": [],
 
     // Uncomment the next line to run commands after the container is created.
-    "postCreateCommand": "bundle install && npm install"
+    "postCreateCommand": "bundle install && npm install && git clone https://github.com/ShadowCrafter011/RailsTranslator.git /RailsTranslator && pip install -r /RailsTranslator/requirements.txt"
 
     // Configure tool-specific properties.
     // "customizations": {},
