@@ -188,7 +188,7 @@ GEM
     psych (5.1.2)
       stringio
     public_suffix (6.0.1)
-    puma (6.4.3)
+    puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.8)
@@ -341,7 +341,7 @@ DEPENDENCIES
   pg (~> 1.1)
   prettier_print (~> 1.2)
   prism-rails
-  puma (~> 6.0)
+  puma (~> 6.6)
   rack-mini-profiler
   rails (~> 7.1.2)
   rails-controller-testing
