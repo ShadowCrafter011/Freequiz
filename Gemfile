@@ -87,7 +87,7 @@ gem "syntax_tree", "~> 6.2"
 gem "syntax_tree-haml", "~> 4.0"
 gem "syntax_tree-rbs", "~> 1.0"
 
-gem "rubocop", "~> 1.59"
+gem "rubocop", "~> 1.71"
 
 gem "htmlbeautifier", "~> 1.4"
 
