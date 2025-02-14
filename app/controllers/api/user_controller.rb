@@ -6,7 +6,7 @@ class Api::UserController < ApplicationController
     skip_before_action :setup_login
     skip_around_action :switch_locale
 
-    before_action :api_require_valid_access_token!, only: %i[quizzes favorites]
+    before_action :api_require_valid_access_token!, except: %i[create login search public username_validator]
 
     def search
         query = ActiveRecord::Base.connection.quote(params[:query])
@@ -201,14 +201,10 @@ class Api::UserController < ApplicationController
     end
 
     def refresh_token
-        return unless api_require_valid_access_token!
-
         json({ success: true, access_token: refresh_access_token })
     end
 
     def request_delete_token
-        return unless api_require_valid_access_token!
-
         json(
             {
                 success: true,
@@ -219,8 +215,6 @@ class Api::UserController < ApplicationController
     end
 
     def destroy
-        return unless api_require_valid_access_token!
-
         user = User.find_signed(params[:destroy_token], purpose: :destroy_user)
 
         if user.present? && user == @api_user
@@ -250,8 +244,6 @@ class Api::UserController < ApplicationController
         #     "old_password": "old_password"
         #   }
         # }
-
-        return unless api_require_valid_access_token!
 
         if edit_params[:password].present? && !edit_params[:password].match?(
             /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/
@@ -299,8 +291,6 @@ class Api::UserController < ApplicationController
         #   }
         # }
 
-        return unless api_require_valid_access_token!
-
         if @api_user.setting.update(setting_params)
             render json:
                 {
@@ -324,8 +314,6 @@ class Api::UserController < ApplicationController
     end
 
     def data
-        return unless api_require_valid_access_token!
-
         @settings = { locale: @api_user.setting.locale }
         Setting::SETTING_KEYS.each do |key|
             @settings[key] = @api_user.setting[key]
