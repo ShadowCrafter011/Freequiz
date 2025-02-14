@@ -167,22 +167,4 @@ class Api::UserControllerTest < ActionDispatch::IntegrationTest
             assert_not @response.parsed_body["success"]
         end
     end
-
-    test "username existance check" do
-        get api_user_exists_path(attr: "username", query: "one")
-
-        json = @response.parsed_body
-
-        assert json["success"]
-        assert json["exists"]
-    end
-
-    test "email existance check" do
-        # get api_user_exists_path(attr: "email", query: "one@one.one")
-
-        # json = @response.parsed_body
-
-        # assert json["success"], "Request should be successful"
-        # assert json["exists"], "Email should exist"
-    end
 end

@@ -67,12 +67,6 @@ class Api::UserController < ApplicationController
         render json: { success: true, avatar_url: user.avatar_url, next_page:, data: quizzes.map { |q| q.data(@api_user) } }
     end
 
-    def exists
-        type = params[:attr] == "email" ? "email" : "username"
-        user = User.where("lower(#{type}) = ?", params[:query].downcase)
-        json({ success: true, exists: user.first.present? })
-    end
-
     def username_validator
         return json({ success: true, valid: false, token: "username.blocked" }, 406) if BlockedUserDatum.username_blocked? params[:username]
 

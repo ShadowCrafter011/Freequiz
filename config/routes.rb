@@ -93,8 +93,6 @@ Rails.application.routes.draw do
                 post "login", to: "user#login"
                 post "refresh", to: "user#refresh_token"
 
-                get "exists/:attr/:query", to: "user#exists", as: "user_exists"
-
                 get "search(/:page)", to: "user#search"
 
                 get "quizzes(/:page)", to: "user#quizzes"
