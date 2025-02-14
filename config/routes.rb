@@ -90,22 +90,22 @@ Rails.application.routes.draw do
             scope :user do
                 get "username/validate/:username", to: "user#username_validator", as: "username_validator"
                 put "create", to: "user#create", as: "user_create"
-                post "login", to: "user#login"
-                post "refresh", to: "user#refresh_token"
+                post "login", to: "user#login", as: "user_login"
+                post "refresh", to: "user#refresh_token", as: "user_refresh_token"
 
-                get "search(/:page)", to: "user#search"
+                get "search(/:page)", to: "user#search", as: "user_search"
 
-                get "quizzes(/:page)", to: "user#quizzes"
-                get "favorites(/:page)", to: "user#favorites"
-                get ":username/public(/:page)", to: "user#public"
+                get "quizzes(/:page)", to: "user#quizzes", as: "user_quizzes"
+                get "favorites(/:page)", to: "user#favorites", as: "user_favorites"
+                get ":username/public(/:page)", to: "user#public", as: "user_public"
 
-                get "delete_token", to: "user#request_delete_token"
-                delete "delete/:destroy_token", to: "user#destroy"
+                get "delete_token", to: "user#request_delete_token", as: "user_request_delete"
+                delete "delete/:destroy_token", to: "user#destroy", as: "user_destroy"
 
-                patch "update", to: "user#update"
-                patch "settings", to: "user#update_settings"
+                patch "update", to: "user#update", as: "user_update"
+                patch "settings", to: "user#update_settings", as: "user_update_settings"
 
-                get "data", to: "user#data"
+                get "data", to: "user#data", as: "user_data"
             end
 
             scope :quiz do
