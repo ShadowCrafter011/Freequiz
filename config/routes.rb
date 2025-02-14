@@ -109,9 +109,9 @@ Rails.application.routes.draw do
             end
 
             scope :quiz do
-                put "create", to: "quiz#create"
+                put "create", to: "quiz#create", as: "quiz_create"
 
-                get "search(/:page)", to: "quiz#search"
+                get "search(/:page)", to: "quiz#search", as: "quiz_search"
 
                 scope ":quiz_id" do
                     get "data", to: "quiz#data"

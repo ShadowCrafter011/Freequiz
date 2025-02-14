@@ -24,7 +24,6 @@ class Api::QuizController < ApplicationController
     def create
         unless validate_params(
             :title,
-            :description,
             :from,
             :to,
             :visibility,
@@ -35,7 +34,7 @@ class Api::QuizController < ApplicationController
                     {
                         success: false,
                         token: "fields.missing",
-                        message: "Missing title, description, from, to or visibility"
+                        message: "Missing title, from, to or visibility"
                     },
                     :bad_request
                 )
