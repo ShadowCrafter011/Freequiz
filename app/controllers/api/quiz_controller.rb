@@ -24,7 +24,6 @@ class Api::QuizController < ApplicationController
     def create
         unless validate_params(
             :title,
-            :description,
             :from,
             :to,
             :visibility,
@@ -35,7 +34,7 @@ class Api::QuizController < ApplicationController
                     {
                         success: false,
                         token: "fields.missing",
-                        message: "Missing title, description, from, to or visibility"
+                        message: "Missing title, from, to or visibility"
                     },
                     :bad_request
                 )
@@ -285,6 +284,8 @@ class Api::QuizController < ApplicationController
         end
 
         score = @api_user.scores.find(params[:score_id])
+
+        return json({ success: false, token: "score.notfound", message: "Score doesn't exist" }, :not_found) unless score.present?
 
         return json({ success: false, token: "relation.mismatch", message: "Score does not belong to specified quiz" }, :bad_request) unless score.translation.quiz_id == quiz.id
 

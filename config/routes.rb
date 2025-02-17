@@ -109,27 +109,27 @@ Rails.application.routes.draw do
             end
 
             scope :quiz do
-                put "create", to: "quiz#create"
+                put "create", to: "quiz#create", as: "quiz_create"
 
-                get "search(/:page)", to: "quiz#search"
+                get "search(/:page)", to: "quiz#search", as: "quiz_search"
 
                 scope ":quiz_id" do
-                    get "data", to: "quiz#data"
+                    get "data", to: "quiz#data", as: "quiz_data"
 
-                    post "report", to: "quiz#report"
+                    post "report", to: "quiz#report", as: "quiz_report"
 
-                    patch "update", to: "quiz#update"
-                    patch "favorite", to: "quiz#favorite_quiz"
+                    patch "update", to: "quiz#update", as: "quiz_update"
+                    patch "favorite", to: "quiz#favorite_quiz", as: "quiz_favorite"
 
                     scope :score do
-                        patch "sync", to: "quiz#sync_score"
-                        patch "reset/:mode", to: "quiz#reset_score"
-                        patch ":score_id/favorite", to: "quiz#favorite"
-                        patch ":score_id/:mode", to: "quiz#score"
+                        patch "sync", to: "quiz#sync_score", as: "quiz_sync_score"
+                        patch "reset/:mode", to: "quiz#reset_score", as: "quiz_reset_score"
+                        patch ":score_id/favorite", to: "quiz#favorite", as: "quiz_favorite_score"
+                        patch ":score_id/:mode", to: "quiz#score", as: "quiz_score"
                     end
 
-                    get "delete_token", to: "quiz#request_destroy"
-                    delete "delete/:destroy_token", to: "quiz#destroy"
+                    get "delete_token", to: "quiz#request_destroy", as: "quiz_request_delete"
+                    delete "delete/:destroy_token", to: "quiz#destroy", as: "quiz_delete"
                 end
             end
 
