@@ -1,0 +1,157 @@
+staff	Mitarbeiterteam, Personal
+colleague, co-worker	Kollege, Kollegin
+condition	Bedingung
+hard	hart, schwer
+busy	beschäftigt
+noisy	laut
+noise	Lärm, Geräusch
+organize	organisieren
+stressful	stressif, anstrengend
+full-time	ganztags, Vollzeit(-)
+half-day	halber Arbeitstag; Halbtags-, halbtägig
+part-time	Teilzeit(-)
+shift	Schicht
+earn	verdienen
+dismiss, lay off,	entlassen
+retire	in REnte gehen
+salary	Gehalt
+wage, wages	Lohn, Löhne
+resign	(selbst) kündigen
+write, wrote, written	schreiben
+letter	Brief
+note	Notiz; Briefchen
+e-mail, email	E-mail; eine E-Mail schreiben, mailen
+spam	Spam, Massen E-Mail
+attachment	Anlage
+message	Nachricht, Mitteilung
+dear	liebe(r); sehr geehrte(r)
+Mr (Mister)	Herr
+Mrs (Misses)	Frau
+Ms (Miss)	Frau
+look forward to	sich freuen auf
+wishes	Grüsse
+Regards...	Viele Grüsse...
+formal	formell, förmlich
+Yours sincerely...	Mit freundlichen Grüssen...
+informal	informell; ungezwungen
+let sb know	jdm Bescheid geben /sagen; jdn wissen lassen
+reply, replied, replied	antworten, erwidern
+receive	bekommen
+use	GEbrauch, Benutung; benutzen
+paper	Papier
+biro, ballpoint pen	Kuli, Kugelschreiber
+pencil	Bleistift
+telephone	Telefon
+computer	Computer
+screen	Bildschirm
+keyboard	Tastatur
+mouse	(Computer)maus
+printer	Drucker
+machine	Maschine, Gerät
+calculator	Taschenrechner
+folder	Hefter, Mappe
+file	Akte
+equiptment	Ausstattung, Ausrüstung
+tool	Werkzeug
+hammer	Hammer
+screwdriver	Schrabenzieher
+saw	Säge
+axe	Axt
+job	Beruf, Arbeit, Arbeitsplatz
+jobcentre, unemployment agency	Arbeitsamt
+find, found, found	finden
+difficult	schwierig
+firm	Firma
+company	Firma, Unternehmen, Gesellschaft
+agency	Agentur
+seek	suchen
+offer	Angebot
+chance	Chance
+labour, labor	Arbeit, Arbeitskräfte
+hire	einstellen
+employ	beschäftigen, anstellen
+employer	Arbeitgeber
+employee	Angestellte(r)
+employment	Arbeit, Anstellung; Beschäftigung
+unemployment	arbeitslos
+out of work	arbeitslos
+keep on	weitermachen
+manage	es schaffen
+shop, store	Laden, Geschäft
+supermarket	Supermarkt
+shopping centre, shopping mall	Einkaufszentrum
+department store	Kaufhaus
+outlet store	Fabrikverkauf
+market	Markt
+open	öffnen; geöffnet
+close	(sich) schliessen
+closed	zu geschlossen
+escalator	Rolltreppe
+entrance	Eingang
+exit	Ausgang
+grocer	Lebensmittelhändler(in)
+baker's, bakery	Bäckerei
+butcher	Metzger(in)
+newsagent's, newspaper stand	Zeitschriftengeschäft
+bookshop, bookstore	Buchhandlung
+clothes shop, dress shop	Bekleidungsgeschäft, Kleidergeschäft
+shoe shop	Schuhgeschäft
+florist's	Blumengeschäft, Blumenladen
+chemist's, pharmacist's	Apotheke
+chemist's, drugstore	„=„ Drogerie
+music store	Musikgeschäft, Musikladen
+electronic store	Elektrofachgeschäft
+jewellery shop, jewelry store	Juwelier, Schmuckgeschäft, Juweliergeschäft
+sport shop	Sportgeschäft
+shoemaker's, shoe repair	Schuster(in), Schuhmacher(in)
+travel agency	Reisebüre
+watchmaker's	Uhrmacher(in)
+pet shop	Tierhandlung
+second-hand shop	Gebrauchtwarenladen, Secondhandladen
+shopping	Einkauf(en); Einkäufe
+customer	Kunde/ Kundin
+have, had, had	haben
+look	sehen, ansehen
+help	helfen
+want	wollen; brauchen
+like	wünschen, wollen, mögen
+much	viel
+list	Liste
+choose, chose, chosen	wählen, aussuchen
+pick	(aus)wählen
+get, got got/gotten	bekommen
+queue	(Warte)schlange
+bag	Tasche
+carry, carried, carried	tragen
+shopping basket	Einkaufskorb
+trolley/ shopping cart	Einkaufswagen
+sell, sold, sold	verkaufen
+sale	Verkauf
+offer	anbieten; Angebot
+wide	breit, weit
+shop assistant, store clerk	Verkäufer(in)
+salesman/ -woman, salesperson	Verkäufer(in)
+checkout, cash desk	Kasse
+counter	Schalter, Theke
+decide	beschliessen, sich entscheiden
+push	drücken, schieben
+stand / get in line	Schlange stehen
+price	Preis
+cost, cost, cost	kosten
+much	viel
+cheap	billig
+expensive	teuer
+inexpensive	preisgünstig
+money	Geld
+purse, change purse	Geldbeutel
+wallet	Brieftasche
+buy, bought, bought	kaufen
+pay, paid, paid	(be)zahlen
+spend, spent, spent	ausgeben
+afford (sth)	sich (etw) leisten
+coin	Münze
+cash	Bargeld
+note, bill	Geldschein
+change	Wechselgeld
+cash card	Geldautomatenkarte
+cheque, check	Scheck

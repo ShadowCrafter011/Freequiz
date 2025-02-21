@@ -35,6 +35,13 @@ export default class extends Controller {
         destroy.val("0");
         let inputs = this.template.find('[data-create-quiz-target="input"]');
         inputs.val("");
+
+        this.max_id = -1;
+        let word_inputs = $("input[name*='[word]']");
+        for (let input of word_inputs) {
+            let id = parseInt($(input).attr("id").match(/\d+/)[0]);
+            if (id > this.max_id) this.max_id = id;
+        }
     }
 
     disconnect() {
@@ -64,11 +71,14 @@ export default class extends Controller {
     }
 
     replace_attrs(collection, attrs) {
-        let time = new Date().getTime();
+        this.max_id++;
 
         for (let attr of attrs) {
             for (let node of collection) {
-                $(node).attr(attr, $(node).attr(attr).replace(/(\d+)/gm, time));
+                $(node).attr(
+                    attr,
+                    $(node).attr(attr).replace(/(\d+)/gm, this.max_id),
+                );
             }
         }
     }
