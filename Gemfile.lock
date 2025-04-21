@@ -113,7 +113,7 @@ GEM
       reline (>= 0.3.8)
     drb (2.2.1)
     erubi (1.13.0)
-    ffi (1.16.3)
+    ffi (1.17.2-x86_64-linux-gnu)
     foreman (0.88.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -328,7 +328,7 @@ DEPENDENCIES
   bundler-audit
   capybara
   debug
-  ffi (< 1.17.0)
+  ffi (< 1.18.0)
   foreman
   htmlbeautifier (~> 1.4)
   httparty
