@@ -10,6 +10,7 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1788164139037794" crossorigin="anonymous"></script>
   </head>
   <body class="<%= "dark" if @user.nil? || @user.setting.dark_mode %> overflow-x-hidden dark:bg-gray-900 dark:text-white">
     <%= render partial: "layouts/notification" %>
